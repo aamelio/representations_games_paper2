@@ -1,0 +1,6 @@
+Fable-5 rater (all 3 permuted conversations completed; the third required substitute permutations (sets 4-6 in 03_api_runner.py) after stochastic safety-filter refusals of the opening message) vs headline Opus 4.8 rater, context x category cell means:
+Pearson r 0.982; mean |diff| 4.9; max |diff| 11.5 at ('M-KW', 'Self-interest')
+Fable Market-Control Moral shift, KW: -34.6
+Fable Market-Control Moral shift, LT: -32.5
+Fable Market-Control Moral shift, UG: -28.7
+Fable Market-Control Moral shift, TG: +1.6

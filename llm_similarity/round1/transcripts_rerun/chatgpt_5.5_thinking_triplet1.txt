@@ -1,0 +1,100 @@
+Rerun (neutral prompt), manual chat session — recorded from pasted replies
+Model (UI label): ChatGPT 5.5 Thinking
+Triplet: 1 (A=DG-KW, B=DG-LT, C=UG, D=TG; Story 1=Bonus, Story 2=Aid)
+Date: 2026-07-29
+Prompts sent, in order, in one fresh temporary chat:
+  manual_prompts/triplet1_prompt1.txt, manual_prompts/prompt2.txt, manual_prompts/prompt3.txt
+
+=== REPLY TO PROMPT 1 ===
+
+### Game A × Story 1: **90**
+
+Both situations involve one person being provisionally allocated the entire surplus and then deciding unilaterally whether to transfer some of it to another person. The main difference is that Story 1 has a team-production/desert element, while Game A is anonymous and stripped of history or relationship.
+
+### Game A × Story 2: **84**
+
+This is also a close match: James receives the full amount and must decide whether to voluntarily give some to someone who received nothing. It is slightly less close than Story 1 because the money is welfare assistance targeted to James's own need, and Mark is only an acquaintance rather than a co-contributor.
+
+### Game B × Story 1: **55**
+
+Game B and Story 1 both involve a unilateral choice by the advantaged person over the final allocation. But Game B starts from an $8/$4 split and allows the decision-maker either to give or take, while Story 1 starts from a full allocation to Steve and only frames giving part of it to Max.
+
+### Game B × Story 2: **50**
+
+The similarity is that one person has more than another and can choose a more generous or less generous final allocation. The fit is limited because Mark has no initial allocation in the story, and James is not deciding whether to take from Mark, only whether to share aid that was assigned to him.
+
+### Game C × Story 1: **62**
+
+Game C matches Story 1 in that one person initially controls the full amount and chooses how much to offer the other person. The important difference is that Game C adds a strategic acceptance/rejection stage, while Max has no explicit veto or power to make both parties receive nothing.
+
+### Game C × Story 2: **58**
+
+Game C captures the structure of an initially favored person deciding how much, if anything, to give to an excluded other. However, the ultimatum-game rejection option is absent from Story 2, and James's decision is more charitable/need-based than strategic bargaining.
+
+### Game D × Story 1: **24**
+
+Game D involves an initial sender deciding whether to pass money to another person, but the key structure is trust: the transfer is multiplied and the recipient can return some amount. Story 1 has no multiplier, no efficiency gain, and no second-stage reciprocation decision by Max.
+
+### Game D × Story 2: **20**
+
+Story 2 involves possible generosity toward someone in need, not investment, trust, or reciprocity. James has no reason to expect Mark to return anything, and giving does not increase the total amount available, so the underlying structure is only weakly related to Game D.
+
+```json
+{"ratings": {"A": {"Story 1": 90, "Story 2": 84}, "B": {"Story 1": 55, "Story 2": 50}, "C": {"Story 1": 62, "Story 2": 58}, "D": {"Story 1": 24, "Story 2": 20}}}
+```
+
+For **Story 1**, the most similar game is **Game A**, because Steve has the whole bonus and can unilaterally share some with Max. The least similar game is **Game D**, because the story lacks trust, multiplication of transfers, and reciprocal return.
+
+For **Story 2**, the most similar game is also **Game A**, because James receives the full amount and decides whether to give some to Mark. The least similar game is **Game D**, since the story is about unilateral sharing under need, not strategic investment or reciprocity.
+
+=== REPLY TO PROMPT 2 ===
+
+| Dimension                             |                     A |                                                B |                            C |                                                                                                     D |                                   Story 1 |                      Story 2 |
+| ------------------------------------- | --------------------: | -----------------------------------------------: | ---------------------------: | ----------------------------------------------------------------------------------------------------: | ----------------------------------------: | ---------------------------: |
+| **1. Pie structure**                  |             Fixed-sum |                                        Fixed-sum |                    Fixed-sum |                                                                  Expandable through Player 1's action |                                 Fixed-sum |                    Fixed-sum |
+| **2. Player 1's initial endowment**   |              Full pie |     Partial: recipient also gets positive amount |                     Full pie | Partial in the sense P1 starts with $6 and P2 gets $0, but total possible surplus depends on transfer |                                  Full pie |                     Full pie |
+| **3. Player 2's role**                |     Passive recipient |                                Passive recipient |      Accept/reject responder |                                                                   Reciprocator with continuous choice |                         Passive recipient |            Passive recipient |
+| **4. Source of Player 1's endowment** |           Unspecified |                                      Unspecified |                  Unspecified |                                                                                           Unspecified | Earned through effort / team contribution | Awarded by selection or luck |
+| **5. Strategic structure**            | Unilateral allocation | Unilateral allocation, including possible taking | Proposer-responder with veto |                                                               Sequential interaction with reciprocity |                     Unilateral allocation |        Unilateral allocation |
+
+### (a) Which dimensions account for the largest similarity gaps in the Pass 1 ratings?
+
+The largest gaps come from **Player 2's role** and **strategic structure**. The stories are both unilateral sharing decisions with a passive recipient, so Game A fits closely, Game C is less close because it adds a veto, and Game D is much less close because it adds reciprocal strategic interaction.
+
+The next most important dimension is **pie structure**. Both stories are fixed-sum sharing problems, while Game D is expandable because Player 1's transfer is multiplied. That makes Game D structurally different even before considering reciprocity.
+
+**Initial endowment** also matters, especially in distinguishing Game A from Game B. Both stories start with Player 1 receiving the full relevant amount and deciding whether to share; Game B instead starts from an unequal but already positive allocation to Player 2 and allows taking.
+
+### (b) Is any single dimension responsible for distinguishing one of the four games from the other three in its similarity to either story?
+
+Yes. **Player 2's role** most clearly distinguishes **Game D** from the other three. In A and B, Player 2 is passive; in C, Player 2 has a veto; but in D, Player 2 is a reciprocator with a continuous return choice, which creates a trust/reciprocity structure absent from both stories.
+
+Closely related, **pie structure** also distinguishes **Game D**, since it is the only game where Player 1's action can expand the total surplus.
+
+### (c) Does the answer to (b) differ across the two stories, or is it the same?
+
+It is the **same across the two stories**. Story 1 and Story 2 differ in the source and moral framing of Player 1's endowment: earned team bonus versus selected welfare aid. But both remain fixed-sum, unilateral sharing decisions with a passive recipient, so Game D is the distinctive mismatch for the same structural reasons in both cases.
+
+=== REPLY TO PROMPT 3 ===
+
+### Game A: **Story 1 / Story 2 = 48 / 52**
+
+Game A is a pure unilateral allocation from a full initial endowment, so both stories are natural retrieval candidates. In the reverse direction, however, the game's endowment is impersonal and unexplained rather than earned, which makes Story 2's aid-selection/windfall framing slightly more likely to come to mind than Story 1's earned team-bonus framing.
+
+### Game B: **Story 1 / Story 2 = 56 / 44**
+
+Game B is less close to both stories because Player 2 already has a positive allocation and Player 1 can also take from Player 2. Still, Story 1 is somewhat more likely to be retrieved because it involves a shared productive context and an implicit question of how much of a joint reward the leader should keep versus share.
+
+### Game C: **Story 1 / Story 2 = 54 / 46**
+
+Game C starts with Player 1 controlling the full pie, which fits both stories, but the accept/reject stage makes it feel more like bargaining over a contested claim. That bargaining element fits Story 1 somewhat better, since Max contributed to the team success and may be viewed as having a stronger claim than Mark.
+
+### Game D: **Story 1 / Story 2 = 58 / 42**
+
+Game D is structurally distant from both stories because it is a trust/reciprocity game with an expandable pie. If either story is retrieved, Story 1 is more likely, because the prior team relationship and Max's contribution provide a more natural basis for reciprocal expectations than James giving welfare money to an acquaintance.
+
+```json
+{"splits": {"A": {"Story 1": 48, "Story 2": 52}, "B": {"Story 1": 56, "Story 2": 44}, "C": {"Story 1": 54, "Story 2": 46}, "D": {"Story 1": 58, "Story 2": 42}}}
+```
+
+The reverse-retrieval ranking differs somewhat from the Pass 1 absolute similarity ratings. In Pass 1, Story 1 was more similar to every game than Story 2, because Steve's case often has stronger entitlement and contribution features. In reverse retrieval, **Game A shifts slightly toward Story 2**, because the game itself gives no earned-effort context and instead presents an unexplained full allocation, closer to a windfall or selection-based benefit. For Games B, C, and D, Story 1 remains more retrievable because its team-production and contribution background gives richer cues for partial entitlement, bargaining, or reciprocity.

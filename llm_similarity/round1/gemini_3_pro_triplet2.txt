@@ -1,0 +1,110 @@
+=== PROMPT 1 ANSWER ===
+Here are the ratings evaluating the structural and strategic similarities between the games and stories, focusing strictly on initial endowments, player agency, pie size, and outcome dependence.
+
+### Pair Ratings & Justifications
+
+**Story 1 & Game A**
+**Rating: 10**
+James faces a fixed-pie distribution where Mark is entirely passive and receives whatever James decides. In contrast, Game A features an expanding pie (the 3x multiplier) and requires strategic reciprocity from an active Player 2, making their structures fundamentally different.
+
+**Story 1 & Game B**
+**Rating: 20**
+The only similarities are the fixed pie and the fact that one player holds all the initial funds. However, Mark has no ability to reject James's decision, whereas Game B fundamentally relies on Player 2's veto power to accept or destroy the allocation.
+
+**Story 1 & Game C**
+**Rating: 60**
+Both feature a fixed pie and grant complete dictatorial control to one player while the recipient remains entirely passive. However, their starting structures differ: Game C begins with a divided endowment ($8 and $4) and allows for "taking," whereas James starts with the entire sum and can only "give."
+
+**Story 1 & Game D**
+**Rating: 100**
+The strategic structures are completely identical. James (Player 1) holds the entire initial endowment while Mark (Player 2) has nothing, and James has unilateral, dictatorial power to distribute the fixed pie while Mark remains entirely passive.
+
+**Story 2 & Game A**
+**Rating: 10**
+Steve is unilaterally distributing a fixed bonus with no opportunity for the funds to multiply or for Max to respond. Game A relies on investment, expansion, and sequential trust, none of which are structurally present in Steve's decision.
+
+**Story 2 & Game B**
+**Rating: 20**
+Both involve a single proposer holding the entire initial endowment in a fixed-pie scenario. However, Max has no mechanism to reject the bonus split and destroy the payoff, completely removing the core strategic threat that defines Game B.
+
+**Story 2 & Game C**
+**Rating: 60**
+Steve has total unilateral control over the final distribution of a fixed pie, perfectly matching the dictatorial nature of Game C. Yet, the initial states differ: Steve holds the entire endowment with the option to give, whereas Game C features mixed initial endowments and the option to take.
+
+**Story 2 & Game D**
+**Rating: 100**
+This is structurally a perfect match to Game D's mechanics. Steve (Player 1) is endowed with the entirety of the fixed pie and has total, unilateral authority to transfer any portion to Max (Player 2), who has absolutely no agency in the outcome.
+
+---
+
+### Summary Table
+
+| Game | Story 1 | Story 2 |
+| --- | --- | --- |
+| **Game A** | 10 | 10 |
+| **Game B** | 20 | 20 |
+| **Game C** | 60 | 60 |
+| **Game D** | 100 | 100 |
+
+### Conclusion
+
+For both Story 1 and Story 2, **Game D** is the most structurally similar because all three represent a classic Dictator Game where Player 1 holds the entire initial endowment and possesses unilateral power to distribute a fixed pie to a completely passive recipient. Conversely, **Game A** is the least similar to both stories due to its fundamentally different mechanics. While both stories feature a fixed amount of money and a passive second party, Game A introduces an expanding pie and requires strategic reciprocity from an active Player 2.
+
+=== PROMPT 2 ANSWER ===
+### Structural Dimension Decomposition
+
+The table below breaks down the four economic games and two real-world stories across your five specified structural dimensions.
+
+| Dimension | Game A | Game B | Game C | Game D | Story 1 | Story 2 |
+| --- | --- | --- | --- | --- | --- | --- |
+| **1. Pie structure** | Expandable through one player's action | Fixed-sum | Fixed-sum | Fixed-sum | Fixed-sum | Fixed-sum |
+| **2. Player 1's endowment** | Full pie | Full pie | Partial | Full pie | Full pie | Full pie |
+| **3. Player 2's role** | Reciprocator with a continuous choice | Accept/reject responder | Passive recipient | Passive recipient | Passive recipient | Passive recipient |
+| **4. Source of endowment** | Unspecified | Unspecified | Unspecified | Unspecified | Awarded by selection or luck | Earned through effort |
+| **5. Strategic structure** | Sequential interaction with reciprocity | Proposer-responder with veto | Unilateral allocation | Unilateral allocation | Unilateral allocation | Unilateral allocation |
+
+---
+
+### Explicit Answers to Questions
+
+**(a) Which dimensions account for the largest similarity gaps in your Pass 1 ratings?**
+The largest similarity gaps are accounted for by **Strategic structure (Dimension 5)** and **Player 2's role (Dimension 3)**. The shift from a unilateral allocation with a passive recipient (found in Game D, Game C, and both stories) to a veto framework (Game B) or a reciprocal framework (Game A) breaks the fundamental power dynamic, causing ratings to plummet from 100/60 down to 20/10. **Player 1's initial endowment (Dimension 2)** accounts for the smaller, secondary gap between Game D (100) and Game C (60), as Game C forces a baseline asset split instead of total ownership.
+
+**(b) Is any single dimension responsible for distinguishing one of the four games from the other three in its similarity to either story? If yes, name the dimension and the game.**
+Yes, two dimensions uniquely isolate a single game from the remaining three:
+
+* **Pie structure (Dimension 1)** uniquely distinguishes **Game A** from the other three games because it features an expandable pie, whereas Games B, C, and D (and both stories) are strictly fixed-sum.
+* **Player 1's initial endowment (Dimension 2)** uniquely distinguishes **Game C** from the other three games because it is the only setup where the initial endowment is partial, whereas Games A, B, and D (and both stories) start with Player 1 holding the full pie.
+
+**(c) Does the answer to (b) differ across the two stories, or is it the same?**
+The answer is exactly the same for both stories. Story 1 and Story 2 possess identical profiles across all strategic dimensions (Dimensions 1, 2, 3, and 5); they only diverge on the real-world contextual framing of how the money was acquired (Dimension 4). Because all four economic games leave the source of the endowment "unspecified," this contextual difference between the stories does not alter how the structural mechanics of the games are distinguished from one another.
+
+=== PROMPT 3 ANSWER ===
+### Retrieval Likelihood & Justifications
+
+**Game A (30 / 70)**
+Game A involves an expanding pie (the 3x multiplier) and reciprocal exchange, which thematically evokes joint production and mutual benefit. Because human memory relies heavily on semantic cues, participants are more likely to retrieve Story 2, where a teammate's "significant contribution" conceptually maps to the investment and productivity mechanics of the Trust Game, contrasting with the pure charity of Story 1.
+
+**Game B (60 / 40)**
+Game B involves dividing an entirely arbitrary, unearned windfall under the threat of rejection, triggering baseline fairness and equity concerns. The unearned "provisional allocation" framing cues the luck-based welfare narrative of Story 1 slightly more than the hard-earned bonus of Story 2, though the implicit threat of an aggrieved party maps decently to a potentially spited coworker.
+
+**Game C (50 / 50)**
+Game C introduces partial initial endowments ($8 and $4) and the ability to take, neither of which strongly matches the all-or-nothing initial states of either story. Because the situation framing ("provisionally allocated") feels bureaucratic but the split baseline implies two people already holding assets, participants are equally likely to retrieve a neighborhood dynamic (Story 1) or a workplace dynamic (Story 2).
+
+**Game D (80 / 20)**
+Game D features an entirely unearned, unilaterally distributed windfall where one player gets everything and the other gets nothing strictly by luck of the draw. This "house money" phrasing is practically and thematically identical to Story 1's welfare lottery, making it highly likely to cue the neighbor scenario over the effort-based sales bonus of Story 2.
+
+---
+
+### Summary Table
+
+| Game | Story 1 | Story 2 |
+| --- | --- | --- |
+| **Game A** | 30 | 70 |
+| **Game B** | 60 | 40 |
+| **Game C** | 50 | 50 |
+| **Game D** | 80 | 20 |
+
+### Commentary on Retrieval vs. Structural Similarity
+
+The relative-retrieval rankings diverge sharply from the Pass 1 absolute similarity ratings. In Pass 1, both stories scored identically across all games because their underlying, formal strategic mechanics (pie size, agency, initial allocation) are identical. However, human memory retrieval relies heavily on surface semantics and thematic context rather than abstract game theory. Because the games generally frame the endowments as arbitrary, unearned windfalls, they naturally cue the luck-based welfare narrative (Story 1) far better than the effort-based workplace narrative (Story 2)—with the notable exception of Game A, where the multiplier mechanic evokes the collaborative productivity of Story 2.

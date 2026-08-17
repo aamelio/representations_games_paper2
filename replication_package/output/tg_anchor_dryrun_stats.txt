@@ -1,0 +1,36 @@
+=== (i) calibrated ratios, baseline -> amended ===
+Moral: s_hp=0.315, t*(s_hp)=0.474 | sigma/mu 0.038 -> 0.038 | rho/mu 0.009 -> 0.022
+Self-interest: s_hp=0.220, t*(s_hp)=0.374 | sigma/mu 0.397 -> 0.397 | rho/mu 0.362 -> 0.426
+Mutual Benefit / Cooperation: s_hp=0.357, t*(s_hp)=0.539 | sigma/mu 0.000 -> 0.000 | rho/mu 0.067 -> 0.048
+
+=== (ii) UG schedule (a,b) and validity ===
+Moral: (a,b) 0.863,-1.135 valid=False -> 2.488,-6.010 valid=False (a+b: -0.272 -> -3.522)
+Self-interest: (a,b) 0.262,0.667 valid=True -> 0.324,0.481 valid=True (a+b: 0.930 -> 0.806)
+
+=== (iii) MBC joint solve ===
+baseline x=0.0000, amended x=0.0000; rho>sigma on locus: baseline True, amended True
+
+=== (iv) overidentification: chosen-action optimism (pp) ===
+Moral: measured - implied = +19.9pp -> +23.0pp
+Self-interest: measured - implied = +16.1pp -> +17.7pp
+Mutual Benefit / Cooperation: measured - implied = +7.0pp -> +11.3pp
+
+=== (v) TG belief sensitivity: predicted vs observed ===
+category                        pred old  pred new  observed  obs/old  obs/new
+Moral                              0.113     1.461     0.306     2.71     0.21
+Self-interest                      1.192     2.029     0.451     0.38     0.22
+Mutual Benefit / Cooperation       0.000     1.742     0.264      inf     0.15
+(UG SI attenuation, unchanged by the amendment: 0.42)
+
+=== (vi) attention-belief coupling ===
+baseline: Cov=-0.0076, (1+r)Cov=-0.0227 | amended: Cov=-0.0076, (1+r)Cov=-0.0227
+(formula unchanged analytically: t*(s) is additive in s, drops out of the independent-marginals comparison; numeric shift only via the SI/MBC x's)
+
+=== (vii) t* censoring ===
+category-mean beliefs all < 1/2: True; individual TG beliefs >= 1/2: 30.5% (their anchor censors at t*=1; footnote material, no hurdle)
+
+=== (viii) bootstrap under the amended locus ===
+1000/1000 successful draws (seed 42)
+Moral: se(sigma/mu)=0.007, se(rho/mu)=0.013
+Self-interest: se(sigma/mu)=0.012, se(rho/mu)=0.027
+Mutual Benefit / Cooperation: se(sigma/mu)=0.044, se(rho/mu)=0.047

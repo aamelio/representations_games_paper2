@@ -1,0 +1,900 @@
+\documentclass[11pt]{article}
+% Internal working note on the post-meeting tasks (NG meeting 2026-07-23), companion to
+% ng_call_methods_briefing.tex and sn_call_questions_answers.tex. Sections 1-6 answer
+% SN's post-meeting email to AA; Section 7 answers NG's follow-up email proposal.
+% Suppress the same stylistic chktex false positives as the sibling notes.
+% chktex-file 12
+% chktex-file 13
+% chktex-file 38
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\setlist{itemsep=2pt, topsep=3pt}
+
+\urlstyle{tt}
+\expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks\do\_}
+\newcommand{\code}[1]{\path{#1}}
+\emergencystretch=1.5em
+
+\title{The Seven Post-Meeting Tasks}
+\date{2026-07-29}
+
+\begin{document}
+\maketitle
+
+\section{The Moral Anchor: The Two Assumptions Compared}
+
+\begin{quote}\itshape
+Meeting Note: The new moral anchor assumption is more complex. What do we really gain from it? We should adopt the new assumption only if the gain is real.
+\end{quote}
+
+%Sources: \code{replication\_package/code/17\_tg\_anchor\_dryrun.py} and \code{24\_calibration\_variants.py}, with logs in \code{output/}.
+
+\paragraph{(i) The two assumptions.} The moral term is $-\frac{\mu}{2}(t-t^{e})^{2}$
+in every game; the two versions of the model differ only in what the anchor $t^{e}$ is
+in the trust game. \emph{Old}: the equal-split action, $t^{e}=\tfrac12$---a norm about
+the \emph{action}. \emph{New}: the send that equalizes expected payoffs at
+the believed returned share $s$, $t^{e}(s)=\bigl[1+(1+r)(1-2s)\bigr]^{-1}$---a norm
+about \emph{payoffs}, evaluated using the sender's
+beliefs. In the DG and UG (where $r=0$) the two coincide, so the entire comparison lives in the trust game: $t=\tfrac12$ equalizes payoffs there
+only if the receiver returns exactly a third of the proceeds. %The cost of the new version is one extra formula and a norm that depends on a belief.
+
+\paragraph{(ii) Comparative statics: do the directional/qualitative predictions differ?} 
+
+\begin{center}
+\small
+\begin{tabular}{l l cc}
+\toprule
+Comparative static of the TG send & Expression & Old anchor & New anchor \\
+\midrule
+$\partial t/\partial(\rho/\mu)$ & $r$ & $+$ & $+$ \\
+$\partial t/\partial(\sigma/\mu)$ & $-(1+r)(1-s)$ & $-$ & $-$ \\
+$\partial t/\partial s$ for a category with $\sigma/\mu>0$ &
+$\mathrm{d}t^{e}/\mathrm{d}s+(1+r)\,\sigma/\mu$ & $+$ & $+$ \\
+$\partial t/\partial s$ for a category with $\sigma/\mu=0$ &
+$\mathrm{d}t^{e}/\mathrm{d}s$ & $0$ & $+$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+$\partial t/\partial s$ is the TG sender's belief sensitivity: the response of her action to her believed returned share (the share of the tripled proceeds she expects back). In the DG and UG the two anchors coincide, so no prediction of any kind differs there. In the trust game, both anchors predict that more attention to the surplus raises the send, that more attention to own earnings lowers it, and---for any category with
+$\sigma/\mu>0$---that a higher believed return raises it, since beliefs enter the
+material term either way. The signs split only at $\sigma/\mu=0$: an old-anchor sender
+with no attention to own earnings has no reason to condition on beliefs at all, while
+under the new anchor the norm itself moves with the belief, so \emph{every} sender is
+belief-sensitive. (A second qualitative difference, the full-send corner, appears in
+(iv) below.)
+
+\paragraph{(iii) Evidence on the differing comparative statics prediction.} There is a category where the calibrated $\sigma/\mu$ is 0 and is Mutual Benefit/Cooperation (MBC). For MBC, the old anchor predicts a
+belief sensitivity of zero, while the new anchor predicts a positive belief sensitivity. The OLS
+slope of the sender's action on the sender's hypothetical believed return share in the control sample (a model-free estimate) is positive, $+0.264$ (se $0.098$, $N=170$). The one comparative-statics difference between the anchors favors the new one.%Measurement error cannot rescue the old anchor here: attenuation shrinks slopes toward zero, it does not create a positive slope from a true zero. 
+
+\paragraph{(iv) Other evidence.} 
+%Ordered from evidence that needs no calibrated parameters to evidence computed at the calibrated values.
+
+\emph{Qualitative, no calibrated parameters.} First, senders who invest everything. Under the new anchor,
+$t^{e}(s)\ge1$ for $s\ge\tfrac12$, that is, a sender
+who expects at least half of the proceeds back has a norm anchor at or beyond the full
+send, so full sends should concentrate among such optimists---while the old anchor
+holds norm-driven senders at one half regardless of beliefs and cannot account for
+moral optimists sending everything. In control, 30.5\% of trust-game senders hold
+beliefs $s\ge\tfrac12$, 52.0\% under the market frame---and that is where the spike at
+the full send appears in the distribution of sends. Second, the receiver side.
+Realized returned shares among Moral-good and MBC receivers rise with the amount sent,
+tracking the equal-payoff schedule.
+
+\emph{Levels, computed at the calibrated parameters.} Here we compare predicted
+versus estimated magnitudes of the belief sensitivity of the TG send. The predicted
+columns evaluate the $\partial t/\partial s$ rows of the table in (ii) using the calibrated $\sigma/\mu$ and the measured believed share $s$. The estimated column is the OLS slope as in (iii).
+
+\begin{center}
+\small
+\begin{tabular}{l ccccc}
+\toprule
+& Predicted, & Predicted, & & Estimated/ & Estimated/ \\
+Category & old anchor & new anchor & Estimated & pred.\ old & pred.\ new \\
+\midrule
+Moral & 0.113 & 1.461 & 0.306 & 2.71 & 0.21 \\
+Self-interest & 1.192 & 2.029 & 0.451 & 0.38 & 0.22 \\
+Mutual Benefit/Coop.\ (MBC) & 0.000 & 1.742 & 0.264 & $\infty$ & 0.15 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Under the old anchor, beliefs matter only through the material term; moral senders are estimated to be 2.7 times
+\emph{more} belief-sensitive than predicted; and the three estimated-to-predicted
+ratios are wildly different from one another (2.71 / 0.38 / $\infty$). Under the new
+anchor, the norm channel $\mathrm{d}t^{e}/\mathrm{d}s$ enters every category's
+sensitivity, and the three ratios become uniform (0.15--0.22)---the attenuation one
+expects when coarse categories measure the underlying weights with error.
+
+\section{Calibration Variants: Medians, Alternative Anchor, Which Beliefs, MBC}
+
+\begin{quote}\itshape
+Meeting Notes: prepare alternative calibrations using (a) median rather than mean
+choices; (b) the equal-split action anchor; (c) the other measured belief or both measured beliefs.
+\end{quote}
+
+%\begin{sloppypar}
+%All four sub-questions are answered by a set of 24 alternative calibrations
+%(\code{replication\_package/code/24\_calibration\_variants.py}; log in
+%\code{output/tables/calibration\_variants\_stats.txt}), crossing \{mean moments; median
+%choices with mean beliefs; median everything\} $\times$ \{equal-payoff anchor;
+%equal-split anchor\} $\times$ \{reference-action beliefs; chosen-action beliefs\}, with
+%bootstrap standard errors for the main alternatives. Before introducing any variant, the
+%code reproduces the published calibration exactly.
+%\end{sloppypar}
+
+\paragraph{The standing calibration.} For reference, the paper's calibration table
+(Table~4) under the standing methodology---category means as moments, hypothetical
+beliefs, the equal-payoff anchor:
+
+\begin{center}
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{l cc cc c cc}
+\toprule
+& \multicolumn{2}{c}{Attention} & \multicolumn{3}{c}{Beliefs} & \multicolumn{2}{c}{Acceptance at chosen offer} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-6}\cmidrule(lr){7-8}
+Category & $\sigma/\mu$ & $\rho/\mu$ & $a$ & $b$ & $s$ & implied & measured \\
+\midrule
+Moral & 0.038 & 0.022 & -- & -- & 0.315 & 0.565 & 0.795 \\
+ & (0.007) & (0.013) &  &  & & & \\
+Self-interest & 0.397 & 0.426 & 0.324 & 0.481 & 0.220 & 0.525 & 0.701 \\
+ & (0.012) & (0.027) & (0.042) & (0.120) & & & \\
+Mutual Benefit/Coop. & 0.000 & 0.048 & 0.324$^{\dagger}$ & 0.481$^{\dagger}$ & 0.357 & 0.598 & 0.711 \\
+ & (0.044) & (0.047) &  &  & & & \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\begin{minipage}{0.95\textwidth}
+\footnotesize\emph{Notes}: $\sigma/\mu$, $\rho/\mu$: attention to own earnings and to the joint surplus, relative
+to the moral weight; $(a,b)$: believed acceptance schedule $a+b\,t$, unidentified for
+Moral and $^{\dagger}$imposed on MBC from Self-interest; $s$: believed returned share
+at the reference send (measured, not calibrated); the last two columns are the overidentifying test at chosen
+offers. Bootstrap standard errors in parentheses: participants resampled within game
+($B=1{,}000$), the full calibration rerun on each draw; absent where the parameter is
+unidentified (Moral's schedule) or imposed (MBC's).
+\end{minipage}
+\end{center}
+
+\paragraph{(a) Median choices instead of mean choices.} The action distributions are
+bimodal, so their medians sit on the modes, and the calibration inputs land on corner
+values at which inverting an interior first-order condition is uninformative:
+
+\begin{center}
+\small
+\begin{tabular}{l cc cc cc}
+\toprule
+& \multicolumn{2}{c}{$t_{DG}$} & \multicolumn{2}{c}{$t_{UG}$} & \multicolumn{2}{c}{$t_{TG}$} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+Category & mean & median & mean & median & mean & median \\
+\midrule
+Moral & 0.462 & 0.500 & 0.500 & 0.500 & 0.441 & 0.417 \\
+Self-interest & 0.103 & 0.000 & 0.417 & 0.458 & 0.295 & 0.250 \\
+Mutual Benefit/Coop. & 0.333 & 0.500 & 0.568 & 0.500 & 0.635 & 0.500 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Consequences: Moral's $\sigma/\mu$ becomes exactly 0 (the median Moral dictator chooses
+the equal split) and Self-interest's exactly 0.5, the maximum (the median Self-interest
+dictator gives nothing); with the median Moral offer exactly at one half, the schedule
+inversion returns $b=0$; no median variant yields a valid acceptance schedule in any
+category ($b\le0$ or $a+b>1$ throughout); and Moral's $\rho/\mu$ turns slightly negative
+($-0.03$). 
+
+\paragraph{(b) First-order conditions from the equal-split action anchor.} Nothing of substance changes except the
+TG belief sensitivities, which is exactly the comparison of Section~1.
+
+\paragraph{(c) Two beliefs: which to use.} Each first mover reports two beliefs (one at her chosen action, one at the common one-third reference
+action). Three ways of feeding these into the UG calibration were computed:
+
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l l l p{4.1cm}}
+\toprule
+Route & Schedule (Self-int.) & Valid? & Hold-out check \\
+\midrule
+Reference belief $+$ FOC (current) & $a=0.32$, $b=0.48$ & \textbf{yes} ($a{+}b=0.81$) &
+misses chosen-action beliefs by $+11$ to $+23$pp ($=$ the optimism finding) \\
+Chosen-action belief $+$ FOC & $a=0.39$, $b=0.75$ & no ($a{+}b=1.14$; Moral $a=-3.8$) &
+misses the reference belief by $-15$pp (mirror image) \\
+Both belief points, no FOC & $a=-0.38$, $b=2.60$ & no ($a<0$; $a{+}b$ up to 2.6) & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Only the reference-belief route yields a valid probability schedule. Chosen-action
+beliefs are unusable as calibration inputs because they are systematically too
+optimistic---and that is precisely what makes them valuable as the held-out check, whose
+failure becomes the forecast-error result of \S4.3. On the trust-game side the choice is
+immaterial: replacing the reference believed share with the chosen-action one moves
+Self-interest's $\rho/\mu$ from 0.426 to 0.427 and changes nothing qualitative. 
+
+\section{Structural Similarity with a More Neutral Prompt}
+
+\begin{quote}\itshape
+Meeting Notes: re-compute similarity between stories and games (previously Table 4, now Table 5) with a more neutral prompt (that is, not instructing LLM raters to focus on ``focus on the structural and strategic features of the situation, not on surface thematic content'')
+\end{quote}
+
+\paragraph{What this exercise measures.} Three frontier models (GPT-5.5 Thinking,
+Claude Opus 4.7, Gemini 3 Pro) rated, on a 0--100 scale, the similarity between each of
+the two \emph{stories} (Bonus, Aid) and each of the four control \emph{games instructions} (DG-KW, DG-LT,
+UG, TG). Each model rated the eight story--game pairs under neutral labels
+(Games A--D, Story 1/Story 2), with three label permutations per model. After the ratings (Prompt~1), the same conversations produced the five-dimension structural decomposition (Prompt~2) and the retrieval split (Prompt~3:
+which story a participant who has just read the game instructions would more likely
+call to mind, a 100-point split with no restriction on what may drive recall).
+
+\paragraph{The concern.} The May prompt instructed the raters to ``focus on the
+structural and strategic features of the situation, not on surface thematic content''
+and listed five features to consider. This raises two worries: the instruction tells the
+rater to ignore precisely the dimensions on which Bonus and Aid differ, so the
+Bonus~$\approx$~Aid result could be built into the prompt; and the feature list imposes
+our own taxonomy, so the similarity ordering DG-KW $>$ DG-LT $>$ UG $>$ TG could
+reflect the instructions rather than the situations.
+
+\paragraph{The revised prompt.} In place of the guidance, the prompt reads:
+``Use your own judgment to decide which aspects of the situations are relevant and how
+much weight to give them.'' %Prompts 2 and 3 are unchanged and follow the ratings, so they cannot influence them. All three prompts, exactly as sent, are in Appendix~\ref{app:rerun_prompts}.
+
+\paragraph{Models.} Opus~4.7 for Claude and ChatGPT~5.5 Thinking for ChatGPT,
+\emph{the same models as in May}, so those two comparisons isolate the prompt change;
+Gemini~3 Pro is no longer offered, so we used Gemini
+Pro~3.1---the one arm whose comparison bundles the prompt change with a model update.
+
+
+\paragraph{Results.}  The May findings survive the neutral prompt.
+
+\begin{center}
+\small
+\begin{tabular}{l ccc c}
+\toprule
+& \multicolumn{3}{c}{Structural similarity (0--100)} & Retrieval split \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-5}
+Game & Bonus & Aid & Mean & Bonus / Aid \\
+\midrule
+\multicolumn{5}{l}{\emph{Panel A. May run, guided prompt, three models $\times$ three permutations (= paper Table~5)}} \\
+DG-KW & 94.6 & 94.7 & 94.6 & 41 / 59 \\
+DG-LT & 51.8 & 50.7 & 51.2 & 54 / 46 \\
+UG    & 30.1 & 29.8 & 29.9 & 60 / 40 \\
+TG    & 15.0 & 13.9 & 14.4 & 72 / 28 \\
+\addlinespace
+\multicolumn{5}{l}{\emph{Panel B. July rerun, neutral prompt, three arms $\times$ three permutations}} \\
+DG-KW & 90.8 & 90.3 & 90.6 & 46 / 54 \\
+DG-LT & 46.6 & 46.2 & 46.4 & 48 / 52 \\
+UG    & 32.4 & 29.3 & 30.9 & 62 / 38 \\
+TG    & 15.6 & 14.2 & 14.9 & 67 / 33 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+%\medskip
+%\footnotesize
+%\begin{tabular}{l l cccc cccc}
+%\toprule
+%& & \multicolumn{4}{c}{Story-averaged similarity} & \multicolumn{4}{c}{Bonus retrieval share} \\
+%\cmidrule(lr){3-6}\cmidrule(lr){7-10}
+%Arm & Prompt & DG-KW & DG-LT & UG & TG & DG-KW & DG-LT & UG & TG \\
+%\midrule
+%Claude Opus 4.7 & guided (May) & 90.0 & 33.2 & 12.0 & 9.0 & 48 & 65 & 67 & 72 \\
+%Claude Opus 4.7 & neutral & 82.8 & 30.5 & 20.8 & 12.2 & 48 & 45 & 55 & 62 \\
+%\addlinespace
+%ChatGPT 5.5 Thinking & guided (May) & 95.5 & 57.2 & 47.8 & 24.3 & 50 & 54 & 54 & 62 \\
+%ChatGPT 5.5 Thinking & neutral & 93.0 & 53.7 & 46.8 & 20.8 & 61 & 62 & 63 & 64 \\
+%\addlinespace
+%Gemini 3 Pro & guided (May) & 98.3 & 63.3 & 30.0 & 10.0 & 25 & 43 & 60 & 82 \\
+%Gemini Pro 3.1 & neutral & 95.8 & 55.0 & 25.0 & 11.7 & 28 & 37 & 68 & 75 \\
+%\bottomrule
+%\end{tabular}
+%\end{center}
+
+\section{Similarity Between Games and Receivers' Vignettes}
+
+\begin{quote}\itshape
+Meeting Notes: Add a table with similarity between games and receivers' vignettes.
+\end{quote}
+
+\paragraph{Why this required new data.} We generated 24 sender-based vignettes and 8 receiver-based vignettes but presented results only for similarity ratings for the receiver vignettes.
+
+\paragraph{Results.} Under the market frame the pictured ultimatum-game counterpart moves toward the accepting type and away from the rejecting type---the same direction as first movers' measured acceptance beliefs---while the trust game
+barely moves, consistent with the similarity ratings for sender vignettes. 
+
+\begin{center}
+\small
+\begin{tabular}{l cc @{\hspace{2em}} l cc}
+\toprule
+UG Contexts & Accepting & Rejecting & TG Contexts & Returning & Keeping \\
+\midrule
+Control & 47.0 & 58.8 & Control & 62.5 & 42.5 \\
+Market & 50.0 & 56.7 & Market & 61.0 & 43.5 \\
+Market $-$ Control & $+3.0$ & $-2.2$ & & $-1.5$ & $+1.0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{A Richer and More Diverse Vignette Pool for the Similarity Exercise}
+
+\begin{quote}\itshape
+Meeting Notes: for similarity, we need some vignettes whose characters are (moral, selfish, cooperative)
+firms rather than people; in general, we need a more diverse set of vignettes.
+\end{quote}
+
+\paragraph{The new set of 48 vignettes.} One cell for every combination of
+attention category (Moral, Self-interest, Mutual Benefit/Cooperation) and sender
+belief (high or low: the protagonist expects the counterpart to respond favorably, or
+not), six cells in all, with eight vignettes per cell: $3\times2\times8=48$. Within
+every cell, four vignettes describe interactions among individuals and four involve
+firms or entrepreneurs, so neither the category nor the belief level is confounded
+with the character type.
+
+%\paragraph{The receiver set: 16 new vignettes.} Four vignettes for each of the four Player-2 categories (Moral good, Moral bad, Self-interest, Mutual Benefit/Cooperation). Within a category, the four vignettes cross two binary features, one vignette per combination: the protagonist is an individual or a firm, and the situation is one of the design's two receiver roles---responding to terms proposed by another party (the ultimatum responder's position) or deciding what to do with proceeds entrusted by another party (the trust-game receiver's position).
+
+\paragraph{Methodology.} Rater: Opus 4.8. Three fresh
+conversations, each with independently permuted neutral labels. In each conversation the rater first reads
+the 48 vignettes; then, for each of the ten context texts (the two stories and
+the Control and Market instructions of the four games), rates the context's
+similarity to every sender vignette on a 0--100 scale and distributes 100 retrieval
+points across the vignettes.
+
+\paragraph{Results.} The category similarities are the mean ratings over a category's sixteen vignettes (its eight high-belief and eight low-belief), averaged over the three conversations. The belief margins are the difference between the mean rating of a category's eight high-belief vignettes and the mean rating of its eight low-belief vignettes, that is, a similarity measure for the belief component of the representation. Each cell reports the Market value minus the Control value of these statistics, by game.
+
+%\begin{center}
+%\small
+%\begin{tabular}{l ccc @{\hspace{2em}} ccc}
+%\toprule
+%%& \multicolumn{3}{c}{Market -- Control}& \multicolumn{3}{c}{Market -- Control}\\
+%& \multicolumn{3}{c}{Category Similarity} & \multicolumn{3}{c}{Belief Margin (High $-$ Low)} \\
+%\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+%Game & Moral & Self-int. & MBC & Moral & Self-int. & MBC \\
+%\midrule
+%(Market $-$ Control) in DG-KW& $-25.6$ & $+16.7$ & $+4.9$ & $+2.8$ & $+9.1$ & $-0.1$ \\
+%(Market $-$ Control) in DG-LT & $-20.9$ & $+16.0$ & $+3.9$ & $+2.7$ & $+9.4$ & $-0.4$ \\
+%(Market $-$ Control) in UG    & $-19.6$ & $+17.3$ & $+3.9$ & $+3.0$ & $+8.2$ & $-0.5$ \\
+%(Market $-$ Control) in TG    & $-1.1$  & $+2.0$  & $-1.4$ & $-0.5$ & $+0.2$ & $-0.4$ \\
+%\midrule
+%Aid $-$ Bonus & $-6.4$ & $+0.8$ & $+0.2$ & $-3.0$ & $-1.3$ & $-0.6$ \\
+%\bottomrule
+%\end{tabular}
+%\end{center}
+
+%\begin{center}
+%\small
+%\begin{tabular}{l ccc @{\hspace{1.6em}} ccc}
+%\toprule
+%& \multicolumn{3}{c}{Control} & \multicolumn{3}{c}{Market} \\
+%\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+%Category similarity (levels) & Moral & Self-int. & MBC & Moral & Self-int. & MBC \\
+%\midrule
+%DG-KW & 45.4 & 12.0 & 10.8 & 19.8 & 28.7 & 15.7 \\
+%DG-LT & 40.7 & 12.6 & 11.8 & 19.8 & 28.6 & 15.7 \\
+%UG    & 35.2 & 13.6 & 14.6 & 15.6 & 30.9 & 18.5 \\
+%TG    & 15.4 & 28.9 & 42.8 & 14.3 & 30.9 & 41.4 \\
+%\addlinespace
+%Bonus & 42.1 & 7.1 & 7.2 & & & \\
+%Aid   & 35.7 & 7.9 & 7.4 & & & \\
+%\bottomrule
+%\end{tabular}
+%\end{center}
+
+\begin{center}
+\small
+\begin{tabular}{l ccc @{\hspace{1.6em}} ccc}
+\toprule
+& \multicolumn{3}{c}{Control} & \multicolumn{3}{c}{Market} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+& Moral & Self-Interest & MBC & Moral & Self-Interest & MBC \\
+\midrule
+\multicolumn{7}{l}{\emph{Category Similarity}} \\
+DG-KW & 45.4 & 12.0 & 10.8 & 19.8 & 28.7 & 15.7 \\
+DG-LT & 40.7 & 12.6 & 11.8 & 19.8 & 28.6 & 15.7 \\
+UG    & 35.2 & 13.6 & 14.6 & 15.6 & 30.9 & 18.5 \\
+TG    & 15.4 & 28.9 & 42.8 & 14.3 & 30.9 & 41.4 \\
+Bonus & 42.1 &  7.1 &  7.2 &      &      &      \\
+Aid   & 35.7 &  7.9 &  7.4 &      &      &      \\
+\addlinespace
+\multicolumn{7}{l}{\emph{Belief Margin (High $-$ Low)}} \\
+DG-KW & $-3.5$ & $+0.2$ & $+0.1$ & $-0.7$ & $+9.3$ & $-0.0$ \\
+DG-LT & $-3.4$ & $+0.1$ & $+0.4$ & $-0.7$ & $+9.5$ & $-0.0$ \\
+UG    & $-2.5$ & $+0.3$ & $+0.1$ & $+0.5$ & $+8.5$ & $-0.4$ \\
+TG    & $+1.8$ & $-3.0$ & $-0.9$ & $+1.3$ & $-2.8$ & $-1.3$ \\
+Bonus & $+0.2$ & $+0.3$ & $+0.5$ &        &        &        \\
+Aid   & $-2.8$ & $-1.0$ & $-0.1$ &        &        &        \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Four findings. First, the new set reproduces the structure we obtained with the original sets: Moral is the
+most similar category for the control fixed-pie games, Mutual Benefit
+dominates the control trust game, and the market frame crowds
+out Moral in the fixed-pie games while raising Self-interest. Second, the belief margin detects, in similarity space alone, the optimism the market
+frame induces. Recall what the margin measures: a positive Self-interest margin says
+the context resembles the situations in which a self-interested protagonist
+\emph{expects the counterpart to go along} (accept the terms, repay the advance) more
+than the situations in which she expects the opposite. In the control fixed-pie games
+this margin is essentially zero ($+0.1$ to $+0.3$): the abstract descriptions are no
+more similar to confident self-interest than to wary self-interest. Under the market
+frame it jumps to $+8.5$--$+9.5$: the market versions read specifically like
+\emph{confident} self-interest. That is the direction of the measured beliefs---market
+proposers hold higher acceptance beliefs---so the similarity module now sees the
+belief component of the representation move with the frame, without any belief being
+elicited. Third, the trust game stays flat on \emph{both} margins: even the
+belief-augmented similarity measure detects no market shift there, so the trust-game
+anomaly (representations and beliefs move; similarity does not) is robust to the richer
+set, which strengthens the interpretation that the market frame works on the trust game
+through the availability of market experience rather than through resemblance of the
+described situation. Fourth: the Moral belief margin is
+\emph{negative} in the control fixed-pie contexts ($-2.5$ to $-3.5$)---read literally,
+the dictator and ultimatum descriptions sit closer to the \emph{low}-belief Moral
+vignettes than to the high-belief ones. The reason is mechanical.
+Giving the protagonist a belief requires a counterpart who can respond, so the Moral
+high-belief vignettes feature counterparts who repay, honor agreements,
+reciprocate---and thereby read like trust-game situations; a one-sided context, whose
+recipient can do nothing, matches the low-belief versions better whatever its moral
+content. 
+
+\section{Decomposition in Table 14 with Actual-Choice Beliefs}
+
+\begin{quote}\itshape
+Meeting Note: Decomposition using actual-choice (rather than hypothetical) beliefs.
+\end{quote}
+
+\paragraph{What we did.} A second specification of the preregistered
+decomposition in Table 14, with representation cells defined by the stated
+category interacted with terciles of the \emph{actual} (chosen-action) belief, next to
+the original specification with hypothetical beliefs. 
+\begin{center}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{ll c ccc ccc r}
+\toprule
+& & & \multicolumn{3}{c}{Hypothetical beliefs} & \multicolumn{3}{c}{Actual beliefs} & \\
+\cmidrule(lr){4-6}\cmidrule(lr){7-9}
+Comparison & Game & $\Delta$ mean & Repr. & Behav. & Repr.\ \% &
+Repr. & Behav. & Repr.\ \% & $N$ \\
+\midrule
+Market vs Control & DG-KW & $-0.101$ & $-0.039$ & $-0.061$ & 39\% & $-0.039$ & $-0.061$ & 39\% & 728 \\
+ & & (0.018) & (0.016) & (0.020) & & (0.016) & (0.020) & & \\
+\addlinespace[2pt]
+Market vs Control & UG & $-0.220$ & $-0.036$ & $-0.184$ & 16\% & $-0.024$ & $-0.196$ & 11\% & 1027 \\
+ & & (0.013) & (0.015) & (0.020) & & (0.012) & (0.018) & & \\
+\addlinespace[2pt]
+Market vs Control & TG & $+0.133$ & $+0.078$ & $+0.054$ & 59\% & $+0.085$ & $+0.048$ & 64\% & 970 \\
+ & & (0.019) & (0.012) & (0.018) & & (0.013) & (0.017) & & \\
+\addlinespace[2pt]
+Aid vs Bonus & DG-KW & $-0.059$ & $-0.039$ & $-0.021$ & 65\% & $-0.039$ & $-0.021$ & 65\% & 790 \\
+ & & (0.013) & (0.010) & (0.008) & & (0.010) & (0.008) & & \\
+\addlinespace[2pt]
+Aid vs Bonus & UG & $-0.024$ & $-0.012$ & $-0.011$ & 52\% & $-0.016$ & $-0.008$ & 68\% & 1120 \\
+ & & (0.007) & (0.003) & (0.006) & & (0.004) & (0.006) & & \\
+\addlinespace[2pt]
+Aid vs Bonus & TG & $+0.008$ & $+0.011$ & $-0.003$ & --- & $-0.003$ & $+0.011$ & --- & 937 \\
+ & & (0.020) & (0.014) & (0.016) & & (0.015) & (0.014) & & \\
+\bottomrule
+\end{tabular}
+
+\smallskip
+\begin{minipage}{0.95\textwidth}
+\footnotesize\emph{Note}: symmetrized (Shapley/Oaxaca--Blinder)
+decomposition of the treatment effect on mean Player-1 actions into a representation
+component and a behavior-conditional-on-representation component; cells $=$ stated
+category $\times$ within-game belief terciles (categories alone in the DG); bootstrap
+SEs in parentheses; representation shares are point estimates, dashed where the total
+effect is a negligible $+0.008$ (SE 0.020).
+\end{minipage}
+\end{center}
+
+\paragraph{Results.} Switching to actual-choice beliefs changes little
+(representation shares 16\%$\to$11\% for UG Market, 59\%$\to$64\% for TG Market,
+52\%$\to$68\% for UG Aid; DG unchanged by construction), in directions congenial to
+the paper's reading---the market frame in the UG moves behavior mainly \emph{within}
+representation cells, while beliefs carry more of the trust-game market effect.
+
+\section{Similarity between Participants' Story Summaries and Categories}
+
+\begin{quote}\itshape
+Post-Meeting Email from NG: Per Aid e Bonus, potremmo usare il riassunto dei partecipanti
+e vedere a quale categoria \`e pi\`u simile. [\ldots] Un primo modo di usare questi
+dati \`e di validation: e i riassunti di Aid sono in aggregato pi\`u vicini a
+``Self-Interest'' che quelli di Bonus, confermiamo che non solo nelle storie come sono
+scritte, ma anche nella mente dei partecipanti, la categoria di Self-Interest \`e pi\`u
+saliente dopo Aid che dopo Bonus\@. Un secondo modo, pi\`u ambizioso, \`e di usare queste
+storie come misura di heterogeneity. Se in Aid un participante descrive la storia in
+maniera simile a ``Self Interest'' ed un altro a ``Cooperation'', allora \`e pi\`u
+probabile che questo ultimo participant trasferisca pi\`u del primo e sulla base di una
+``cooperation reason'', e magari specialmente se il gioco \`e il TG piuttosto che il
+DG\@.
+\end{quote}
+
+
+\paragraph{Methodology.} Each summary is rated on three separate 0--100 scales for how
+strongly the retelling emphasizes: (F) fairness---another party's claim,
+need, or contribution, how something should be divided; (O) the protagonist's own
+position---own needs, hardship, scarcity, what they keep or protect; (J) joint outcomes
+and relationships---working together, joint success, benefits to both sides. The wording
+is neutral; the correspondence F $\to$ Moral, O $\to$ Self-interest, J $\to$ Mutual
+Benefit/Cooperation is applied afterwards and never shown to the rater. The rater (Opus
+4.8) sees one summary per query
+and nothing else---no story name, game, condition, or behavioral variable---and
+reports which aspect dominates. 
+
+\paragraph{Result 1: the validation use succeeds, strongly.}
+
+\begin{center}
+\small
+\begin{tabular}{l ccc}
+\toprule
+Mean Emphasis (0--100) & F (Fairness) & O (Own Position) & J (Joint) \\
+\midrule
+Aid Summaries ($N=2{,}004$) & 49.4 & \textbf{45.1} & 29.4 \\
+Bonus Summaries ($N=2{,}003$) & 58.1 & 33.9 & \textbf{43.1} \\
+Aid $-$ Bonus & $-8.7$ ($t=-20$) & $+11.2$ ($t=29$) & $-13.8$ ($t=-43$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Aid retellings emphasize the protagonist's own position; Bonus retellings emphasize the
+joint outcome and, secondarily, fairness. This is the direction of the similarity rating
+of the story \emph{texts} (Aid $+2.5$ toward the Self-interest vignettes, Bonus $+2.1$
+toward Mutual Benefit), but an order of magnitude larger: the difference in what the
+stories make salient is bigger in participants' own retellings than in the texts as
+rated. 
+
+\paragraph{Result 2: the heterogeneity use fails.} Within a story
+condition, summary emphasis predicts essentially nothing downstream. The dominant
+aspect matches the later stated reason category in 54.4\% of cases against roughly 51\%
+under independence. In the within-cell regressions of actions on the emphasis scores,
+13 of 16 coefficients are insignificant at the 5\% level, and the significant ones have
+inconsistent signs (in the Aid ultimatum cell, \emph{own-position} emphasis enters
+positively)---the pattern one expects from noise. Beliefs show no relationship anywhere.
+Splitting senders at the median of joint-gains emphasis,
+the difference in trust-game sends is $+1.2$ points of the endowment ($p=0.49$). One
+caveat: the same split shows $+4.4$ points in DG-KW ($p=0.001$), but
+that comparison pools the two stories and Bonus retellings have high joint emphasis by
+construction, so it largely reflects the Aid$-$Bonus treatment effect rather than
+within-story heterogeneity; the clean within-story tests are the insignificant ones. 
+
+\end{document}
+
+\appendix
+
+\section{Calibration Walkthrough: From Control Moments to Table 4}
+\label{app:calibration_walkthrough}
+
+Companion to Sections~1 and~2: every entry of the headline calibration, and of
+Section~1's belief-sensitivity table, computed from its empirical inputs in one
+pass---the general formula first, then the plug-in that delivers the published
+number. The symbolic derivations live in the model note and are
+not repeated here. Everything on this page is regenerated, and asserted equal to the
+published table, by \code{replication\_package/code/25\_calibration\_walkthrough.py}
+(log: \code{output/tables/calibration\_walkthrough.txt}). Notation: $x=\sigma/\mu$ and
+$y=\rho/\mu$; the trust-game net return is $r=2$ (sends tripled); the reference offer
+is $1/3$; all actions and offers are shares of the endowment. Inputs are displayed to
+four decimals while the computations run at full precision, so the last digit of a
+displayed result can differ from the hand product of the displayed inputs.
+
+\subsection{Inputs: control-sample category means}
+
+\begin{center}
+\small
+\begin{tabular}{l ccc cc c c}
+\toprule
+& \multicolumn{3}{c}{Mean actions} & \multicolumn{2}{c}{UG beliefs} & TG belief & \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-6}\cmidrule(lr){7-7}
+Category & $t_{DG}$ & $t_{UG}$ & $t_{TG}$ & $p_{hp}$ & $p_{chosen}$ & $s$ & $N$ (DG/UG/TG) \\
+\midrule
+Moral & 0.4623 & 0.4999 & 0.4408 & 0.4847 & 0.7953 & 0.3151 & 273/446/256 \\
+Self-interest & 0.1026 & 0.4167 & 0.2954 & 0.4846 & 0.7014 & 0.2205 & 123/117/112 \\
+Mutual Benefit/Coop. & 0.3333 & 0.5680 & 0.6346 & 0.4824 & 0.7111 & 0.3574 & 3/19/216 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+$p_{hp}$ is the mean believed acceptance probability of the one-third reference offer
+and $p_{chosen}$ the mean believed acceptance of the participant's own chosen offer;
+$s$ is the mean believed returned share at the reference send (hypothetical
+elicitation). The mean offer among participants reporting a chosen-action belief,
+$t_{chosen}$, coincides with $t_{UG}$ at four decimals in every category.
+
+\subsection{Selfishness $x$ from the dictator game}
+
+The interior dictator-game first-order condition inverts to
+\[ x = \tfrac12 - t_{DG}. \]
+Moral: $\tfrac12 - 0.4623 = 0.0377$ (table: $0.038$). Self-interest: $\tfrac12 -
+0.1026 = 0.3974$ (table: $0.397$). MBC's dictator cell has $N=3$, so its $x$ comes
+from the joint solution below.
+
+\subsection{The equal-payoff anchor}
+
+\[ t^{e}(s) = \frac{1}{1+(1+r)(1-2s)}, \]
+the send that equalizes expected payoffs at the believed returned share $s$. Plugging
+each category's $s$: Moral $1/(1+3\cdot0.3699)=0.4740$; Self-interest
+$1/(1+3\cdot0.5590)=0.3735$; MBC $1/(1+3\cdot0.2853)=0.5388$ (here $0.3699 =
+1-2\cdot0.3151$, and so on).
+
+\subsection{Surplus attention $y$ from the trust game}
+
+\[ y = \frac{t_{TG} - t^{e}(s) + x\,(1+r)(1-s)}{r}. \]
+Moral: $\bigl[\,0.4408-0.4740+0.0377\cdot3\cdot0.6849\,\bigr]/2 = 0.0221$ (table:
+$0.022$). Self-interest: $\bigl[\,0.2954-0.3735+0.3974\cdot3\cdot0.7795\,\bigr]/2 =
+0.4255$ (table: $0.426$).
+
+\subsection{The acceptance schedule $(a,b)$ from the ultimatum game}
+
+The ultimatum-game first-order condition,
+$(t_{UG}-\tfrac12)(2bx+1)=b\,y-(a+b)\,x$, combined with the reference belief point
+$a+b/3=p_{hp}$, is linear in $b$:
+\[ b = -\,\frac{(t_{UG}-\tfrac12) + p_{hp}\,x}{2\,(t_{UG}-\tfrac12)\,x - y +
+\tfrac23\,x}, \qquad a = p_{hp} - \tfrac{b}{3}. \]
+Self-interest:
+\[ b = -\,\frac{-0.0833 + 0.4846\cdot0.3974}{2(-0.0833)(0.3974) - 0.4255 +
+\tfrac23(0.3974)} = -\,\frac{0.1092}{-0.2269} = 0.481, \qquad a = 0.4846 -
+\tfrac{0.481}{3} = 0.324. \]
+Moral: the same plug-in gives $b = -0.0182/0.0030 = -6.01$ and $a=2.49$---no valid
+probability schedule ($b<0$), so the table shows dashes. This is norm domination at
+work, not a computational failure: with $t_{UG}$ at one half and $x$ near zero, the
+first-order condition carries almost no information about beliefs, exactly as the
+model says behavior is insensitive to them.
+
+\subsection{Mutual Benefit/Cooperation: the joint solution}
+
+Reference-action acceptance beliefs are flat across categories ($p_{hp}$:
+$0.4847/0.4846/0.4824$), so the Self-interest schedule $(0.324, 0.481)$ is imposed and
+the ultimatum- and trust-game first-order conditions are solved jointly: find $x$ with
+$0\le x<\tfrac12$ such that the implied offer matches the observed $t_{UG}=0.5680$,
+where
+\[ t_{UG}(x) = \tfrac12 + \frac{b\,y(x) - (a+b)\,x}{2bx+1}, \qquad
+y(x) = \frac{t_{TG}-t^{e}(s)+x\,(1+r)(1-s)}{r}. \]
+At the boundary, $y(0) = \bigl[\,0.6346-0.5388\,\bigr]/2 = 0.0479$ and $t_{UG}(0) =
+\tfrac12 + 0.481\cdot0.0479 = 0.5231$, already below the observed $0.5680$; and
+$t_{UG}(x)$ is decreasing in $x$ (at $x=0.45$ it is $0.4089$), so no interior root
+exists and the constrained solution is the boundary:
+\[ x = 0.000, \qquad y = y(0) = 0.0479 \ \text{(table: 0.048)}. \]
+This is the computational content of paragraph~(d) of Section~2: the data would prefer
+$x<0$, and zero is the constrained answer.
+
+\subsection{The belief column and the overidentifying test}
+
+The $s$ column of the table is the input $s$ itself: $0.315/0.220/0.357$. The last two
+columns evaluate the calibrated schedule at the category's mean chosen offer,
+$a+b\,t_{chosen}$ (Moral uses the Self-interest schedule, its own being unidentified),
+against the measured chosen-action belief $p_{chosen}$---the one elicited moment the
+calibration never used:
+
+\begin{center}
+\small
+\begin{tabular}{l l c c}
+\toprule
+Category & Implied $=0.324+0.481\,t_{chosen}$ & Measured $p_{chosen}$ & Gap \\
+\midrule
+Moral & $0.324+0.481\cdot0.4999=0.5648$ & 0.7953 & $+0.23$ \\
+Self-interest & $0.324+0.481\cdot0.4167=0.5247$ & 0.7014 & $+0.18$ \\
+Mutual Benefit/Coop. & $0.324+0.481\cdot0.5680=0.5976$ & 0.7111 & $+0.11$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The positive gaps are the optimism-at-chosen-actions result quoted in Section~1
+($+11$ to $+23$ percentage points), which the forecast-error section takes up.
+Standard errors: the full pipeline above is rerun on each of $B=1{,}000$ bootstrap
+draws (participants resampled within game, seed 42), and the table reports the
+standard deviations across draws.
+
+\subsection{The belief-sensitivity table of Section~1}
+
+The predicted columns of Section~1's evidence table evaluate
+\[ \frac{\partial t}{\partial s}\bigg|_{\text{old}} = (1+r)\,x, \qquad
+\frac{\partial t}{\partial s}\bigg|_{\text{new}} =
+\frac{\mathrm{d}t^{e}}{\mathrm{d}s} + (1+r)\,x, \qquad
+\frac{\mathrm{d}t^{e}}{\mathrm{d}s} = \frac{2(1+r)}{\bigl[1+(1+r)(1-2s)\bigr]^{2}}, \]
+at the calibrated $x$ (anchor-invariant: both anchors inherit the same $x$ from the
+dictator game) and the measured category-mean $s$ (a data moment, not a calibrated
+object):
+
+\begin{center}
+\small
+\begin{tabular}{l l l l}
+\toprule
+Category & Old: $(1+r)x$ & $\mathrm{d}t^{e}/\mathrm{d}s$ & New: sum \\
+\midrule
+Moral & $3\cdot0.0377=0.113$ & $6/2.1096^{2}=1.348$ & $1.348+0.113=1.461$ \\
+Self-interest & $3\cdot0.3974=1.192$ & $6/2.6771^{2}=0.837$ & $0.837+1.192=2.029$ \\
+Mutual Benefit/Coop. & $3\cdot0.0000=0.000$ & $6/1.8559^{2}=1.742$ & $1.742+0.000=1.742$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+(in the middle column, $2.1096 = 1+3(1-2\cdot0.3151)$, and so on). The estimated
+column is model-free: the OLS slope of the trust-game send on the hypothetical
+believed share, by category, in the control sample ($0.306$, $0.451$, $0.264$;
+$N=187$, $96$, $170$---trust-game participants with a non-missing hypothetical
+belief). The ratio columns divide the estimated slope by each prediction. Original
+source: \code{replication\_package/code/17\_tg\_anchor\_dryrun.py} (log:
+\code{output/tg\_anchor\_dryrun\_stats.txt}); block B.8 of the walkthrough script
+re-derives and asserts every entry.
+
+\section{Round-1 Rerun: Final Prompts and Manual-Run Protocol}
+\label{app:rerun_prompts}
+
+This appendix reproduces, verbatim, the three prompts of the neutral-prompt rerun of
+Section~3 as they were sent to the Claude arm by \code{round1/rerun\_runner.py}, and
+the protocol for running the GPT and Gemini arms manually. Each model $\times$
+permutation cell is one fresh conversation; the three prompts are sent in order, each
+after the previous reply. Prompt~1 is the neutral similarity prompt (AA's draft with
+the three amendments of \code{round1/rerun\_neutral\_prompt.md}); Prompts~2 and~3 are
+verbatim from the May protocol. The game and story texts inserted into Prompt~1 are the
+May texts---the verbatim Control instructions and the two stories, as reproduced in the
+paper's instructions appendix---frozen in \code{round1/rerun\_materials.json}. In the
+blocks below, line breaks within paragraphs are added for the page; each prompt is sent
+as a single message.
+
+\subsection{Prompt 1: similarity ratings (neutral version, as run)}
+
+{\small\begin{verbatim}
+I am running a research project comparing real-world stories with decision
+situations. I will give you descriptions of four games and two short stories.
+
+INSTRUCTIONS
+
+Below are four games (A, B, C, D) and two stories (Story 1, Story 2).
+
+For each of the 8 story x game pairs, rate how similar the two situations are
+in their underlying decision structure on a 0-100 scale:
+
+0 = the situations have no meaningful similarity in their underlying decision
+structure
+
+100 = the situations have essentially the same underlying decision structure
+
+Assess each pair independently and base your judgment only on the descriptions
+provided. Use your own judgment to decide which aspects of the situations are
+relevant and how much weight to give them. Apply the same standard across all
+eight pairs. Equal ratings are allowed, and the ratings do not need to sum to
+any particular total.
+
+OUTPUT FORMAT
+
+1. For each of the 8 pairs, give the rating and a 2-3 sentence justification
+identifying the main considerations behind the rating.
+
+2. At the end, output a single JSON object with the 8 ratings, exactly in this
+form:
+{"ratings": {"A": {"Story 1": <0-100>, "Story 2": <0-100>}, "B": {...},
+"C": {...}, "D": {...}}}
+
+3. After the JSON, briefly identify the most and least similar game or games
+for each story and explain why. Allow for ties.
+
+[the four game texts and the two story texts follow, each under its neutral
+label, in the permutation's order: --- GAME A --- ... --- STORY 2 ---]
+\end{verbatim}
+}
+
+One format note: AA's sign-off draft asked for a summary \emph{table} in output item~2;
+the API run replaces it with the JSON object above so that ratings can be parsed
+mechanically. Nothing else differs. The manual arms use the JSON variant too (the files
+in \code{round1/manual\_prompts/} contain it), so all three arms of the rerun receive
+identical text.
+
+\subsection{Prompt 2: structural decomposition (verbatim from May)}
+
+{\small\begin{verbatim}
+Now decompose your similarity judgments along explicit structural dimensions.
+For each of the four games (A, B, C, D) and each of the two stories (Story 1,
+Story 2) you analyzed above, specify the value on each of the following
+dimensions:
+
+1. Pie structure: fixed-sum, or expandable through one player's action?
+
+2. Player 1's initial endowment: full pie, or partial (recipient also gets a
+positive amount)?
+
+3. Player 2's role: passive recipient, accept/reject responder, or reciprocator
+with a continuous choice?
+
+4. Source of Player 1's endowment: earned through effort, awarded by selection
+or luck, produced through interaction, or unspecified?
+
+5. Strategic structure: unilateral allocation, proposer-responder with veto, or
+sequential interaction with reciprocity?
+
+OUTPUT FORMAT
+
+1. Produce a table with six columns (A, B, C, D, Story 1, Story 2) and five
+rows (one per dimension). Fill each cell with the value on that dimension for
+that game or story.
+
+2. Then answer these three questions explicitly:
+
+(a) Which dimensions account for the largest similarity gaps in your Pass 1
+ratings?
+
+(b) Is any single dimension responsible for distinguishing one of the four
+games from the other three in its similarity to either story? If yes, name the
+dimension and the game.
+
+(c) Does the answer to (b) differ across the two stories, or is it the same?
+\end{verbatim}
+}
+
+\subsection{Prompt 3: retrieval split (verbatim from May)}
+
+{\small\begin{verbatim}
+Now consider the reverse retrieval direction. For each of the four games (A, B,
+C, D), imagine a participant who has just read the game instructions for the
+first time and is asked: "Does this situation remind you of any real-world
+experience?"
+
+Of the two stories (Story 1 and Story 2), which is more likely to be retrieved
+as a similar past experience cued by each game?
+
+For each game, distribute 100 points between Story 1 and Story 2 to indicate
+relative retrieval likelihood. For example, 70/30 means Story 1 is much more
+likely to come to mind than Story 2 when cued by that game; 50/50 means equal
+likelihood.
+
+OUTPUT FORMAT
+
+1. For each game, give the 100-point split (Story 1 / Story 2) and a 2-3
+sentence justification.
+
+2. At the end, output a single JSON object with the splits, exactly in this
+form:
+{"splits": {"A": {"Story 1": <int>, "Story 2": <int>}, "B": {...}, "C": {...},
+"D": {...}}}
+Each game's two numbers must sum to 100.
+
+3. After the JSON, comment briefly on whether the relative-retrieval ranking
+across games matches your Pass 1 absolute similarity ratings, or differs (and
+if so, where and why).
+\end{verbatim}
+}
+
+\subsection{Protocol for the manual GPT and Gemini arms}
+
+Six sessions: \{ChatGPT, Gemini\} $\times$ \{triplets 1--3\}. The paste-ready files
+are in \code{round1/manual\_prompts/} (generated by
+\code{round1/rerun\_manual\_prompts.py} from the frozen materials; a README with this
+protocol and the private label mappings sits alongside).
+
+\begin{enumerate}
+\item \emph{Model.} GPT-5.5 Thinking and Gemini 3 Pro---the May round-1 models---if
+still selectable; otherwise the closest current reasoning-tier model, recording the
+exact version. In that case the comparison confounds model and prompt, which the
+write-up must note.
+\item \emph{Session hygiene.} One fresh conversation per triplet; no custom
+instructions; memory and personalization off (in ChatGPT, a temporary chat); no web
+search or tools; never mention the game or story names, the paper, or the label
+mappings in a session.
+\item \emph{Sequence.} Paste \code{tripletN\_prompt1.txt} in full as the first
+message; after the reply, \code{prompt2.txt}; after that reply, \code{prompt3.txt}.
+\item \emph{Recording.} Save each full conversation (all three replies, including the
+JSON blocks) to \code{round1/transcripts\_rerun/} as
+\code{chatgpt\_<version>\_tripletN.txt} or \code{gemini\_<version>\_tripletN.txt}, the
+May naming convention. Transcription into \code{rerun\_recording.csv} and
+\code{rerun\_splits.csv} (canonical game and story names via the private mappings)
+and the refreshed comparison table then run through \code{rerun\_analysis.py}.
+\end{enumerate}
+
+\emph{Execution record (29/7).} Both arms were run by SN as paste-through sessions
+with the replies transcribed and checked live (JSON completeness, splits summing to
+100, and the justification texts' consistency with the permuted labels): the GPT arm
+on ChatGPT~5.5 Thinking in temporary chats, the Gemini arm on Gemini Pro~3.1 after
+Gemini~3 Pro proved unavailable. Six conversations; transcripts in
+\code{round1/transcripts\_rerun/}; ratings appended to the rerun CSVs under the model
+strings \code{gpt-5.5-thinking} and \code{gemini-pro-3.1}. Two deviations, both
+documented in the transcripts: the Prompt-2 reply of the Gemini triplet-2 session
+initially came from a high-demand fallback to Flash~3.6 and was regenerated on
+Pro~3.1 before proceeding; and an earlier all-Flash triplet-1 conversation is kept as
+an auxiliary transcript, excluded from the CSVs.
+
+\end{document}

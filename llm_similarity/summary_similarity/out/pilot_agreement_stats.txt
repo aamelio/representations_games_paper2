@@ -1,0 +1,20 @@
+=== pilot (Opus 4.8, N=48) ===
+pooled means by story:
+          F     O     J
+story                  
+aid    48.6  47.9  28.5
+bonus  55.4  36.0  45.2
+
+within-cell SD range: 3.2 to 22.5
+
+=== second-rater check (Sonnet 5 vs Opus 4.8, N=48) ===
+  F: pearson r=0.696  mean abs diff=15.6  mean opus=52.0 sonnet=65.6
+  O: pearson r=0.770  mean abs diff=6.8  mean opus=42.0 sonnet=44.4
+  J: pearson r=0.815  mean abs diff=10.2  mean opus=36.9 sonnet=28.8
+  dominant-aspect agreement: 58%
+
+Aid-Bonus contrast under the second rater (direction check):
+       F_alt  O_alt  J_alt
+story                     
+aid     66.3   48.3   17.3
+bonus   64.9   40.4   40.2

@@ -1,0 +1,66 @@
+max range across models: 0.0
+context  category                    
+AID      Moral                           0.0
+         Mutual Benefit / Cooperation    0.0
+         Self-interest                   0.0
+BONUS    Moral                           0.0
+         Mutual Benefit / Cooperation    0.0
+         Self-interest                   0.0
+C-KW     Moral                           0.0
+         Mutual Benefit / Cooperation    0.0
+         Self-interest                   0.0
+C-LT     Moral                           0.0
+         Mutual Benefit / Cooperation    0.0
+         Self-interest                   0.0
+C-TG     Moral                           0.0
+         Mutual Benefit / Cooperation    0.0
+         Self-interest                   0.0
+C-UG     Moral                           0.0
+         Mutual Benefit / Cooperation    0.0
+         Self-interest                   0.0
+M-KW     Moral                           0.0
+         Mutual Benefit / Cooperation    0.0
+         Self-interest                   0.0
+M-LT     Moral                           0.0
+         Mutual Benefit / Cooperation    0.0
+         Self-interest                   0.0
+M-TG     Moral                           0.0
+         Mutual Benefit / Cooperation    0.0
+         Self-interest                   0.0
+M-UG     Moral                           0.0
+         Mutual Benefit / Cooperation    0.0
+         Self-interest                   0.0
+
+max range across label sets: 24.4
+context  category                    
+AID      Moral                            6.5
+         Mutual Benefit / Cooperation     3.2
+         Self-interest                    4.6
+BONUS    Moral                            4.0
+         Mutual Benefit / Cooperation     6.1
+         Self-interest                    2.5
+C-KW     Moral                           10.1
+         Mutual Benefit / Cooperation     9.2
+         Self-interest                    5.9
+C-LT     Moral                           13.6
+         Mutual Benefit / Cooperation     5.8
+         Self-interest                    1.2
+C-TG     Moral                            3.0
+         Mutual Benefit / Cooperation     6.8
+         Self-interest                    8.0
+C-UG     Moral                           12.1
+         Mutual Benefit / Cooperation     7.0
+         Self-interest                    6.0
+M-KW     Moral                           24.4
+         Mutual Benefit / Cooperation     5.6
+         Self-interest                   17.5
+M-LT     Moral                           21.6
+         Mutual Benefit / Cooperation     8.9
+         Self-interest                   18.4
+M-TG     Moral                            3.0
+         Mutual Benefit / Cooperation     1.6
+         Self-interest                    4.4
+M-UG     Moral                           20.0
+         Mutual Benefit / Cooperation     5.0
+         Self-interest                   12.6
+

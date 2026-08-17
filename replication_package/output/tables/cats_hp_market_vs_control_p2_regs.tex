@@ -1,0 +1,36 @@
+\begin{table}[!htbp]
+\centering
+\caption{\textbf{Benchmark Regressions: Player 2, Market vs Control, Categories + Beliefs HP}}
+\label{tab:cats_hp_market_vs_control_fullpooled_p2_regs}
+\resizebox{0.94\textwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+ & (1) & (2) & (3) & (4) \\
+ & UG outcome & TG outcome & UG outcome + fitted share sent P1 & TG outcome + fitted share sent P1 \\
+\midrule
+Moral bad & -0.906$^{***}$ & -0.280$^{***}$ & -0.724$^{***}$ & -0.230$^{***}$ \\
+ & (0.033) & (0.022) & (0.035) & (0.023) \\
+Mutual Benefit / Cooperation & -0.057$^{**}$ & -0.011 & -0.022 & -0.007 \\
+ & (0.024) & (0.010) & (0.023) & (0.010) \\
+No clear justification & -0.243$^{***}$ & -0.024 & -0.157$^{***}$ & -0.025 \\
+ & (0.055) & (0.021) & (0.053) & (0.021) \\
+Self-interest & -0.302$^{***}$ & -0.148$^{***}$ & -0.161$^{***}$ & -0.152$^{***}$ \\
+ & (0.024) & (0.015) & (0.026) & (0.015) \\
+Hypothetical acceptance & 0.038$^{*}$ &  & 0.071$^{***}$ &  \\
+ & (0.020) &  & (0.019) &  \\
+Hypothetical share sent P2 &  & 0.529$^{***}$ &  & 0.504$^{***}$ \\
+ &  & (0.026) &  & (0.025) \\
+Predicted share sent P1 &  &  & 1.738$^{***}$ & 0.445$^{***}$ \\
+ &  &  & (0.160) & (0.054) \\
+Constant & 0.951$^{***}$ & 0.226$^{***}$ & 0.206$^{***}$ & -0.039 \\
+ & (0.019) & (0.012) & (0.071) & (0.035) \\
+\midrule
+Observations & 1137 & 1016 & 1137 & 964 \\
+$R^2$ & 0.432 & 0.481 & 0.486 & 0.515 \\
+\bottomrule
+\end{tabular}
+}
+\begin{flushleft}
+\footnotesize Standard errors in parentheses. Baseline category is Moral good. Sample restricted to Control and Market. Columns (3) and (4) add fitted share sent P1, computed from the comparison-specific Player 1 action regression in the same specification by averaging fitted values within each observed Player 1 donation level. UG equations include hypothetical acceptance and TG equations include hypothetical share sent P2; columns (3) and (4) additionally include fitted share sent P1. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{flushleft}
+\end{table}

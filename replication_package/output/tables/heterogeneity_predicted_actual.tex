@@ -1,0 +1,27 @@
+\begin{table}[!htbp]
+\centering
+\small
+\renewcommand{\arraystretch}{1.15}
+\caption{\textbf{Predicted versus Actual Treatment Effects on Dispersion}}
+\label{tab:heterogeneity_predicted_actual}
+\begin{tabular}{ll rr rr}
+\toprule
+ & & \multicolumn{2}{c}{$\Delta$ Mean (pp)} & \multicolumn{2}{c}{$\Delta$ SD} \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+Comparison & Game & Predicted & Actual & Predicted & Actual \\
+\midrule
+Aid vs Bonus & DG-KW & -3.9 & -5.9 & +0.022 & +0.026 \\
+ & DG-LT & -4.0 & -5.0 & +0.023 & +0.028 \\
+ & UG & -1.3 & -2.4 & +0.017 & +0.048 \\
+ & TG & +0.3 & +0.8 & +0.001 & +0.005 \\
+\midrule
+Market vs Control & DG-KW & -4.5 & -10.1 & +0.019 & +0.059 \\
+ & DG-LT & -9.9 & -21.5 & +0.010 & +0.003 \\
+ & UG & -7.3 & -21.0 & +0.043 & +0.149 \\
+ & TG & +4.2 & +15.0 & +0.019 & +0.003 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: Player 1, classified responses only. Predicted values reweight the category-conditional action distributions (means and variances pooled across the two conditions of each comparison) by each condition's category shares; the predicted effect is the mixture implication of the representation shift alone. Actual values are the raw between-condition differences.
+\end{flushleft}
+\end{table}

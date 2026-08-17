@@ -1,0 +1,115 @@
+Similarity means by game x story (Bonus, Aid):
+  May, all models:
+    DG-KW  Bonus 94.6  Aid 94.7  story-avg 94.6  |Bonus-Aid| 0.1
+    DG-LT  Bonus 51.8  Aid 50.7  story-avg 51.2  |Bonus-Aid| 1.1
+    UG     Bonus 30.1  Aid 29.8  story-avg 29.9  |Bonus-Aid| 0.3
+    TG     Bonus 15.0  Aid 13.9  story-avg 14.4  |Bonus-Aid| 1.1
+  May, ChatGPT 5.5 Thinking:
+    DG-KW  Bonus 96.7  Aid 94.3  story-avg 95.5  |Bonus-Aid| 2.3
+    DG-LT  Bonus 56.7  Aid 57.7  story-avg 57.2  |Bonus-Aid| 1.0
+    UG     Bonus 47.7  Aid 48.0  story-avg 47.8  |Bonus-Aid| 0.3
+    TG     Bonus 25.7  Aid 23.0  story-avg 24.3  |Bonus-Aid| 2.7
+  May, Claude Opus 4.7:
+    DG-KW  Bonus 88.7  Aid 91.3  story-avg 90.0  |Bonus-Aid| 2.7
+    DG-LT  Bonus 35.3  Aid 31.0  story-avg 33.2  |Bonus-Aid| 4.3
+    UG     Bonus 12.7  Aid 11.3  story-avg 12.0  |Bonus-Aid| 1.3
+    TG     Bonus 9.3  Aid 8.7  story-avg 9.0  |Bonus-Aid| 0.7
+  May, Gemini 3 Pro:
+    DG-KW  Bonus 98.3  Aid 98.3  story-avg 98.3  |Bonus-Aid| 0.0
+    DG-LT  Bonus 63.3  Aid 63.3  story-avg 63.3  |Bonus-Aid| 0.0
+    UG     Bonus 30.0  Aid 30.0  story-avg 30.0  |Bonus-Aid| 0.0
+    TG     Bonus 10.0  Aid 10.0  story-avg 10.0  |Bonus-Aid| 0.0
+  Rerun (neutral prompt), claude-opus-4-7:
+    DG-KW  Bonus 81.7  Aid 84.0  story-avg 82.8  |Bonus-Aid| 2.3
+    DG-LT  Bonus 30.0  Aid 31.0  story-avg 30.5  |Bonus-Aid| 1.0
+    UG     Bonus 23.3  Aid 18.3  story-avg 20.8  |Bonus-Aid| 5.0
+    TG     Bonus 13.3  Aid 11.0  story-avg 12.2  |Bonus-Aid| 2.3
+  Rerun (neutral prompt), gemini-pro-3.1:
+    DG-KW  Bonus 95.0  Aid 96.7  story-avg 95.8  |Bonus-Aid| 1.7
+    DG-LT  Bonus 55.0  Aid 55.0  story-avg 55.0  |Bonus-Aid| 0.0
+    UG     Bonus 25.0  Aid 25.0  story-avg 25.0  |Bonus-Aid| 0.0
+    TG     Bonus 11.7  Aid 11.7  story-avg 11.7  |Bonus-Aid| 0.0
+  Rerun (neutral prompt), gpt-5.5-thinking:
+    DG-KW  Bonus 95.7  Aid 90.3  story-avg 93.0  |Bonus-Aid| 5.3
+    DG-LT  Bonus 54.7  Aid 52.7  story-avg 53.7  |Bonus-Aid| 2.0
+    UG     Bonus 49.0  Aid 44.7  story-avg 46.8  |Bonus-Aid| 4.3
+    TG     Bonus 21.7  Aid 20.0  story-avg 20.8  |Bonus-Aid| 1.7
+  Rerun (neutral prompt), pooled over 3 arms:
+    DG-KW  Bonus 90.8  Aid 90.3  story-avg 90.6  |Bonus-Aid| 0.4
+    DG-LT  Bonus 46.6  Aid 46.2  story-avg 46.4  |Bonus-Aid| 0.3
+    UG     Bonus 32.4  Aid 29.3  story-avg 30.9  |Bonus-Aid| 3.1
+    TG     Bonus 15.6  Aid 14.2  story-avg 14.9  |Bonus-Aid| 1.3
+
+Bonus retrieval share by game:
+  May, all models:  DG-KW 41  DG-LT 54  UG 60  TG 72
+  May, ChatGPT 5.5 Thinking: DG-KW 50  DG-LT 54  UG 54  TG 62
+  May, Claude Opus 4.7: DG-KW 48  DG-LT 65  UG 67  TG 72
+  May, Gemini 3 Pro: DG-KW 25  DG-LT 43  UG 60  TG 82
+  Rerun, claude-opus-4-7: DG-KW 48  DG-LT 45  UG 55  TG 62
+  Rerun, gemini-pro-3.1: DG-KW 28  DG-LT 37  UG 68  TG 75
+  Rerun, gpt-5.5-thinking: DG-KW 61  DG-LT 62  UG 63  TG 64
+
+Paper Table-5 layout panels (similarity Bonus / Aid / Mean; retrieval split):
+  May, guided prompt, three models x three permutations:
+    DG-KW  Bonus  94.6  Aid  94.7  Mean  94.6  split 41 / 59
+    DG-LT  Bonus  51.8  Aid  50.7  Mean  51.2  split 54 / 46
+    UG     Bonus  30.1  Aid  29.8  Mean  29.9  split 60 / 40
+    TG     Bonus  15.0  Aid  13.9  Mean  14.4  split 72 / 28
+  May, guided prompt, Claude Opus 4.7 arm:
+    DG-KW  Bonus  88.7  Aid  91.3  Mean  90.0  split 48 / 52
+    DG-LT  Bonus  35.3  Aid  31.0  Mean  33.2  split 65 / 35
+    UG     Bonus  12.7  Aid  11.3  Mean  12.0  split 67 / 33
+    TG     Bonus   9.3  Aid   8.7  Mean   9.0  split 72 / 28
+  May, guided prompt, ChatGPT 5.5 Thinking arm:
+    DG-KW  Bonus  96.7  Aid  94.3  Mean  95.5  split 50 / 50
+    DG-LT  Bonus  56.7  Aid  57.7  Mean  57.2  split 54 / 46
+    UG     Bonus  47.7  Aid  48.0  Mean  47.8  split 54 / 46
+    TG     Bonus  25.7  Aid  23.0  Mean  24.3  split 62 / 38
+  May, guided prompt, Gemini 3 Pro arm:
+    DG-KW  Bonus  98.3  Aid  98.3  Mean  98.3  split 25 / 75
+    DG-LT  Bonus  63.3  Aid  63.3  Mean  63.3  split 43 / 57
+    UG     Bonus  30.0  Aid  30.0  Mean  30.0  split 60 / 40
+    TG     Bonus  10.0  Aid  10.0  Mean  10.0  split 82 / 18
+  Rerun, neutral prompt, claude-opus-4-7:
+    DG-KW  Bonus  81.7  Aid  84.0  Mean  82.8  split 48 / 52
+    DG-LT  Bonus  30.0  Aid  31.0  Mean  30.5  split 45 / 55
+    UG     Bonus  23.3  Aid  18.3  Mean  20.8  split 55 / 45
+    TG     Bonus  13.3  Aid  11.0  Mean  12.2  split 62 / 38
+  Rerun, neutral prompt, gemini-pro-3.1:
+    DG-KW  Bonus  95.0  Aid  96.7  Mean  95.8  split 28 / 72
+    DG-LT  Bonus  55.0  Aid  55.0  Mean  55.0  split 37 / 63
+    UG     Bonus  25.0  Aid  25.0  Mean  25.0  split 68 / 32
+    TG     Bonus  11.7  Aid  11.7  Mean  11.7  split 75 / 25
+  Rerun, neutral prompt, gpt-5.5-thinking:
+    DG-KW  Bonus  95.7  Aid  90.3  Mean  93.0  split 61 / 39
+    DG-LT  Bonus  54.7  Aid  52.7  Mean  53.7  split 62 / 38
+    UG     Bonus  49.0  Aid  44.7  Mean  46.8  split 63 / 37
+    TG     Bonus  21.7  Aid  20.0  Mean  20.8  split 64 / 36
+  Rerun, neutral prompt, pooled over 3 arms:
+    DG-KW  Bonus  90.8  Aid  90.3  Mean  90.6  split 46 / 54
+    DG-LT  Bonus  46.6  Aid  46.2  Mean  46.4  split 48 / 52
+    UG     Bonus  32.4  Aid  29.3  Mean  30.9  split 62 / 38
+    TG     Bonus  15.6  Aid  14.2  Mean  14.9  split 67 / 33
+
+Per-triplet ranges (max-min across the three conversations of an arm):
+  Rerun, claude-opus-4-7:
+story  Aid  Bonus
+game             
+DG-KW    3      5
+DG-LT    7      0
+UG       5     20
+TG       7      5
+  Rerun, gemini-pro-3.1:
+story  Aid  Bonus
+game             
+DG-KW    5      0
+DG-LT   25     25
+UG      10     10
+TG       5      5
+  Rerun, gpt-5.5-thinking:
+story  Aid  Bonus
+game             
+DG-KW   12      9
+DG-LT   12     19
+UG      24     24
+TG      16     11

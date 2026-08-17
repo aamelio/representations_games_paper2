@@ -1,0 +1,56 @@
+Calibration of P1 attention weights and beliefs - control sample
+(bootstrap SEs: 1000/1000 successful draws, seed 42)
+
+Control moments by category:
+                              t_dgkw  n_dgkw    t_ug   n_ug    t_tg   n_tg    p_hp  p_chosen  t_chosen    s_hp  s_chosen
+Moral                         0.4623   273.0  0.4999  446.0  0.4408  256.0  0.4847    0.7953    0.4999  0.3151    0.2891
+Self-interest                 0.1026   123.0  0.4167  117.0  0.2954  112.0  0.4846    0.7014    0.4167  0.2205    0.2194
+Mutual Benefit / Cooperation  0.3333     3.0  0.5680   19.0  0.6346  216.0  0.4824    0.7111    0.5680  0.3574    0.3944
+
+--- Moral ---
+  sigma/mu = 0.038 (se 0.007)   rho/mu = 0.022 (se 0.013)
+  (a,b) FOC route = (2.488, -6.010)  valid schedule: False  [b<=0 or bounds violated -> unidentified, as norm-domination implies]
+  (a,b) two-point route (diagnostic) = (-0.137, 1.864); a>=0: False, a+b<=1: False
+  s (TG believed share): hp 0.315, chosen-action 0.289
+  overid: schedule-implied acceptance at chosen offer 0.565 vs measured 0.795 (gap +0.230)
+  UG offer: implied 0.481 vs actual 0.500
+  belief sensitivity UG: predicted 0.036, estimated 0.010 (se 0.020, N 437)   [model sign: negative]
+  belief sensitivity TG: predicted 1.461, estimated 0.306 (se 0.095, N 187)   [model sign: positive]
+
+--- Self-interest ---
+  sigma/mu = 0.397 (se 0.012)   rho/mu = 0.426 (se 0.027)
+  (a,b) FOC route = (0.324, 0.481)  valid schedule: True
+  (a,b) two-point route (diagnostic) = (-0.383, 2.601); a>=0: False, a+b<=1: False
+  s (TG believed share): hp 0.220, chosen-action 0.219
+  overid: schedule-implied acceptance at chosen offer 0.525 vs measured 0.701 (gap +0.177)
+  UG offer: implied 0.417 vs actual 0.417
+  belief sensitivity UG: predicted 0.287, estimated -0.108 (se 0.096, N 109)   [model sign: negative]
+  belief sensitivity TG: predicted 2.029, estimated 0.451 (se 0.144, N 96)   [model sign: positive]
+
+--- Mutual Benefit / Cooperation ---
+  sigma/mu = 0.000 (se 0.044)   rho/mu = 0.048 (se 0.047)
+  (a,b) FOC route = (0.324, 0.481)  [IMPOSED: SI schedule, flat-reference-beliefs assumption]
+  (a,b) two-point route (diagnostic) = (0.157, 0.975); a>=0: True, a+b<=1: False
+  s (TG believed share): hp 0.357, chosen-action 0.394
+  overid: schedule-implied acceptance at chosen offer 0.598 vs measured 0.711 (gap +0.113)
+  UG offer: implied 0.523 vs actual 0.568
+  belief sensitivity UG: predicted 0.000, estimated -0.083 (se 0.319, N 17)   [model sign: negative]
+  belief sensitivity TG: predicted 1.742, estimated 0.264 (se 0.098, N 170)   [model sign: positive]
+
+Attenuation, estimated/predicted (equal-payoff anchor):
+  UG Self-interest: 0.38
+  TG all cells: Moral 0.21, Self-interest 0.22, Mutual 0.15  [uniform within the TG: the anchor's belief channel is common to all types]
+  (Moral UG sensitivity 0.036: near-zero by norm domination; in the TG the norm channel dte/ds keeps every cell's predicted sensitivity positive)
+
+MBC TG locus rho/mu = f(sigma/mu) at s_hp=0.357: f(0.0)=0.048, f(0.1)=0.144, f(0.2)=0.241, f(0.3)=0.337, f(0.4)=0.433  -> rho>sigma for every admissible sigma/mu
+
+Attention-belief coupling (rem:joint), TG control:
+  individual-level Cov(sigma/mu, s) = -0.0076 => E[t]-E_indep[t] = -0.0227 (-2.3 pp of the endowment; N=453)
+  between-category Cov = -0.0075 => gap = -0.0226
+
+Headline route: (sigma/mu, rho/mu) from DG+TG moments (MBC: UG+TG joint, SI schedule
+imposed); (a,b) from UG FOC + reference belief point; the chosen-offer belief point is
+the overidentifying test. The two-point route (candidate headline per AA 07-11) fails
+validity for Moral and Self-interest: chosen-action beliefs are 16-21 pp above any
+coherent linear schedule through the reference point - optimism/selection at chosen
+actions; quantified by the overid gaps above and usable in the forecast-error section.

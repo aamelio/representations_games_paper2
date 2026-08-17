@@ -1,0 +1,32 @@
+\begin{table}[!htbp]
+\centering
+\caption{\textbf{Within-Subject Regressions}: Market vs.\ Control within subject}
+\label{tab:within_market_regressions}
+\begin{tabular}{lcccc}
+\toprule
+ & (1) & (2) & (3) & (4) \\
+ & \multicolumn{4}{c}{Share Sent P1} \\
+\cmidrule(lr){2-5}
+\midrule
+Market & -0.160$^{***}$ & -0.139$^{***}$ & -0.135$^{***}$ & -0.126$^{***}$ \\
+ & (0.017) & (0.018) & (0.018) & (0.019) \\
+Market x ControlFirst & 0.016 & 0.017 & 0.017 & 0.017 \\
+ & (0.025) & (0.025) & (0.024) & (0.024) \\
+HighSP &  & 0.113$^{***}$ &  & 0.062$^{***}$ \\
+ &  & (0.021) &  & (0.021) \\
+Mutual Benefit / Cooperation &  &  & -0.076$^{**}$ & -0.073$^{**}$ \\
+ &  &  & (0.033) & (0.033) \\
+Self-interest &  &  & -0.197$^{***}$ & -0.177$^{***}$ \\
+ &  &  & (0.022) & (0.023) \\
+No clear justification &  &  & -0.084$^{**}$ & -0.068$^{**}$ \\
+ &  &  & (0.034) & (0.034) \\
+Participant fixed effects & Yes & Yes & Yes & Yes \\
+Observations & 2398 & 2398 & 2398 & 2398 \\
+Participants & 1199 & 1199 & 1199 & 1199 \\
+$R^2$ & 0.597 & 0.614 & 0.642 & 0.647 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Outcome is DG share sent by Player 1, defined as $1-\texttt{allocation}/12$. Models use the within-subject Market vs.\ Control sample pooled across the fixed-game designs. All specifications include participant fixed effects and cluster standard errors by participant. Baseline text category is Moral. HighSP equals 1 if \texttt{sp\_num}>1. ControlFirst equals 1 when Control was shown before Market; its main effect is collinear with the participant fixed effects and therefore not identified. Estimated without fixed effects (standard errors clustered by participant), the ControlFirst level effect is $+0.009$ (SE $0.013$). $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{flushleft}
+\end{table}

@@ -1,0 +1,24 @@
+\begin{table}[!htbp]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\caption{\textbf{Predicted Treatment Effects on Actions: Additive versus Interacted Specification}}
+\label{tab:interaction_accounting}
+\begin{tabular}{ll ccc c}
+\toprule
+Comparison & Game & Actual & \multicolumn{2}{c}{Predicted} & $N$ \\
+\cmidrule(lr){4-5}
+& & & Additive & Interacted & \\
+\midrule
+Aid vs Bonus & DG-KW & -0.059 & -0.039 & -0.039 & 790 \\
+Aid vs Bonus & UG & -0.024 & -0.013 & -0.014 & 1120 \\
+Aid vs Bonus & TG & +0.008 & +0.006 & +0.004 & 937 \\
+Market vs Control & DG-KW & -0.101 & -0.045 & -0.045 & 728 \\
+Market vs Control & UG & -0.220 & -0.095 & -0.096 & 1027 \\
+Market vs Control & TG & +0.133 & +0.083 & +0.085 & 970 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: Player 1 actions, classified sample with non-missing hypothetical beliefs (UG, TG). Additive: action on category dummies and the hypothetical belief (the benchmark specification); Interacted: action on categories, the belief, and their interactions, so predicted effects include the treatment-induced movement of the category-belief cross-moments. Predicted effects are $\hat\beta'(\bar{x}_T-\bar{x}_C)$ on the pooled two-condition fit. DG-KW has no belief elicitation, so both specifications reduce to categories only.
+\end{flushleft}
+\end{table}

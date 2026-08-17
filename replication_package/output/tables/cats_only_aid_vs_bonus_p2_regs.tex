@@ -1,0 +1,32 @@
+\begin{table}[!htbp]
+\centering
+\caption{\textbf{Benchmark Regressions: Player 2, Aid vs Bonus, Categories Only}}
+\label{tab:cats_only_aid_vs_bonus_fullpooled_p2_regs}
+\resizebox{0.94\textwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+ & (1) & (2) & (3) & (4) \\
+ & UG outcome & TG outcome & UG outcome + fitted share sent P1 & TG outcome + fitted share sent P1 \\
+\midrule
+Moral bad & -0.846$^{***}$ & -0.353$^{***}$ & -0.733$^{***}$ & -0.297$^{***}$ \\
+ & (0.025) & (0.021) & (0.030) & (0.020) \\
+Mutual Benefit / Cooperation & 0.020 & -0.021$^{*}$ & 0.029$^{**}$ & -0.019$^{*}$ \\
+ & (0.012) & (0.012) & (0.012) & (0.011) \\
+No clear justification & -0.007 & -0.005 & 0.009 & 0.014 \\
+ & (0.037) & (0.036) & (0.036) & (0.034) \\
+Self-interest & -0.034$^{**}$ & -0.278$^{***}$ & 0.006 & -0.263$^{***}$ \\
+ & (0.016) & (0.021) & (0.017) & (0.021) \\
+Predicted share sent P1 &  &  & 1.579$^{***}$ & 0.675$^{***}$ \\
+ &  &  & (0.233) & (0.061) \\
+Constant & 0.968$^{***}$ & 0.413$^{***}$ & 0.212$^{*}$ & 0.055$^{*}$ \\
+ & (0.007) & (0.007) & (0.112) & (0.033) \\
+\midrule
+Observations & 1200 & 1191 & 1200 & 1191 \\
+$R^2$ & 0.497 & 0.265 & 0.515 & 0.334 \\
+\bottomrule
+\end{tabular}
+}
+\begin{flushleft}
+\footnotesize Standard errors in parentheses. Baseline category is Moral good. Sample restricted to Bonus and Aid. Columns (3) and (4) add fitted share sent P1, computed from the comparison-specific Player 1 action regression in the same specification by averaging fitted values within each observed Player 1 donation level. Columns (1) and (2) use only category dummies, while columns (3) and (4) add fitted share sent P1. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{flushleft}
+\end{table}

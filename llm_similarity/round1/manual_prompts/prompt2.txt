@@ -1,0 +1,23 @@
+Now decompose your similarity judgments along explicit structural dimensions. For each of the four games (A, B, C, D) and each of the two stories (Story 1, Story 2) you analyzed above, specify the value on each of the following dimensions:
+
+1. Pie structure: fixed-sum, or expandable through one player's action?
+
+2. Player 1's initial endowment: full pie, or partial (recipient also gets a positive amount)?
+
+3. Player 2's role: passive recipient, accept/reject responder, or reciprocator with a continuous choice?
+
+4. Source of Player 1's endowment: earned through effort, awarded by selection or luck, produced through interaction, or unspecified?
+
+5. Strategic structure: unilateral allocation, proposer-responder with veto, or sequential interaction with reciprocity?
+
+OUTPUT FORMAT
+
+1. Produce a table with six columns (A, B, C, D, Story 1, Story 2) and five rows (one per dimension). Fill each cell with the value on that dimension for that game or story.
+
+2. Then answer these three questions explicitly:
+
+(a) Which dimensions account for the largest similarity gaps in your Pass 1 ratings?
+
+(b) Is any single dimension responsible for distinguishing one of the four games from the other three in its similarity to either story? If yes, name the dimension and the game.
+
+(c) Does the answer to (b) differ across the two stories, or is it the same?

@@ -1,0 +1,110 @@
+=== PROMPT 1 ANSWER ===
+## Pairwise ratings
+
+### Story 1 × Game A: **30/100**
+
+Both involve one person initially receiving money and deciding whether to pass some to another person. But Game A is a trust game: the transfer expands the pie by being multiplied, and the recipient then chooses whether to reciprocate. In Story 1, Mark is passive, there is no multiplier, and the outcome depends only on James.
+
+### Story 1 × Game B: **45/100**
+
+The initial structure is similar because one person has control over a full allocation and may transfer some to another person. However, Game B gives Player 2 veto power through acceptance or rejection, while Mark has no such agency in the story. Story 1 is therefore closer to unilateral giving than to bargaining.
+
+### Story 1 × Game C: **55/100**
+
+Game C and Story 1 both involve a fixed pie and a unilateral decision by one person over how money is allocated. But Game C begins with both players already receiving some money, and the decision-maker can either give more or take from the other person. In Story 1, James starts with everything and can only decide whether to share.
+
+### Story 1 × Game D: **95/100**
+
+This is very close structurally. In both cases, one person receives the full amount, the other receives nothing, the recipient is passive, the pie is fixed, and the final allocation depends entirely on the first person’s transfer choice. The main difference is contextual: James’s aid was selected for him specifically, whereas Game D is a neutral allocation task.
+
+---
+
+### Story 2 × Game A: **25/100**
+
+Both involve a person deciding whether to give some money to another person. But Game A is about trust, productive transfer, and possible reciprocation, while Story 2 is a one-way allocation of a fixed bonus. Max has no second-stage choice.
+
+### Story 2 × Game B: **40/100**
+
+Game B resembles Story 2 in that Player 1 initially controls the whole allocation and may offer some to Player 2. But the key strategic feature of Game B is Player 2’s ability to accept or reject the offer, potentially destroying the whole pie. Story 2 explicitly says the final decision is Steve’s alone.
+
+### Story 2 × Game C: **50/100**
+
+Game C and Story 2 both involve a fixed pie and a unilateral allocation decision. However, Game C starts with both players already receiving positive amounts and allows the decision-maker to take from the other person. Story 2 starts with the full bonus allocated to Steve and only asks whether he should share some of it.
+
+### Story 2 × Game D: **98/100**
+
+This is almost the same strategic situation. Steve receives the full bonus, Max receives nothing initially, Steve can transfer any portion if he wishes, Max is passive, and the total bonus is fixed. The only meaningful difference is that Max contributed to earning the bonus, which adds a fairness consideration but does not change the basic strategic structure.
+
+---
+
+## Summary table
+
+| Game | Story 1 | Story 2 |
+| ---- | ------: | ------: |
+| A    |      30 |      25 |
+| B    |      45 |      40 |
+| C    |      55 |      50 |
+| D    |      95 |      98 |
+
+For **Story 1**, the most similar game is **Game D**, because James alone controls a full allocation and can voluntarily give some to a passive recipient. The least similar is **Game A**, because it introduces multiplication of transfers and reciprocal action by the recipient, neither of which appears in the story. For **Story 2**, the most similar game is also **Game D**, almost exactly matching the full initial allocation plus optional unilateral transfer. The least similar is again **Game A**, because Story 2 is a fixed-pie sharing decision rather than a trust-and-reciprocation interaction.
+
+
+=== PROMPT 2 ANSWER ===
+## Structural decomposition table
+
+| Dimension                             | A                                       | B                                               | C                                            | D                     | Story 1                      | Story 2               |
+| ------------------------------------- | --------------------------------------- | ----------------------------------------------- | -------------------------------------------- | --------------------- | ---------------------------- | --------------------- |
+| **1. Pie structure**                  | Expandable through Player 1’s action    | Fixed-sum if accepted; destructible if rejected | Fixed-sum                                    | Fixed-sum             | Fixed-sum                    | Fixed-sum             |
+| **2. Player 1’s initial endowment**   | Full pie                                | Full pie                                        | Partial; recipient also gets positive amount | Full pie              | Full pie                     | Full pie              |
+| **3. Player 2’s role**                | Reciprocator with a continuous choice   | Accept/reject responder                         | Passive recipient                            | Passive recipient     | Passive recipient            | Passive recipient     |
+| **4. Source of Player 1’s endowment** | Unspecified                             | Unspecified                                     | Unspecified                                  | Unspecified           | Awarded by selection or luck | Earned through effort |
+| **5. Strategic structure**            | Sequential interaction with reciprocity | Proposer-responder with veto                    | Unilateral allocation                        | Unilateral allocation | Unilateral allocation        | Unilateral allocation |
+
+## Answers
+
+### (a) Which dimensions account for the largest similarity gaps in the Pass 1 ratings?
+
+The largest gaps come from **Player 2’s role** and **strategic structure**. Games A and B are less similar to both stories because the stories have passive recipients, while Game A has a reciprocating second mover and Game B has a responder with veto power. **Pie structure** also matters strongly for Game A, because transfers expand the pie, whereas both stories describe fixed-pie sharing decisions.
+
+### (b) Is any single dimension responsible for distinguishing one of the four games from the other three in its similarity to either story?
+
+Yes. **Pie structure** clearly distinguishes **Game A** from the other three games: it is the only game where the pie expands through Player 1’s transfer. Also, **Player 2’s role / strategic structure** distinguishes Game A and Game B from the stories, because both stories involve unilateral allocation to a passive recipient.
+
+The single dimension most responsible for making **Game D** the closest match is **Player 1’s initial endowment plus Player 2’s passive role**: Player 1 starts with the full pie and simply decides how much, if any, to give.
+
+### (c) Does the answer to (b) differ across the two stories, or is it the same?
+
+It is mostly the **same** across the two stories. For both Story 1 and Story 2, **Game D** is closest because it matches the fixed pie, full initial endowment, passive recipient, and unilateral allocation structure. The only meaningful difference is the **source of the endowment**: Story 1’s money comes from selection or luck, while Story 2’s bonus is earned through effort. That source dimension makes Story 2 thematically different from Game D, but it does not change the core strategic match.
+
+
+=== PROMPT 3 ANSWER ===
+## Reverse-retrieval splits
+
+### Game A → Story 1 / Story 2: **55 / 45**
+
+Game A is not a very strong retrieval cue for either story because its central structure is trust, multiplication, and possible reciprocation, which neither story contains. Between the two, Story 1 is slightly more likely because Player 1 receives an initial windfall while Player 2 starts with nothing, closer to James being selected for aid while Mark receives none. Story 2 has a stronger earned/team-contribution element that is not cued by Game A’s anonymous setup.
+
+### Game B → Story 1 / Story 2: **55 / 45**
+
+Game B involves a full initial allocation to Player 1 and a possible transfer to Player 2, which could cue either story. Story 1 is slightly more likely because the initial allocation feels more like a provisional or arbitrary award than an earned team bonus. However, the accept/reject feature is absent from both stories, so neither is an especially clean retrieval target.
+
+### Game C → Story 1 / Story 2: **52 / 48**
+
+Game C is a unilateral allocation task with a fixed pie, which fits both stories moderately well. But because Player 2 already has a positive endowment in Game C, the match to either story is weakened: in both stories, the other person initially receives nothing. Story 1 remains slightly more likely because the redistribution framing resembles sharing an allocated benefit more than dividing an earned team reward.
+
+### Game D → Story 1 / Story 2: **48 / 52**
+
+Game D is a very strong cue for both stories: Player 1 receives the full pie, Player 2 receives nothing, and Player 1 can voluntarily transfer some amount. Story 2 is slightly more likely because its wording almost exactly mirrors the game’s structure: the full bonus is allocated to Steve, but he may give a portion to Max if he wishes. Story 1 is also highly retrievable, but the welfare-aid context makes the money feel more personally assigned to James.
+
+## Summary table
+
+| Game | Story 1 | Story 2 |
+| ---- | ------: | ------: |
+| A    |      55 |      45 |
+| B    |      55 |      45 |
+| C    |      52 |      48 |
+| D    |      48 |      52 |
+
+## Comparison to Pass 1 absolute similarity ratings
+
+The reverse-retrieval ranking mostly matches the Pass 1 ratings in that **Game D** is the strongest cue for both stories, while **Game A** is the weakest structural match overall. However, the relative split between Story 1 and Story 2 differs from the absolute ratings for Games A–C: even though Story 2 was rated only slightly less structurally similar, Story 1 may be more retrievable because the games’ anonymous, unearned, experimentally assigned endowments feel closer to a selected aid/windfall scenario than to an earned team bonus. For Game D, the ordering flips toward Story 2 because the story’s explicit “full amount allocated to you, may give a portion to teammate” framing is especially close to the game instructions.

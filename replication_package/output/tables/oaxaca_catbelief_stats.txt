@@ -1,0 +1,70 @@
+Legacy hypothetical-belief exclusions at the one-third action: UG 111, TG 417.
+ Market vs Control  DG-KW: observed diff -0.101, N 728
+      hypothetical beliefs: representation -0.039 (39%), behavior -0.061 (61%), residual +0.000
+            actual beliefs: representation -0.039 (39%), behavior -0.061 (61%), residual +0.000
+ Market vs Control     UG: observed diff -0.220, N 1027
+      hypothetical beliefs: representation -0.036 (16%), behavior -0.184 (84%), residual -0.000
+            actual beliefs: representation -0.024 (11%), behavior -0.196 (89%), residual -0.000
+ Market vs Control     TG: observed diff +0.133, N 970
+      hypothetical beliefs: representation +0.078 (59%), behavior +0.054 (41%), residual -0.000
+            actual beliefs: representation +0.085 (64%), behavior +0.048 (36%), residual -0.000
+      Aid vs Bonus  DG-KW: observed diff -0.059, N 790
+      hypothetical beliefs: representation -0.039 (65%), behavior -0.021 (35%), residual +0.000
+            actual beliefs: representation -0.039 (65%), behavior -0.021 (35%), residual +0.000
+      Aid vs Bonus     UG: observed diff -0.024, N 1120
+      hypothetical beliefs: representation -0.012 (52%), behavior -0.011 (48%), residual +0.000
+            actual beliefs: representation -0.016 (68%), behavior -0.008 (32%), residual -0.000
+      Aid vs Bonus     TG: observed diff +0.008, N 937
+      hypothetical beliefs: representation +0.011 (144%), behavior -0.003 (-44%), residual +0.000
+            actual beliefs: representation -0.003 (-43%), behavior +0.011 (143%), residual +0.000
+
+Participant-level bootstrap: B=1000, seed=20260721, resampling within game x condition strata; belief groups and both decompositions recomputed per draw.
+
+        Comparison   Game | metric                         SE     CI2.5    CI97.5
+ Market vs Control  DG-KW | diff                       0.0179   -0.1359   -0.0657
+ Market vs Control  DG-KW | hp_representation          0.0159   -0.0711   -0.0093
+ Market vs Control  DG-KW | hp_behavior                0.0201   -0.0985   -0.0208
+ Market vs Control  DG-KW | actual_representation      0.0159   -0.0711   -0.0093
+ Market vs Control  DG-KW | actual_behavior            0.0201   -0.0985   -0.0208
+ Market vs Control     UG | diff                       0.0131   -0.2459   -0.1941
+ Market vs Control     UG | hp_representation          0.0148   -0.0642   -0.0075
+ Market vs Control     UG | hp_behavior                0.0200   -0.2242   -0.1451
+ Market vs Control     UG | actual_representation      0.0116   -0.0453   +0.0008
+ Market vs Control     UG | actual_behavior            0.0179   -0.2315   -0.1611
+ Market vs Control     TG | diff                       0.0189   +0.0971   +0.1696
+ Market vs Control     TG | hp_representation          0.0123   +0.0540   +0.1031
+ Market vs Control     TG | hp_behavior                0.0176   +0.0215   +0.0896
+ Market vs Control     TG | actual_representation      0.0132   +0.0602   +0.1118
+ Market vs Control     TG | actual_behavior            0.0166   +0.0154   +0.0788
+      Aid vs Bonus  DG-KW | diff                       0.0131   -0.0849   -0.0335
+      Aid vs Bonus  DG-KW | hp_representation          0.0103   -0.0594   -0.0176
+      Aid vs Bonus  DG-KW | hp_behavior                0.0083   -0.0373   -0.0037
+      Aid vs Bonus  DG-KW | actual_representation      0.0103   -0.0594   -0.0176
+      Aid vs Bonus  DG-KW | actual_behavior            0.0083   -0.0373   -0.0037
+      Aid vs Bonus     UG | diff                       0.0069   -0.0371   -0.0109
+      Aid vs Bonus     UG | hp_representation          0.0031   -0.0188   -0.0067
+      Aid vs Bonus     UG | hp_behavior                0.0062   -0.0233   +0.0002
+      Aid vs Bonus     UG | actual_representation      0.0038   -0.0240   -0.0092
+      Aid vs Bonus     UG | actual_behavior            0.0061   -0.0197   +0.0048
+      Aid vs Bonus     TG | diff                       0.0204   -0.0324   +0.0468
+      Aid vs Bonus     TG | hp_representation          0.0137   -0.0155   +0.0380
+      Aid vs Bonus     TG | hp_behavior                0.0158   -0.0343   +0.0256
+      Aid vs Bonus     TG | actual_representation      0.0151   -0.0352   +0.0243
+      Aid vs Bonus     TG | actual_behavior            0.0141   -0.0140   +0.0410
+
+Representation-share diagnostics (representation/difference across draws):
+        Comparison   Game   Belief |   median%      p2.5%     p97.5%  %degenerate
+ Market vs Control  DG-KW       hp |      38.0       11.0       73.4          0.8
+ Market vs Control  DG-KW   actual |      38.0       11.0       73.4          0.8
+ Market vs Control     UG       hp |      16.4        3.4       30.0          0.8
+ Market vs Control     UG   actual |      10.3       -0.3       20.7          2.9
+ Market vs Control     TG       hp |      59.4       41.9       79.9          0.0
+ Market vs Control     TG   actual |      65.0       47.6       86.0          0.0
+      Aid vs Bonus  DG-KW       hp |      65.8       43.4       91.4          0.0
+      Aid vs Bonus  DG-KW   actual |      65.8       43.4       91.4          0.0
+      Aid vs Bonus     UG       hp |      50.9       29.9      101.5          0.5
+      Aid vs Bonus     UG   actual |      67.2       41.0      137.7          1.6
+      Aid vs Bonus     TG       hp |      54.5     -508.3      810.3         43.9
+      Aid vs Bonus     TG   actual |      35.5     -650.8      717.7         50.2
+
+Bootstrap wall-clock: 108.24 s

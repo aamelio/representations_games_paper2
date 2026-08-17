@@ -1,0 +1,287 @@
+\documentclass[11pt]{article}
+% Internal briefing note; suppress stylistic chktex warnings (question marks inside
+% quoted margin comments, abbreviation spacing) that are false positives here.
+% chktex-file 12
+% chktex-file 13
+% chktex-file 38
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\setlist{itemsep=2pt, topsep=3pt}
+
+\urlstyle{tt}
+\expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks\do\_}
+\newcommand{\code}[1]{\path{#1}}
+\emergencystretch=1.5em
+
+\title{\textbf{Briefing for Thursday's Call with NG\\[2pt] \large The Ten Highlighted Exhibits: Methods, Likely Questions, Honest Assessment}}
+%\author{Internal note --- SN}
+%\date{2026-07-20 (updated same day after the pre-call runs)}
+
+\begin{document}
+\maketitle
+
+Numbering mapped to the current v1.1. For each item: what it is, exactly how it's built (data $\to$ computation $\to$ script), what NG is likely asking, and an honest assessment.
+
+%\textbf{Status of the pre-call preparations --- all five done (2026-07-20).} New script \code{20_ng_call_prep.py} in \code{replication_package/code/} (results in \code{output/tables/ng_call_prep_stats.txt}); Table~4 note fixed and regenerated (numbers byte-identical); Table~5 now script-generated (\code{21_round1_similarity_table.py}, byte-identical to the hand-typed version); two footnotes added to the paper (\S5.1, at eq.~(7) and at the Table~14 paragraph). \code{main.tex} recompiled clean: 111~pp., 0 undefined references, every table/figure number unchanged (sent-email pointers remain valid).
+
+%\textbf{The one new headline from the runs}: in the trust game's market cell of Table~14, categories alone carry 35\% of the treatment effect against 59\% with the belief terciles --- the belief component of the representation does real work exactly where NG's two margin notes are probing, and exactly in the game where beliefs differ by category. Everywhere else the prereg-literal variants reproduce the published splits, and the belief dimension adds at most 0.06 to the between-cell variance share under any tercile convention.
+
+\textbf{The shape of his list.} The ten highlights are really three method blocks:
+\begin{enumerate}
+\item \textbf{The calibration} --- Table 4.
+\item \textbf{The LLM-similarity module} --- Tables 5, 6, 7, Figure 6, and the ``From contexts to categories'' paragraph (his ``I do not understand'').
+\item \textbf{The heterogeneity accounting} --- eq.~(7), Table 13 (Market row), Figure 13, Table 14.
+\end{enumerate}
+
+His two margin comments (``beliefs about P2?'' on eq.~7; ``why mean? are beliefs changing?'' on Figure~13) are the \emph{same} question asked twice: \textbf{where does the belief component of the representation live in each accounting exercise?} The answer --- some exercises deliberately use only the category (attention) component, others add beliefs --- is the single most useful thing to have crisp on the call. A one-slide map would defuse both notes:
+
+\begin{center}
+\footnotesize
+\begin{tabular}{lllll}
+\toprule
+Exercise & Category shares & Beliefs & Nature \\
+\midrule
+Fig.~12 (\code{fig:instability_all}) & yes & yes (+ fitted P1 action for P2) & regression-based \\
+Eq.~7 / Table 13 (BCS) & yes & no & variance decomposition \\
+Fig.~13 (mean \& SD reweighting) & yes & no & regression-free counterfactual \\
+Table 14 (Oaxaca) & yes & yes (terciles, UG/TG cells) & regression-free, preregistered; bootstrap SEs \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Table 4 --- Calibrated Representations, by Category (Control Sample)}
+
+\textbf{Where it lives.} Script \code{08_calibration.py} in \code{replication_package/code/}, writing \code{output/tables/calibration_p1.tex}; full log in \code{calibration_stats.txt} alongside. Input: \code{data/player1_all_categorized.xlsx}, control condition only, classified P1 responses only (three substantive categories).
+
+\textbf{How it works --- the recursive chain.} All moments are category-level means; each participant plays one game, so moments for the same category come from different people:
+\begin{enumerate}
+\item \textbf{DG pins $\sigma/\mu$}: $\sigma/\mu = \max(0,\, 1/2 - \bar t_{\mathrm{DG}})$ (the interior DG first-order condition). Moral: $\bar t=.462 \to .038$. Self-interest: $\bar t=.103 \to .397$.
+\item \textbf{TG pins $\rho/\mu$}: the TG FOC at the measured mean believed share $s$ (hypothetical belief at the 1/3 reference), \emph{including the equal-payoff anchor} $t^{e}(s) = 1/[1+(1+r)(1-2s)]$: $\rho/\mu = [\bar t_{\mathrm{TG}} - t^{e}(s) + (\sigma/\mu)(1+r)(1-s)]/r$, with $r=2$.
+\item \textbf{UG pins $(a,b)$}: two equations --- the reference belief point $\bar p = a + b/3$ and the UG FOC at the category's mean offer, linear in $b$. For \textbf{Moral} the solution has $b \le 0$: no valid schedule, printed ``--''. This is a \emph{feature}: $\sigma/\mu=.038$ means behavior is norm-dominated and insensitive to beliefs, so beliefs are unidentified exactly where the model says they should be.
+\item \textbf{MBC} has a negligible DG cell ($\sim$3 obs, 0.8\%), so no DG moment: the Self-interest schedule $(a,b)$ is imposed (the $\dagger$ in the table; justified by reference-action acceptance beliefs being flat across categories, 48.2--48.5\%), and $(\sigma/\mu, \rho/\mu)$ solve the UG FOC + TG locus jointly (Brent root finder on $\sigma/\mu \in [0, .499]$).
+\item \textbf{Bootstrap}: participants resampled with replacement within game, $B=1{,}000$ (all successful), re-running the whole inversion; SEs = std of draws.
+\end{enumerate}
+
+\textbf{The overidentifying test} (last two columns): the calibration never uses the belief each proposer attaches to her \emph{chosen} offer. Implied acceptance at the category's mean chosen offer (from the calibrated schedule) vs the measured chosen-action belief: .565 vs .795 (Moral), .525 vs .701 (SI), .598 vs .711 (MBC) --- the +11 to +23pp chosen-action optimism the forecast-error section picks up.
+
+\textbf{What NG likely wants.} The mechanics above, plus the identification logic: the \S3.2 paragraph added on 2026-07-20 already states that category-level pooling is \emph{forced} by the between-subject design (each moment comes from different people), and that this is the model's own claim --- attention attaches to the situation, not the person.
+
+\textbf{Honest assessment.}
+\begin{itemize}
+\item \emph{Sound, provided it is presented as a calibration, not an estimation.} It inverts interior FOCs at category \emph{means} while the actual distributions are bimodal (mass at 0 and at the equal split); the ``representative agent per category'' is a portrait. The defense is exactly the paper's: three non-imposed regularities ($\rho\approx\sigma$ for SI; Moral norm-dominated with beliefs unidentified exactly where the model says; $a+b=.81\le1$ a genuine probability schedule) plus the overid test.
+\item \emph{Two-point route}: if NG asks ``why not use both belief points per proposer to get $(a,b)$?'' --- we tried; it's in the script as a diagnostic: it yields $a<0$ and $a+b\approx1.7$--$2.6$, invalid, precisely because of chosen-action optimism. Decision: FOC route is the headline, two-point kept as diagnostic. This is a \emph{strength} to volunteer, not hide.
+\item \emph{Small gap --- fixed (2026-07-20)}: the table note now says that Moral's ``implied'' column uses the Self-interest schedule, its own being unidentified (the code falls back to it when Moral's schedule is invalid). Fixed in the generator and regenerated; all numbers byte-identical (seeded bootstrap).
+\item MBC's $\sigma/\mu = 0.000$ is a boundary solution (bootstrap SE .044 spans it) --- have that ready if he asks how attention to own earnings can be \emph{exactly} zero.
+\end{itemize}
+
+\section{Table 5 --- Perceived Similarity of Stories to Games (Round 1)}
+
+\textbf{Where it lives.} Until 2026-07-20 hand-typed in \code{main.tex} from the round-1 workbook \code{memory_games_llm_recording.xlsx} in \code{llm_similarity/}; nine transcripts alongside it. \textbf{Gap closed}: \code{21_round1_similarity_table.py} now recomputes every cell from the raw rating sheets (72 similarity ratings, 36 retrieval splits), asserts the means against the workbook's Summary sheet, and emits \code{output/tables/llm_similarity.tex}, verified byte-identical to the hand-typed block; \code{main.tex} now inputs it, and the workbook is copied into \code{replication_package/data/}.
+
+\textbf{How it works.} Three frontier models (GPT-5.5 Thinking, Claude Opus 4.7, Gemini 3 Pro) $\times$ three conversations each with independently permuted neutral labels (games A--D, Story 1/Story 2 --- masking both position and priors about the experimental literature). Each conversation: (i) story--game similarity 0--100 for all 8 pairs ($\to$ 72 ratings over 9 conversations), (ii) a five-dimension structural decomposition of the games, (iii) a 100-point ``which story does this game call to mind'' retrieval split. Table cells are means over the nine conversations.
+
+\textbf{What it's for.} Three findings, all \emph{ordinal}: (a) structural distance of stories to games is sharply ordered DG-KW 94.6 $>$ DG-LT 51.2 $>$ UG 29.9 $>$ TG 14.4 (every model isolates the TG via the expandable pie); (b) \textbf{Bonus and Aid are structurally indistinguishable} ($\le$1.1 apart in every game) --- so story effects cannot run through perceived game structure, which is what the $F_c$ lever requires; (c) the retrieval split diverges from structural similarity (Bonus share rises 41$\to$72\% with strategic richness) --- the structure-vs-context wedge the retrieval model runs on.
+
+\textbf{Honest assessment.}
+\begin{itemize}
+\item The obvious objection --- LLM raters are not our participants --- is conceded in the paper; the pre-registered human survey replicating both rounds is the validation path. What makes the exhibit usable \emph{now} is (i) three independent model families agreeing in every conversation, (ii) only ordinal/contrast claims are consumed downstream (the Table-7 gradient and the Bonus$\approx$Aid equivalence), never the cardinal levels.
+\item Minor disclosure point to have ready: the workbook log records that Gemini's \emph{structural-decomposition} prompt in triplets 1--2 was answered by Gemini 3.5 Flash (capacity fallback). The similarity/retrieval numbers in Table 5 are not affected, but if we ever enumerate raters task-by-task, this belongs in the note.
+\end{itemize}
+
+\section{The ``From contexts to categories'' paragraph (NG: ``I do not understand'')}
+
+\textbf{What it says, in plain language} (this is the walk-through for the call):
+\begin{enumerate}
+\item The retrieval equation needs a similarity input $S(\text{context}, \text{category})$. A category, as \S2.2 defines it, is a \emph{class of concrete everyday situations}, not a word. You cannot ask a rater ``how similar is this text to Morality?'' without measuring the label instead of the class.
+\item So we made each category concrete: \textbf{8 short vignettes per P1 category} (24 total) --- everyday situations instantiating the category definitions the classifier uses --- written by one model (Claude Fable 5) in a single frozen conversation, with banned category-naming words and the same eight life domains per category (so category $\ne$ setting). Receiver types (accept/reject, return/keep) get 2 vignettes each (32 vignettes total).
+\item A \emph{different} model (Claude Opus 4.8, reasoning on), in fresh conversations, \textbf{blind to everything} (vignettes = V1--V24, contexts = TEXT A--J, three permuted orders), rates each of the 10 context texts --- the two stories plus the verbatim Control and Market instructions of the four games --- against each vignette (0--100), then distributes 100 ``which would come to mind'' retrieval points, and for UG/TG splits 100 points across the receiver vignettes.
+\item \textbf{The rater never sees a category.} Category similarity is computed only afterwards, by mapping each vignette back to the category it instantiates and averaging its eight vignettes. That is the sentence NG most likely tripped on --- it's the design's blinding device, not an afterthought.
+\end{enumerate}
+
+\textbf{Why this design} (the answer to ``is this the right approach?''): it measures the theory's own object (similarity to situation classes); blinding kills demand effects and hypothesis-tailoring; ex-post mapping means the rater physically cannot know what is being tested. Circularity worry (vignettes come from the same category definitions as the classifier): intentional --- both instruments measure the same theoretical construct; the two measurements are otherwise fully independent (different objects: instruction texts vs participant free text; blind raters), so nothing mechanically forces Figure 6's correlation.
+
+\textbf{Suggestion}: on the call, do one concrete example (e.g., the TG Market text against one cooperation vignette and one moral vignette). If NG still finds the paragraph opaque, offer to add a small design-schema figure or split the paragraph in two (generation / rating) --- easy post-call edit.
+
+\section{Table 6 --- Similarity of Contexts to Representation Categories (Round 2)}
+
+\textbf{Where it lives.} \code{llm_similarity/round2/04_analysis.py} $\to$ \code{replication_package/output/tables/similarity_categories.tex}. Raw ratings in \code{round2/recording_round2.csv} + \code{recording_splits_round2.csv}; transcripts and freeze record alongside. Filtered to the \textbf{Opus 4.8 headline rater only} (per protocol; Fable 5 enters robustness checks only).
+
+\textbf{How each cell is computed.}
+\begin{itemize}
+\item \emph{Similarity block}: mean of the 0--100 ratings over that category's 8 vignettes $\times$ 3 permuted conversations (24 ratings per cell).
+\item \emph{Retrieval-split block}: the category's share of the 100 retrieval points, pooled over the 3 conversations.
+\item The receiver-type splits quoted in the text (accepting 42.7$\to$52.0 under UG Market; TG 53.0$\to$54.0) come from the same module and are now \textbf{Table 40} (\code{tab:receiver_splits}, Appendix H --- added 2026-07-22, generated from the raw recording by \code{round2/07_receiver_splits_table.py}; Appendix H follows every existing float, so no existing exhibit number changed).
+\end{itemize}
+
+\textbf{The three findings consumed in the text}: Market$-$Control moral-similarity drops ($-$34.2/$-$29.5/$-$25.0 in DG-KW/DG-LT/UG) with SI and MBC both rising --- matching the measured representation shifts; Aid vs Bonus nearly identical on Moral but split on SI (+2.5 toward Aid) and MBC (+2.1 toward Bonus); the control TG is the cooperation-similar outlier (47.3 vs 9--13) and the least moral-similar (12.3) --- the similarity counterpart of Figure 2.
+
+\textbf{Honest assessment.}
+\begin{itemize}
+\item \emph{Single-model working measurement} --- the paper says so explicitly, and the robustness appendix (H) is strong for what it is: test--retest $r=.994$ across the full re-run; second rater from a different tier (Fable 5) $r=.982$ with the refusal saga disclosed verbatim; permutation ranges reported (median 12.6 points across conversations --- the \emph{three-conversation means} are what's stable, not single conversations).
+\item The genuine soft spot: \textbf{generator and both raters are one model family} (Anthropic). Disclosed in the appendix, and the multi-model grid (needs GPT/Gemini keys) + human survey Module B are the stated path. If NG asks ``would GPT reproduce this?'' the honest answer is: that is exactly the next step, wired and waiting on keys; no paper claim currently rests on the module alone.
+\item Retrieval-split columns are winner-take-most (Moral 89--94\% in fixed-pie control contexts) --- expected from a forced 100-point split over 24 vignettes; the quoted shifts and Figure 6 use the graded similarity block, not the splits.
+\end{itemize}
+
+\section{Figure 6 --- Representation Shifts vs Similarity Shifts (H5)}
+
+\textbf{Where it lives.} Same script (\code{round2/04_analysis.py}) $\to$ \code{similarity_h5.pdf}; stats in \code{round2/out/h5_stats.txt}.
+
+\textbf{How it's built.} 18 points = 3 categories $\times$ 3 games (DG-KW, UG, TG) $\times$ 2 comparisons. $y$ = change in the \emph{classified} category share from the experiment (Market$-$Control, Aid$-$Bonus; share in fractions). $x$ = change in Table 6's similarity column (Market$-$Control: the two instruction texts, game-specific; Aid$-$Bonus: the two story texts --- so the 9 Aid$-$Bonus points share \textbf{three} $x$-values, identical across games). OLS with intercept, unweighted: slope .0122 (se .0025), $R^2=.59$, Spearman $\rho=.57$. DG-LT excluded (its classified-share treatment effects aren't part of the \S4 figures); M1 leave-one-out held out per SN's decision (slope .011, $R^2=.50$ --- restorable).
+
+\textbf{Honest assessment --- know these three limitations before he finds them.}
+\begin{enumerate}
+\item \textbf{The 18 points are not independent}: within each game$\times$comparison triplet the $y$'s sum to exactly zero (shares sum to one), and the cells share samples. The paper treats the fit as descriptive; the reported se is indicative. Say that proactively.
+\item \textbf{The Aid$-$Bonus $x$'s are tiny and game-invariant} (+2.6/+2.5/$-$2.1): those 9 points mostly sit near the origin; the slope is driven by the Market$-$Control fixed-pie cells. That is fine --- the market frame is where similarity moves --- but the figure should not be oversold as 18 independent confirmations.
+\item \textbf{The TG Market$-$Control cells are off-pattern by design of the world, not of the test}: similarity barely moves ($\le$+1.5) while representations and behavior move a lot. The paper's reading (the TG instruction text already reads as a joint venture, so the market overlay adds no \emph{resemblance}; its effects must run through availability $F_c$ or beliefs) is candid and flagged as the sharpest target for the human survey. This is the right answer for NG: the exceptions localize the levers, and they are testable.
+\end{enumerate}
+
+Net: correct approach \emph{as a coherence check across two independent measurement systems}; it would be the wrong approach if presented as an estimated structural elasticity --- the text already frames it correctly.
+
+\section{Table 7 --- Story Effects Track Structural Similarity}
+
+\textbf{Where it lives.} \code{05_paper_v2_new_outputs.py} (block E5, in \code{replication_package/code/}) $\to$ \code{similarity_gradient.tex}. Similarity and retrieval columns are hard-coded from the audited round-1 workbook (94.6/51.2/29.9/14.4 and 41/54/60/72 --- verified against the Summary sheet); action effects are Aid$-$Bonus Welch differences on all responses; Moral-share effects on the classified sample.
+
+\textbf{The logic.} The round-1 ordering yields an ordinal prediction: story effects should fade as story--game structural similarity falls. They do, monotonically: $-$5.6, $-$4.7, $-$2.4, +0.5 (n.s.) pp on actions; Moral share $-$11.7/$-$14.5/$-$9.7/$-$0.4. A Spearman rank correlation across the 4 games is computed in the stats file but deliberately not printed --- the paper calls it ``an ordinal, exploratory consistency check,'' which is the right altitude.
+
+\textbf{Honest assessment.} Four points, LLM-measured $x$ --- it proves nothing alone and the text says so. Two prepared answers: (i) \textbf{DG-LT's presence is not cherry-picking}: its story cells were fielded and pre-registered precisely to supply a fourth point (the text says this; the decision log records the placement debate); (ii) the TG null is triply determined (lowest similarity, no Moral shift, no action shift) and the text explicitly refuses to adjudicate \emph{why} the TG is unmoved from this table alone.
+
+\section{Equation (7) --- BCS (NG: ``beliefs about P2?'')}
+
+\textbf{What it is.} BCS = \textbf{between-category share} of outcome variance within a game$\times$condition cell: $\sum_c q_c (\bar t_c - \bar t)^2 / \operatorname{Var}(t)$ --- computationally the $R^2$ of the action on the three category dummies (the table note says this). Nothing more exotic.
+
+\textbf{The answer to his margin note.} No --- beliefs about P2 are deliberately \emph{not} in eq.~(7). The representation has two measured components (stated category $\leftrightarrow$ attention; elicited beliefs $\leftrightarrow$ $\mathbf{x}$). Eq.~(7) and Table 13 use the \textbf{coarsest cut, categories only}, so the BCS is a \emph{lower bound} on representation-explained dispersion. The belief component enters where it belongs: the benchmark regressions, Figure 12's predictions, and Table 14's cells. Also note: in the UG control, beliefs are flat across categories (48.2--48.5\%), so there is little between-belief variance to add; in the TG beliefs differ by category (22.0/31.5/35.7\%), so category dummies already absorb part of it.
+
+\textbf{Run and answered (2026-07-20, script 20 section A; now a \S5.1 footnote at eq.~7).} On the belief-nonmissing subsample, with terciles computed within game on the pooled four conditions, refining cells from categories to category$\times$tercile raises the between-cell share by +0.005 to +0.048 across the eight UG/TG condition cells ($\le$0.06 under any tercile convention, section A2): UG Control 0.114$\to$0.146, UG Market 0.067$\to$0.072, TG Control 0.280$\to$0.315, TG Market 0.260$\to$0.303 (Bonus/Aid similar). So the stated category carries nearly all of what the two measured components explain jointly --- in the UG because beliefs are flat across categories, in the TG because category dummies already absorb the category-specific beliefs. One nuance if NG compares to Table 13: the categories-only TG Control share is 0.28 on this subsample vs 0.202 on the full classified sample (131 of 584 TG control senders lack a hypothetical belief) --- the footnote therefore compares like with like on the subsample. Mechanical caveat: 9 cells vs 3 can only raise an $R^2$, and some cells are thin (min $N$ = 2--6 in control/story conditions), so the increments are if anything upper bounds --- which strengthens the ``categories carry it'' reading.
+
+\section{Table 13 --- Variance Decomposition (the Market row)}
+
+\textbf{Where it lives.} \code{05_paper_v2_new_outputs.py} (E3) $\to$ \code{heterogeneity_decomposition_main.tex}; appendix version has all 16 game$\times$condition rows. Classified responses only; plain variance ratio; \textbf{no inference} (point estimates only).
+
+\textbf{The Market row's content.} DG-KW: BCS collapses 0.663 $\to$ 0.136 while SD \emph{rises} 0.204 $\to$ 0.263. The arithmetic worth having on the call: between-variance falls 0.028 $\to$ 0.009 while within-variance more than quadruples, 0.014 $\to$ 0.060. So the headline fact is not ``categories stop mattering''; it is that the frame \textbf{moves behavior massively within stated categories} (the equal-split anchor dissolves inside every category), on top of moving the mixture. Appendix pattern: same collapse in the other fixed-pie games (DG-LT .49$\to$.11, UG .11$\to$.06 with SD doubling), while the \textbf{TG between-share rises} (.20$\to$.25) --- the game where representations and beliefs keep organizing behavior under the frame.
+
+\textbf{Why the model is comfortable with this}: the market lever is $\boldsymbol{\kappa}_d$ --- it changes the \emph{description}, so it can move attention weights within a coarse verbal category, not only move people across categories. The receiver-side decomposition (App.~B) and Table 14's UG-Market row (16\%) say the same thing independently. Fig.~9 (distributions) is the picture to point at.
+
+\textbf{Honest caveats to concede if pressed.}
+\begin{itemize}
+\item \emph{Classified-only sample}: unclassified answers are excluded, and they are 17.8\% of DG-KW Market (vs $\sim$2\% control). Their authors transfer slightly below classified same-condition participants; excluding them plausibly \emph{understates} within-category dispersion, but the direction of bias on BCS is not obvious. \textbf{Resolved without forced labels (2026-07-20, script 20 section D)}: treating the unclassified answers as their own observed fourth category --- no rescued labels involved --- leaves every one of the 16 game$\times$condition between-shares within 0.015 of the classified-only value (DG-KW Market 0.136$\to$0.121, its unclassified $N$=71). The Market collapse is not an artifact of the exclusion.
+\item \emph{Classification noise is plausibly higher under Market} (answers are shorter, 92\% of unclassified mention no counterpart): misclassification mechanically attenuates the between-share. Part of 0.66$\to$0.14 may be measurement. The honest line: the within-category movement is corroborated by exhibits that do not use the classifier at all (the distribution figure, the belief shifts), so the collapse is not \emph{only} noise --- but we cannot put a number on the split.
+\end{itemize}
+
+\section{Figure 13 --- Predicted vs Actual TEs on Mean and SD (NG: ``why mean? are beliefs changing?'')}
+
+\textbf{Where it lives.} Same E3 block $\to$ \code{heterogeneity_predicted_actual.png} (6 cells plotted; the 8-row table with DG-LT is App.~D). Classified only; no inference.
+
+\textbf{How it works --- pure composition, no regression.} For each comparison, the category-conditional action distributions (mean $m_c$ and variance $v_c$, computed on the two conditions \emph{pooled} --- the construction is symmetric in the arms) are held fixed; only the category shares $w_c$ vary by arm. Predicted mean = $\sum w_c m_c$; predicted variance = law of total variance of the mixture. Predicted TE = difference of these across arms, against the actual difference; same object for the SD. This is literally the model's \S2.2 display $\Delta E[t] = \sum \Delta q_c \bar t_c$ taken to the data, plus its dispersion analogue.
+
+\textbf{Answers to his two margin questions.}
+\begin{itemize}
+\item \emph{``Why mean?''} Two reasons. (1) The mean panel is the regression-free counterpart of Figure 12's P1-action panel: same target, weaker machinery --- it shows how much of the mean TEs \emph{composition alone} carries (all signs right; market magnitudes understated, ratios 0.28--0.46). (2) It calibrates the reader for the SD panel: same reweighting, same message --- ``one message read twice.'' It is not a duplicate of Figure 12 because Figure 12's predictions also move beliefs (and, for P2, the fitted P1 action).
+\item \emph{``Are beliefs changing?''} Yes --- and that is precisely the point. Under the market frame hypothetical beliefs move a lot (+17.2pp UG acceptance, +10.3pp TG return at the reference action); this exercise \emph{deliberately excludes} them, so the market cells are exactly where it understates. The belief channel is quantified next door: Figure 12's footnote --- categories alone $R^2=.80$, adding beliefs .87, with beliefs mattering mainly for the TG. NG's intuition is the paper's own account of the attenuation.
+\end{itemize}
+
+\textbf{Honest assessment.} Sound and honest as constructed; the caption could state ``pooled across the two conditions'' for the conditional distributions. Same classified-only caveat as Table 13.
+
+\section{Table 14 --- Decomposition of TEs into Representation and Behavior Components}
+
+\textbf{Where it lives.} \code{replication_package/code/11_oaxaca.py} $\to$ \code{oaxaca_catbelief.tex}. Classified sample; UG/TG additionally require non-missing hypothetical beliefs. \textbf{Inference added 2026-07-22}: bootstrap SEs are now displayed under $\Delta$ mean and every level component ($B=1{,}000$ participant-level draws within game $\times$ condition strata, seed 20260721; terciles and the full decomposition recomputed in each draw).
+
+\textbf{How it works.} Cells = stated category $\times$ within-game terciles of the hypothetical belief (terciles computed on the two compared conditions) in UG/TG; categories only in the DG (no belief elicitation). Two components: representation = $\sum_c \Delta q_c \cdot \bar y_c(\mathrm{ref})$; behavior = $\sum_c q_c(\mathrm{ref}) \cdot \Delta\bar y_c$. Three reference schemes: \textbf{symmetrized} (average of the two Oaxaca directions --- the preregistered headline), \textbf{baseline-reference} (Control or Bonus; the column header now reads ``Baseline ref.''), \textbf{pooled-reference} (all four conditions, with the two-condition tercile edges applied to the pooled sample --- exact by construction since the 2026-07-22 revision). Cells present in only one condition contribute their observed mean to the representation component and nothing to behavior.
+
+\textbf{The findings.} Representation carries 39--65\% of the TE in the DG and TG cells and about half of the UG story effect. The UG-Market row is the flagged exception: 16\% symmetrized --- the frame moves behavior \emph{within} cells --- and the TG-Aid share is now suppressed (---) in the table because the total is +0.8pp (bootstrap SE 2.0pp) and the share is undefined or degenerate in 44\% of bootstrap draws (it was 144\% in the version NG read).
+
+\textbf{Honest assessment --- three things to have ready (prereg variants now run, script 20 sections B/C; results in a new footnote at the Table 14 paragraph).}
+\begin{enumerate}
+\item \textbf{Prereg match --- resolved with numbers.} The \emph{method} (symmetrized Shapley/Oaxaca--Blinder) is word-for-word preregistered in both documents. The \emph{cells} are richer than the prereg text: AsPredicted \#286187 says ``conditional on each representation category'' (no terciles); \#261370 (DG) words the decomposition over ``social proximity levels (representations).'' The wording-literal variants are now computed (after first validating the reimplementation: the category-only DG-KW rows reproduce the published $-0.101$/39\% and $-0.059$/65\% exactly). On the same samples as Table 14: category-only cells give UG Market 11\% (vs 16\%), UG Aid 47\% (vs 52\%), TG Market 35\% (vs 59\%); DG-KW by social proximity gives Market 36\% (vs 39\%) and Aid 50\% (vs 65\%). Same picture throughout, with one informative exception --- \textbf{TG Market 35\% vs 59\%: the belief terciles carry roughly 24pp of the representation component in the trust game}, exactly the game where beliefs differ by category. That is now a disclosed footnote, and it is the single best talking point for NG's ``beliefs about P2?''/``are beliefs changing?'' notes: yes --- and the decomposition can show precisely where.
+\item \textbf{Convention-dependence where it matters.} UG-Market: 16\% symmetrized, $\approx$1\% at baseline reference, 40\% at the corrected pooled reference. That spread is not a bug --- when behavior moves within cells, any Oaxaca split is convention-dependent --- but the honest statement is ``the representation share in UG-Market is small under every convention, and the spread across conventions is itself the evidence of within-cell movement.'' Don't let the 16\% be quoted alone.
+\item \textbf{Thin cells --- inventoried, and better than feared.} Per-cell $N$s are now logged (script 20, section C): \textbf{no cell is empty in either condition of any comparison, so the empty-cell rule in the notes never binds} (also stated in the new footnote). Thin cells exist and sit where expected --- UG MBC$\times$tercile cells run $N$=3--7 in Control/Bonus/Aid (MBC is $\sim$3\% of UG answers); TG has three cells under 10 (Moral$\times$high and SI$\times$high in Control, SI$\times$high under Aid). Everything else is comfortably double-digit.
+\end{enumerate}
+
+\textbf{Revision applied 2026-07-22 (AA's four T14 notes; agreed with SN --- bootstrap yes, pooled kept, terciles corrected).} The compile NG read is frozen as \code{main_v2.tex}; his highlighted PDF shows the pre-revision table.
+\begin{itemize}
+\item \textbf{Pooled reference corrected.} The old construction cut pooled terciles on all four conditions while the cells used two-condition cuts (14.5--31.9\% of participants changed tercile label) and did not close (log-only residual up to $+0.046$ = 21\% of the UG-Market TE). Now: two-condition edges applied to the pooled sample, behavior = exact complement; rep + beh = $\Delta$ mean to machine precision. Displayed column moves $\le 0.006$: UG-Market $-0.082 \to -0.088$, TG-Market $+0.088 \to +0.089$, UG-Aid $-0.018 \to -0.017$, TG-Aid $+0.005 \to +0.009$.
+\item \textbf{Bootstrap SEs displayed} (see ``Where it lives'' above); representation shares stay point estimates; TG-Aid share dashed. The share CIs are wide even where components are cleanly signed (UG-Market share 95\% CI [3\%, 30\%]; TG-Market [42\%, 80\%]; DG-KW Market [11\%, 73\%]; TG-Aid [$-508$\%, $+810$\%]) --- quote component SEs, not share CIs.
+\item \textbf{``Control ref.''\ $\to$ ``Baseline ref.''} (the baseline is Bonus in Aid vs Bonus).
+\item Symmetrized and baseline columns numerically unchanged; all table/figure numbers verified unchanged via aux diff (NG's highlights and the sent email's pointers remain valid); \code{main.tex} 111~pp., 0 undefined references.
+\item \textbf{Open for the call}: AA proposes dropping the two reference columns entirely (symmetrized-only --- preregistered, standard); they were NG's own July-19 request (``alloc media in control'' / ``tutto il pooled sample''), so decide with NG\@. If dropped, keep the UG-Market convention-spread point ($\approx$1\% baseline / 16\% symmetrized / 40\% pooled = within-cell movement) as a prose or note sentence.
+\end{itemize}
+
+%\section*{Verification status (2026-07-20, SN follow-up)}
+%
+%\begin{enumerate}
+%\item \textbf{From-scratch recomputation of Table 6 and Figure 6} --- \code{verify_round2_similarity.py} in \code{replication_package/code/verification/}, a fully independent reimplementation from the raw recordings (no code shared with \code{04_analysis.py}; OLS by raw linear algebra): \textbf{all 60 Table 6 cells match the published table exactly}, and Figure 6's slope/se/$R^2$/Spearman (0.0122 / 0.0025 / 0.593 / 0.57) all reproduce, as do the TG ``at most +1.5'' claim and the TG receiver split. \textbf{One real catch}: the \S3.3 prose said the UG accepting split rises ``from 42.6'' --- the exact value is $128/300 = 42.67 \to 42.7$; the 42.6 came from re-normalizing the already-rounded per-item means in \code{receiver_splits.csv} (21.3/50.0). Fixed in \code{main.tex} (42.6 $\to$ 42.7). The sent email never quoted this number.
+%\item \textbf{Tercile sensitivity} --- see Methodology choices item 1; footnote A amended to be convention-proof.
+%\item \textbf{Numbers Reviewer sweep --- completed.} Four agents traced $\sim$375 prose numbers over the whole paper (\S1--3.2, \S3.3--4, \S5--6, appendices) to the generated tables and stats logs, ten Thursday exhibits prioritized.
+%
+%\textbf{Confirmed mismatches: 2, both fixed in \code{main.tex}.} (i) Appendix H said ``maximum 24.0'' for the across-conversation cell ranges; the authoritative v2 run's maximum is \textbf{20.8} (\code{round2/out/range_check.txt}; 24.4 was the archived craft-fairs pilot --- a stale carry-over matching no source). Fixed. (ii) \S3.3 receiver split ``42.6'' $\to$ \textbf{42.7} (exact $128/300=42.67$; the 42.6 came from re-normalizing rounded per-item means) --- caught by the from-scratch pass, independently located by the reviewer. Fixed.
+%
+%\textbf{Cosmetic alignments applied:} \S3.2 prose now prints $a=0.324$, $b=0.481$ (the 2-dp values visibly summed to 0.80 while the text said $a+b=0.81$; full-precision sum 0.806); footnote A's example corrected $0.32 \to 0.31$ (exact value 0.3147 --- my own 3-dp log had induced a half-up misround) and its bound made convention-proof ($0.05 \to 0.06$).
+%
+%\textbf{All boundary and log-gap items CLOSED (2026-07-20, second follow-up, SN request).} New script \code{22_prose_number_backfill.py} $\to$ \code{output/tables/prose_number_backfill.txt}: (i) \textbf{$\kappa$ corrected $0.72 \to 0.71$ in the \S4.2 fold-in footnote} --- the exact value from the stored per-example LOO predictions is \textbf{0.7147}, below the 0.715 boundary, so the printed 0.72 was a genuine misround; NOTE the \textbf{sent email says $\kappa=0.72$} --- a 0.01 discrepancy with the corrected paper, clarify on the call only if it comes up (same register as the email's ``two human coders'' imprecision). (ii) ``Within 5 percentage points'' now log-backed at full precision: exact max fold-in deviation \textbf{4.9705pp} at (DG-KW, Self-interest), reproduced from the stored forced labels (214 hard cases + the 95 reference examples' own labels). (iii) TG believers-$\ge\frac12$ shares log-backed: Control 30.45$\to$30.5, Market 52.01$\to$52.0, classified-only 52.42$\to$52.4. (iv) \S3.1 sample counts log-backed: P1 1,604/1,603/2,400/2,400, P2 2,402/2,346, total 12,755 --- all exact.
+%
+%Figure 12's cells: script 02 now emits \code{cats_hp_instability_cells.csv} (+ \code{cats_only_} variant) with all 18 actual/predicted pairs, including the four P2-hypothetical predicted values that were in no table; the re-run left \textbf{every pre-existing output byte-identical} (57 tables, all PNGs), and the new log confirms 17-of-18 sign agreement with the single miss at the UG Market belief cell ($+0.003$ vs $-0.062$), verbatim as the prose.
+%
+%Appendix F: new \code{verification/verify_hp_appendix_tables.py} $\to$ \code{verify_hp_appendix_stats.txt}. Table 35 fully verified cell by cell incl.\ p-values; Tables 32/37: every \textbf{Observed Diff} verified exactly. \textbf{UPDATE 2026-07-21 --- gap CLOSED}: AA delivered the moral-scheme file (Tables 33/34/36 + Figs.\ 19/20 now verified; T31 $R^2$ and T36 p-values corrected) and then confirmed the 32/37 rep/beh \textbf{splits} came from an erroneous all-observations run (``per\`o \`e un errore''), endorsing the hpmin recomputation. Both tables are now \textbf{generated} (\code{23_hp_decomposition_tables.py}, hpmin sample, SP-5 cells, symmetrized) and fully verified; new splits: KW$-$LT rep $\approx 0$ ($-0.067$ of $+0.998$; the gap is within-cell --- the \S5.3 ``about half'' clause is rewritten accordingly), Control$-$Market rep $= -0.494$ of $-1.996$ (25\%, coherent with the \S5.1 prereg-literal footnote's 36\%). If it comes up on the call: Appendix F is now fully reproducible from the package.
+%
+%Refusal tally: new \code{round2/06_refusal_record.py} $\to$ \code{round2/out/refusal_record.md}, consolidating the runner's verbatim inline record (8 candidate orders, the seed hunt) plus the transcript inventory (3 completed Fable conversations: sets 1, 2, 6).
+%
+%One earlier reviewer flag was a false alarm: the Introduction's 18-cell $R^2=0.87$ \emph{is} sourced --- it is Table 12's $R^2=0.871$.
+%
+%\textbf{Everything else verified clean}, including every number in all ten Thursday exhibits (Tables 4--7, Figure 6, the eq.~7 / Table 13 / Figure 13 / Table 14 block, prose and notes).
+%\end{enumerate}
+%
+%\section*{The two new footnotes, verbatim --- APPROVED by SN (2026-07-20)}
+%
+%SN approved both footnotes as drafted (keep footnote B's categories-only variant in the paper); the blue \texttt{\textbackslash textcolor} wrappers, the two TODO comments, and the temporary \code{xcolor} preamble line have been stripped --- they now print as normal footnotes.
+%
+%\textbf{Footnote A --- \S5.1, attached to eq.~(7) (``\ldots rather than within them.''):}
+%
+%\begin{quote}\small
+%Equation~(7) uses the coarsest cut of the representation---the stated category alone. The belief component adds little dispersion on top: on the subsample with non-missing hypothetical beliefs, refining the cells to category interacted with belief terciles raises the between-cell share by at most 0.06 across the eight ultimatum- and trust-game condition cells, under any of three tercile conventions, relative to categories alone on the same subsample (for example, from 0.28 to 0.31 in the control trust game; replication package). This is consistent with the control patterns of Section~3.2: acceptance beliefs are nearly flat across categories in the ultimatum game, and in the trust game beliefs differ by category, so the category dummies already absorb much of that variation.
+%\end{quote}
+%
+%\textbf{Footnote B --- \S5.1, attached to ``\ldots and by categories alone in the DG, where no beliefs were elicited.'' (the preregistered-decomposition paragraph):}
+%
+%\begin{quote}\small
+%The pre-registrations word the decomposition over representation categories alone (over social-proximity levels in the dictator game); the belief terciles add the representation's second measured component. Wording-literal variants deliver the same picture: with category-only cells on the same samples, the representation components are 11\% (Market) and 47\% (Aid) in the ultimatum game, and dictator-game cells defined by social proximity give 36\% (Market) and 50\% (Aid). The largest difference is itself informative: in the trust game's market cell, categories alone carry 35\% against 59\% with the belief terciles---the belief component of the representation does real work exactly in the game where beliefs differ by category (Section~3.2). No representation cell is empty in either condition of any comparison, so the empty-cell rule in the table notes never binds (replication package).
+%\end{quote}
+%
+%Points you may want to tone: Footnote B is the first place the prereg wording gap is raised with coauthors; and ``does real work'' may be more editorial than you want in a footnote.
+%
+%\section*{Methodology choices made in the prep runs (close calls to confirm)}
+%
+%\begin{enumerate}
+%\item \textbf{Tercile breakpoints for the BCS variant} (footnote A's numbers) --- \textbf{sensitivity RUN (script 20, section A2)}: all three conventions (pooled-4, two-condition as in script 11, per-condition) give increments of +0.005 to +0.058 over categories-only, same ordering everywhere. The implemented pooled-4 scheme maxes at +0.048, so the original ``at most 0.05'' held for it, but per-condition terciles reach +0.058 (TG Control) --- footnote A accordingly amended to ``at most 0.06 \ldots under any of three tercile conventions'', so no referee's own tercile cut can contradict it. The conclusion (categories carry nearly everything) is unchanged.
+%\item \textbf{Sample for the footnote-B comparison}: the prereg-literal categories-only variant exists in two flavors in the stats file --- full classified sample (the literal reading; B1) and the belief-nonmissing sample of Table 14 (B1b). The footnote quotes B1b so that the comparison isolates the cell definition; B1 differs by 1--10pp (TG Market 25\% instead of 35\%).
+%\item \textbf{Proximity cells (footnote B's DG numbers)}: the prereg says ``social-proximity levels''; I used the five-level variable literally, on the classified sample. A binary high/low split (as in Table 2) is an alternative reading, and including unclassified answers with a proximity code another; both changeable on request.
+%\item \textbf{Everything else was zero-degrees-of-freedom}: script 20's decomposition functions are copied verbatim from \code{11_oaxaca.py} and validated by reproducing the published DG rows exactly; the BCS formula is script 05's; the Table 5 generator reproduces the hand-typed table byte-identically.
+%\end{enumerate}
+%
+%\section*{Bottom line --- ``did we take the correct approach?''}
+%
+%\begin{itemize}
+%\item \textbf{Calibration (T4)}: yes, \emph{as a calibration}. Its two candid admissions (pooling forced by the between-subject design; chosen-action optimism as the overid failure) are strengths if volunteered. The note's one gap (Moral's implied column uses the SI schedule) is now fixed in the regenerated table.
+%\item \textbf{Similarity module (T5, \P, T6, F6, T7)}: the design is genuinely careful (blinding, permutations, freeze, test--retest, second rater, refusal saga disclosed), and every downstream use is ordinal or a coherence check. The honest vulnerabilities are the single model family and the LLM-vs-human gap --- both already have a stated remediation path (3-model grid awaiting keys; preregistered human survey, TG cells the sharpest target). NG's ``I do not understand'' is most likely about the compressed prose, not the design; walk him through one example and offer a design figure.
+%\item \textbf{Heterogeneity block (Eq.~7, T13, F13, T14)}: the architecture is right --- a ladder from coarsest (categories-only variance share) to richest (regression with beliefs), with the same within-category residual showing up consistently in three independent exercises (T13's Market collapse, T14's UG-Market 16\%, F13's market attenuation) and the model's $\boldsymbol{\kappa}_d$ lever giving it an interpretation. The soft spots are shared and disclosable: classified-only samples where the unclassified share is treatment-dependent; no inference on the decompositions; possible classification noise under Market attenuating between-shares.
+%\end{itemize}
+%
+%\section*{Pre-call preparations --- all done (2026-07-20)}
+%
+%\begin{enumerate}
+%\item \textbf{BCS with category$\times$belief-tercile cells (UG/TG)} --- done (script 20, A + sensitivity A2). Adds +0.005 to +0.048 ($\le$0.06 under any tercile convention); now a \S5.1 footnote at eq.~7. Direct answer to his eq.-7 note.
+%\item \textbf{Prereg-literal Oaxaca variants} --- done (script 20, B0--B2), validated against the published DG rows first. Same picture everywhere except the informative TG-Market gap (35\% vs 59\% = the belief dimension); now a footnote at the Table 14 paragraph.
+%\item \textbf{Per-cell $N$ printout} --- done (script 20, C). No empty cells anywhere; thin cells inventoried above.
+%\item \textbf{Table 4 note fix} --- done in \code{08_calibration.py}, table regenerated, numbers byte-identical.
+%\item \textbf{Table 5 script gap} --- closed: \code{21_round1_similarity_table.py} recomputes from the raw sheets, validates against the Summary sheet, emits a byte-identical table; workbook copied into \code{replication_package/data/}; \code{main.tex} now inputs the generated file.
+%\item \textbf{Table 13 classified-only robustness} --- done (script 20, D; added on SN's follow-up): unclassified answers as their own observed category move no between-share by more than 0.015; no forced labels needed.
+%\end{enumerate}
+%
+%\textbf{Paper state after these changes}: \code{main.tex} 111 pp.\ (was 110; the two new footnotes), compiles clean, 0 undefined references; all table/figure numbers unchanged, so the sent email's pointers remain valid. All results logged in \code{replication_package/output/tables/ng_call_prep_stats.txt}.
+
+\end{document}

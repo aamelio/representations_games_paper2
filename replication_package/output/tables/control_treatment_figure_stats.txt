@@ -1,0 +1,166 @@
+=== Control category shares, Player 1 (% of classified; fig player1_control_category_distribution) ===
+game                     category  share_pct  ci_low_pct  ci_high_pct
+dgkw                        Moral     68.421      63.860       72.982
+dgkw                Self-interest     30.827      26.296       35.358
+dgkw Mutual Benefit / Cooperation      0.752      -0.096        1.600
+  ug                        Moral     76.632      73.194       80.070
+  ug                Self-interest     20.103      16.847       23.359
+  ug Mutual Benefit / Cooperation      3.265       1.821        4.708
+  tg                        Moral     43.836      39.811       47.860
+  tg                Self-interest     19.178      15.985       22.371
+  tg Mutual Benefit / Cooperation     36.986      33.071       40.902
+
+=== Control category shares, Player 2 (% of classified; fig player2_control_category_distribution) ===
+game                     category  share_pct  ci_low_pct  ci_high_pct
+  ug                   Moral good     56.081      52.083       60.079
+  ug                    Moral bad      4.899       3.160        6.637
+  ug                Self-interest     13.682      10.914       16.451
+  ug Mutual Benefit / Cooperation     25.338      21.834       28.842
+  tg                   Moral good     54.792      50.644       58.940
+  tg                    Moral bad      7.595       5.387        9.803
+  tg                Self-interest     10.488       7.934       13.042
+  tg Mutual Benefit / Cooperation     27.125      23.419       30.830
+
+=== Control outcomes by category, Player 1 (%; fig player1_control_outcome_by_category) ===
+game                     category  mean_pct  ci_low_pct  ci_high_pct
+dgkw                        Moral    46.230      44.970       47.490
+dgkw                Self-interest    10.264       7.811       12.718
+dgkw Mutual Benefit / Cooperation    33.333       0.667       66.000
+  ug                        Moral    49.991      49.375       50.606
+  ug                Self-interest    41.667      38.485       44.848
+  ug Mutual Benefit / Cooperation    56.798      47.405       66.191
+  tg                        Moral    44.076      41.578       46.573
+  tg                Self-interest    29.539      24.602       34.476
+  tg Mutual Benefit / Cooperation    63.465      59.550       67.379
+
+=== Control hypothetical beliefs, Player 1 (%; fig player1_control_hp_beliefs_by_game) ===
+game                     category  mean_pct  ci_low_pct  ci_high_pct
+  ug                      Overall    48.464      46.663       50.265
+  ug                        Moral    48.474      46.474       50.474
+  ug                Self-interest    48.459      44.057       52.860
+  ug Mutual Benefit / Cooperation    48.235      36.737       59.734
+  tg                      Overall    31.089      29.150       33.029
+  tg                        Moral    31.506      28.717       34.295
+  tg                Self-interest    22.049      17.498       26.599
+  tg Mutual Benefit / Cooperation    35.735      32.690       38.781
+
+=== Control hypothetical outcomes by category, Player 2 (%; fig player2_control_hp_outcome_by_category) ===
+game                     category  mean_pct  ci_low_pct  ci_high_pct
+  ug                   Moral good    59.091      53.778       64.404
+  ug                    Moral bad    47.619      25.730       69.508
+  ug                Self-interest    82.192      73.355       91.029
+  ug Mutual Benefit / Cooperation    64.865      57.147       72.582
+  tg                   Moral good    33.757      31.589       35.925
+  tg                    Moral bad    20.833      16.634       25.032
+  tg                Self-interest    13.889       9.160       18.618
+  tg Mutual Benefit / Cooperation    25.943      23.259       28.628
+
+=== Treatment effects on category shares, Player 1 (pp; figs paper_section4_*) ===
+  comparison_slug game                     category  estimate_pp  ci_low_pp  ci_high_pp
+     aid_vs_bonus dgkw                        Moral      -11.744    -17.818      -5.669
+     aid_vs_bonus dgkw                Self-interest       11.532      5.587      17.477
+     aid_vs_bonus dgkw Mutual Benefit / Cooperation        0.212     -1.564       1.987
+     aid_vs_bonus   ug                        Moral       -9.666    -14.296      -5.036
+     aid_vs_bonus   ug                Self-interest       10.355      6.139      14.571
+     aid_vs_bonus   ug Mutual Benefit / Cooperation       -0.688     -3.042       1.665
+     aid_vs_bonus   tg                        Moral       -0.432     -6.131       5.268
+     aid_vs_bonus   tg                Self-interest       -0.485     -4.553       3.584
+     aid_vs_bonus   tg Mutual Benefit / Cooperation        0.916     -4.666       6.498
+market_vs_control dgkw                        Moral      -27.388    -34.401     -20.374
+market_vs_control dgkw                Self-interest       10.510      3.511      17.509
+market_vs_control dgkw Mutual Benefit / Cooperation       16.877     12.667      21.088
+market_vs_control   ug                        Moral      -42.700    -48.091     -37.309
+market_vs_control   ug                Self-interest       16.823     11.483      22.163
+market_vs_control   ug Mutual Benefit / Cooperation       25.877     21.640      30.114
+market_vs_control   tg                        Moral      -23.765    -28.979     -18.550
+market_vs_control   tg                Self-interest        5.511      0.723      10.299
+market_vs_control   tg Mutual Benefit / Cooperation       18.253     12.574      23.933
+
+=== Treatment effects on category shares, Player 2 (pp; fig appendix_player2_category_shifts) ===
+  comparison_slug game                     category  estimate_pp  ci_low_pp  ci_high_pp
+     aid_vs_bonus   ug                   Moral good       -5.447    -11.161       0.268
+     aid_vs_bonus   ug                    Moral bad        3.594      1.140       6.048
+     aid_vs_bonus   ug                Self-interest        6.012      2.006      10.018
+     aid_vs_bonus   ug Mutual Benefit / Cooperation       -4.159     -9.369       1.051
+     aid_vs_bonus   tg                   Moral good       -9.300    -14.946      -3.653
+     aid_vs_bonus   tg                    Moral bad       -0.681     -3.623       2.260
+     aid_vs_bonus   tg                Self-interest        0.717     -2.117       3.550
+     aid_vs_bonus   tg Mutual Benefit / Cooperation        9.264      4.108      14.421
+market_vs_control   ug                   Moral good      -39.209    -44.259     -34.160
+market_vs_control   ug                    Moral bad       11.797      8.271      15.324
+market_vs_control   ug                Self-interest       28.673     23.754      33.591
+market_vs_control   ug Mutual Benefit / Cooperation       -1.261     -6.226       3.705
+market_vs_control   tg                   Moral good      -11.519    -17.386      -5.653
+market_vs_control   tg                    Moral bad       -4.686     -7.305      -2.067
+market_vs_control   tg                Self-interest        2.784     -1.035       6.604
+market_vs_control   tg Mutual Benefit / Cooperation       13.421      7.887      18.955
+
+=== Treatment effects on outcomes, both players (pp; figs paper_section4_* and player2_hypothetical) ===
+ player   comparison_slug game  estimate_pp  ci_low_pp  ci_high_pp model_sign
+player1      aid_vs_bonus dgkw       -5.928     -8.499      -3.356   decrease
+player1      aid_vs_bonus   ug       -2.371     -3.704      -1.038   decrease
+player1      aid_vs_bonus   tg        0.782     -2.555       4.119   increase
+player2      aid_vs_bonus   ug        4.744     -0.709      10.197  ambiguous
+player2      aid_vs_bonus   tg       -1.144     -3.699       1.411  ambiguous
+player1 market_vs_control dgkw      -10.059    -13.533      -6.584   decrease
+player1 market_vs_control   ug      -21.003    -23.446     -18.559   decrease
+player1 market_vs_control   tg       14.966     11.681      18.251  ambiguous
+player2 market_vs_control   ug       10.146      4.681      15.611  ambiguous
+player2 market_vs_control   tg       10.197      7.986      12.408  ambiguous
+
+=== Treatment effects on Player 1 hypothetical beliefs (pp; figs paper_section4_*) ===
+  comparison_slug game  estimate_pp  ci_low_pp  ci_high_pp
+     aid_vs_bonus   ug        1.251     -1.321       3.823
+     aid_vs_bonus   tg       -1.599     -4.050       0.851
+market_vs_control   ug       17.724     14.959      20.488
+market_vs_control   tg       10.416      7.876      12.957
+
+=== Player 2 hypothetical action levels, Aid vs Bonus (%; fig player2_hypothetical_treatment_effects) ===
+ story game  mean_pct  ci_low_pct  ci_high_pct
+     2   ug    66.014      62.095       69.934
+     2   tg    33.106      31.214       34.998
+     4   ug    70.758      66.967       74.549
+     4   tg    31.962      30.245       33.680
+
+=== Player 2 hypothetical action levels, Market vs Control (%; fig player2_hypothetical_treatment_effects) ===
+ story game  mean_pct  ci_low_pct  ci_high_pct
+     0   ug    63.112      59.154       67.070
+     0   tg    28.697      27.048       30.346
+     1   ug    73.258      69.490       77.026
+     1   tg    38.894      37.421       40.366
+
+=== Residual "No clear justification" share in control (%) ===
+ player game  residual_pct  n_control
+player1 dgkw         0.993        403
+player1 dglt         2.750        400
+player1   ug         3.000        600
+player1   tg         2.667        600
+player2   ug         1.661        602
+player2   tg         3.490        573
+
+=== Treatment effects on ALL responses (pp; the estimand quoted in the text and the E4/E5 tables) ===
+ player   comparison_slug game    outcome  estimate_pp  ci_low_pp  ci_high_pp
+player1      aid_vs_bonus dgkw     action       -5.586     -8.160      -3.012
+player1      aid_vs_bonus   ug     action       -2.368     -3.743      -0.994
+player1      aid_vs_bonus   ug  hp_belief        1.168     -1.389       3.725
+player1      aid_vs_bonus   tg     action        0.542     -2.754       3.837
+player1      aid_vs_bonus   tg  hp_belief       -1.582     -4.016       0.852
+player2      aid_vs_bonus   ug hp_outcome        4.217     -1.195       9.628
+player2      aid_vs_bonus   tg hp_outcome       -0.904     -3.448       1.641
+player1 market_vs_control dgkw     action      -10.925    -14.150      -7.700
+player1 market_vs_control   ug     action      -21.882    -24.159     -19.604
+player1 market_vs_control   ug  hp_belief       17.154     14.553      19.755
+player1 market_vs_control   tg     action       14.542     11.348      17.735
+player1 market_vs_control   tg  hp_belief       10.338      7.838      12.839
+player2 market_vs_control   ug hp_outcome        9.906      4.520      15.292
+player2 market_vs_control   tg hp_outcome        9.995      7.802      12.187
+
+=== Social proximity, reasons measure (P1, classified): SP shares and action by SP group, control vs market ===
+game     arm  high_sp_share_pct  no_mention_share_pct  action_high_sp_pct  action_low_sp_pct  gap_pp   n
+dgkw control             31.579                18.546              46.991             29.533  17.458 399
+dgkw  market             13.982                57.447              41.576             22.291  19.285 329
+  ug control             42.096                12.887              50.221             47.317   2.904 582
+  ug  market             28.942                40.519              29.023             26.931   2.092 501
+  tg control             38.014                12.158              54.692             44.636  10.056 584
+  tg  market             19.716                38.721              69.970             61.818   8.152 563
+

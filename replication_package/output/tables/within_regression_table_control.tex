@@ -1,0 +1,32 @@
+\begin{table}[!htbp]
+\centering
+\caption{\textbf{Within-Subject Regressions}: Control sample, LT vs.\ KW}
+\label{tab:within_control_regressions}
+\begin{tabular}{lcccc}
+\toprule
+ & (1) & (2) & (3) & (4) \\
+ & \multicolumn{4}{c}{Share Sent P1} \\
+\cmidrule(lr){2-5}
+\midrule
+KW & -0.036$^{***}$ & -0.035$^{***}$ & -0.033$^{***}$ & -0.033$^{***}$ \\
+ & (0.011) & (0.011) & (0.010) & (0.010) \\
+KW x LTFirst & -0.026 & -0.026 & -0.033$^{**}$ & -0.033$^{**}$ \\
+ & (0.016) & (0.016) & (0.015) & (0.015) \\
+HighSP &  & 0.011 &  & -0.004 \\
+ &  & (0.015) &  & (0.015) \\
+Mutual Benefit / Cooperation &  &  & -0.070 & -0.070 \\
+ &  &  & (0.072) & (0.072) \\
+Self-interest &  &  & -0.091$^{***}$ & -0.093$^{***}$ \\
+ &  &  & (0.026) & (0.026) \\
+No clear justification &  &  & -0.053 & -0.054 \\
+ &  &  & (0.039) & (0.040) \\
+Participant fixed effects & Yes & Yes & Yes & Yes \\
+Observations & 1200 & 1200 & 1200 & 1200 \\
+Participants & 600 & 600 & 600 & 600 \\
+$R^2$ & 0.867 & 0.868 & 0.877 & 0.877 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Outcome is DG share sent by Player 1, defined as $1-\texttt{allocation}/12$. Models use the within-control LT/KW sample only. All specifications include participant fixed effects and cluster standard errors by participant. Baseline text category is Moral. HighSP equals 1 if \texttt{sp\_num}>1. LTFirst equals 1 when LT was shown before KW\@; its main effect is collinear with the participant fixed effects and therefore not identified. Estimated without fixed effects (standard errors clustered by participant), the LTFirst level effect is $+0.019$ (SE $0.015$). $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{flushleft}
+\end{table}

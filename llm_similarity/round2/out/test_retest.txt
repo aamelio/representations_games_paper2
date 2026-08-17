@@ -1,0 +1,2 @@
+v2 (craft-markets freeze) vs v1 (craft-fairs pilot run), context x category cell means (30 cells):
+Pearson r 0.994; mean |diff| 1.9; max |diff| 5.1 at ('C-UG', 'Mutual Benefit / Cooperation')

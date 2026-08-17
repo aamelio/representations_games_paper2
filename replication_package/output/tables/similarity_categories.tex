@@ -1,0 +1,29 @@
+\begin{table}[!htbp]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\caption{\textbf{Similarity of Contexts to Representation Categories, LLM Raters}}
+\label{tab:similarity_categories}
+\begin{tabular}{l ccc ccc}
+\toprule
+& \multicolumn{3}{c}{Similarity (0--100)} & \multicolumn{3}{c}{Retrieval split (\%)} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Context & Moral & Self-int. & Mut.\ Ben. & Moral & Self-int. & Mut.\ Ben. \\
+\midrule
+Bonus story & 54.9 & 8.6 & 9.6 & 94.0 & 2.3 & 3.7 \\
+Aid story & 57.5 & 11.1 & 7.5 & 93.8 & 5.5 & 0.7 \\
+\midrule
+DG-KW Control & 51.8 & 10.5 & 9.1 & 89.1 & 5.3 & 5.6 \\
+DG-KW Market & 17.6 & 19.3 & 19.0 & 30.8 & 34.8 & 34.4 \\
+DG-LT Control & 45.9 & 14.3 & 10.8 & 79.9 & 12.5 & 7.6 \\
+DG-LT Market & 16.4 & 19.8 & 20.0 & 27.2 & 36.7 & 36.1 \\
+UG Control & 41.1 & 15.9 & 13.0 & 75.4 & 12.6 & 12.0 \\
+UG Market & 16.1 & 21.8 & 21.2 & 22.6 & 39.9 & 37.5 \\
+TG Control & 12.3 & 20.5 & 47.3 & 7.6 & 17.1 & 75.2 \\
+TG Market & 12.9 & 20.7 & 48.8 & 7.8 & 15.6 & 76.6 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: Similarity: 0--100 rating of each context text against eight vignette exemplars per category, judging the situation as a whole (stakes, relationship, setting, and decision structure), averaged over vignettes and three permuted-label conversations (Claude Opus 4.8 raters with reasoning enabled; single-model working measurement). Retrieval split: 100 points distributed across the 24 vignettes according to which would come to mind as a similar experience, aggregated by category. Context texts are verbatim from the instructions and stories (Appendix~\ref{app:instructions}). Design, prompts, and robustness: Appendix~\ref{app:similarity_vignettes}.
+\end{flushleft}
+\end{table}

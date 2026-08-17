@@ -1,0 +1,90 @@
+Representative-quote CANDIDATES (control sample; editorial selection by SN).
+Rule: within cell, up to 4 random draws among responses of 60-220 characters.
+
+--- P1 DG-KW | Moral (N cell 174) ---
+  * I don't know the other participant so don't owe him/her any particular favour but am feeling generous today
+  * I felt that it was only fair to split the amount I was given. since the other person didn't get anything
+  * I am not a greedy person. it just seems fair to split this unexpected money evenly
+  * I chose to allot them a 3rd of the money, I feel that it is only fair to give them a certain amount but chose to keep a larger amount for myself
+
+--- P1 DG-KW | Self-interest (N cell 80) ---
+  * As I do not know the other participant I felt obliged to transfer something, in order not to regret my choice completely, but not so much in case the other is not in as much need as me.
+  * I don't know these other people. I don't know their story, I don't know who they are, all I know is that I need that $12 so I'm going to choose myself
+  * I didn't want them to have nothing and think I was greedy but also the extra would really help with bills at this time of year
+  * I need the money and thought of the total amount of the bonus since I was in charge of allocation I gave 4 dollars which isn't quite half but is better than nothing.
+
+--- P1 DG-KW | Mutual Benefit / Cooperation (N cell 2) ---
+  * I would hope that if the roles were reversed, that any other person would do the same. We are both on Prolific for a reason, probably due to needing extra money, so I'm trying to maximize what both of us can make.
+  * You said the amount you select affects your and the others earning, so i've selected the most, making the assumption the other would do the same.
+
+--- P1 UG | Moral (N cell 237) ---
+  * I split it equally between both of us - it doesn't hurt to be nice
+  * A 50/50 split is more attractive to the other player so we can equally split. If I select to keep more then player 2 will be more likely to reject.
+  * I want to be paid and in order to do so I need to be fair with player 2. I feel a 50/50 split is fair and will be accepted by player 2.
+  * Fair is fair and I could only hope they did the same, type of thing.
+
+--- P1 UG | Self-interest (N cell 88) ---
+  * I picked a completely equitable split to maximize the odds Participant 2 would accept it.
+  * i thought the player 1 would accept this and its not the full amount
+  * If I share equally, player 2 is most likely to accept it and we won't end up with nothing.
+  * It's strategic... I'm trying to keep a bit more for myself, many responders will still accept this because some money is better than no money...
+
+--- P1 UG | Mutual Benefit / Cooperation (N cell 13) ---
+  * It's equal plus a little extra to entice them into accepting the proposal.
+  * To keep the odds right I wanted to give an amount but also wanted to keep some of the money
+  * I'm a risk taker and I would always what to earn the highest
+  * Actually i love team work. I love it when two or more people work together with honesty and transparency to achieve a common goal which benefits both party.
+
+--- P1 TG | Moral (N cell 153) ---
+  * We will have roughly the same amount once theirs is multiplied by 3.
+  * theres will double and it will leave us with the same amount each - 4
+  * I do not see anything wrong with being generous to Player 2. The worst they can do is be less generous and that does not affect me. The incentives are not great enough to make me selfish.
+  * Splitting it equally between us so we both get the same seemed the fairest way, and also even if they decide not to send anything back I still get something
+
+--- P1 TG | Self-interest (N cell 81) ---
+  * Player 2 would not send any back as they want to maximise own income.
+  * It seemed to be a fair amount that would allow the other person to make a comprehensive decision on how much, if any, to return, while retaining some money in case the other person decided not to send any funds back.
+  * I feel that is the best way for me to get the most possible out of the bonus and I would hope the person I'm working with will see that and send half back
+  * It felt like a safe amount as if they sent back $0 I'd still be able to keep some money.
+
+--- P1 TG | Mutual Benefit / Cooperation (N cell 154) ---
+  * Player 2 will receive $6 dollars and might think to send a little back.
+  * Because I hope for the best in people and that they will want to share the bonus. (It is in all our best interests.)
+  * I felt that was the most fair amount since it multiples by 2.
+  * I chose $3 as it was half the amount that I received, and am hoping that the other player will send back at least the $3 that I have sent to them.
+
+--- P1 High SP (any game) ---
+  * [UG, Moral] It's split evenly and is most fair. I don't get more and they don't get more. We are equals.
+  * [TG, Moral] Because I felt like that was a solid amount that they would appreciate and hopefully they'd send the same back.
+  * [DG-LT, Moral] If they had $4 and I had $8 then giving the match $2 makes us both have $6 which makes it even between the two of us
+  * [UG, Moral] I want it to be fair for both people, so I shared an even amount that I kept. We're both in this together.
+  * [DG-LT, Moral] It's fair. There's no reason to not split is equitably given the values were assigned by chance in the first place and it could have easily been the other way around.
+  * [UG, Self-interest] It is a partnership decision. I could go heavier me and they would still get something but more someone perceives something as unfair the more likely they are to go against you.
+
+--- P1 Low SP (any game) ---
+  * [DG-KW, Moral] I was feeling kind, but not kind enough to split it 50/50. It seemed a fair sum.
+  * [TG, Mutual Benefit / Cooperation] If player 2 gives back it will be tripled and I will end up with more.
+  * [TG, Moral] Because I am a generous person and I have faith that the other participant will return the favor.
+  * [DG-KW, Moral] It's only fair to allocate some money, Maybe more is better in my decision making .  Felt like giving more than what I would normally do.
+  * [TG, Moral] i chose what felt like a good amount, hoping they will do similar and feel kind
+  * [UG, Self-interest] because it is neutral i would not loose all the money given if player 2 rejects.
+
+--- P2 Moral good (N cell 387) ---
+  * [UG] An even split between two people is perfect so I accepted the decision.  It seems logical that player one would suggest this split rather than risk ending up with zero.
+  * [TG] They were very generous and I wanted to give almost half of the amount I recieved.
+  * [UG] Because both amounts were the same and I believe that the sum is a fair proposition!
+
+--- P2 Moral bad (N cell 46) ---
+  * [TG] They kept more than I received anyways, so They don't need money back.
+  * [TG] They still earned more money than me so I would not send them back anything
+  * [TG] because they didn't send me much to start with so I felt I didn't want to send them back much either
+
+--- P2 Self-interest (N cell 84) ---
+  * [UG] It makes sense to accept the offer since while not completely fair, it wasn't that unfair as well. Not accepting means that I get nothing, so the offer I got was much better.
+  * [UG] No matter what Player 1 chooses, I have to agree with it or neither of us receive any bonus.
+  * [UG] No incentive for me to accept. If I was Player 1, I would have anticipated that I must include an incentive for Player 2 to accept my proposal.
+
+--- P2 Mutual Benefit / Cooperation (N cell 176) ---
+  * [TG] Player 1 has $1 left from the original $6 so I sent $7 back so we both have $8 total
+  * [UG] I felt if i refuse we both end up with nowt so a payment is better than no payment, although it isn't equal.
+  * [TG] It then reduces my amount down to $4 and Player 1 will also have $4

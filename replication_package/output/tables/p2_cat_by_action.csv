@@ -1,0 +1,37 @@
+game,bin,category,share,n
+ug,0,Moral good,,6
+ug,"(0,1/4]",Moral good,0.15789473684210525,19
+ug,"(1/4,5/12]",Moral good,0.18181818181818182,33
+ug,"(5/12,1/2]",Moral good,0.6182572614107884,482
+ug,"(1/2,1]",Moral good,0.4807692307692308,52
+ug,0,Moral bad,0.6666666666666666,6
+ug,"(0,1/4]",Moral bad,0.3684210526315789,19
+ug,"(1/4,5/12]",Moral bad,0.2727272727272727,33
+ug,"(5/12,1/2]",Moral bad,0.01867219917012448,482
+ug,"(1/2,1]",Moral bad,,52
+ug,0,Self-interest,0.16666666666666666,6
+ug,"(0,1/4]",Self-interest,0.3684210526315789,19
+ug,"(1/4,5/12]",Self-interest,0.42424242424242425,33
+ug,"(5/12,1/2]",Self-interest,0.0995850622406639,482
+ug,"(1/2,1]",Self-interest,0.21153846153846154,52
+ug,0,Mutual Benefit / Cooperation,0.16666666666666666,6
+ug,"(0,1/4]",Mutual Benefit / Cooperation,0.10526315789473684,19
+ug,"(1/4,5/12]",Mutual Benefit / Cooperation,0.12121212121212122,33
+ug,"(5/12,1/2]",Mutual Benefit / Cooperation,0.26348547717842324,482
+ug,"(1/2,1]",Mutual Benefit / Cooperation,0.3076923076923077,52
+tg,"(0,1/4]",Moral good,0.40217391304347827,92
+tg,"(1/4,5/12]",Moral good,0.49264705882352944,136
+tg,"(5/12,1/2]",Moral good,0.5885714285714285,175
+tg,"(1/2,1]",Moral good,0.64,150
+tg,"(0,1/4]",Moral bad,0.31521739130434784,92
+tg,"(1/4,5/12]",Moral bad,0.08823529411764706,136
+tg,"(5/12,1/2]",Moral bad,0.005714285714285714,175
+tg,"(1/2,1]",Moral bad,,150
+tg,"(0,1/4]",Self-interest,0.10869565217391304,92
+tg,"(1/4,5/12]",Self-interest,0.09558823529411764,136
+tg,"(5/12,1/2]",Self-interest,0.09142857142857143,175
+tg,"(1/2,1]",Self-interest,0.12666666666666668,150
+tg,"(0,1/4]",Mutual Benefit / Cooperation,0.17391304347826086,92
+tg,"(1/4,5/12]",Mutual Benefit / Cooperation,0.3235294117647059,136
+tg,"(5/12,1/2]",Mutual Benefit / Cooperation,0.3142857142857143,175
+tg,"(1/2,1]",Mutual Benefit / Cooperation,0.23333333333333334,150

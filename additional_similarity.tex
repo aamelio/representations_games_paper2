@@ -1,0 +1,113 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+
+\graphicspath{{llm_similarity/round6/output/}}
+
+\title{Similarity between Game Frames and Joint-Action Vignettes}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Method}
+
+The exercise considers the Control, Market, Aid, and Bonus versions of DG-KW,
+UG, and TG. For Aid and Bonus, the model reads the story first and the
+instructions for the corresponding game second, preserving the order used in
+the experiment. Each game-frame context is rated against all 30 vignettes under
+neutral identifiers. Game labels and the vignette classifications used to
+organize the figures are not shown to the model.
+
+For each context, the model assigns an absolute similarity score between 0 and
+100 to every vignette. The exercise uses three blinded rating passes. The
+analysis then selects the relevant vignette pool: the six DG vignettes for a DG
+context, and the combined 24 UG and TG vignettes for either a UG or TG context.
+Within rating pass $r$ and context $c$, vignette $v$ in the relevant pool
+$\mathcal{P}_{c}$ receives normalized weight
+
+\begin{equation}
+    w_{vcr} = \frac{s_{vcr}}{\sum_{j\in\mathcal{P}_{c}}s_{jcr}}.
+\end{equation}
+
+The vignette weights therefore sum to one within each pass and context. We
+normalize each pass before averaging the three weights, so a pass that uses
+systematically higher absolute scores does not receive greater weight.
+
+The vignette classifications are reattached only after rating. M, S, and C
+denote Moral, Self-interest, and Cooperation. In UG and TG, the second letter
+records whether the receiver chooses C or D. P denotes a personal vignette and
+K an anonymous-market vignette. The label before P or K records the structural
+source of the vignette (DG, UG, or TG), and Vxx is its neutral identifier.
+
+Each representation class contains its individual vignette bars followed by a
+cross-hatched TOTAL bar equal to their sum. DG has three classes, each with two
+vignette bars and one total. UG and TG have six classes, each with four vignette
+bars---UG-personal, UG-market, TG-personal, and TG-market---and one total.
+Individual bars sum to one within a game-frame, and the class-total bars
+separately sum to one. The totals are summaries and should not be added again to
+the individual bars.
+
+\section{Control}
+
+Figure~\ref{fig:round6_control_similarity} reports the normalized vignette
+weights and class totals for the three Control contexts.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{control_similarity_distribution.png}
+    \caption{Normalized similarity distributions in Control. DG weights are
+    normalized over the six DG vignettes. UG and TG weights are normalized over
+    the combined 24 UG and TG vignettes. Each representation class displays its
+    individual vignette weights followed by their total.}
+    \label{fig:round6_control_similarity}
+\end{figure}
+
+\section{Market versus Control}
+
+For each vignette, Figure~\ref{fig:round6_market_control_similarity} reports
+$w_v^{\mathrm{Market}}-w_v^{\mathrm{Control}}$, where the two distributions are
+normalized separately using the same game-specific pool. Positive bars indicate
+a larger normalized weight in Market. The TOTAL bar is the sum of the vignette
+differences in its class. Individual differences sum to zero within each game,
+as do the class-total differences.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{market_minus_control_similarity_differences.png}
+    \caption{Difference in normalized similarity weights: Market minus
+    Control. Each class contains its individual vignette differences followed
+    by their total.}
+    \label{fig:round6_market_control_similarity}
+\end{figure}
+
+\section{Aid versus Bonus}
+
+Figure~\ref{fig:round6_aid_bonus_similarity} analogously reports
+$w_v^{\mathrm{Aid}}-w_v^{\mathrm{Bonus}}$. Positive bars indicate a larger
+normalized weight in Aid. The two conditions are normalized separately within
+the same game-specific pool before taking differences.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{aid_minus_bonus_similarity_differences.png}
+    \caption{Difference in normalized similarity weights: Aid minus Bonus.
+    Each class contains its individual vignette differences followed by their
+    total.}
+    \label{fig:round6_aid_bonus_similarity}
+\end{figure}
+
+<<<<<<< HEAD
+\section{Limitation}
+
+The three passes are blinded repetitions from the same Codex model family.
+They provide an internally consistent exploratory estimate, but they are not
+independent cross-model ratings or human validation.
+
+=======
+>>>>>>> 3b56aa96425171edc5272e11a0018448f2e346ff
+\end{document}

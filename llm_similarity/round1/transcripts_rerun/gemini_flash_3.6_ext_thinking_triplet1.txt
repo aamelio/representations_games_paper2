@@ -1,0 +1,73 @@
+Rerun (neutral prompt), manual chat session — recorded from pasted replies
+Model (UI label): Gemini Flash 3.6 Extended Thinking
+NOTE: Flash tier, not the Pro/reasoning tier of the May arm (Gemini 3 Pro). Kept as
+recorded; see session notes on whether a Pro-tier redo superseded this conversation.
+Triplet: 1 (A=DG-KW, B=DG-LT, C=UG, D=TG; Story 1=Bonus, Story 2=Aid)
+Date: 2026-07-29
+Prompts sent, in order, in one fresh conversation:
+  manual_prompts/triplet1_prompt1.txt, manual_prompts/prompt2.txt, manual_prompts/prompt3.txt
+
+=== REPLY TO PROMPT 1 ===
+
+## Pairwise Similarity Evaluations
+
+### Game A x Story 1
+
+* **Rating:** 90
+* **Justification:** Both Game A and Story 1 share the core structural framework of a standard Dictator Game, where the decision-maker receives 100% of the initial allocation ($12 vs. full bonus) and decides unilaterally how much to transfer to a passive second player. Neither situation involves strategic risk, recipient veto power, or reciprocal back-and-forth actions. The minor distinction lies in context: Steve's situation involves past joint effort/merit, whereas Game A is an abstract laboratory allocation.
+
+### Game A x Story 2
+
+* **Rating:** 95
+* **Justification:** Game A and Story 2 feature near-identical underlying decision structures based on a unilateral windfall allocation. In both cases, the decider is initially assigned 100% of the funds while the recipient gets nothing, and the decider freely chooses a transfer amount without any possibility of rejection or secondary response.
+
+### Game B x Story 1
+
+* **Rating:** 75
+* **Justification:** Both Game B and Story 1 are unilateral allocation tasks with no second-mover action or strategic uncertainty. However, Game B begins with a pre-divided baseline ($8 for decider, $4 for recipient) and explicit taking options, whereas Story 1 endows Steve with the entire bonus upfront, framing his decision strictly around giving rather than taking.
+
+### Game B x Story 2
+
+* **Rating:** 75
+* **Justification:** Like Story 2, Game B is a purely unilateral choice where the recipient is passive and has no strategic leverage. The structural discrepancy comes from the baseline split and framing: Game B starts with a split allocation ($8/$4) and allows taking from the recipient's share, whereas James holds 100% of the aid initially in a standard giving setup.
+
+### Game C x Story 1
+
+* **Rating:** 30
+* **Justification:** Game C is an Ultimatum Game where the recipient possesses veto power, making Player 1's decision strategically reliant on predicting rejection thresholds to avoid receiving $0. In Story 1, Max has no mechanism to accept or reject Steve's decision, making Steve's choice purely unilateral rather than strategic bargaining.
+
+### Game C x Story 2
+
+* **Rating:** 25
+* **Justification:** Game C centers on a bilateral strategic interaction where the second player can reject an offer and reduce both payouts to zero. Story 2 lacks any strategic feedback or veto mechanism, as Mark has no role in the decision process and James faces no risk of losing his share through rejection.
+
+### Game D x Story 1
+
+* **Rating:** 20
+* **Justification:** Game D is a Trust Game that introduces an efficiency multiplier (tripling transfers) and a second stage of voluntary reciprocity by Player 2. Story 1 contains no value-creation multiplier upon sharing funds and no second-stage return transfer, leaving it structurally distinct from a trust-and-reciprocity dynamic.
+
+### Game D x Story 2
+
+* **Rating:** 20
+* **Justification:** Game D relies on sequential strategic interaction, investment multiplication, and potential back-and-forth reciprocity. Story 2 is a static, one-shot giving decision involving fixed welfare funds with no efficiency gains from transfer and no expectation or mechanism for Mark to respond.
+
+---
+
+```json
+{"ratings": {"A": {"Story 1": 90, "Story 2": 95}, "B": {"Story 1": 75, "Story 2": 75}, "C": {"Story 1": 30, "Story 2": 25}, "D": {"Story 1": 20, "Story 2": 20}}}
+
+```
+
+---
+
+## Most and Least Similar Games per Story
+
+### Story 1 (Steve's Team Bonus)
+
+* **Most Similar Game: Game A.** Story 1 structurally matches Game A (Standard Dictator Game), where the decider starts with 100% of the allocation ($12 / full bonus) and makes a purely unilateral decision to transfer funds to a passive recipient with no veto or response capabilities.
+* **Least Similar Game: Game D.** Game D introduces a dynamic 3x investment multiplier and sequential reciprocity from Player 2, structural elements completely absent from Steve's fixed, one-stage sharing choice.
+
+### Story 2 (James's Welfare Assistance)
+
+* **Most Similar Game: Game A.** Story 2 aligns almost perfectly with Game A as a unilateral windfall allocation where one person holds 100% of the resource and decides whether to share with a passive observer who has zero strategic power.
+* **Least Similar Game: Game D.** Game D is the furthest removed structurally because it involves dynamic investment efficiency (3x multiplier) and two-stage strategic reciprocity, whereas Story 2 is a static, single-decision welfare transfer.

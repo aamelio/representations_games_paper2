@@ -1,0 +1,84 @@
+Plug-in walkthrough of the headline calibration (r = 2, reference offer 1/3)
+
+Inputs: control moments by category (means; p_hp/s_hp = reference-action beliefs)
+                              t_dgkw    t_ug    t_tg    p_hp  t_chosen  p_chosen    s_hp  n_dgkw   n_ug   n_tg
+Moral                         0.4623  0.4999  0.4408  0.4847    0.4999    0.7953  0.3151   273.0  446.0  256.0
+Self-interest                 0.1026  0.4167  0.2954  0.4846    0.4167    0.7014  0.2205   123.0  117.0  112.0
+Mutual Benefit / Cooperation  0.3333  0.5680  0.6346  0.4824    0.5680    0.7111  0.3574     3.0   19.0  216.0
+
+B.1  sigma/mu = 1/2 - t_DG   (interior DG first-order condition)
+  Moral: 1/2 - 0.4623 = 0.0377
+    -> 0.0377, published 0.038  OK
+  Self-interest: 1/2 - 0.1026 = 0.3974
+    -> 0.3974, published 0.397  OK
+
+B.2  anchor te(s) = 1 / (1 + (1+r)(1-2s))   at s = s_hp
+  Moral: s = 0.3151 -> te = 1/(1 + 3*0.3699) = 0.4740
+  Self-interest: s = 0.2205 -> te = 1/(1 + 3*0.5590) = 0.3735
+  Mutual Benefit / Cooperation: s = 0.3574 -> te = 1/(1 + 3*0.2853) = 0.5388
+
+B.3  rho/mu = [ t_TG - te(s) + (sigma/mu)(1+r)(1-s) ] / r
+  Moral: [ 0.4408 - 0.4740 + 0.0377*3*0.6849 ] / 2 = 0.0221
+    -> 0.0221, published 0.022  OK
+  Self-interest: [ 0.2954 - 0.3735 + 0.3974*3*0.7795 ] / 2 = 0.4255
+    -> 0.4255, published 0.426  OK
+
+B.4  (a,b) from the UG FOC + reference belief point:
+     b = -[ (t_UG - 1/2) + p_hp * x ] / [ 2(t_UG - 1/2)x - y + (2/3)x ],
+     a = p_hp - b/3
+  Self-interest: b = -[ -0.0833 + 0.4846*0.3974 ] / [ 2*-0.0833*0.3974 - 0.4255 + (2/3)*0.3974 ] = -0.1092/-0.2269 = 0.481
+         a = 0.4846 - 0.481/3 = 0.324
+    -> 0.3241, published 0.324  OK
+    -> 0.4814, published 0.481  OK
+  Moral: b = -[ -0.0001 + 0.4847*0.0377 ] / [ 2*-0.0001*0.0377 - 0.0221 + (2/3)*0.0377 ] = -0.0182/0.0030 = -6.010
+         a = 0.4847 - -6.010/3 = 2.488
+    -> b < 0: no valid schedule; unidentified, as norm domination implies
+
+B.5  MBC: impose (a,b) = SI schedule; solve the UG and TG FOCs jointly in x:
+     implied UG offer t(x) = 1/2 + [ b*y(x) - (a+b)x ] / (2bx + 1),
+     y(x) = [ t_TG - te(s) + x(1+r)(1-s) ] / r;  find t(x) = t_UG on x in [0, 1/2)
+  at x = 0:    y(0) = [ 0.6346 - 0.5388 ] / 2 = 0.0479;  t(0) = 1/2 + 0.481*0.0479 = 0.5231
+  observed t_UG = 0.5680 > t(0) = 0.5231, and t(x) is decreasing in x (t(0.45) = 0.4089),
+  so no interior root exists: the constrained solution is the boundary x = 0
+    -> 0.0000, published 0.000  OK
+    -> 0.0479, published 0.048  OK
+
+B.6  s column: mean believed returned share at the reference send (s_hp)
+    -> 0.3151, published 0.315  OK
+    -> 0.2205, published 0.220  OK
+    -> 0.3574, published 0.357  OK
+
+B.7  overidentifying test: implied acceptance at the chosen offer = a + b*t_chosen
+     (Moral uses the SI schedule, its own being unidentified); measured = p_chosen
+  Moral: 0.324 + 0.481*0.4999 = 0.5648;  measured 0.7953
+    -> 0.5648, published 0.565  OK
+    -> 0.7953, published 0.795  OK
+  Self-interest: 0.324 + 0.481*0.4167 = 0.5247;  measured 0.7014
+    -> 0.5247, published 0.525  OK
+    -> 0.7014, published 0.701  OK
+  Mutual Benefit / Cooperation: 0.324 + 0.481*0.5680 = 0.5976;  measured 0.7111
+    -> 0.5976, published 0.598  OK
+    -> 0.7111, published 0.711  OK
+
+B.8  Section 1's belief-sensitivity table:
+     pred_old = (1+r)x;  pred_new = dte(s) + (1+r)x,
+     dte(s) = 2(1+r) / [1+(1+r)(1-2s)]^2;  estimated = OLS slope of the TG
+     send on the hypothetical believed share, by category (model-free)
+  Moral: old = 3*0.0377 = 0.1131;  dte(0.3151) = 6/2.1096^2 = 1.3482;  new = 1.3482+0.1131 = 1.4613
+    estimated (OLS) = 0.3061 (se 0.095, N 187);  est/old = 2.71;  est/new = 0.21
+    -> 0.1131, published 0.113  OK
+    -> 1.4613, published 1.461  OK
+    -> 0.3061, published 0.306  OK
+  Self-interest: old = 3*0.3974 = 1.1921;  dte(0.2205) = 6/2.6771^2 = 0.8372;  new = 0.8372+1.1921 = 2.0293
+    estimated (OLS) = 0.4505 (se 0.144, N 96);  est/old = 0.38;  est/new = 0.22
+    -> 1.1921, published 1.192  OK
+    -> 2.0293, published 2.029  OK
+    -> 0.4505, published 0.451  OK
+  Mutual Benefit / Cooperation: old = 3*0.0000 = 0.0000;  dte(0.3574) = 6/1.8559^2 = 1.7420;  new = 1.7420+0.0000 = 1.7420
+    estimated (OLS) = 0.2642 (se 0.098, N 170);  est/old = inf (old = 0);  est/new = 0.15
+    -> 0.0000, published 0.000  OK
+    -> 1.7420, published 1.742  OK
+    -> 0.2642, published 0.264  OK
+
+All entries of the published Table 4 and of Section 1's sensitivity table
+reproduced from the stated formulas.

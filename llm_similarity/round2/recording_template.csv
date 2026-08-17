@@ -1,0 +1,2 @@
+model,set,context,vignette_id,label_context,label_vignette,similarity_rating
+# one row per rating: model in {claude,gpt,gemini}; set in {1,2,3}; context in {BONUS,AID,C-KW,C-LT,C-UG,C-TG,M-KW,M-LT,M-UG,M-TG}; vignette_id canonical (M1-M8,S1-S8,C1-C8); labels as shown to the rater

@@ -1,0 +1,13 @@
+game,story,condition,representation,count,n,share_pct
+dgkw,0,Control,Moral,273,399,68.42105263157895
+dgkw,0,Control,Self-interest,123,399,30.82706766917293
+dgkw,0,Control,Mutual Benefit / Cooperation,3,399,0.7518796992481203
+dgkw,1,Market,Moral,135,329,41.03343465045592
+dgkw,1,Market,Self-interest,136,329,41.33738601823708
+dgkw,1,Market,Mutual Benefit / Cooperation,58,329,17.62917933130699
+dgkw,2,Bonus,Moral,311,390,79.74358974358975
+dgkw,2,Bonus,Self-interest,73,390,18.71794871794872
+dgkw,2,Bonus,Mutual Benefit / Cooperation,6,390,1.5384615384615385
+dgkw,4,Aid,Moral,272,400,68.0
+dgkw,4,Aid,Self-interest,121,400,30.25
+dgkw,4,Aid,Mutual Benefit / Cooperation,7,400,1.7500000000000002

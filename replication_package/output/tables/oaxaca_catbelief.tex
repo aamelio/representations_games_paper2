@@ -1,0 +1,37 @@
+\begin{table}[!htbp]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{4pt}
+\caption{\textbf{Symmetrized Decomposition of Treatment Effects: Hypothetical and Actual Beliefs}}
+\label{tab:oaxaca_catbelief}
+\begin{tabular}{ll c ccc ccc r}
+\toprule
+& & & \multicolumn{3}{c}{Hypothetical beliefs} & \multicolumn{3}{c}{Actual beliefs} & \\
+\cmidrule(lr){4-6}\cmidrule(lr){7-9}
+Comparison & Game & $\Delta$ mean & Repr. & Behav. & Repr. \% &
+Repr. & Behav. & Repr. \% & $N$ \\
+\midrule
+Market vs Control & DG-KW & -0.101 & -0.039 & -0.061 & 39\% & -0.039 & -0.061 & 39\% & 728 \\
+ & & (0.018) & (0.016) & (0.020) & & (0.016) & (0.020) & & \\
+\addlinespace[2pt]
+Market vs Control & UG & -0.220 & -0.036 & -0.184 & 16\% & -0.024 & -0.196 & 11\% & 1027 \\
+ & & (0.013) & (0.015) & (0.020) & & (0.012) & (0.018) & & \\
+\addlinespace[2pt]
+Market vs Control & TG & +0.133 & +0.078 & +0.054 & 59\% & +0.085 & +0.048 & 64\% & 970 \\
+ & & (0.019) & (0.012) & (0.018) & & (0.013) & (0.017) & & \\
+\addlinespace[2pt]
+Aid vs Bonus & DG-KW & -0.059 & -0.039 & -0.021 & 65\% & -0.039 & -0.021 & 65\% & 790 \\
+ & & (0.013) & (0.010) & (0.008) & & (0.010) & (0.008) & & \\
+\addlinespace[2pt]
+Aid vs Bonus & UG & -0.024 & -0.012 & -0.011 & 52\% & -0.016 & -0.008 & 68\% & 1120 \\
+ & & (0.007) & (0.003) & (0.006) & & (0.004) & (0.006) & & \\
+\addlinespace[2pt]
+Aid vs Bonus & TG & +0.008 & +0.011 & -0.003 & --- & -0.003 & +0.011 & --- & 937 \\
+ & & (0.020) & (0.014) & (0.016) & & (0.015) & (0.014) & & \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: Symmetrized (Shapley/Oaxaca--Blinder) decomposition of the difference in mean Player 1 actions between conditions into a component due to the distribution of representation cells and a component due to behavior conditional on the cell. In the ultimatum and trust games, cells interact the stated category with a quantile group of the belief; cutoffs are computed within game on the two conditions compared, with tied values kept together. The first specification retains the previous Table 14 construction and uses hypothetical beliefs at the common one-third action. The second uses actual (chosen-action) beliefs; for trust-game senders who chose zero, this belief refers to the hypothetical case of sending one sixth. Both specifications use the same classified sample with non-missing hypothetical beliefs, so the mean difference and $N$ are common across columns; the actual-belief specification is deliberately restricted to this sample. Participants choosing exactly one third are not asked the hypothetical question separately and remain excluded, as in the previous specification. The dictator game has no belief elicitation, so both specifications use categories alone and are identical. Actual beliefs condition on an endogenous chosen action; their decomposition is therefore descriptive and does not isolate an upstream representation channel. Cells empty in one condition contribute their observed mean to the representation component. Bootstrap standard errors in parentheses ($B=1{,}000$ participant-level draws within game $\times$ condition strata; belief groups and both decompositions recomputed in each draw). Representation shares are point estimates; they are not reported for the trust-game story comparison, where the total effect is +0.008 (bootstrap SE 0.020).
+\end{flushleft}
+\end{table}

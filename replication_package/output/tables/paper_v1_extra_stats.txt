@@ -1,0 +1,49 @@
+=== Intro figure: DG-KW vs DG-LT, control (between-subject P1) ===
+N: KW=403, LT=400
+Mean share to recipient: KW=0.350, LT=0.414
+Mean dollars to recipient: KW=4.20, LT=4.97
+Share at $0 to recipient: KW=0.189, LT=0.105
+Share at default: KW($0)=0.189, LT($4)=0.190
+Share at equal split ($6): KW=0.514, LT=0.517
+Share giving MORE than half: KW=0.020, LT=0.092
+Welch t-test on means: t=-4.73, p=0.0000
+Mann-Whitney: p=0.0000; KS test: D=0.178, p=0.00001
+
+=== Realized surplus by treatment ===
+UG: acceptance rate | Control: mean=0.947 (se=0.009, n=600)
+UG: acceptance rate | Market: mean=0.618 (se=0.020, n=600)
+UG: acceptance rate | Bonus: mean=0.947 (se=0.009, n=600)
+UG: acceptance rate | Aid: mean=0.912 (se=0.012, n=600)
+UG: acceptance rate | Market-Control: diff=-0.328 (p=0.0000); Aid-Bonus: diff=-0.035 (p=0.0181)
+UG: expected surplus (\$) | Control: mean=11.360 (se=0.110, n=600)
+UG: expected surplus (\$) | Market: mean=7.420 (se=0.238, n=600)
+UG: expected surplus (\$) | Bonus: mean=11.360 (se=0.110, n=600)
+UG: expected surplus (\$) | Aid: mean=10.940 (se=0.139, n=600)
+UG: expected surplus (\$) | Market-Control: diff=-3.940 (p=0.0000); Aid-Bonus: diff=-0.420 (p=0.0181)
+TG: realized surplus (\$) | Control: mean=11.810 (se=0.138, n=600)
+TG: realized surplus (\$) | Market: mean=13.555 (se=0.139, n=600)
+TG: realized surplus (\$) | Bonus: mean=12.132 (se=0.141, n=600)
+TG: realized surplus (\$) | Aid: mean=12.197 (se=0.144, n=600)
+TG: realized surplus (\$) | Market-Control: diff=1.745 (p=0.0000); Aid-Bonus: diff=0.065 (p=0.7474)
+
+WITHIN DG-KW vs DG-LT (abstract frame): N=600, choice switch=0.462, category switch=0.227, sp switch=0.405, P(choice|cat switch)=0.801, P(choice|cat stay)=0.362
+WITHIN Market vs Control (DG-KW): N=599, choice switch=0.731, category switch=0.516, sp switch=0.664, P(choice|cat switch)=0.822, P(choice|cat stay)=0.634
+WITHIN Market vs Control (DG-LT): N=600, choice switch=0.823, category switch=0.550, sp switch=0.620, P(choice|cat switch)=0.885, P(choice|cat stay)=0.748
+=== LPM: choice switch on category switch (robust HC1 SEs) ===
+DG-KW vs DG-LT (abstract frame): N=600, b=0.439 (robust SE 0.041, p=6.5e-27)
+Market vs Control (DG-KW): N=599, b=0.188 (robust SE 0.036, p=1.5e-07)
+Market vs Control (DG-LT): N=600, b=0.137 (robust SE 0.032, p=1.7e-05)
+
+=== Welch 95% CIs for headline treatment effects (pp of budget) ===
+Market-Control, TG share sent: 14.5 pp, 95% CI [11.3, 17.7]
+Market-Control, UG share offered: -21.9 pp, 95% CI [-24.2, -19.6]
+=== Within-subject choice switching (control_kwlt, KW first) ===
+N pairs=300; cells labelled (>=3%)=7
+  KW=0.5000 LT=0.5000: n=136, 45.3%
+  KW=0.5000 LT=0.6667: n=19, 6.3%
+  KW=0.0000 LT=0.0000: n=16, 5.3%
+  KW=0.0000 LT=0.3333: n=11, 3.7%
+  KW=0.1667 LT=0.3333: n=10, 3.3%
+  KW=0.5000 LT=0.3333: n=10, 3.3%
+  KW=0.3333 LT=0.3333: n=9, 3.0%
+

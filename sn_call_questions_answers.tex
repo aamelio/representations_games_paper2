@@ -1,0 +1,188 @@
+\documentclass[11pt]{article}
+% Internal call-prep note, companion to ng_call_methods_briefing.tex; suppress stylistic
+% chktex false positives as in the briefing, plus 9/10/17: the question-numbering style
+% mirrors SN's list and reads to chktex as unbalanced parentheses.
+% chktex-file 12
+% chktex-file 13
+% chktex-file 38
+% chktex-file 9
+% chktex-file 10
+% chktex-file 17
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\setlist{itemsep=2pt, topsep=3pt}
+
+\urlstyle{tt}
+\expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks\do\_}
+\newcommand{\code}[1]{\path{#1}}
+\emergencystretch=1.5em
+
+\title{\textbf{SN's Questions for the NG Call\\[2pt] \large Calibration and LLM Similarity: Answers with Verification}}
+\date{2026-07-22 (updated the same evening: derivation appendix, follow-ups, and the applied paper edits)}
+
+\begin{document}
+\maketitle
+
+Answers question by question --- a few draw on results already on file from the last two sessions, and for Q9 the outlier-sensitivity check was run fresh (script in the session scratchpad, \code{f6_outlier_check.py}). The edits SN authorized on 2026-07-22 (receiver-splits table, Figure 6 labels, \S3.3/T5 explicitness clauses) are now APPLIED to \code{main.tex} --- see the ``Edits applied'' list at the end; \code{main_v1.tex} and \code{main_v2.tex} are untouched.
+
+\section*{Calibration}
+
+\textbf{1) Why don't we calibrate $s$?} Because $s$ is \emph{measured}, not calibrated --- and this is a design feature, not an omission. Table 4's $s$ column (0.315 / 0.220 / 0.357) is the category mean of the elicited hypothetical belief: the believed returned share at the one-third reference send. The model (\S2, mapping paragraph) treats the belief components --- $(a,b)$ in the UG, $s$ in the TG --- as directly measured parts of the representation; calibration is reserved for what cannot be elicited, the attention weights. There is also an identification reason: the TG FOC is one equation, and it is spent pinning $\rho/\mu$ given $\sigma/\mu$ from the DG and the measured $s$. Inverting it for $s$ instead would leave $\rho/\mu$ with no source anywhere ($\rho$ is idle in the DG; in the UG it enters only jointly with the schedule). The asymmetry with the UG --- where we \emph{do} calibrate the belief schedule --- exists only because the two elicited UG belief points fail to form a valid schedule on their own (see Q2), whereas the TG belief is a single share, directly usable.
+
+\textbf{2) Why not use UG chosen-offer beliefs for calibration?} Deliberately held out --- that's the overidentification test, and the route that \emph{does} use them fails. The ``two-point route'' (fit $a$ and $b$ to the two elicited category-mean belief points) was the candidate headline and it fails validity: $a = -0.137$ (Moral), $-0.383$ (Self-interest), and $a+b > 1$ for all three categories (up to 2.2) --- the two points imply acceptance probabilities above one, so no coherent linear schedule passes through both. That failure is itself a finding: chosen-action beliefs are 16--21pp too optimistic relative to any schedule through the reference point. So the headline route uses the FOC + reference-point belief only, and the chosen-offer belief becomes the held-out moment --- where the calibration fails by 11--23pp in the informative direction (optimism at chosen actions, picked up by \S4.3). One elicited object per game is used for identification; one is reserved for testing. (On whether this failure indicts the linear-schedule assumption itself, see Follow-up F1 below.)
+
+\textbf{3) Game-specific parameters: what survives?} Almost nothing ---
+\begin{itemize}
+\item \textbf{DG}: $\sigma/\mu$ is point-identified ($t = \tfrac12 - \sigma/\mu$; $\rho$ idle, no beliefs). The only self-contained game.
+\item \textbf{TG}: one FOC, two unknowns $\to$ only a one-dimensional locus $\rho/\mu = f(\sigma/\mu)$ (script 08 already logs it as \code{tg_locus}).
+\item \textbf{UG}: FOC + reference belief point = two equations in four unknowns ($\sigma/\mu$, $\rho/\mu$, $a$, $b$) $\to$ nothing point-identified.
+\end{itemize}
+So cross-game pooling within category is \emph{forced} by identification, and the paper says so explicitly (\S3.2): it is the model's own claim that attention belongs to the retrieved situation, not the person --- and the overid test is exactly where that assumption gets empirical content. This is the strongest framing for NG: game-specificity isn't an alternative we chose against; it's an underidentified model.
+
+\textbf{4) The TG-only two-equation route: infeasible, structurally.} This is exactly what we established two sessions ago. Subtract the two FOCs (same observed mean send $t$, beliefs $s_1$ = reference, $s_2$ = chosen): the $\rho$ term cancels and
+\[
+\sigma/\mu \;=\; -\,\frac{t^{e}(s_2) - t^{e}(s_1)}{(1+r)(s_2 - s_1)} \;<\; 0
+\]
+for \emph{any} belief wedge in either direction, because the anchor $t^{e}$ is strictly increasing --- the anchor movement and the material term push the send the same way, so both FOCs can hold at one send only if $\sigma$ is negative. On the actual moments: Moral $-0.42$, Self-interest $-0.28$ (its wedge is 0.1pp --- knife-edge), MBC $-0.66$. The constructive reading for the call: the DG moment is \emph{necessary} for identification, which turns Q3's worry into an argument for the three-game design. (The derivation lives only in the session log; it can be scripted into the package post-call if you want it citable.)
+
+\textbf{5) The UG FOC and $(a,b)$ --- yes, divided by $\mu$.} The interior offer is $t = \tfrac12 + \bigl(b\rho - (a+b)\sigma\bigr)/(2b\sigma + \mu)$. Rearranged and divided through by $\mu$:
+\[
+\Bigl(t - \tfrac12\Bigr)\Bigl(2b\,\frac{\sigma}{\mu} + 1\Bigr) \;=\; b\,\frac{\rho}{\mu} - (a+b)\,\frac{\sigma}{\mu}
+\]
+--- homogeneity in $(\sigma, \rho, \mu)$ is exactly why only the ratios are identified. With $x = \sigma/\mu$ (from DG) and $y = \rho/\mu$ (from TG) known, substitute the reference belief point $a = p_{\mathrm{hp}} - b/3$ and the FOC becomes linear in $b$; then $a$ follows. For Moral, $b$ comes out non-positive --- no valid schedule, beliefs unidentified exactly where the model says behavior is belief-insensitive; for MBC, the Self-interest schedule is imposed (reference beliefs are flat across categories, the Figure 5 fact) and the UG and TG FOCs are solved jointly for $(x, y)$. The full arithmetic is in the derivation section below.
+
+\textbf{6) Purpose and added value.} The calibration is the bridge from measured categories to model primitives --- it's what makes ``categories are attention profiles'' quantitative rather than metaphorical. Its value is discipline in four places nothing forced. (i) Self-interest comes out with $\rho \approx \sigma$ (0.426 against 0.397) --- own-earnings attention with no residual surplus motive, which is the \S2 mapping recovered from the data, not imposed on it. (ii) For Moral, inverting the UG FOC returns no valid acceptance schedule ($b < 0$). That is not a malfunction: with $\sigma/\mu = 0.038$, the model says a Moral offer barely responds to acceptance beliefs (the sensitivity $\sigma/(2b\sigma+\mu)$ is $\approx 0.04$), so the observed offer carries almost no information about the believed schedule --- the inversion fails to identify $(a,b)$ exactly where the model predicts that behavior stops depending on beliefs. The data refuse an answer precisely where the model says the question is unanswerable; that is an internal consistency check passed, not a gap. (iii) The Self-interest schedule comes out a genuine probability schedule ($a+b = 0.81 \le 1$) --- a restriction nothing in the inversion enforces. (iv) The one measurement left unused --- the belief each proposer attaches to her own chosen offer --- is where the calibration fails, by 11--23pp, in one interpretable direction (optimism at chosen actions), and that failure becomes the forecast-error result of \S4.3. The calibration also quantifies the coupling between the representation's two components: assign each trust-game sender her category's calibrated $\sigma/\mu$ and her own elicited belief $s$; the two are negatively correlated in the population ($\mathrm{Cov} = -0.0076$) --- more self-interested senders imagine less generous receivers, the projection direction --- and at interior optima the model implies that the mean send differs from an independent-marginals counterfactual by exactly $(1+r)\,\mathrm{Cov}(\sigma/\mu, s)$, so this coupling lowers the average send by $3 \times 0.0076 \approx 2.3$ points of the endowment relative to a world where attention and beliefs were dealt out independently. In the narrative, the calibration closes \S3.2: the section first shows that the control facts point qualitatively in the model's directions; the calibration then pushes those same moments \emph{through the model's first-order conditions} and recovers a coherent parameter vector --- the facts are not just consistent with the model, they can be mapped through its equations into primitives --- and the recovered primitives then pass checks they were not fitted to. After that, the treatment sections can read representation shifts as parameter shifts. Against ``isn't this curve-fitting'': three untargeted restrictions, one held-out moment, and sensitivity slopes reproduced up to attenuation consistent with coarse categories.
+
+\section*{Line-by-line: from the moments to every number in Table 4}
+
+Everything below is generated by \code{08_calibration.py} (log: \code{calibration_stats.txt}); every number was recomputed by hand from the moments this evening and matches. Setup: control sample, classified responses, category means; $r = 2$ (the tripling); reference offer/send $= 1/3$; each participant plays one game. Notation: $x \equiv \sigma/\mu$, $y \equiv \rho/\mu$; $p_{\mathrm{hp}}$/$p_{\mathrm{ch}}$ = mean elicited acceptance belief at the reference offer / at the own chosen offer; $t_{\mathrm{ch}}$ = mean offer among proposers with a chosen-offer belief; $s_{\mathrm{hp}}$ = mean believed returned share at the reference send.
+
+\textbf{Step 0: the data moments.}
+
+\begin{center}
+\footnotesize
+\begin{tabular}{l ccc ccc c}
+\toprule
+Category & $t_{DG}$ ($N$) & $t_{UG}$ ($N$) & $t_{TG}$ ($N$) & $p_{\mathrm{hp}}$ & $p_{\mathrm{ch}}$ & $t_{\mathrm{ch}}$ & $s_{\mathrm{hp}}$ \\
+\midrule
+Moral & 0.4623 (273) & 0.4999 (446) & 0.4408 (256) & 0.4847 & 0.7953 & 0.4999 & 0.3151 \\
+Self-interest & 0.1026 (123) & 0.4167 (117) & 0.2954 (112) & 0.4846 & 0.7014 & 0.4167 & 0.2205 \\
+Mutual Benefit/Coop. & 0.3333 (3) & 0.5680 (19) & 0.6346 (216) & 0.4824 & 0.7111 & 0.5680 & 0.3574 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Step 0$'$: the three FOCs, all divided by $\mu$.}
+\begin{align*}
+\text{DG:}\quad & t_{DG} = \tfrac12 - x \\
+\text{TG:}\quad & t_{TG} = t^{e}(s) + r\,y - (1+r)(1-s)\,x, \qquad t^{e}(s) = \frac{1}{1+(1+r)(1-2s)} \\
+\text{UG:}\quad & t_{UG} = \tfrac12 + \frac{b\,y - (a+b)\,x}{2b\,x + 1}, \qquad \text{with the measured reference point } p_{\mathrm{hp}} = a + b/3
+\end{align*}
+
+\textbf{Step 1: DG pins $x$} (Proposition 1; $\rho$ idle, no beliefs).
+\[
+\text{Moral: } x = 0.5 - 0.4623 = 0.038. \qquad \text{Self-interest: } x = 0.5 - 0.1026 = 0.397.
+\]
+(MBC's dictator cell has $N=3$ --- unusable; see Step 4.)
+
+\textbf{Step 2: TG + measured $s_{\mathrm{hp}}$ pin $y$}, inverting the TG FOC: $y = \bigl[t_{TG} - t^{e}(s_{\mathrm{hp}}) + x(1+r)(1-s_{\mathrm{hp}})\bigr]/r$.
+\begin{align*}
+\text{Moral:} \quad & t^{e}(0.3151) = 1/(1+3 \times 0.3698) = 0.4741; \\
+& y = \bigl[0.4408 - 0.4741 + 0.038 \times 3 \times 0.6849\bigr]/2 = (-0.0333 + 0.0775)/2 = 0.022. \\
+\text{Self-interest:} \quad & t^{e}(0.2205) = 1/(1+3 \times 0.5590) = 0.3736; \\
+& y = \bigl[0.2954 - 0.3736 + 0.397 \times 3 \times 0.7795\bigr]/2 = (-0.0782 + 0.9293)/2 = 0.426.
+\end{align*}
+
+\textbf{Step 3: UG FOC + reference belief point pin $(a,b)$.} Substitute $a = p_{\mathrm{hp}} - b/3$ into the UG FOC; it becomes linear in $b$:
+\[
+b = \frac{-(t_{UG} - \tfrac12) - p_{\mathrm{hp}}\,x}{2(t_{UG} - \tfrac12)\,x - y + x - x/3}.
+\]
+Self-interest ($t_{UG} - \tfrac12 = -0.0833$):
+\[
+b = \frac{0.0833 - 0.4846 \times 0.397}{-0.0662 - 0.4256 + 0.3974 - 0.1325} = \frac{-0.1093}{-0.2269} = 0.481, \qquad a = 0.4846 - 0.481/3 = 0.324,
+\]
+with the validity checks passed: $b > 0$, $a \ge 0$, $a + b = 0.806 \le 1$. Moral: the same solve returns $(a,b) = (2.488, -6.010)$ --- $b < 0$, no valid schedule, so Table 4 prints ``--'' (see Q6(ii) for why the model expects exactly this). Where Moral needs a schedule downstream (the implied column, the sensitivity), the Self-interest schedule is imposed; the license is that reference-action beliefs are flat across categories (0.4847 / 0.4846 / 0.4824).
+
+\textbf{Step 4: MBC --- UG and TG solved jointly under the imposed schedule.} Impose $(a,b) = (0.324, 0.481)$; substitute the TG locus $y(x) = \bigl[t_{TG} - t^{e}(s_{\mathrm{hp}}) + x(1+r)(1-s_{\mathrm{hp}})\bigr]/r$ into the UG FOC and solve for $x$ on $[0, 0.499]$. The UG-implied offer is \emph{decreasing} in $x$ along the locus (the locus slope is not steep enough to offset the direct selfishness pull: $b(1+r)(1-s)/r - (a+b) = 0.481 \times 0.964 - 0.805 < 0$), and already at $x = 0$ the implied offer is $0.523$, below the observed $0.568$ --- so there is no interior root and the solver settles at the boundary:
+\[
+x = 0.000, \qquad y = y(0) = \bigl[0.6346 - t^{e}(0.3574)\bigr]/2 = (0.6346 - 0.5389)/2 = 0.048.
+\]
+The residual UG miss (implied 0.523 vs actual 0.568) is disclosed in the stats log, which also tabulates the locus: $y(x) > x$ for every admissible $x$ --- MBC is surplus-attentive however the joint solve is sliced.
+
+\textbf{Step 5: the $s$ column is measured, not calibrated} --- the category means of the elicited believed share at the reference send: 0.315, 0.220, 0.357 (see Q1).
+
+\textbf{Step 6: the overidentification columns.} Implied acceptance at the chosen offer $= a + b\,t_{\mathrm{ch}}$ (the Self-interest schedule where the own one is invalid or imposed), against the measured $p_{\mathrm{ch}}$:
+\begin{center}
+\footnotesize
+\begin{tabular}{l ccc}
+\toprule
+& implied $a + b\,t_{\mathrm{ch}}$ & measured $p_{\mathrm{ch}}$ & gap \\
+\midrule
+Moral & $0.324 + 0.481 \times 0.4999 = 0.565$ & 0.795 & $+23.0$pp \\
+Self-interest & $0.324 + 0.481 \times 0.4167 = 0.525$ & 0.701 & $+17.7$pp \\
+Mutual Benefit/Coop. & $0.324 + 0.481 \times 0.5680 = 0.598$ & 0.711 & $+11.3$pp \\
+\bottomrule
+\end{tabular}
+\end{center}
+--- the ``11--23 percentage points in every category'' of \S3.2, always in the optimism direction.
+
+\textbf{Step 7: predicted vs estimated belief sensitivities} (the attenuation sentence of \S3.2). Predicted: UG $|\partial t/\partial a| = x/(2bx+1)$ $\to$ 0.036 / 0.287 / 0.000; TG $\mathrm{d}t/\mathrm{d}s = \mathrm{d}t^{e}/\mathrm{d}s + (1+r)x$ with $\mathrm{d}t^{e}/\mathrm{d}s = 2(1+r)/\bigl(1+(1+r)(1-2s)\bigr)^{2}$ $\to$ 1.461 / 2.029 / 1.742. Estimated (OLS of the action on the reference-action belief, within category): UG 0.010 / $-0.108$ / $-0.083$; TG 0.306 / 0.451 / 0.264. Ratios: UG Self-interest 0.38; TG 0.21 / 0.22 / 0.15 --- uniform within the TG because the anchor's belief channel $\mathrm{d}t^{e}/\mathrm{d}s$ is common to all categories.
+
+\textbf{Step 8: the coupling number.} Per TG sender: $x$ from her category, $s$ her own elicited belief; $\mathrm{Cov}(x, s) = -0.0076$ ($N = 453$); at interior optima $E[t] - E_{\mathrm{indep}}[t] = (1+r)\,\mathrm{Cov} = -0.0227$ $\to$ mean sends 2.3 points of the endowment below independence.
+
+Standard errors throughout: nonparametric bootstrap, participants resampled within game, $B = 1{,}000$, seed 42.
+
+\section*{LLM similarity}
+
+\textbf{7) Which vignettes feed what --- one correction to the premise.} T6 and F6 use only the 24 sender vignettes, correct. But \textbf{T7 uses no vignettes at all}: it's the round-1 exercise --- story effects across games put against the \emph{structural} similarity gradient of T5 (94.6 / 51.2 / 29.9 / 14.4). The receiver types are: UG --- \emph{accepting} vs \emph{rejecting} a proposal; TG --- \emph{returning} vs \emph{keeping} entrusted proceeds; two vignettes each (8 of the 32; DG has no receiver decision, so none by design). They were elicited as 100-point splits for the strategic-game contexts: under Market the UG accepting share rises 42.7 $\to$ 52.0 (mirroring first movers' measured acceptance beliefs), the TG split barely moves 53.0 $\to$ 54.0 (part of the TG-null pattern). \textbf{[Applied 2026-07-22]} These splits are now \textbf{Table 40} (\code{tab:receiver_splits}, generated by the new \code{round2/07_receiver_splits_table.py} from the raw recording), placed in Appendix H with a pointer added to the \S3.3 prose sentence; because Appendix H follows every existing float, \emph{no existing table or figure number changed}.
+
+\textbf{8) Two measures --- the answer differs by table.} In \textbf{T5} both are load-bearing and their \emph{divergence} is the finding: structural similarity is flat between the stories ($\le$1.1 apart) while the retrieval split grades sharply with strategic richness (Bonus 41$\to$72\%) --- that wedge between similarity-of-structure and similarity-of-context is the very thing the retrieval model runs on. Keep both there. In \textbf{T6} the graded measure does all the downstream work (F6 and every quoted shift use it; verified two sessions ago that nothing consumes the retrieval-split block). Conceptually: graded similarity is the model's \emph{input} $S(\text{context}, \text{category})$, unconstrained --- the market can lower Moral without mechanically raising the others; the split embeds the cross-category competition, so it's closer to the \emph{output} $q_c$ and its adding-up constraint forces substitution. Best measure: graded, because it measures the primitive and feeds the H5 test; the split's added value in T6 is only a consistency check that normalization doesn't overturn the pattern. My recommendation: T6's split block moves to the appendix (or goes, with one sentence); it's on NG's highlight list, so decide it with him tomorrow.
+
+\textbf{9) Figure 6 --- labels, the vertical stack, and outliers.}
+\begin{itemize}
+\item \emph{Labels} --- \textbf{[Applied 2026-07-22]}: Figure 6 now encodes all three dimensions --- color = category, marker = comparison, small text label = game --- with a rebuilt legend and a caption sentence naming the encoding (\code{04_analysis.py}; all non-figure outputs verified byte-identical after the re-run). \textbf{Figure 12 already had per-point labels} (game names, colored by game, with b/h suffixes for the belief and hypothetical panels) --- easy to miss at panel scale; its caption now says explicitly what the labels are.
+\item \emph{The orange alignment is by construction, not a bug}: each story is a single game-invariant text, rated once against the category vignettes --- the game never enters the similarity rating, only the y-axis (dq). So all nine Aid$-$Bonus cells inherit their category's one similarity shift: Moral $+2.6$, SI $+2.5$, MBC $-2.1$ $\to$ three vertical stacks. \textbf{[Applied 2026-07-22]}: the F6 caption now states this by-construction stacking explicitly.
+\item \emph{Outliers --- the check was run}: leave-one-out slope range is $[0.0100, 0.0173]$, always positive and significant --- no single point drives it. Dropping the two south-west points (Market$-$Control Moral in DG-KW and UG) \emph{raises} the slope to 0.0184 but inflates the se to 0.0077 ($t \approx 2.4$) and drops $R^2$ to 0.29; Spearman falls 0.60 $\to$ 0.38. So the SW corner does not create the slope --- it supplies most of the x-variance and hence the precision. The sharper structural fact: Market$-$Control alone gives 0.0129 (se 0.0033, $R^2$ 0.69), while Aid$-$Bonus alone spans only 4.7 similarity points and has no slope information ($-0.001$, se 0.013). Honest line for NG: \emph{the sign is robust to any deletion; the $R^2$ is not --- most similarity variance lives in the market-frame Moral shifts, which is exactly where the model says the description lever operates, while the story cells test sign consistency at small shifts and contain the disclosed Aid--Moral availability exception.}
+\end{itemize}
+
+\textbf{10) Purpose of the three exercises.} The retrieval model says context moves representations through similarity; this module makes the similarity input measurable \emph{independently of participant behavior} --- no demand effects, no reverse causality, falsifiable. Each exercise has a distinct job: \textbf{(a)} T5 validates the story lever (Aid and Bonus are structurally indistinguishable, so their behavioral differences cannot run through perceived game structure --- exactly what an $F_c$ lever requires and what game-specific norms cannot use) and produces the structural-distance ordering that T7 turns into a testable discipline (story effects largest where stories are structurally close: DG $>$ UG $>$ TG $\approx 0$). \textbf{(b)+(c)} T6/F6 measure similarity at the level the theory specifies --- context to category: the market frame moves category similarity exactly as it moves measured representations (the $\boldsymbol{\kappa}_d$ lever), the stories barely move it (consistent with $F_c$), and F6 quantifies the link (slope 0.0122, $R^2 = 0.59$) with two flagged exceptions that \emph{localize the levers} --- TG-Market (no similarity change, big shifts $\to$ availability or beliefs) and Aid--Moral (share falls without similarity falling $\to$ availability). The added value is that it's the paper's only direct mechanism evidence, and its nulls are doing honest work: they define what the human survey (in progress) must adjudicate. The disclosed limits for the call: single-model working measurement (see Follow-up F4), and --- from today's check --- the H5 slope is identified by the market comparison.
+
+\section*{Follow-ups (SN, 2026-07-22 evening)}
+
+\textbf{F1) Does the two-point failure mean the linear acceptance schedule is wrong?} Not on this evidence --- and the calibration uses less linearity than it appears to. Three layers:
+\begin{itemize}
+\item \emph{What the failure can and cannot show.} Two points cannot test a functional form, and one of the two is measured at the proposer's own chosen offer --- the object contaminated by selection and optimism (the same optimism shows up in \S4.3 against receivers' \emph{actual} behavior). The parsimonious reading is a property of beliefs at chosen actions, not of the schedule's shape. Formally a concave schedule could reconcile both points --- but it would have to rise $\sim$20pp over $\sim$8pp of offers and then flatten hard to stay below 1, an odd shape to defend when we independently document chosen-action optimism.
+\item \emph{How much linearity is actually used.} The FOC route is local: it uses the schedule's level at the reference offer (measured) and the local slope $b$ at the optimum (inverted). Global linearity is exposition. The two genuine global uses are the validity check $p(1) = a+b \le 1$ and Proposition-UG part (i) ($t_{UG} > t_{DG}$ for every profile), and the receiver appendix (\code{app:receiver}) already \emph{derives} the schedule from the receiver's own protest psychology rather than positing it, with the comparative statics surviving.
+\item \emph{What I would do.} Nothing structural --- NG's taxi line applies: the linear $p$ is the vehicle that makes the inversion transparent, and its failures are carrying information (Q2), which is better than an assumption that fits everything. If the coauthors want belt-and-braces, the cheap option is one \S3.2 sentence stating the local-linearization reading explicitly; a ``curvature bound'' exercise (how concave must the schedule be to absorb the gap) is possible but would just restate the optimism magnitude in different units. I would not re-specify the model.
+\end{itemize}
+
+\textbf{F2) AA's point on the round-1 prompt (``focus on structural and strategic features'') compressing the Bonus--Aid difference.} AA is right that the instruction plausibly compresses the \emph{level} of the difference --- it tells the rater to ignore precisely the dimensions on which the stories vary. But that is the design, not a leak: the paper's claim is about \emph{structural} similarity, and the instruction is what makes the measurement match the claim. Two internal rebuttals to have ready:
+\begin{itemize}
+\item The same nine conversations discriminate the stories sharply when asked the \emph{retrieval} question (Bonus 41\% $\to$ 72\% across games) --- the raters see the stories' differences perfectly well and report them where they are allowed to count. The structural null is not rater insensitivity.
+\item Round 2 deliberately dropped the structural-only instruction (overall situational similarity), and there the stories \emph{do} separate, in category-relevant directions --- Aid $+2.5$ toward the Self-interest exemplars, Bonus $+2.1$ toward Mutual Benefit --- while staying close on Moral. The two rounds bracket the object: structure-only $\to$ indistinguishable; overall $\to$ small, signed differences. Together that is exactly the paper's claim: the stories vary context, not structure.
+\end{itemize}
+Do anything? No new run needed for the paper's claim. The rerun-without-the-sentence is cheap and well-defined, but its expected output (differences widen on surface content) is already covered, better, by round 2's overall-similarity design --- I'd put it on the multi-model-grid/human-survey robustness list rather than run it now, and concede the level-compression point gracefully on the call while standing on the two rebuttals.
+
+\textbf{F3) The retrieval-direction gradient (Bonus 41/54/60/72) --- is it in the paper?} Yes, nearly verbatim from your email: \S3.3, the round-1 paragraph, third finding (``asked which story each game calls to mind, the models assign Bonus a share that rises monotonically with strategic richness---41\% in DG-KW, 54\% in DG-LT, 60\% in the UG, 72\% in the TG''), including your interpretation (Bonus's joint-production and ongoing-relationship cues increasingly dominate retrieval as the game acquires strategic structure --- the structure/context wedge the retrieval model runs on). It is also T5's last column (``Retrieval split: Bonus/Aid''). It should absolutely stay: it is the round-1 finding that motivates the entire second module, and (per F2) it is also the proof that the raters can discriminate the stories.
+
+\textbf{F4) What ``single-model working measurement'' means.} Round 2's headline numbers (T6, F6, the receiver splits) come from one rater model --- Claude Opus 4.8, three permuted conversations --- whereas round 1's convention was three models $\times$ three permutations with every finding holding in every model. The current round-2 robustness is within-family only: test--retest $r = 0.994$; across the three conversations $r = 0.982$; a second rater ($r = 0.982$ over the 30 cells, key contrasts reproduced) --- but that rater is Claude Fable 5, the same model family. The issue is instrument idiosyncrasy: one family's similarity scale and priors might not generalize. It is disclosed in \S3.3 and App H in exactly those words (``single-model working measurement, with a multi-model grid and the human-subjects survey as the validation path''); the fix is the pending 3-model grid (needs the GPT/Gemini keys) and human survey Module B. If NG asks ``can I trust T6'': the honest answer is that every qualitative contrast we quote survived a second rater and a full re-run, and the cross-model grid is scheduled before any paper claim hardens.
+
+\section*{Edits applied to main.tex tonight (2026-07-22; v1/v2 untouched)}
+
+\begin{enumerate}
+\item \textbf{Table 40} (\code{tab:receiver_splits}): receiver-type splits table added to Appendix H, generated from the raw recording by the new \code{llm_similarity/round2/07_receiver_splits_table.py} (asserts the four \S3.3 prose numbers); short App-H paragraph added; \S3.3 sentence now points to it. Appendix H follows every existing float, so \emph{no existing table or figure number changed}.
+\item \textbf{Figure 6 relabeled}: color = category, marker = comparison, text label = game; legend rebuilt; caption states the encoding and the by-construction Aid--Bonus stacking. \code{04_analysis.py} re-run: every non-figure output byte-identical.
+\item \textbf{Figure 12 caption} now names its (pre-existing) point labels and the b/h suffixes.
+\item \textbf{Round-1 explicitness}: \S3.3 now states the rated ``games'' were the verbatim Control-condition instructions (pointer to App.\ I), and T5's generated note says the same (script 21 re-run; only the notes line changed, numeric validation OK).
+\item \textbf{Hygiene}: \code{verify_round2_similarity.py}'s receiver-split expectation updated 42.6 $\to$ 42.7 (stale pre-fix value); full verification re-run: ALL CHECKS PASS.
+\item \code{main.tex} recompiled clean: 111 pp., 0 undefined references; aux diff shows the single new label (Table 40) and nothing else --- NG's highlighted exhibit numbers and the sent email's pointers remain valid.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,188 @@
+--- per-level files: structure ---
+  PASS  both files 4,800 rows (SP 4800, moral 4800)
+  PASS  hp levels are 4/6/8/12 ([np.int64(4), np.int64(6), np.int64(8), np.int64(12)])
+  PASS  PID x treatment x Market x hp unique in both
+  PASS  4 hp rows per participant-cell in both
+  PASS  missing labels: SP 0, moral 1 (one moral label missing is known)
+  PASS  shared columns identical row-by-row (['PROLIFIC_PID', 'treatment', 'allocation', 'memory', 'hp', 'Market'])
+
+--- per-level files vs the shipped hpmin trio ---
+  PASS  participant-cells identical to hpmin (1200 = 1,200)
+  PASS  every hpmin retained row present at its hp level
+  PASS  allocation identical on the retained rows
+  PASS  retained-row SP and moral classifications identical
+  PASS  allocation constant within participant-cell (4x duplication of one choice)
+
+=== Published Table 37 splits (Control - Market) from all observations ===
+
+  Mean Allocation: diff -1.9962 vs published -1.996; published rep/beh -1.132/-0.864; 72 constructions tried; no match
+      HighSP(>=1) sym                        -0.1968/-1.7994
+      HighSP(>=1) one-sided A                -0.3320/-1.6643
+      HighSP(>=1) one-sided B                -0.0617/-1.9345
+      HighSP(>=1) pooled-ref                 -0.5308/-1.4654
+      HighSP(>=2) sym                        -0.0984/-1.8979
+      HighSP(>=2) one-sided A                -0.1565/-1.8398
+      HighSP(>=2) one-sided B                -0.0402/-1.9560
+      HighSP(>=2) pooled-ref                 -0.2010/-1.7953
+      HighSP(>=3) sym                        -0.0586/-1.9376
+      HighSP(>=3) one-sided A                -0.0965/-1.8998
+      HighSP(>=3) one-sided B                -0.0208/-1.9755
+      HighSP(>=3) pooled-ref                 -0.1274/-1.8689
+      HighSP(>=4) sym                        -0.0417/-1.9546
+      HighSP(>=4) one-sided A                -0.0769/-1.9193
+      HighSP(>=4) one-sided B                -0.0064/-1.9898
+      HighSP(>=4) pooled-ref                 -0.0944/-1.9018
+      SP-5 sym                               -0.1942/-1.8021
+      SP-5 one-sided A                       -0.3279/-1.6684
+      SP-5 one-sided B                       -0.0605/-1.9357
+      SP-5 pooled-ref                        -0.5290/-1.4672
+      moral-7 sym                            -0.1279/-1.8684
+      moral-7 one-sided A                    -0.2023/-1.7939
+      moral-7 one-sided B                    -0.0534/-1.9428
+      moral-7 pooled-ref                     -0.5745/-1.4218
+      SP x moral sym                         -0.1886/-1.8077
+      SP x moral one-sided A                 -0.3273/-1.6689
+      SP x moral one-sided B                 -0.0499/-1.9464
+      SP x moral pooled-ref                  -0.7426/-1.2537
+      SP x hp sym                            -0.2315/-1.7647
+      SP x hp one-sided A                    -0.3930/-1.6033
+      SP x hp one-sided B                    -0.0701/-1.9262
+      SP x hp pooled-ref                     -0.5702/-1.4261
+      moral x hp sym                         -0.2055/-1.7908
+      moral x hp one-sided A                 -0.3182/-1.6781
+      moral x hp one-sided B                 -0.0928/-1.9035
+      moral x hp pooled-ref                  -0.7236/-1.2726
+      pattern binary-SP sym                  -0.3176/-1.6786
+      pattern binary-SP one-sided A          -0.4941/-1.5021
+      pattern binary-SP one-sided B          -0.1411/-1.8552
+      pattern binary-SP pooled-ref           -0.6487/-1.3475
+      pattern SP-5 sym                       -0.6295/-1.3668
+      pattern SP-5 one-sided A               -1.1080/-0.8883
+      pattern SP-5 one-sided B               -0.1510/-1.8453
+      pattern SP-5 pooled-ref                -1.2228/-0.7735
+      pattern moral-7 sym                    -1.3655/-0.6307
+      pattern moral-7 one-sided A            -1.6467/-0.3495
+      pattern moral-7 one-sided B            -1.0843/-0.9119
+      pattern moral-7 pooled-ref             -1.6773/-0.3190
+      OB rows sp_num beta-pooled             -0.3282/-1.6681
+      OB rows sp_num beta-hi                 -0.0470/-1.9492
+      OB rows sp_num beta-lo                 -0.2281/-1.7681
+      OB rows sp_num beta-sym                -0.1376/-1.8587
+      OB rows moral_num beta-pooled          -0.3334/-1.6628
+      OB rows moral_num beta-hi              +0.0579/-2.0542
+      OB rows moral_num beta-lo              -0.1527/-1.8436
+      OB rows moral_num beta-sym             -0.0474/-1.9489
+      OB rows sp+moral beta-pooled           -0.4741/-1.5222
+      OB rows sp+moral beta-hi               +0.0203/-2.0165
+      OB rows sp+moral beta-lo               -0.2803/-1.7160
+      OB rows sp+moral beta-sym              -0.1300/-1.8663
+      OB person mean_sp beta-pooled          -0.6350/-1.3613
+      OB person mean_sp beta-hi              -0.1025/-1.8937
+      OB person mean_sp beta-lo              -0.4867/-1.5095
+      OB person mean_sp beta-sym             -0.2946/-1.7016
+      OB person n_highSP beta-pooled         -0.4823/-1.5139
+      OB person n_highSP beta-hi             -0.1108/-1.8854
+      OB person n_highSP beta-lo             -0.3877/-1.6086
+      OB person n_highSP beta-sym            -0.2493/-1.7470
+      OB person sp+moral beta-pooled         -0.8305/-1.1657
+      OB person sp+moral beta-hi             +0.1226/-2.1189
+      OB person sp+moral beta-lo             -0.5432/-1.4530
+      OB person sp+moral beta-sym            -0.2103/-1.7859
+
+  =12: diff -0.1500 vs published -0.150; published rep/beh -0.076/-0.074; 72 constructions tried; no match
+
+  >8: diff -0.4612 vs published -0.461; published rep/beh -0.262/-0.200; 72 constructions tried; no match
+
+  =8: diff +0.0275 vs published +0.027; published rep/beh +0.021/+0.006; 72 constructions tried; no match
+
+  =6: diff +0.4162 vs published +0.416; published rep/beh +0.221/+0.195; 72 constructions tried; no match
+
+  =4: diff +0.0250 vs published +0.025; published rep/beh +0.012/+0.013; 72 constructions tried; no match
+
+=== Published Table 32 splits (KW - LT, Control) from all observations ===
+
+  Mean Allocation: diff +0.9975 vs published +0.998; published rep/beh +0.491/+0.506; 72 constructions tried; no match
+      HighSP(>=1) sym                        -0.0057/+1.0032
+      HighSP(>=1) one-sided A                -0.0160/+1.0135
+      HighSP(>=1) one-sided B                +0.0047/+0.9928
+      HighSP(>=1) pooled-ref                 -0.0047/+1.0022
+      HighSP(>=2) sym                        -0.0204/+1.0179
+      HighSP(>=2) one-sided A                -0.0250/+1.0225
+      HighSP(>=2) one-sided B                -0.0158/+1.0133
+      HighSP(>=2) pooled-ref                 -0.0145/+1.0120
+      HighSP(>=3) sym                        -0.0173/+1.0148
+      HighSP(>=3) one-sided A                -0.0252/+1.0227
+      HighSP(>=3) one-sided B                -0.0095/+1.0070
+      HighSP(>=3) pooled-ref                 -0.0101/+1.0076
+      HighSP(>=4) sym                        -0.0096/+1.0071
+      HighSP(>=4) one-sided A                -0.0194/+1.0169
+      HighSP(>=4) one-sided B                +0.0001/+0.9974
+      HighSP(>=4) pooled-ref                 -0.0032/+1.0007
+      SP-5 sym                               -0.0198/+1.0173
+      SP-5 one-sided A                       -0.0272/+1.0247
+      SP-5 one-sided B                       -0.0124/+1.0099
+      SP-5 pooled-ref                        -0.0120/+1.0095
+      moral-7 sym                            +0.0251/+0.9724
+      moral-7 one-sided A                    -0.0546/+1.0521
+      moral-7 one-sided B                    +0.1048/+0.8927
+      moral-7 pooled-ref                     +0.0458/+0.9517
+      SP x moral sym                         +0.0400/+0.9575
+      SP x moral one-sided A                 -0.0525/+1.0500
+      SP x moral one-sided B                 +0.1326/+0.8649
+      SP x moral pooled-ref                  +0.0591/+0.9384
+      SP x hp sym                            -0.0445/+1.0420
+      SP x hp one-sided A                    -0.0560/+1.0535
+      SP x hp one-sided B                    -0.0330/+1.0305
+      SP x hp pooled-ref                     +0.0040/+0.9935
+      moral x hp sym                         +0.0397/+0.9578
+      moral x hp one-sided A                 -0.0280/+1.0255
+      moral x hp one-sided B                 +0.1074/+0.8901
+      moral x hp pooled-ref                  +0.1639/+0.8336
+      pattern binary-SP sym                  -0.0916/+1.0891
+      pattern binary-SP one-sided A          -0.1186/+1.1161
+      pattern binary-SP one-sided B          -0.0645/+1.0620
+      pattern binary-SP pooled-ref           +0.0105/+0.9870
+      pattern SP-5 sym                       +0.1457/+0.8518
+      pattern SP-5 one-sided A               +0.0543/+0.9432
+      pattern SP-5 one-sided B               +0.2372/+0.7603
+      pattern SP-5 pooled-ref                +0.2065/+0.7910
+      pattern moral-7 sym                    +0.9540/+0.0435
+      pattern moral-7 one-sided A            +0.9304/+0.0671
+      pattern moral-7 one-sided B            +0.9777/+0.0198
+      pattern moral-7 pooled-ref             +0.9219/+0.0756
+      OB rows sp_num beta-pooled             -0.0121/+1.0096
+      OB rows sp_num beta-hi                 -0.0048/+1.0023
+      OB rows sp_num beta-lo                 -0.0341/+1.0316
+      OB rows sp_num beta-sym                -0.0195/+1.0170
+      OB rows moral_num beta-pooled          +0.0108/+0.9867
+      OB rows moral_num beta-hi              +0.0262/+0.9713
+      OB rows moral_num beta-lo              -0.0174/+1.0149
+      OB rows moral_num beta-sym             +0.0044/+0.9931
+      OB rows sp+moral beta-pooled           -0.0006/+0.9981
+      OB rows sp+moral beta-hi               +0.0184/+0.9791
+      OB rows sp+moral beta-lo               -0.0410/+1.0385
+      OB rows sp+moral beta-sym              -0.0113/+1.0088
+      OB person mean_sp beta-pooled          -0.0264/+1.0239
+      OB person mean_sp beta-hi              -0.0116/+1.0091
+      OB person mean_sp beta-lo              -0.0676/+1.0651
+      OB person mean_sp beta-sym             -0.0396/+1.0371
+      OB person n_highSP beta-pooled         -0.0399/+1.0374
+      OB person n_highSP beta-hi             -0.0504/+1.0479
+      OB person n_highSP beta-lo             -0.0608/+1.0583
+      OB person n_highSP beta-sym            -0.0556/+1.0531
+      OB person sp+moral beta-pooled         +0.0123/+0.9852
+      OB person sp+moral beta-hi             +0.0603/+0.9372
+      OB person sp+moral beta-lo             -0.0956/+1.0931
+      OB person sp+moral beta-sym            -0.0176/+1.0151
+
+  =12: diff +0.1050 vs published +0.105; published rep/beh +0.051/+0.054; 72 constructions tried; no match
+
+  >8: diff +0.2050 vs published +0.205; published rep/beh +0.102/+0.103; 72 constructions tried; no match
+
+  =8: diff -0.0750 vs published -0.075; published rep/beh -0.036/-0.039; 72 constructions tried; no match
+
+  =6: diff -0.0350 vs published -0.035; published rep/beh -0.019/-0.016; 72 constructions tried; no match
+
+  =4: diff -0.0650 vs published -0.065; published rep/beh -0.032/-0.033; 72 constructions tried; no match
+
+Summary: 0 structural check(s) failed; published splits reproduced for 0/12 outcome rows. The observed-diff columns match the hpmin sample exactly throughout; the published rep/beh splits match no tested construction and are retired per AA's diagnosis (erroneous all-observations run). The tables in the paper are the hpmin recomputation of 23_hp_decomposition_tables.py.

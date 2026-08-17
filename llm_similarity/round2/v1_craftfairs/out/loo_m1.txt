@@ -1,0 +1,15 @@
+Moral-column similarities, full vs excluding M1:
+         full  no_M1  diff
+context                   
+AID      57.3   57.1  -0.2
+BONUS    57.3   52.3  -5.0
+C-KW     54.4   53.8  -0.6
+C-LT     47.4   47.0  -0.4
+C-TG     12.5   12.4  -0.1
+C-UG     45.4   45.1  -0.3
+M-KW     22.7   22.3  -0.4
+M-LT     20.8   20.4  -0.4
+M-TG     12.3   12.1  -0.2
+M-UG     20.7   20.4  -0.3
+
+H5 OLS excluding M1: slope 0.0125 (se 0.0028), R2 0.560

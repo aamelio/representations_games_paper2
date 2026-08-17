@@ -1,0 +1,22 @@
+=== Signed forecast errors by treatment, chosen-action beliefs (fig forecast_error_by_treatment) ===
+ story story_label game game_label   mean  ci_low  ci_high  mean_pp  ci_low_pp  ci_high_pp  n_obs  benchmark_n
+     0     Control   ug         UG -0.176  -0.197   -0.155  -17.572    -19.722     -15.480    600           20
+     0     Control   tg         TG  0.012  -0.009    0.031    1.207     -0.861       3.142    600           11
+     1      Market   ug         UG  0.091   0.049    0.139    9.065      4.921      13.867    600           24
+     1      Market   tg         TG  0.026   0.002    0.047    2.576      0.231       4.682    600           12
+     2       Bonus   ug         UG -0.160  -0.184   -0.138  -16.042    -18.407     -13.764    600           18
+     2       Bonus   tg         TG -0.053  -0.074   -0.033   -5.317     -7.359      -3.310    600           11
+     4         Aid   ug         UG -0.166  -0.193   -0.141  -16.570    -19.322     -14.058    600           21
+     4         Aid   tg         TG -0.044  -0.065   -0.022   -4.367     -6.489      -2.224    600           12
+
+=== Signed forecast errors by treatment, hypothetical beliefs at the reference action (fig forecast_error_hp_by_treatment) ===
+ story story_label game game_label   mean  ci_low  ci_high  mean_pp  ci_low_pp  ci_high_pp  n_obs  benchmark_n
+     0     Control   ug         UG -0.145  -0.187   -0.104  -14.459    -18.684     -10.436    579          579
+     0     Control   tg         TG  0.022  -0.002    0.047    2.235     -0.189       4.707    463          436
+     1      Market   ug         UG -0.072  -0.113   -0.032   -7.211    -11.326      -3.154    558          558
+     1      Market   tg         TG  0.026   0.004    0.048    2.579      0.372       4.794    548          580
+     2       Bonus   ug         UG -0.174  -0.219   -0.130  -17.441    -21.856     -12.957    574          574
+     2       Bonus   tg         TG -0.021  -0.048    0.004   -2.130     -4.764       0.376    472          447
+     4         Aid   ug         UG -0.205  -0.246   -0.162  -20.489    -24.560     -16.220    568          568
+     4         Aid   tg         TG -0.028  -0.051   -0.005   -2.809     -5.085      -0.459    475          476
+

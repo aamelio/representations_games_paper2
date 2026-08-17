@@ -1,0 +1,46 @@
+N = 1200 participant-frame observations (DG-KW/DG-LT, Control + Market); memory classified: 1200
+
+[1] Category cross-tab, substantive categories both measures (N=741):
+category_hp                   Moral  Mutual Benefit / Cooperation  Self-interest
+category_re                                                                     
+Moral                           314                            53             42
+Mutual Benefit / Cooperation     21                            46             18
+Self-interest                    69                            68            110
+agreement 0.634; Cohen's kappa 0.387; chi2(4) = 219.0, p = 3.1e-46; Cramer's V = 0.384
+  Control: N=344, agreement 0.805
+  Market: N=397, agreement 0.486
+Moral-memory share by reasons category (column %):
+category_hp                   Moral  Mutual Benefit / Cooperation  Self-interest
+category_re                                                                     
+Moral                          76.8                          13.0           10.3
+Mutual Benefit / Cooperation   24.7                          54.1           21.2
+Self-interest                  27.9                          27.5           44.5
+
+[2] Social proximity, memory vs reasons (all classified rows):
+high_sp_hp  False  True 
+high_sp_re              
+False         772    168
+True          149    111
+phi = 0.242, p = 1.8e-17
+high-SP memory share: Moral reasons 0.387 (N=537) vs Self-interest reasons 0.111 (N=370), two-prop z p = 2.7e-25
+
+[3] Share sent by memory category (control; hpmin caveat applies to levels):
+                               mean  size
+category_hp                              
+Moral                         0.454   272
+Mutual Benefit / Cooperation  0.356    13
+Self-interest                 0.146    68
+Reasons-category gradient, same sample:
+                               mean  size
+category_re                              
+Moral                         0.486   251
+Mutual Benefit / Cooperation  0.500     1
+Self-interest                 0.138    92
+
+[4] Memory categories by condition (new scheme, column %):
+                              Control  Market
+category_hp                                  
+Moral                            68.0    19.2
+Mutual Benefit / Cooperation      3.2    22.9
+No clear justification           11.8    43.4
+Self-interest                    17.0    14.5

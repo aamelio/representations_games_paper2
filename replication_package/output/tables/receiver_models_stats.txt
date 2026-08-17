@@ -1,0 +1,90 @@
+==============================================================================
+(A) Actual TG receivers (control): model fits by category
+    models: equalization s(t)=max(0,(4t-1)/(6t)) [0 params]; norm target,
+    amount-sent s(t)=(1/2-kt)/3 and output s(t)=1/2-3kt [k>=0, 1 param]; selfish s=0
+==============================================================================
+
+Moral good (N=303):
+  OLS slope of returned share on send: +0.282 (se 0.033)  -> rejects the (weakly declining) norm-target family
+  RMSE binned equalization (0p): 0.1210 (micro 0.1926)
+  RMSE binned norm amount-sent (k=0.000): 0.2282 (micro 0.2735)
+  RMSE binned norm output (k=0.040): 0.1174 (micro 0.1920)  <-- best schedule fit
+  RMSE binned selfish s=0 (0p): 0.3895 (micro 0.4177)
+  interior region (t>1/4) binned RMSE: equalization 0.0828; norm amount-sent 0.2408; norm output 0.0983; selfish s=0 0.4037  -> best: equalization
+  binned means (t_bar, s_bar, N) vs equalization prediction at t_bar:
+    (0,1/4]: t=0.218  s=0.266  N=37  s_eq(t)=0.000
+    (1/4,5/12]: t=0.333  s=0.320  N=67  s_eq(t)=0.167
+    (5/12,1/2]: t=0.485  s=0.373  N=103  s_eq(t)=0.323
+    (1/2,1]: t=0.905  s=0.481  N=96  s_eq(t)=0.482
+
+Mutual Benefit / Cooperation (N=150):
+  OLS slope of returned share on send: +0.278 (se 0.053)  -> rejects the (weakly declining) norm-target family
+  RMSE binned equalization (0p): 0.0919 (micro 0.1603)  <-- best schedule fit
+  RMSE binned norm amount-sent (k=0.000): 0.1691 (micro 0.2155)
+  RMSE binned norm output (k=0.082): 0.1295 (micro 0.1888)
+  RMSE binned selfish s=0 (0p): 0.3291 (micro 0.3552)
+  interior region (t>1/4) binned RMSE: equalization 0.0679; norm amount-sent 0.1785; norm output 0.1067; selfish s=0 0.3411  -> best: equalization
+  binned means (t_bar, s_bar, N) vs equalization prediction at t_bar:
+    (0,1/4]: t=0.203  s=0.201  N=16  s_eq(t)=0.000
+    (1/4,5/12]: t=0.333  s=0.271  N=44  s_eq(t)=0.167
+    (5/12,1/2]: t=0.488  s=0.343  N=55  s_eq(t)=0.325
+    (1/2,1]: t=0.848  s=0.411  N=35  s_eq(t)=0.470
+
+Self-interest (N=58):
+  OLS slope of returned share on send: -0.049 (se 0.072)
+  RMSE binned equalization (0p): 0.2720 (micro 0.3070)
+  RMSE binned norm amount-sent (k=0.335): 0.0322 (micro 0.1514)  <-- best schedule fit
+  RMSE binned norm output (k=0.195): 0.1758 (micro 0.2343)
+  RMSE binned selfish s=0 (0p): 0.1002 (micro 0.1785)
+  interior region (t>1/4) binned RMSE: equalization 0.2910; norm amount-sent 0.0353; norm output 0.1583; selfish s=0 0.0863  -> best: norm amount-sent
+  binned means (t_bar, s_bar, N) vs equalization prediction at t_bar:
+    (0,1/4]: t=0.183  s=0.150  N=10  s_eq(t)=0.000
+    (1/4,5/12]: t=0.333  s=0.064  N=13  s_eq(t)=0.167
+    (5/12,1/2]: t=0.490  s=0.108  N=16  s_eq(t)=0.326
+    (1/2,1]: t=0.925  s=0.078  N=19  s_eq(t)=0.487
+
+Moral bad (N=42):
+  OLS slope of returned share on send: +0.452 (se 0.168)  -> rejects the (weakly declining) norm-target family
+  RMSE binned equalization (0p): 0.0552 (micro 0.1054)  <-- best schedule fit
+  RMSE binned norm amount-sent (k=1.206): 0.0720 (micro 0.1188)
+  RMSE binned norm output (k=0.548): 0.1760 (micro 0.2137)
+  RMSE binned selfish s=0 (0p): 0.0572 (micro 0.1065)
+  interior region (t>1/4) binned RMSE: equalization 0.0920; norm amount-sent 0.0827; norm output 0.1928; selfish s=0 0.0958  -> best: norm amount-sent
+  binned means (t_bar, s_bar, N) vs equalization prediction at t_bar:
+    (0,1/4]: t=0.187  s=0.025  N=29  s_eq(t)=0.000
+    (1/4,5/12]: t=0.333  s=0.076  N=12  s_eq(t)=0.167
+    (5/12,1/2]: t=0.500  s=0.222  N=1  s_eq(t)=0.333
+
+==============================================================================
+(B) Senders' believed return schedules (control): the two belief points vs models
+==============================================================================
+
+Moral (N=187): believed share at reference (t=1/3) 0.315, at chosen send (t=0.480) 0.300
+  observed change -0.016; equalization predicts +0.153; norm target predicts <= 0
+  individual two-point believed slope: median +0.000, mean +0.035 (N 147); equalization predicts median +1.000
+
+Self-interest (N=96): believed share at reference (t=1/3) 0.220, at chosen send (t=0.289) 0.207
+  observed change -0.013; equalization predicts -0.077; norm target predicts <= 0
+  individual two-point believed slope: median -0.000, mean +0.091 (N 93); equalization predicts median +1.000
+
+Mutual Benefit / Cooperation (N=170): believed share at reference (t=1/3) 0.357, at chosen send (t=0.716) 0.414
+  observed change +0.057; equalization predicts +0.267; norm target predicts <= 0
+  individual two-point believed slope: median +0.000, mean +0.167 (N 165); equalization predicts median +0.667
+
+==============================================================================
+Reading
+==============================================================================
+Actual Moral-good and MBC receivers: returned shares RISE in the send (slopes
+~+0.28, p<.001), rejecting every member of the weakly-declining norm-target
+family; the zero-parameter equalization curve is the best schedule fit, close
+from the reference send upward, with over-return below t=1/4 (a moral floor).
+Self-interest receivers sit near the selfish benchmark; Moral-bad receivers
+face mostly tiny sends, where equalization and selfish coincide (s=0), so the
+two are not separable on that support. Senders' believed schedules are FLAT at
+category-specific levels (individual two-point slope medians = 0.00): they
+reject equalization's predicted rise and match the constant-share specification
+the main text already uses (the norm-target family's flat boundary). Actual
+reciprocity vs believed constant types = the TG forecast-error mechanism; all
+sender-side propositions are untouched.
+
+wrote /Users/snunnari/Dropbox/Apps/Overleaf/representations_games_paper/replication_package/output/figures/receiver_models.pdf

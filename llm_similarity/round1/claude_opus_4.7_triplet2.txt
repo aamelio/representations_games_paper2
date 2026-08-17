@@ -1,0 +1,84 @@
+=== PROMPT 1 ANSWER ===
+**Game A × Story 1: 10**
+The trust game's defining features are pie expansion via a multiplier and sequential reciprocity, with both players holding decision power. In Story 1, Mark is completely passive, there is no multiplier, and James faces a one-shot allocation choice. The only commonality is asymmetric initial endowments.
+
+**Game A × Story 2: 10**
+Same structural mismatch: no multiplier, no return move, Max has no decision to make. The collaborative framing (Max contributed to earning the bonus) is thematically suggestive but does not introduce the trust game's mechanics — the pie is already determined when Steve chooses.
+
+**Game B × Story 1: 8**
+The ultimatum game is defined by Player 2's veto power, which turns the outcome into a joint product of both choices. Mark has no opportunity to accept or reject; he is not even portrayed as a counterparty in the decision. Without the veto, the strategic core of the ultimatum game is absent.
+
+**Game B × Story 2: 8**
+Same reasoning. Max is not described as having any acceptance/rejection role; the director hands the choice to Steve unilaterally and Max's preferences do not enter the payoff structure. Fixed pie is the only shared feature.
+
+**Game C × Story 1: 30**
+Game C and Story 1 share the feature of a single-sided allocation decision over a fixed pie, with the recipient passive. But Game C's distinguishing element is that the counterparty starts with a positive endowment that can be taken, whereas Mark starts at zero — the "take" branch of Game C's strategy space is unavailable. The choice set in the story is a strict subset of Game C's, and coincides with Game D's.
+
+**Game C × Story 2: 28**
+Same logic. Max has nothing to take from, so Steve's effective choice set is [0, full bonus], matching Game D rather than Game C. The unequal-but-positive endowments that motivate Game C's design are absent.
+
+**Game D × Story 1: 92**
+Direct structural match: one party is endowed with the full amount, the other with nothing, the recipient is passive, the pie is fixed, and the decider chooses any transfer in [0, full]. The welfare-selection framing also resembles Game D's windfall endowment from an external source. Minor residual difference: the story carries social context (acquaintance, need) absent in the lab description, but the choice architecture is identical.
+
+**Game D × Story 2: 86**
+Same dictator structure: full endowment with Steve, Max passive, fixed pie, unilateral transfer choice in [0, full]. The deduction relative to Story 1 reflects that the bonus is partly attributable to Max's joint effort, which complicates the "windfall" character of Game D's endowment — structurally the choice is still a dictator allocation, but the moral entitlement of the recipient is more salient than in a pure windfall.
+
+**Summary table**
+
+| Game | Story 1 | Story 2 |
+|---|---|---|
+| A (Trust) | 10 | 10 |
+| B (Ultimatum) | 8 | 8 |
+| C (Take-or-give) | 30 | 28 |
+| D (Dictator) | 92 | 86 |
+
+**Most and least similar.** Game D is most similar to both stories, since each describes a unilateral allocation by a fully-endowed decider over a passive counterparty with a fixed pie. Game B is least similar to both, because the recipient's veto — the structural core of the ultimatum game — is absent from both narratives. The main differentiation across the two stories is on Game D itself: Story 1's selection-based endowment maps more cleanly onto Game D's windfall framing, whereas Story 2's bonus carries a joint-production element that makes the dictator framing slightly less clean.
+
+=== PROMPT 2 ANSWER ===
+**Structural decomposition**
+
+| Dimension | A (Trust) | B (Ultimatum) | C (Take-or-give) | D (Dictator) | Story 1 | Story 2 |
+|---|---|---|---|---|---|---|
+| 1. Pie structure | Expandable (×3 multiplier on transfer) | Fixed-sum (collapses to 0 on rejection but does not grow) | Fixed-sum | Fixed-sum | Fixed-sum | Fixed-sum |
+| 2. P1 initial endowment | Full pie ($6/$0) | Full pie ($12/$0) | Partial ($8/$4) | Full pie ($12/$0) | Full pie (aid/0) | Full pie (bonus/0) |
+| 3. P2 role | Reciprocator with continuous choice | Accept/reject responder | Passive recipient | Passive recipient | Passive recipient | Passive recipient |
+| 4. Source of P1 endowment | Unspecified (experimenter-assigned) | Unspecified | Unspecified | Unspecified | Awarded by selection | Produced through joint effort, then allocated by director |
+| 5. Strategic structure | Sequential interaction with reciprocity | Proposer–responder with veto | Unilateral allocation | Unilateral allocation | Unilateral allocation | Unilateral allocation |
+
+**(a) Which dimensions account for the largest similarity gaps?**
+
+Dimensions 3 (P2 role) and 5 (strategic structure) — they move together — account for the largest gaps. Games A and B differ from both stories on these two dimensions simultaneously (A: reciprocator + sequential reciprocity; B: responder + veto), which is why both received ratings in the 8–10 range. Dimension 1 (expandable vs. fixed pie) compounds the gap specifically for Game A. Dimension 2 (P1's endowment share) accounts for the moderate gap between Game C and the stories, and is the only dimension separating C from the matching profile.
+
+**(b) Is any single dimension responsible for distinguishing one game from the other three in its similarity to either story?**
+
+Yes — dimension 2 (P1's initial endowment) distinguishes Game C from A, B, and D in its similarity to the stories. Games A, B, and D all share full-pie endowment for P1, which matches both stories on that dimension; only C deviates by giving P2 a positive initial allocation. C agrees with D on dimensions 1, 3, and 5 (fixed pie, passive recipient, unilateral allocation), so its lower similarity to the stories relative to D is driven almost entirely by dimension 2.
+
+A weaker secondary claim: dimension 1 (expandable pie) uniquely characterizes Game A among the four, and is part of what drives A's distance from the stories — but A's gap is over-determined (it also differs on dimensions 3 and 5), so the "single dimension" claim is cleanest for C.
+
+**(c) Does the answer to (b) differ across the two stories?**
+
+No, it is the same. Both stories take identical values on dimensions 1, 2, 3, and 5; they differ only on dimension 4 (source of endowment: selection vs. joint production). Since the answer to (b) hinges on dimension 2, and both stories share the full-pie endowment that makes C the structural outlier, the same conclusion holds for Story 1 and Story 2.
+
+=== PROMPT 3 ANSWER ===
+**Game A (Trust): Story 1 / Story 2 = 25 / 75**
+The trust game's distinctive cue is the multiplier — value grows through interaction — which a participant maps onto situations involving joint value creation, business cooperation, or workplace trust. Story 2 carries a workplace and team-effort frame that cues these associations even though the structural match is weak. Story 1 has no analogous joint-value-creation surface to grip onto.
+
+**Game B (Ultimatum): Story 1 / Story 2 = 35 / 65**
+The ultimatum game cues bargaining and take-it-or-leave-it dynamics — most commonly retrieved via salary negotiations, business deals, or workplace splits where the counterparty has implicit power to walk away or retaliate. Story 2's workplace context is closer to that retrieval cluster, since not sharing with Max plausibly damages future cooperation. Story 1's neighbor relation carries weaker implicit veto power.
+
+**Game C (Take-or-give): Story 1 / Story 2 = 40 / 60**
+Game C's framing of a joint pre-allocation ("you and your match are provisionally allocated… adding to a total of $12") cues team and shared-resource situations, where two parties have a stake in a common pool. Story 2's team-bonus context fits this template more naturally than Story 1's individual welfare allocation. Neither story matches structurally on the partial-endowment dimension, so retrieval is driven by surface theme.
+
+**Game D (Dictator): Story 1 / Story 2 = 60 / 40**
+Game D's "provisional allocation" framing is purely windfall — no work, no source, just an external assignment of full pie to one party. Story 1's selection-by-welfare-agency is a clean surface match to that windfall character. Story 2's bonus is earned through joint effort, which adds a contribution/entitlement frame that the dictator game's instructions do not evoke.
+
+**Summary table**
+
+| Game | Story 1 | Story 2 |
+|---|---|---|
+| A | 25 | 75 |
+| B | 35 | 65 |
+| C | 40 | 60 |
+| D | 60 | 40 |
+
+**Pass 1 vs. retrieval direction.** The two passes diverge sharply, and in an informative way. In Pass 1, absolute structural similarity was nearly identical across the two stories for every game (both stories are dictator structures); the small gaps favored Story 1 slightly on C and D. In the retrieval direction, Story 2 dominates for three of the four games (A, B, C) — even though it is no closer structurally — because its workplace/team surface evokes the cooperation, negotiation, and shared-stake themes that those games activate. This is the classic surface-vs-structure asymmetry in analogical retrieval: retrieval is driven by thematic cues, while structural similarity judgments are not. The only game where structural and retrieval rankings align is D, where Story 1's pure-windfall framing happens to match both the structural and surface cues of the dictator game.

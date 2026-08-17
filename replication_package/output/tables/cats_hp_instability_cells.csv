@@ -1,0 +1,19 @@
+panel,comparison_title,label,point_label,actual,predicted
+p1_action,Aid vs Bonus,KW share sent,KW,-0.05586060889443062,-0.034630886548714435
+p1_action,Aid vs Bonus,UG share sent,UG,-0.023680555555555538,-0.01253219279126927
+p1_action,Aid vs Bonus,TG share sent,TG,0.005416666666666736,0.005389557269226186
+p1_action,Market vs Control,KW share sent,KW,-0.10924782878411912,-0.057048095992669634
+p1_action,Market vs Control,UG share sent,UG,-0.21881944444444434,-0.10664549467492468
+p1_action,Market vs Control,TG share sent,TG,0.1454166666666667,0.08039149759828013
+p1_belief,Aid vs Bonus,UG beliefs,UG b,-0.04028333333333323,-0.010715933772839525
+p1_belief,Aid vs Bonus,TG beliefs,TG b,-0.00927900032066703,-0.0063040874794254576
+p1_belief,Market vs Control,UG beliefs,UG b,-0.061966666666666725,0.0026912028480980954
+p1_belief,Market vs Control,TG beliefs,TG b,0.11786451819785154,0.08570723233293343
+p2_actual,Aid vs Bonus,UG acceptance,UG,-0.03500000000000003,-0.03539328651203211
+p2_actual,Aid vs Bonus,TG share sent,TG,-0.015803922218879496,-0.0006572013363646545
+p2_actual,Market vs Control,UG acceptance,UG,-0.32833333333333337,-0.2900974381922873
+p2_actual,Market vs Control,TG share sent,TG,0.09938143557411472,0.07716570871946182
+p2_hyp,Aid vs Bonus,UG hypothetical action,UG h,0.04216763998625894,0.0045455286408970785
+p2_hyp,Aid vs Bonus,TG hypothetical action,TG h,-0.009035493391987726,-0.0036806386497751364
+p2_hyp,Market vs Control,UG hypothetical action,UG h,0.0990584433673185,0.12831612914672375
+p2_hyp,Market vs Control,TG hypothetical action,TG h,0.0999472740693873,0.0048718615358404604

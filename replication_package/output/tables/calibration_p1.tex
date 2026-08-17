@@ -1,0 +1,24 @@
+\begin{table}[!htbp]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\caption{\textbf{Calibrated Representations, by Category (Control Sample)}}
+\label{tab:calibration_p1}
+\begin{tabular}{l cc cc c cc}
+\toprule
+& \multicolumn{2}{c}{Attention} & \multicolumn{3}{c}{Beliefs} & \multicolumn{2}{c}{Acceptance at chosen offer} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-6}\cmidrule(lr){7-8}
+Category & $\sigma/\mu$ & $\rho/\mu$ & $a$ & $b$ & $s$ & implied & measured \\
+\midrule
+Moral & 0.038 & 0.022 & -- & -- & 0.315 & 0.565 & 0.795 \\
+ & (0.007) & (0.013) &  &  & & & \\
+Self-interest & 0.397 & 0.426 & 0.324 & 0.481 & 0.220 & 0.525 & 0.701 \\
+ & (0.012) & (0.027) & (0.042) & (0.120) & & & \\
+Mutual Benefit/Coop. & 0.000 & 0.048 & 0.324$^{\dagger}$ & 0.481$^{\dagger}$ & 0.357 & 0.598 & 0.711 \\
+ & (0.044) & (0.047) &  &  & & & \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: Control sample. $\sigma/\mu$ from mean DG-KW transfers (Proposition~\ref{prop:dg}); $\rho/\mu$ from the trust-game first-order condition at the measured believed share $s$ (mean hypothetical belief at the one-third reference). For Mutual Benefit/Cooperation, whose dictator-game cell is negligible, $(\sigma/\mu,\rho/\mu)$ solve the ultimatum- and trust-game first-order conditions jointly. $(a,b)$ from the ultimatum-game first-order condition plus the reference-action belief point; for Moral the inversion returns no valid schedule---beliefs are unidentified exactly where the model says behavior is insensitive to them---and $^{\dagger}$ marks the Self-interest schedule imposed on Mutual Benefit/Cooperation (reference-action acceptance beliefs are flat across categories). The last two columns are the overidentifying test: acceptance at the category's mean chosen offer implied by the calibrated schedule---for Moral, the Self-interest schedule, its own being unidentified---versus the measured chosen-action belief; measured beliefs exceed the schedule at chosen offers, the optimism the forecast-error analysis takes up. Bootstrap standard errors in parentheses (participants resampled within game, $B=1{,}000$).
+\end{flushleft}
+\end{table}

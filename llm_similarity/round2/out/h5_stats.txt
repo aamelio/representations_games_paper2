@@ -1,0 +1,22 @@
+    comparison game                     category     dq    ds
+Market-Control dgkw                        Moral -0.274 -34.2
+Market-Control dgkw                Self-interest  0.105   8.8
+Market-Control dgkw Mutual Benefit / Cooperation  0.169   9.9
+Market-Control   ug                        Moral -0.427 -25.0
+Market-Control   ug                Self-interest  0.168   5.9
+Market-Control   ug Mutual Benefit / Cooperation  0.259   8.2
+Market-Control   tg                        Moral -0.238   0.6
+Market-Control   tg                Self-interest  0.055   0.2
+Market-Control   tg Mutual Benefit / Cooperation  0.183   1.5
+     Aid-Bonus dgkw                        Moral -0.117   2.6
+     Aid-Bonus dgkw                Self-interest  0.115   2.5
+     Aid-Bonus dgkw Mutual Benefit / Cooperation  0.002  -2.1
+     Aid-Bonus   ug                        Moral -0.097   2.6
+     Aid-Bonus   ug                Self-interest  0.104   2.5
+     Aid-Bonus   ug Mutual Benefit / Cooperation -0.007  -2.1
+     Aid-Bonus   tg                        Moral -0.004   2.6
+     Aid-Bonus   tg                Self-interest -0.005   2.5
+     Aid-Bonus   tg Mutual Benefit / Cooperation  0.009  -2.1
+
+OLS dq on ds: slope 0.0122 (se 0.0025), R2 0.594, N 18
+Spearman rho: 0.572

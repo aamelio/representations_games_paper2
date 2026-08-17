@@ -1,0 +1,121 @@
+=== PROMPT 1 ANSWER ===
+Here is the structural evaluation of the games and stories based on their underlying strategic mechanisms.
+
+## Pairwise Similarity Ratings
+
+**Story 1 x Game A**
+
+* **Rating:** 60
+* **Justification:** Both feature a single decision-maker allocating a fixed pie while the second actor remains completely passive. However, they diverge in initial endowments and action space, as Game A allows the decision-maker to take from the recipient's existing $4, whereas James starts with the entire amount in the story.
+
+**Story 1 x Game B**
+
+* **Rating:** 95
+* **Justification:** This pair is structurally nearly identical, functioning as a standard Dictator Game. James receives the entire initial endowment and unilaterally decides whether to transfer any amount to Mark, who is completely passive and holds zero initial endowment.
+
+**Story 1 x Game C**
+
+* **Rating:** 10
+* **Justification:** These share almost no structural similarity because Game C expands the pie through a multiplier and relies on a sequential, two-way exchange. In Story 1, the total funds are fixed, and Mark has absolutely no agency or opportunity to return funds to James.
+
+**Story 1 x Game D**
+
+* **Rating:** 30
+* **Justification:** Both scenarios begin with one player holding the entire endowment and proposing a split to a counterpart holding nothing. However, Game D grants the recipient a critical veto power to reject the offer and destroy the pie, a strategic mechanism completely absent from James's unilateral decision.
+
+**Story 2 x Game A**
+
+* **Rating:** 60
+* **Justification:** Like Game A, Story 2 involves a unilateral allocation of a fixed pool of money by an active decision-maker to a passive recipient. Yet, they are structurally distinct because Steve holds the entire initial endowment in the story, while Game A features a split initial endowment with a taking option.
+
+**Story 2 x Game B**
+
+* **Rating:** 95
+* **Justification:** This pair represents an excellent structural match, mirroring a pure Dictator Game mechanism. Steve controls the entire initial endowment and has absolute, unilateral authority to transfer a portion to Max, who remains a completely passive recipient.
+
+**Story 2 x Game C**
+
+* **Rating:** 10
+* **Justification:** Story 2 completely lacks both the pie-expanding multiplier and the reciprocal action phase that define Game C. Even though Steve and Max worked together previously to earn the bonus, the actual allocation mechanism in the story is strictly unilateral, lacking the interdependent choices of Game C.
+
+**Story 2 x Game D**
+
+* **Rating:** 30
+* **Justification:** While both involve a protagonist deciding how to split an initial lump sum with a counterpart, Game D gives the recipient the ultimate power to reject the offer. In Story 2, the director explicitly states that Steve's allocation decision is final, leaving Max with no structural agency to punish or veto the outcome.
+
+---
+
+## Summary Matrix
+
+| Game | Story 1 | Story 2 |
+| --- | --- | --- |
+| Game A | 60 | 60 |
+| Game B | 95 | 95 |
+| Game C | 10 | 10 |
+| Game D | 30 | 30 |
+
+Game B is overwhelmingly the most similar to both stories because both narratives describe pure Dictator Games where one actor holds the entire endowment and makes a unilateral, fixed-pie transfer to a powerless recipient. Conversely, Game C is the least similar to both stories. Game C relies on a pie-expanding multiplier and a second-mover return phase (the Trust Game), neither of which are present in the strictly unilateral, fixed-pie decisions faced by James and Steve.
+
+=== PROMPT 2 ANSWER ===
+Here is the structural decomposition of the games and stories across the five dimensions.
+
+| Dimension | Game A | Game B | Game C | Game D | Story 1 | Story 2 |
+| --- | --- | --- | --- | --- | --- | --- |
+| **1. Pie structure** | Fixed-sum | Fixed-sum | Expandable | Fixed-sum | Fixed-sum | Fixed-sum |
+| **2. P1's initial endowment** | Partial | Full pie | Full pie | Full pie | Full pie | Full pie |
+| **3. P2's role** | Passive recipient | Passive recipient | Reciprocator | Accept/reject responder | Passive recipient | Passive recipient |
+| **4. Source of P1's endowment** | Unspecified | Unspecified | Unspecified | Unspecified | Awarded by selection | Earned through effort |
+| **5. Strategic structure** | Unilateral allocation | Unilateral allocation | Sequential interaction | Proposer-responder with veto | Unilateral allocation | Unilateral allocation |
+
+---
+
+**(a) Which dimensions account for the largest similarity gaps in your Pass 1 ratings?**
+The largest similarity gaps are driven by **Dimension 3 (Player 2's role)** and **Dimension 5 (Strategic structure)**. When the passive recipient is replaced with an actor who possesses agency—either through a veto (Game D) or sequential reciprocity (Game C)—the structural match to the unilateral stories collapses, dropping the ratings from 95 (Game B) down to 30 and 10.
+
+**(b) Is any single dimension responsible for distinguishing one of the four games from the other three in its similarity to either story? If yes, name the dimension and the game.**
+Yes. **Dimension 2 (Player 1's initial endowment)** distinctly isolates **Game A**. Game A is the only scenario featuring a partial endowment (where the recipient starts with money that can be taken), distinguishing it from Games B, C, and D, which all start with Player 1 holding the full pie. *(Note: Dimension 1 also uniquely isolates Game C as the only expandable pie).*
+
+**(c) Does the answer to (b) differ across the two stories, or is it the same?**
+It is exactly the same. Both Story 1 and Story 2 feature protagonists who start with the full endowment (the total aid and the total bonus, respectively). Consequently, Game A's partial endowment structure distances it equally from both narratives.
+
+=== PROMPT 3 ANSWER ===
+Here is the analysis of relative retrieval likelihood when the games act as cues for the stories.
+
+## Retrieval Likelihood Splits
+
+**Game A (Partial Endowment, Take/Give)**
+
+* **Split:** 60 / 40 (Story 1 / Story 2)
+* **Justification:** The phrase "provisionally allocated" implies an arbitrary, unearned distribution by an external authority, which aligns closely with the random welfare selection James experiences in Story 1. Because Steve and Max actively earned their bonus through joint effort in Story 2, the arbitrary nature of Game A's starting split feels less likely to trigger that specific memory.
+
+**Game B (Full Endowment, Dictator)**
+
+* **Split:** 75 / 25 (Story 1 / Story 2)
+* **Justification:** Game B presents a pure, unearned windfall where Player 1 holds all the power and the entire endowment for no specified reason. This perfectly cues James’s unexpected, unearned welfare check in Story 1. It is much less likely to cue Story 2, where the psychological context is defined by joint production and earned entitlement rather than arbitrary luck.
+
+**Game C (Trust Game, Multiplier)**
+
+* **Split:** 15 / 85 (Story 1 / Story 2)
+* **Justification:** Game C's core mechanics—multiplying the pie and sequential interaction—strongly cue themes of investment, teamwork, and joint production. This naturally triggers the memory of Steve and Max working late nights together to exceed a sales target in Story 2. It severely clashes with Story 1, where James and Mark acted entirely independently.
+
+**Game D (Ultimatum Game, Veto)**
+
+* **Split:** 30 / 70 (Story 1 / Story 2)
+* **Justification:** The veto power in Game D inherently brings fairness, entitlement, and the threat of punishment to the forefront of a participant's mind. A participant is much more likely to associate this dynamic with Max, whose active contribution to the team's success in Story 2 generates a psychological claim to the money, compared to Mark's passive circumstance in Story 1.
+
+---
+
+## Summary Matrix
+
+| Game | Story 1 | Story 2 |
+| --- | --- | --- |
+| Game A | 60 | 40 |
+| Game B | 75 | 25 |
+| Game C | 15 | 85 |
+| Game D | 30 | 70 |
+
+---
+
+## Comparison to Pass 1
+
+This relative retrieval ranking drastically differs from my Pass 1 absolute similarity ratings. In Pass 1, based purely on strict strategic structure, each game scored identically across both stories (e.g., Game B was 95 for both; Game C was 10 for both). However, human memory retrieval is heavily driven by thematic resonance and implied context—such as unearned windfalls (cuing Story 1) versus joint effort and psychological entitlement (cuing Story 2). Consequently, a game like Game C, which is structurally dissimilar to both stories, becomes a potent retrieval cue for Story 2 simply because its multiplier mechanic mimics the theme of collaborative production.

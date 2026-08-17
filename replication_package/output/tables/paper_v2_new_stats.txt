@@ -1,0 +1,94 @@
+=== Data preparation ===
+beliefs_hp ug: raw max 1.00 -> scale 1.0000, normalized mean 0.531, N nonmissing 2279
+beliefs_hp tg: raw max 1.00 -> scale 1.0000, normalized mean 0.337, N nonmissing 1958
+  [validate] UG control mean hypothetical belief: got 0.488, v1 says 0.483  OK 
+  [validate] TG control belief, Self-interest: got 0.220, v1 says 0.220  OK 
+  [validate] TG control belief, Moral: got 0.315, v1 says 0.315  OK 
+  [validate] TG control belief, Mutual Benefit / Cooperation: got 0.357, v1 says 0.357  OK 
+  [validate] DG-KW control mean share: got 0.350, v1 says 0.350  OK 
+  [validate] DG-LT control mean share: got 0.414, v1 says 0.414  OK 
+
+=== E1: action vs hypothetical belief by category ===
+UG Control: slope-equality F-test p = 0.4644
+UG Pooled: slope-equality F-test p = 0.0015
+TG Control: slope-equality F-test p = 0.5598
+TG Pooled: slope-equality F-test p = 0.0000
+  UG  Control  Moral                  slope= 0.010 (SE 0.020, N=437)
+  UG  Control  Self-interest          slope=-0.108 (SE 0.096, N=109)
+  UG  Control  Mutual Benefit/Coop.   slope=-0.083 (SE 0.319, N=17)
+  UG  Pooled   Moral                  slope=-0.003 (SE 0.016, N=1493)
+  UG  Pooled   Self-interest          slope=-0.093 (SE 0.048, N=451)
+  UG  Pooled   Mutual Benefit/Coop.   slope=-0.128 (SE 0.089, N=203)
+  TG  Control  Moral                  slope= 0.306 (SE 0.095, N=187)
+  TG  Control  Self-interest          slope= 0.451 (SE 0.144, N=96)
+  TG  Control  Mutual Benefit/Coop.   slope= 0.264 (SE 0.098, N=170)
+  TG  Pooled   Moral                  slope= 0.319 (SE 0.045, N=695)
+  TG  Pooled   Self-interest          slope= 0.465 (SE 0.086, N=363)
+  TG  Pooled   Mutual Benefit/Coop.   slope= 0.128 (SE 0.045, N=849)
+saved output/figures/player1_control_action_vs_belief_by_category.png
+saved output/tables/belief_sensitivity_regs.tex
+
+=== E2: Control vs Market outcome distributions ===
+DG-KW: N control=403, market=400; mean 0.350 vs 0.241; KS D=0.320, p=1.22e-18; distinct raw values=19/24
+  DG-KW control: share at $0 = 0.189, at equal split $6 = 0.514, at max $12 = 0.002
+  DG-KW market : share at $0 = 0.372, at equal split $6 = 0.140, at max $12 = 0.022
+UG: N control=600, market=600; mean 0.485 vs 0.266; KS D=0.580, p=1.01e-93; distinct raw values=20/24
+  UG control: share at $0 = 0.010, at equal split $6 = 0.765, at max $12 = 0.015
+  UG market : share at $0 = 0.320, at equal split $6 = 0.183, at max $12 = 0.020
+TG: N control=600, market=600; mean 0.484 vs 0.630; KS D=0.283, p=1.29e-21; distinct raw values=12/13
+  TG control: share at $0 = 0.055, at equal split $3 = 0.247, at max $6 = 0.160
+  TG market : share at $0 = 0.042, at equal split $3 = 0.283, at max $6 = 0.270
+saved output/figures/market_vs_control_distributions.png
+
+=== E3: heterogeneity decomposition (classified sample) ===
+  DG-KW Control  N= 399  SD=0.204  between-category share=0.663
+  DG-KW Market   N= 329  SD=0.263  between-category share=0.136
+  DG-KW Bonus    N= 390  SD=0.171  between-category share=0.613
+  DG-KW Aid      N= 400  SD=0.197  between-category share=0.584
+  DG-LT Control  N= 389  SD=0.175  between-category share=0.492
+  DG-LT Market   N= 347  SD=0.178  between-category share=0.109
+  DG-LT Bonus    N= 387  SD=0.166  between-category share=0.407
+  DG-LT Aid      N= 387  SD=0.194  between-category share=0.481
+  UG    Control  N= 582  SD=0.111  between-category share=0.109
+  UG    Market   N= 501  SD=0.260  between-category share=0.061
+  UG    Bonus    N= 587  SD=0.090  between-category share=0.097
+  UG    Aid      N= 588  SD=0.138  between-category share=0.226
+  TG    Control  N= 584  SD=0.282  between-category share=0.202
+  TG    Market   N= 563  SD=0.285  between-category share=0.250
+  TG    Bonus    N= 589  SD=0.289  between-category share=0.296
+  TG    Aid      N= 588  SD=0.295  between-category share=0.314
+saved output/tables/heterogeneity_decomposition.tex
+saved output/tables/heterogeneity_decomposition_main.tex
+--- predicted vs actual dispersion (mixture reweighting, pooled conditionals) ---
+  Aid vs Bonus       DG-KW dMean pred= -3.88pp act= -5.93pp | dSD pred=+0.0217 act=+0.0258
+  Aid vs Bonus       DG-LT dMean pred= -3.97pp act= -5.02pp | dSD pred=+0.0228 act=+0.0275
+  Aid vs Bonus       UG    dMean pred= -1.34pp act= -2.37pp | dSD pred=+0.0170 act=+0.0482
+  Aid vs Bonus       TG    dMean pred= +0.33pp act= +0.78pp | dSD pred=+0.0006 act=+0.0055
+  Market vs Control  DG-KW dMean pred= -4.53pp act=-10.06pp | dSD pred=+0.0191 act=+0.0588
+  Market vs Control  DG-LT dMean pred= -9.89pp act=-21.53pp | dSD pred=+0.0100 act=+0.0032
+  Market vs Control  UG    dMean pred= -7.35pp act=-21.00pp | dSD pred=+0.0428 act=+0.1490
+  Market vs Control  TG    dMean pred= +4.25pp act=+14.97pp | dSD pred=+0.0194 act=+0.0034
+saved output/tables/heterogeneity_predicted_actual.tex
+saved output/figures/heterogeneity_predicted_actual.png
+
+=== E4: KW-LT framing gap vs treatment effects (DG, share of $12 budget) ===
+  [validate] KW-LT gap (pp): got 6.367, v1 says 6.400  OK 
+  [validate] Aid-Bonus effect on DG-KW (pp): got -5.586, v1 says -5.600  OK 
+  [validate] Market-Control effect on DG-KW (pp): got -10.925, v1 says -10.900  OK 
+  KW--LT framing gap (LT $-$ KW, control): +6.4pp  [95% CI +3.8, +8.9]
+  Aid vs Bonus (DG-KW): -5.6pp  [95% CI -8.2, -3.0]
+  Market vs Control (DG-KW): -10.9pp  [95% CI -14.1, -7.7]
+saved output/tables/kwlt_treatment_scale.tex
+
+=== E5: similarity gradient vs Aid-Bonus effects ===
+  DG-KW similarity= 94.6  aid-bonus action=-5.6pp (±2.6)  aid-bonus Moral share=-11.7pp
+  DG-LT similarity= 51.2  aid-bonus action=-4.7pp (±2.5)  aid-bonus Moral share=-14.5pp
+  UG    similarity= 29.9  aid-bonus action=-2.4pp (±1.4)  aid-bonus Moral share=-9.7pp
+  TG    similarity= 14.4  aid-bonus action=+0.5pp (±3.3)  aid-bonus Moral share=-0.4pp
+  [validate] Aid-Bonus on UG offers (pp): got -2.368, v1 says -2.400  OK 
+  [validate] Aid-Bonus on TG sends (pp): got 0.542, v1 says 0.500  OK 
+  [validate] Aid-Bonus on DG-KW Moral share (pp): got -11.744, v1 says -11.700  OK 
+  [validate] Aid-Bonus on UG Moral share (pp): got -9.666, v1 says -9.700  OK 
+  Spearman(|action effect|, similarity) over 4 games: rho=1.00 (descriptive)
+saved output/tables/similarity_gradient.tex
+

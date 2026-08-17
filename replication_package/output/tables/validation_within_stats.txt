@@ -1,0 +1,127 @@
+==============================================================================
+PART A: LLM-HUMAN CLASSIFICATION VALIDATION
+==============================================================================
+[note] Player 1, story conditions (Aid/Bonus): 1 PID(s) in both subsamples, but with different response texts (repeat Prolific workers with rows in multiple games/arms; benign)
+[note] Player 1, Market/Control: 12 PID(s) in both subsamples, but with different response texts (repeat Prolific workers with rows in multiple games/arms; benign)
+[note] Player 2, all conditions: 7 PID(s) in both subsamples, but with different response texts (repeat Prolific workers with rows in multiple games/arms; benign)
+[OK] numeric label maps consistent; no response text was coded in both subsamples
+     (identical LLM-label marginals across disjoint subsamples => stratified draw on the LLM category)
+
+--- Player 1, story conditions (Aid/Bonus) ---
+subsample 1: N=600  agreement=0.822  kappa=0.662
+   arm Bonus    N= 300  agreement=0.837  kappa=0.675
+   arm Aid      N= 300  agreement=0.807  kappa=0.649
+   game dgkw    N= 200  agreement=0.890  kappa=0.750
+   game tg      N= 200  agreement=0.710  kappa=0.554
+   game ug      N= 200  agreement=0.865  kappa=0.650
+   [consistency] vs analysis-file labels (PID+text merge): matched=599, unmatched=1, label mismatches=0
+subsample 2: N=600  agreement=0.787  kappa=0.592
+   arm Bonus    N= 300  agreement=0.817  kappa=0.624
+   arm Aid      N= 300  agreement=0.757  kappa=0.561
+   game dgkw    N= 200  agreement=0.840  kappa=0.586
+   game tg      N= 200  agreement=0.730  kappa=0.571
+   game ug      N= 200  agreement=0.790  kappa=0.469
+   [consistency] vs analysis-file labels (PID+text merge): matched=600, unmatched=0, label mismatches=0
+batch pooled: N=1200  agreement=0.804  kappa=0.627
+   top confusion: human='Moral' vs LLM='Self-interest': 52 (4.3%)
+   top confusion: human='Mutual Benefit / Cooperation' vs LLM='Moral': 46 (3.8%)
+
+--- Player 1, Market/Control ---
+subsample 1: N=600  agreement=0.847  kappa=0.778
+   arm Control  N= 300  agreement=0.907  kappa=0.828
+   arm Market   N= 300  agreement=0.787  kappa=0.714
+   game dgkw    N= 200  agreement=0.900  kappa=0.840
+   game tg      N= 200  agreement=0.810  kappa=0.725
+   game ug      N= 200  agreement=0.830  kappa=0.740
+   [consistency] vs analysis-file labels (PID+text merge): matched=600, unmatched=0, label mismatches=0
+subsample 2: N=598  agreement=0.729  kappa=0.610
+   arm Control  N= 300  agreement=0.757  kappa=0.584
+   arm Market   N= 298  agreement=0.701  kappa=0.594
+   game dgkw    N= 200  agreement=0.805  kappa=0.695
+   game tg      N= 199  agreement=0.759  kappa=0.633
+   game ug      N= 199  agreement=0.623  kappa=0.454
+   [consistency] vs analysis-file labels (PID+text merge): matched=597, unmatched=1, label mismatches=0
+batch pooled: N=1198  agreement=0.788  kappa=0.694
+   top confusion: human='Mutual Benefit / Cooperation' vs LLM='Self-interest': 50 (4.2%)
+   top confusion: human='Mutual Benefit / Cooperation' vs LLM='Moral': 46 (3.8%)
+
+--- Player 2, all conditions ---
+subsample 1: N=793  agreement=0.691  kappa=0.554
+   arm Control  N= 200  agreement=0.705  kappa=0.544
+   arm Market   N= 199  agreement=0.663  kappa=0.561
+   arm Bonus    N= 197  agreement=0.680  kappa=0.477
+   arm Aid      N= 197  agreement=0.716  kappa=0.576
+   game tg      N= 394  agreement=0.673  kappa=0.519
+   game ug      N= 399  agreement=0.709  kappa=0.585
+   [consistency] vs analysis-file labels (PID+text merge): matched=793, unmatched=0, label mismatches=0
+subsample 2: N=799  agreement=0.731  kappa=0.586
+   arm Control  N= 200  agreement=0.735  kappa=0.550
+   arm Market   N= 200  agreement=0.710  kappa=0.613
+   arm Bonus    N= 199  agreement=0.673  kappa=0.417
+   arm Aid      N= 200  agreement=0.805  kappa=0.689
+   game tg      N= 399  agreement=0.752  kappa=0.600
+   game ug      N= 400  agreement=0.710  kappa=0.569
+   [consistency] vs analysis-file labels (PID+text merge): matched=799, unmatched=0, label mismatches=0
+batch pooled: N=1592  agreement=0.711  kappa=0.569
+   top confusion: human='Moral good' vs LLM='Mutual Benefit / Cooperation': 156 (9.8%)
+   top confusion: human='Mutual Benefit / Cooperation' vs LLM='Moral good': 112 (7.0%)
+
+OVERALL: N=3990  agreement=0.762  kappa=0.636
+
+==============================================================================
+PART B: WITHIN-SUBJECT MICRODATA
+==============================================================================
+
+--- Arm sizes (pairs file; preregistered 3 x 600) ---
+design          fixed_game
+control_kwlt    pooled        600
+market_control  kw            599
+                lt            600
+total participants: 1799
+
+--- Switching rates (validate vs audited v1.1 numbers) ---
+control_kwlt     pooled  N= 600  choice=46.2%  category=22.7%   [OK vs paper 46.2/22.7]
+market_control   kw      N= 599  choice=73.1%  category=51.6%   [OK vs paper 73.1/51.6]
+market_control   lt      N= 600  choice=82.3%  category=55.0%   [OK vs paper 82.3/55.0]
+
+--- LPM: choice switch on category switch (paper: 0.44 (0.04) / 0.19 (0.04) / 0.14 (0.03)) ---
+control_kwlt     pooled  b=0.439 (SE 0.041), p=6.49e-27
+market_control   kw      b=0.188 (SE 0.036), p=1.55e-07
+market_control   lt      b=0.137 (SE 0.032), p=1.70e-05
+
+--- AA's within tables, strict FE (LSDV), clustered by participant ---
+ctrl col(1): KW=-0.036 (0.011)  KW:LTFirst=-0.026 (0.016)  R2=0.867
+   published: KW=-0.036 (0.011), KWxLTFirst=-0.026 (0.016), R2=0.867
+ctrl col(2): KW=-0.035 (0.011)  KW:LTFirst=-0.026 (0.016)  HighSP=+0.011 (0.015)  R2=0.868
+   published: KW=-0.035 (0.011), KWxLTFirst=-0.026 (0.016), HighSP=+0.011 (0.015), R2=0.868
+ctrl col(3): KW=-0.033 (0.010)  KW:LTFirst=-0.033 (0.015)  Mutual Benefit=-0.070 (0.071)  Self-interest]=-0.091 (0.026)  No clear justi=-0.053 (0.039)  R2=0.877
+   published: KW=-0.033 (0.010), KWxLTFirst=-0.033 (0.015), MBC=-0.070 (0.072), Self=-0.091 (0.026), NoClear=-0.053 (0.039), R2=0.877
+ctrl col(4): KW=-0.033 (0.010)  KW:LTFirst=-0.033 (0.015)  HighSP=-0.004 (0.015)  Mutual Benefit=-0.070 (0.072)  Self-interest]=-0.093 (0.026)  No clear justi=-0.054 (0.040)  R2=0.877
+   published: KW=-0.033 (0.010), KWxLTFirst=-0.033 (0.015), HighSP=-0.004 (0.015), MBC=-0.070 (0.072), Self=-0.093 (0.026), NoClear=-0.054 (0.040), R2=0.877
+mkt col(1): Market=-0.160 (0.017)  Market:Control=+0.016 (0.025)  R2=0.597
+   published: Market=-0.160 (0.017), MktxCF=+0.016 (0.025), R2=0.597
+mkt col(2): Market=-0.139 (0.018)  Market:Control=+0.017 (0.025)  HighSP=+0.113 (0.021)  R2=0.614
+   published: Market=-0.139 (0.018), MktxCF=+0.017 (0.025), HighSP=+0.113 (0.021), R2=0.614
+mkt col(3): Market=-0.135 (0.018)  Market:Control=+0.017 (0.024)  Mutual Benefit=-0.076 (0.033)  Self-interest]=-0.197 (0.022)  No clear justi=-0.084 (0.034)  R2=0.642
+   published: Market=-0.135 (0.018), MktxCF=+0.017 (0.024), MBC=-0.076 (0.033), Self=-0.197 (0.022), NoClear=-0.084 (0.034), R2=0.642
+mkt col(4): Market=-0.126 (0.019)  Market:Control=+0.017 (0.024)  HighSP=+0.062 (0.021)  Mutual Benefit=-0.073 (0.033)  Self-interest]=-0.177 (0.023)  No clear justi=-0.068 (0.034)  R2=0.647
+   published: Market=-0.126 (0.019), MktxCF=+0.017 (0.024), HighSP=+0.062 (0.021), MBC=-0.073 (0.033), Self=-0.177 (0.023), NoClear=-0.068 (0.034), R2=0.647
+
+NOTE: the published LTFirst=+0.104 (0.008) and ControlFirst=+0.184 (0.013) rows were
+time-invariant regressors, absorbed by participant FE. AA confirmed (2026-07-10) they
+came from statsmodels' generalized (pseudo-inverse) solution to the rank-deficient
+design: not identified, not to be interpreted. Rows dropped from the paper tables;
+order effects are the no-FE participant-clustered estimates below (in the table notes).
+
+--- Identified order effects (for the Appendix B prose) ---
+cell means of share sent by arm x order group x decision:
+trial_order                        1     2
+design         first_condition            
+control_kwlt   kw               39.2  42.8
+               lt               44.7  38.5
+market_control control          39.8  25.4
+               market           22.9  38.9
+ctrl: FE share ~ KW + Second:  Second=-0.013 (0.008)
+ctrl: pooled OLS level effect of LTFirst: +0.019 (0.015)
+mkt: FE share ~ Market + Second:  Second=+0.008 (0.013)
+mkt: pooled OLS level effect of ControlFirst: +0.009 (0.013)

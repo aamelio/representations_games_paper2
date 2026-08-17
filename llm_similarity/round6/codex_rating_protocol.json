@@ -1,0 +1,10 @@
+{
+  "description": "Three blinded Codex rating passes generated within the Codex task.",
+  "important_limitation": "These are repeated judgments from the same Codex model family, not independent external models or human raters. They are suitable for an exploratory estimate, not cross-model validation.",
+  "prompt_version": "round6-neutral-v1",
+  "input_fingerprint": "876368ab1629fc052a449e4ec277239a1d67750e45e4670817814d172c411886",
+  "replicates": 3,
+  "contexts_per_replicate": 12,
+  "vignettes_per_context": 30,
+  "rows": 1080
+}

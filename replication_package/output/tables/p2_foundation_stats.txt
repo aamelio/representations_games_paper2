@@ -1,0 +1,153 @@
+==============================================================================
+(a) P2 representations depend on the action faced
+==============================================================================
+
+UG control: category shares by P1-action bin (N per bin: {'0': 6, '(0,1/4]': 19, '(1/4,5/12]': 33, '(5/12,1/2]': 482, '(1/2,1]': 52})
+category    Moral good  Moral bad  Self-interest  Mutual Benefit / Cooperation
+bin                                                                           
+0                  NaN      0.667          0.167                         0.167
+(0,1/4]          0.158      0.368          0.368                         0.105
+(1/4,5/12]       0.182      0.273          0.424                         0.121
+(5/12,1/2]       0.618      0.019          0.100                         0.263
+(1/2,1]          0.481        NaN          0.212                         0.308
+  LPM Moral good on action faced: +0.858 (se 0.193, N 592)
+  LPM Moral bad on action faced: -0.786 (se 0.151, N 592)
+  LPM Self-interest on action faced: -0.308 (se 0.188, N 592)
+  LPM Mutual Benefit / Cooperation on action faced: +0.236 (se 0.138, N 592)
+
+UG pooled: category shares by P1-action bin (N per bin: {'0': 186, '(0,1/4]': 249, '(1/4,5/12]': 163, '(5/12,1/2]': 1550, '(1/2,1]': 187})
+category    Moral good  Moral bad  Self-interest  Mutual Benefit / Cooperation
+bin                                                                           
+0                0.075      0.328          0.457                         0.140
+(0,1/4]          0.116      0.273          0.414                         0.197
+(1/4,5/12]       0.202      0.141          0.448                         0.209
+(5/12,1/2]       0.572      0.018          0.106                         0.305
+(1/2,1]          0.369      0.005          0.353                         0.273
+  LPM Moral good on action faced: +0.822 (se 0.049, N 2335)
+  LPM Moral bad on action faced: -0.567 (se 0.043, N 2335)
+  LPM Self-interest on action faced: -0.496 (se 0.059, N 2335)
+  LPM Mutual Benefit / Cooperation on action faced: +0.242 (se 0.043, N 2335)
+
+TG control: category shares by P1-action bin (N per bin: {'(0,1/4]': 92, '(1/4,5/12]': 136, '(5/12,1/2]': 175, '(1/2,1]': 150})
+category    Moral good  Moral bad  Self-interest  Mutual Benefit / Cooperation
+bin                                                                           
+(0,1/4]          0.402      0.315          0.109                         0.174
+(1/4,5/12]       0.493      0.088          0.096                         0.324
+(5/12,1/2]       0.589      0.006          0.091                         0.314
+(1/2,1]          0.640        NaN          0.127                         0.233
+  LPM Moral good on action faced: +0.312 (se 0.077, N 553)
+  LPM Moral bad on action faced: -0.299 (se 0.043, N 553)
+  LPM Self-interest on action faced: +0.049 (se 0.054, N 553)
+  LPM Mutual Benefit / Cooperation on action faced: -0.062 (se 0.065, N 553)
+
+TG pooled: category shares by P1-action bin (N per bin: {'(0,1/4]': 320, '(1/4,5/12]': 444, '(5/12,1/2]': 712, '(1/2,1]': 793})
+category    Moral good  Moral bad  Self-interest  Mutual Benefit / Cooperation
+bin                                                                           
+(0,1/4]          0.453      0.281          0.103                         0.162
+(1/4,5/12]       0.480      0.090          0.077                         0.354
+(5/12,1/2]       0.553      0.008          0.091                         0.347
+(1/2,1]          0.584      0.005          0.095                         0.317
+  LPM Moral good on action faced: +0.190 (se 0.038, N 2269)
+  LPM Moral bad on action faced: -0.251 (se 0.020, N 2269)
+  LPM Self-interest on action faced: -0.002 (se 0.022, N 2269)
+  LPM Mutual Benefit / Cooperation on action faced: +0.063 (se 0.034, N 2269)
+
+Mixture decomposition of the aggregate response slope (control):
+  UG: aggregate slope +0.869 (se 0.155, N 592); within-category margin +0.346; composition +0.522 (60% of aggregate)
+  TG: aggregate slope +0.302 (se 0.032, N 553); within-category margin +0.259; composition +0.044 (14% of aggregate)
+
+==============================================================================
+(b) Category-level schedules and the protest-model signatures
+==============================================================================
+
+UG acceptance p_c(t) = a_c + b_c t, control sample:
+  Moral good: intercept +0.755 (se 0.117), slope +0.455 (se 0.223), N 332, mean 0.985
+  Moral bad: intercept -0.064 (se 0.091), slope +1.106 (se 0.405), N 29, mean 0.241
+  Self-interest: intercept +0.898 (se 0.096), slope +0.143 (se 0.190), N 81, mean 0.963
+  Mutual Benefit / Cooperation: intercept +0.959 (se 0.042), slope +0.068 (se 0.072), N 150, mean 0.993
+  mean outcome by category: {'Moral bad': 0.241, 'Moral good': 0.985, 'Mutual Benefit / Cooperation': 0.993, 'No clear justification': 0.875, 'Self-interest': 0.963}
+
+TG returned share s_c(t), control sample:
+  Moral good: intercept +0.227 (se 0.022), slope +0.282 (se 0.033), N 303, mean 0.382
+  Moral bad: intercept -0.062 (se 0.030), slope +0.452 (se 0.168), N 42, mean 0.044
+  Self-interest: intercept +0.122 (se 0.052), slope -0.049 (se 0.072), N 58, mean 0.096
+  Mutual Benefit / Cooperation: intercept +0.185 (se 0.032), slope +0.278 (se 0.053), N 150, mean 0.322
+  mean outcome by category: {'Moral bad': 0.044, 'Moral good': 0.382, 'Mutual Benefit / Cooperation': 0.322, 'No clear justification': 0.338, 'Self-interest': 0.096}
+
+Protest-model signature checks (control):
+  UG: Moral bad schedule scaled down across the board (low intercept+mean);
+      Self-interest money-sensitive (high slope); Moral good high acceptance.
+  TG: returned share declining in the send within categories = the
+      amount-sent/output-target signature (rem:return); levels ranked
+      Moral good > MBC > Self-interest.
+
+==============================================================================
+(c) Believed vs actual responsiveness to the action, and to context
+==============================================================================
+
+Actual UG acceptance slope b-hat (OLS choice on t, by condition):
+  Control: +0.862 (se 0.154, N 600)
+  Market: +1.052 (se 0.057, N 600)
+  Bonus: +0.454 (se 0.242, N 600)
+  Aid: +1.063 (se 0.146, N 600)
+
+P1 believed slope (individual two-point, |t-1/3|>=1/12, winsorized at [-5,5]):
+  Control: median +1.740, mean +1.839 (N 560); median below-ref +0.600 (N 19), above-ref +1.800 (N 541)
+  Market: median +0.105, mean +0.165 (N 516); median below-ref -0.000 (N 321), above-ref +0.450 (N 195)
+  Bonus: median +1.800, mean +1.957 (N 556); median below-ref +0.450 (N 14), above-ref +1.860 (N 542)
+  Aid: median +1.750, mean +1.777 (N 546); median below-ref +0.570 (N 44), above-ref +1.800 (N 502)
+  (calibrated FOC-route believed slope, control Self-interest: b = 0.667 - see calibration_stats.txt)
+
+Actual UG acceptance slope by offer segment (OLS within segment, by condition):
+  Control: below/at ref +1.525 (se 0.462, N 59); above ref +0.183 (se 0.075, N 541)
+  Market: below/at ref +1.977 (se 0.175, N 405); above ref +0.105 (se 0.084, N 195)
+  Bonus: below/at ref +1.097 (se 0.699, N 58); above ref -0.311 (se 0.276, N 542)
+  Aid: below/at ref +1.854 (se 0.307, N 98); above ref -0.129 (se 0.184, N 502)
+  -> compare believed below-ref medians (where market offers sit) with the actual below-ref segment slope
+
+Context channel at the fixed reference action (Market - Control):
+  UG: P1 beliefs_hp shift +0.172; P2 hypothetical behavior shift +0.099; excess belief shift +0.072
+  TG: P1 beliefs_hp shift +0.103; P2 hypothetical behavior shift +0.100; excess belief shift +0.003
+
+Action channel, control UG acceptance by offer bin: {'0': 0.167, '(0,1/4]': 0.632, '(1/4,5/12]': 0.706, '(5/12,1/2]': 0.982, '(1/2,1]': 0.981}
+  -> the action moves acceptance by far more than any context shift moves it
+
+==============================================================================
+Forecast errors by offer bin (verification for the P.38 sentence)
+==============================================================================
+
+Control: signed FE (belief - realized acceptance at same offer bin):
+             mean  size
+bin                    
+0          -0.153     6
+(0,1/4]    -0.061    19
+(1/4,5/12] -0.108    34
+(5/12,1/2] -0.185   489
+(1/2,1]    -0.175    52
+
+Market: signed FE (belief - realized acceptance at same offer bin):
+             mean  size
+bin                    
+0           0.546   170
+(0,1/4]     0.081   176
+(1/4,5/12] -0.101    59
+(5/12,1/2] -0.220   123
+(1/2,1]    -0.272    72
+
+Bonus: signed FE (belief - realized acceptance at same offer bin):
+             mean  size
+bin                    
+0           0.460     1
+(0,1/4]    -0.091    23
+(1/4,5/12] -0.133    34
+(5/12,1/2] -0.175   509
+(1/2,1]    -0.033    33
+
+Aid: signed FE (belief - realized acceptance at same offer bin):
+             mean  size
+bin                    
+0           0.044    17
+(0,1/4]    -0.049    39
+(1/4,5/12] -0.120    42
+(5/12,1/2] -0.187   464
+(1/2,1]    -0.172    38

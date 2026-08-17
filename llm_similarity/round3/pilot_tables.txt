@@ -1,0 +1,79 @@
+ROUND-3 PILOT (draft pool, PRE-FREEZE) --- rater Opus 4.8, 3 permuted conversations
+
+=== Sender: category similarity (mean over 16 vignettes x 3 conversations) ===
+category  Moral  Mutual Benefit/Coop.  Self-interest
+context                                             
+C-KW       45.4                  10.8           12.0
+M-KW       19.8                  15.7           28.7
+C-LT       40.7                  11.8           12.6
+M-LT       19.8                  15.7           28.6
+C-UG       35.2                  14.6           13.6
+M-UG       15.6                  18.5           30.9
+C-TG       15.4                  42.8           28.9
+M-TG       14.3                  41.4           30.9
+BONUS      42.1                   7.2            7.1
+AID        35.7                   7.4            7.9
+
+=== Sender: belief margin (High minus Low, by category) ===
+category  Moral  Mutual Benefit/Coop.  Self-interest
+context                                             
+C-KW       -3.5                   0.1            0.2
+M-KW       -0.7                  -0.0            9.3
+C-LT       -3.4                   0.4            0.1
+M-LT       -0.7                  -0.0            9.5
+C-UG       -2.5                   0.1            0.3
+M-UG        0.5                  -0.4            8.5
+C-TG        1.8                  -0.9           -3.0
+M-TG        1.3                  -1.3           -2.8
+BONUS       0.2                   0.5            0.3
+AID        -2.8                  -0.1           -1.0
+
+=== Market - Control deltas, per game ===
+  category similarity:
+    KW  Moral -25.6  Mutual +4.9  Self-interest +16.7
+    LT  Moral -20.9  Mutual +3.9  Self-interest +16.0
+    UG  Moral -19.6  Mutual +3.9  Self-interest +17.3
+    TG  Moral -1.1  Mutual -1.4  Self-interest +2.0
+  belief margin:
+    KW  Moral +2.8  Mutual -0.1  Self-interest +9.1
+    LT  Moral +2.7  Mutual -0.4  Self-interest +9.4
+    UG  Moral +3.0  Mutual -0.5  Self-interest +8.2
+    TG  Moral -0.5  Mutual -0.4  Self-interest +0.2
+
+=== Stories: Aid minus Bonus ===
+  category similarity: Moral -6.4  Mutual +0.2  Self-interest +0.8
+  belief margin: Moral -3.0  Mutual -0.6  Self-interest -1.3
+
+=== Retrieval split: category share in percent (mean over conversations) ===
+category  Moral  Mutual Benefit/Coop.  Self-interest
+context                                             
+C-KW       98.0                   0.3            1.7
+M-KW       32.3                  14.0           53.7
+C-LT       93.0                   2.3            4.7
+M-LT       31.9                  13.9           54.3
+C-UG       83.5                  10.7            5.8
+M-UG       15.7                  21.4           62.9
+C-TG        5.7                  66.1           28.2
+M-TG        3.6                  62.3           34.1
+BONUS     100.0                   0.0            0.0
+AID        97.0                   0.0            3.0
+
+=== Receiver: class similarity, strategic contexts (graded; 4 vignettes x 3 conv.) ===
+rclass   Moral bad  Moral good  Mutual Benefit  Self-interest
+context                                                      
+C-UG          51.7        27.0            24.0           32.4
+M-UG          38.6        34.2            29.3           39.6
+C-TG          24.6        49.3            36.6           37.2
+M-TG          31.7        47.0            33.3           39.5
+
+  Market - Control:
+    UG: Moral bad -13.1  Moral good +7.2  Mutual Benefit +5.3  Self-interest +7.2
+    TG: Moral bad +7.1  Moral good -2.3  Mutual Benefit -3.3  Self-interest +2.3
+
+=== Receiver: class share of the split in percent ===
+rclass   Moral bad  Moral good  Mutual Benefit  Self-interest
+context                                                      
+C-UG          47.3        16.3            12.7           23.7
+M-UG          30.7        22.7            15.3           31.3
+C-TG          12.3        40.0            20.3           27.3
+M-TG          17.7        37.0            16.7           28.7

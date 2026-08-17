@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ANTHROPIC_API_KEY=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 python3 06_pilot_rater.py)"
+    ]
+  }
+}

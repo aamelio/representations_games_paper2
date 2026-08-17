@@ -1,0 +1,76 @@
+production scores: N=4007
+
+=== USE 1: validation (Aid vs Bonus emphasis in participants' own summaries) ===
+
+pooled means (0-100):
+          F     O     J
+story                  
+aid    49.4  45.1  29.4
+bonus  58.1  33.9  43.1
+
+Welch tests, Aid - Bonus per aspect (pooled):
+  F (Moral): diff -8.7  t=-20.0  p=9.8e-85
+  O (Self-interest): diff +11.2  t=29.0  p=1.3e-167
+  J (Mutual Benefit / Cooperation): diff -13.8  t=-43.1  p=0
+
+by game x story:
+               F     O     J
+game story                  
+dgkw aid    50.1  45.2  29.3
+     bonus  57.6  34.1  44.2
+dglt aid    48.6  45.2  29.2
+     bonus  56.0  35.5  42.9
+tg   aid    49.9  44.7  29.9
+     bonus  58.1  32.6  42.7
+ug   aid    48.9  45.3  29.0
+     bonus  59.7  33.9  42.9
+
+dominant shares by story:
+story  dominant
+aid    F           0.374
+       balanced    0.352
+       O           0.261
+       J           0.012
+bonus  F           0.583
+       balanced    0.237
+       J           0.134
+       O           0.046
+
+cross-game placebo (same story, means across games; summaries precede the game):
+  aid: max-min across games  F 1.5  O 0.6  J 1.0
+  bonus: max-min across games  F 3.7  O 2.9  J 1.5
+
+=== USE 2: heterogeneity (within story condition, pre-game emphasis -> behavior) ===
+
+categorized-file story codes present: {0: np.int64(2003), 1: np.int64(2000), 2: np.int64(2000), 4: np.int64(2004)}
+merged N = 4004 of 4007 scored summaries
+
+--- (a) summary dominant aspect vs stated reason category (classified only) ---
+category  Moral  Mutual Benefit / Cooperation  Self-interest
+dominant                                                    
+F         0.699                         0.144          0.157
+J         0.649                         0.137          0.214
+O         0.635                         0.111          0.255
+balanced  0.631                         0.134          0.235
+
+  dominant-matches-category rate: 54.4% (N=2763; chance approx 50.9%)
+
+--- (b) action on standardized summary scores, within story x game (OLS, HC1) ---
+  dgkw  aid   N=401: F -0.003 (p=0.81)  O -0.003 (p=0.81)  J -0.003 (p=0.76)
+  dgkw  bonus N=400: F +0.008 (p=0.43)  O -0.008 (p=0.43)  J +0.015 (p=0.076)
+  dglt  aid   N=403: F +0.001 (p=0.95)  O +0.004 (p=0.74)  J +0.014 (p=0.18)
+  dglt  bonus N=400: F +0.014 (p=0.14)  O -0.010 (p=0.31)  J -0.002 (p=0.83)
+  ug    aid   N=600: F +0.004 (p=0.57)  O +0.019 (p=0.016)  J +0.015 (p=0.014)
+  ug    bonus N=600: F +0.001 (p=0.72)  O +0.000 (p=0.94)  J +0.002 (p=0.54)
+  tg    aid   N=600: F +0.017 (p=0.23)  O -0.000 (p=0.98)  J +0.009 (p=0.53)
+  tg    bonus N=600: F -0.013 (p=0.36)  O +0.001 (p=0.97)  J +0.008 (p=0.49)
+
+  (coefficients = change in action share per 1 SD of summary emphasis)
+
+--- (c) beliefs (UG acceptance / TG return at reference) on summary scores ---
+  ug N=1142 (story-pooled, aid dummy): F +0.006 (p=0.53)  O +0.000 (p=0.97)  J +0.009 (p=0.3)
+  tg N= 947 (story-pooled, aid dummy): F -0.003 (p=0.68)  O +0.006 (p=0.51)  J -0.000 (p=0.99)
+
+--- NG's sharpest cell: J (joint-gains) emphasis and the action, TG vs DG-KW ---
+  dgkw : action mean, high-J 0.392 vs low-J 0.348  (diff +0.044, p=0.00099)
+  tg   : action mean, high-J 0.519 vs low-J 0.507  (diff +0.012, p=0.49)

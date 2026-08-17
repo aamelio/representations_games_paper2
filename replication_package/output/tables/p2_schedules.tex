@@ -1,0 +1,28 @@
+% chktex-file 13
+\begin{table}[!htbp]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\caption{\textbf{Second-Mover Schedules by Category (Control Sample)}}
+\label{tab:p2_schedules}
+\begin{tabular}{l cc cc c}
+\toprule
+Category & Intercept & (SE) & Slope in $t$ & (SE) & $N$ \\
+\midrule
+\multicolumn{6}{l}{\emph{Panel A: UG acceptance, $p_c(t)=a_c+b_c\,t$}} \\
+Moral good & 0.755 & (0.117) & 0.455 & (0.223) & 332 \\
+Moral bad & -0.064 & (0.091) & 1.106 & (0.405) & 29 \\
+Self-interest & 0.898 & (0.096) & 0.143 & (0.190) & 81 \\
+Mutual Benefit / Cooperation & 0.959 & (0.042) & 0.068 & (0.072) & 150 \\
+\midrule
+\multicolumn{6}{l}{\emph{Panel B: TG returned share, $s_c(t)$}} \\
+Moral good & 0.227 & (0.022) & 0.282 & (0.033) & 303 \\
+Moral bad & -0.062 & (0.030) & 0.452 & (0.168) & 42 \\
+Self-interest & 0.122 & (0.052) & -0.049 & (0.072) & 58 \\
+Mutual Benefit / Cooperation & 0.185 & (0.032) & 0.278 & (0.053) & 150 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: Control sample. OLS of the second mover's realized response (UG: acceptance of the offer faced; TG: share of the tripled amount returned) on the first mover's action $t$ (share of the budget), by stated category. Robust (HC1) standard errors. The offers and sends faced are endogenous to the matched first mover; hypothetical responses at the one-third reference action give the treatment-clean counterpart in Figure~\ref{fig:player2_hypothetical}.
+\end{flushleft}
+\end{table}

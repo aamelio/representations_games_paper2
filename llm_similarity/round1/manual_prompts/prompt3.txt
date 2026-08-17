@@ -1,0 +1,15 @@
+Now consider the reverse retrieval direction. For each of the four games (A, B, C, D), imagine a participant who has just read the game instructions for the first time and is asked: "Does this situation remind you of any real-world experience?"
+
+Of the two stories (Story 1 and Story 2), which is more likely to be retrieved as a similar past experience cued by each game?
+
+For each game, distribute 100 points between Story 1 and Story 2 to indicate relative retrieval likelihood. For example, 70/30 means Story 1 is much more likely to come to mind than Story 2 when cued by that game; 50/50 means equal likelihood.
+
+OUTPUT FORMAT
+
+1. For each game, give the 100-point split (Story 1 / Story 2) and a 2-3 sentence justification.
+
+2. At the end, output a single JSON object with the splits, exactly in this form:
+{"splits": {"A": {"Story 1": <int>, "Story 2": <int>}, "B": {...}, "C": {...}, "D": {...}}}
+Each game's two numbers must sum to 100.
+
+3. After the JSON, comment briefly on whether the relative-retrieval ranking across games matches your Pass 1 absolute similarity ratings, or differs (and if so, where and why).

@@ -1,0 +1,31 @@
+=== A. Sample counts (Section 3.1 footnote) ===
+  PASS  P1 dgkw: 1604 (footnote says 1604)
+  PASS  P1 dglt: 1603 (footnote says 1603)
+  PASS  P1 ug: 2400 (footnote says 2400)
+  PASS  P1 tg: 2400 (footnote says 2400)
+  PASS  P2 ug: 2402 (footnote says 2402)
+  PASS  P2 tg: 2346 (footnote says 2346)
+  PASS  total participants 12755 (headline N~12,750)
+
+=== B. TG senders with believed return >= 1/2 (Section 4.2) ===
+  Control: 30.4536% of TG senders with a belief (N=463)
+  PASS  prose 30.5% (Control)
+  Market: 52.0073% of TG senders with a belief (N=548)
+  PASS  prose 52.0% (Market)
+  Market, classified-only: 52.4178%
+  PASS  decision-log 52.4% (Market, classified-only)
+
+=== C. Exact LOO accuracy and kappa on the 95 reference examples ===
+  claude-opus-4-8: accuracy 0.842105, kappa 0.714658 (N=95)
+  PASS  claude-opus-4-8 accuracy rounds to 0.842
+  -> paper prints kappa=0.72; exact 0.714658 (< 0.715: paper should print 0.71)
+  claude-sonnet-4-6: accuracy 0.831579, kappa 0.711411 (N=95)
+  PASS  claude-sonnet-4-6 accuracy rounds to 0.832
+
+=== D. Exact fold-in deviations (Market-Control category-share effects, pp) ===
+  max |folded - baseline| = 4.9705 pp at ('dgkw', 'Self-interest')
+    ('dgkw', 'Self-interest'): baseline +10.51, folded +15.48, |dev| 4.9705
+    ('ug', 'Mutual Benefit / Cooperation'): baseline +25.88, folded +22.17, |dev| 3.7104
+    ('ug', 'Self-interest'): baseline +16.82, folded +20.50, |dev| 3.6769
+  PASS  prose "within 5 percentage points" (exact max < 5.0)
+  PASS  worst cell is (dgkw, Self-interest)

@@ -1,0 +1,14 @@
+      Aid vs Bonus  DG-KW: actual -0.059 | additive -0.039 (ratio +0.65) | interacted -0.039 (ratio +0.65) | N 790  [categories only - no beliefs]
+      Aid vs Bonus     UG: actual -0.024 | additive -0.013 (ratio +0.55) | interacted -0.014 (ratio +0.60) | N 1120
+      interaction terms: Self-interest]:beliefs_hpx belief -0.128 (p 0.061), Mutual Benefit / Cooperation]:beliefs_hpx belief -0.245 (p 0.063)
+      Aid vs Bonus     TG: actual +0.008 | additive +0.006 (ratio +0.70) | interacted +0.004 (ratio +0.49) | N 937
+      interaction terms: Self-interest]:beliefs_hpx belief +0.036 (p 0.818), Mutual Benefit / Cooperation]:beliefs_hpx belief -0.327 (p 0.000)
+ Market vs Control  DG-KW: actual -0.101 | additive -0.045 (ratio +0.45) | interacted -0.045 (ratio +0.45) | N 728  [categories only - no beliefs]
+ Market vs Control     UG: actual -0.220 | additive -0.095 (ratio +0.43) | interacted -0.096 (ratio +0.44) | N 1027
+      interaction terms: Self-interest]:beliefs_hpx belief -0.171 (p 0.021), Mutual Benefit / Cooperation]:beliefs_hpx belief -0.162 (p 0.170)
+ Market vs Control     TG: actual +0.133 | additive +0.083 (ratio +0.62) | interacted +0.085 (ratio +0.64) | N 970
+      interaction terms: Self-interest]:beliefs_hpx belief +0.305 (p 0.009), Mutual Benefit / Cooperation]:beliefs_hpx belief -0.047 (p 0.609)
+
+Fit across the 6 P1-action cells (actual on predicted, OLS):
+  additive: slope 1.938, R2 0.973; mean |pred|/|actual| on the four largest cells 0.54
+  interacted: slope 1.906, R2 0.972; mean |pred|/|actual| on the four largest cells 0.55

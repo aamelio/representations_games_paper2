@@ -1,0 +1,11 @@
+vignettes found: 48 (expected 48)
+banned words in bodies: none
+distinct protagonist names: 48 of 48
+cells: ['CH', 'CL', 'MH', 'ML', 'SH', 'SL'] (expected 6: CH CL MH ML SH SL)
+  CH: 8 vignettes, individuals 4, firms 4
+  CL: 8 vignettes, individuals 4, firms 4
+  MH: 8 vignettes, individuals 4, firms 4
+  ML: 8 vignettes, individuals 4, firms 4
+  SH: 8 vignettes, individuals 4, firms 4
+  SL: 8 vignettes, individuals 4, firms 4
+word counts: min 65, max 79

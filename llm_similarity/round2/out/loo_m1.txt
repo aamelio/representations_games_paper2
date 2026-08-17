@@ -1,0 +1,8 @@
+claude [full]: Bonus-Moral 54.9, Aid-Moral 57.5; H5 slope 0.0122 (se 0.0025), R2 0.593
+claude [no_M1]: Bonus-Moral 49.8, Aid-Moral 57.6; H5 slope 0.0108 (se 0.0027), R2 0.499
+claude: max |cell change| outside Bonus-Moral = 0.5
+
+claude_fable [full]: Bonus-Moral 50.4, Aid-Moral 51.1; H5 slope 0.0114 (se 0.0023), R2 0.596
+claude_fable [no_M1]: Bonus-Moral 44.8, Aid-Moral 52.3; H5 slope 0.0096 (se 0.0025), R2 0.489
+claude_fable: max |cell change| outside Bonus-Moral = 1.6
+

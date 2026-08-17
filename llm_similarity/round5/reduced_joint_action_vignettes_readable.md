@@ -1,0 +1,150 @@
+# Reduced joint-action vignette pool
+
+This is a researcher-readable rendering of `01_reduced_joint_action_vignettes.csv`.
+The metadata headings identify intended cells and should not be shown to raters or survey respondents.
+
+## DG-structured vignettes
+
+### Moral; sender keeps 6, sender gives 6; receiver: no receiver action
+
+**DG-M-P - personal.**
+
+Anna receives twelve meal vouchers and is asked to decide how many to keep and how many to give to Marco. She says that, since both of them have the same need for meals, the fair choice is to divide the vouchers equally. Anna keeps six vouchers and gives six to Marco.
+
+**DG-M-K - market.**
+
+An online platform assigns a twelve-dollar transaction bonus to one of two anonymous businesses that contributed equally to completing an order. The selected business alone chooses whether to transfer any of the bonus to the other business. Its manager says equal contributions deserve equal payments, so the business keeps six dollars and transfers six dollars to the other anonymous business.
+
+### Self-interest; sender keeps 12, sender gives 0; receiver: no receiver action
+
+**DG-S-P - personal.**
+
+David receives twelve travel credits in his own name and may give some of them to Laura. David says the credits were awarded to him, so he has the right to use all of them. Because every credit he gives away reduces what he can spend on his own trip, he keeps all twelve credits and gives Laura nothing.
+
+**DG-S-K - market.**
+
+A one-time anonymous marketplace assigns a twelve-dollar sales rebate to a seller and allows the seller to transfer any part of it to the buyer. The seller has no past or future dealings with the buyer. Its manager says the rebate legally belongs to the seller and wants to maximize the firm's earnings, so the seller keeps all twelve dollars and transfers nothing.
+
+## UG-structured vignettes
+
+### Moral; sender keeps 6, sender gives 6; receiver: accept
+
+**UG-M-A-P - personal.**
+
+Elena and Paolo can receive twelve concert credits if they agree on how to divide them. Elena must propose a division, and Paolo can accept it or reject it; rejection gives both of them nothing. Elena says an equal division is the fair outcome and proposes six credits for herself and six for Paolo. Paolo accepts, so each receives six credits.
+
+**UG-M-A-K - market.**
+
+Two anonymous firms qualify for a one-time twelve-dollar platform bonus. One firm proposes how to divide it, and the other can accept or reject; rejection cancels the entire bonus. The proposing firm says both businesses made equal contributions and offers six dollars to each. The other firm accepts, so the platform pays six dollars to each anonymous firm.
+
+### Moral; sender keeps 6, sender gives 6; receiver: reject
+
+**UG-M-R-P - personal.**
+
+Sara and Matteo can receive twelve project tokens if they agree on a division. Sara proposes how many each will receive, while Matteo can accept or reject; rejection leaves both with zero. Sara says they should be treated equally and proposes six tokens for herself and six for Matteo. Matteo rejects the proposal, so neither of them receives any tokens.
+
+**UG-M-R-K - market.**
+
+Two businesses with hidden identities qualify for a one-time twelve-dollar transaction credit. One business proposes a division, and the other can accept or reject; if it rejects, both receive zero. The proposing business says an equal division is fair and offers six dollars to each. The other anonymous business rejects, so the transaction credit is cancelled and neither is paid.
+
+### Self-interest; sender keeps 8, sender gives 4; receiver: accept
+
+**UG-S-A-P - personal.**
+
+Luca and Giulia can receive twelve event credits if they agree on a division. Luca makes the proposal, and Giulia can accept it or reject it; rejection gives both zero. Luca wants to keep as much as possible while still offering Giulia something worth accepting. He proposes eight credits for himself and four for Giulia. Giulia accepts, so the proposed division is implemented.
+
+**UG-S-A-K - market.**
+
+An anonymous seller and buyer can receive a one-time twelve-dollar marketplace rebate only if they accept one division. The seller proposes keeping eight dollars and giving four to the buyer because it wants the largest feasible share. The buyer accepts the low allocation because four dollars is better than receiving nothing after rejection. The rebate is therefore paid eight dollars to the seller and four to the buyer.
+
+### Self-interest; sender keeps 8, sender gives 4; receiver: reject
+
+**UG-S-R-P - personal.**
+
+Marta and Andrea can receive twelve prize credits if they agree on a division. Marta proposes the split, and Andrea can accept or reject; rejection eliminates the prize for both. Marta wants to retain most of the credits but gives Andrea four to reduce the chance of losing everything. She proposes eight for herself and four for Andrea. Andrea rejects, so both receive zero.
+
+**UG-S-R-K - market.**
+
+Two anonymous businesses qualify for a one-time twelve-dollar platform payment. The first business proposes keeping eight dollars and paying four to the second because it wants to retain most of the payment. The second business can accept or reject, with rejection cancelling the payment for both. It rejects the four-dollar allocation, so neither anonymous business receives anything.
+
+### Cooperation; sender keeps 4, sender gives 8; receiver: accept
+
+**UG-C-A-P - personal.**
+
+Chiara and Stefano have access to twelve production credits only if they agree on a division. Chiara proposes the split, and Stefano can accept or reject; rejection destroys the opportunity for both. Chiara gives Stefano a substantial share so that he can carry out his part and the full joint project can proceed. She proposes four credits for herself and eight for Stefano. Stefano accepts.
+
+**UG-C-A-K - market.**
+
+Two anonymous firms can undertake a one-time project worth twelve payment units only if they accept one division. The lead firm proposes keeping four units and assigning eight to the other firm so that the latter can complete the resource-intensive stage and the full joint return can be realized. The other firm accepts, and the twelve units are paid according to the proposed division.
+
+### Cooperation; sender keeps 4, sender gives 8; receiver: reject
+
+**UG-C-R-P - personal.**
+
+Francesca and Tommaso can use twelve project credits only if they agree on a division. Francesca proposes four credits for herself and eight for Tommaso so he has enough resources to complete the main production stage and realize the full joint return. Tommaso can accept or reject the proposal. He rejects it, so the project is cancelled and both receive zero.
+
+**UG-C-R-K - market.**
+
+Two firms with concealed identities qualify for a one-time twelve-unit production payment. One firm proposes keeping four units and assigning eight to the other so the costly production stage can be completed and the entire joint return obtained. The second firm can accept or reject, and rejection cancels the payment for both. It rejects, so neither anonymous firm receives any units.
+
+## TG-structured vignettes
+
+### Moral; sender keeps 3, sender gives 3; receiver: return
+
+**TG-M-RET-P - personal.**
+
+Miriam starts with six investment tokens and may send some to Roberto. Every token sent is tripled before Roberto receives it, and Roberto then decides how many tokens to return. Miriam says a fair outcome should leave them with equal final amounts, so she sends three tokens. Roberto receives nine and returns three. Miriam finishes with six tokens and Roberto with six.
+
+**TG-M-RET-K - market.**
+
+An anonymous firm receives six financing units in a one-time platform transaction. It may send units to another anonymous firm; every unit sent becomes three revenue units, after which the receiving firm chooses a return payment. The first firm's manager selects three units as the amount compatible with an equal final outcome. The receiver obtains nine units and returns three, leaving each firm with six.
+
+### Moral; sender keeps 3, sender gives 3; receiver: keep
+
+**TG-M-KEEP-P - personal.**
+
+Alessia starts with six investment tokens and may send some to Enrico. Every token sent is tripled before Enrico receives it, and Enrico then chooses how many to return. Alessia says an equal final outcome would be fair and sends three tokens. Enrico receives nine tokens but returns none. Alessia finishes with the three she kept, while Enrico keeps all nine.
+
+**TG-M-KEEP-K - market.**
+
+A firm receives six financing units in an anonymous one-time platform transaction. Any units it sends to another anonymous firm are tripled, after which the receiver determines the return payment. The first firm's manager sends three units because this could support an equal final allocation. The receiver obtains nine revenue units but returns nothing, keeping all nine while the sender retains only three.
+
+### Self-interest; sender keeps 5, sender gives 1; receiver: return
+
+**TG-S-RET-P - personal.**
+
+Nicola starts with six trading tokens and may send some to Beatrice. Each token sent becomes three sales tokens, after which Beatrice decides how many to return. Nicola wants to expose as little of his own balance as possible while still creating a return opportunity, so he sends one token and keeps five. Beatrice receives three tokens and returns two to Nicola.
+
+**TG-S-RET-K - market.**
+
+An anonymous investor receives six financing units for a single transaction with an anonymous seller. Every unit advanced produces three revenue units, after which the seller chooses the repayment. The investor wants to keep most funds under its own control and advances only one unit. The seller generates three revenue units and returns two, so the investor finishes with seven units.
+
+### Self-interest; sender keeps 5, sender gives 1; receiver: keep
+
+**TG-S-KEEP-P - personal.**
+
+Giorgio starts with six sales tokens and may send some to Valentina. Each token sent creates three sales tokens, after which Valentina decides how many to return. Giorgio wants to retain almost all of his original balance and risk only a small amount, so he sends one token and keeps five. Valentina receives three tokens and returns nothing, keeping all three.
+
+**TG-S-KEEP-K - market.**
+
+A one-time anonymous investor receives six financing units and may advance some to an anonymous online seller. Each unit advanced creates three revenue units, after which the seller chooses the repayment. The investor wants to retain almost all of its funds and advances only one unit. The seller receives three revenue units and returns nothing, while the investor keeps its remaining five.
+
+### Cooperation; sender keeps 0, sender gives 6; receiver: return
+
+**TG-C-RET-P - personal.**
+
+Camilla starts with six production tokens and may send some to Federico. Every token sent is tripled before Federico receives it, and Federico then chooses how many to return. Camilla sends all six tokens so that the largest possible joint surplus, eighteen tokens, can be produced. Federico receives eighteen and returns nine. Camilla and Federico each finish with nine tokens.
+
+**TG-C-RET-K - market.**
+
+An anonymous supplier receives six input units for a one-time transaction with an anonymous retailer. Every unit supplied produces three revenue units, after which the retailer chooses a repayment. The supplier sends all six units so the transaction can generate the maximum joint revenue of eighteen. The retailer receives eighteen revenue units and returns nine, leaving nine units with each anonymous firm.
+
+### Cooperation; sender keeps 0, sender gives 6; receiver: keep
+
+**TG-C-KEEP-P - personal.**
+
+Silvia starts with six production tokens and may send some to Lorenzo. Each token sent becomes three output tokens, after which Lorenzo decides how many to return. Silvia sends all six tokens so that they can produce the maximum joint surplus of eighteen. Lorenzo receives eighteen output tokens but returns none. Silvia finishes with zero, while Lorenzo keeps all eighteen.
+
+**TG-C-KEEP-K - market.**
+
+An anonymous supplier has six input units in a one-time platform transaction with an anonymous retailer. Each supplied unit produces three revenue units, after which the retailer decides the repayment. The supplier sends all six units to generate the maximum joint revenue of eighteen. The retailer receives eighteen revenue units but returns nothing, so the supplier finishes with zero and the retailer keeps all eighteen.

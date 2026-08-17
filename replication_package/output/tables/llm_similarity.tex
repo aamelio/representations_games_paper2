@@ -1,0 +1,22 @@
+\begin{table}[!htbp]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.15}
+\caption{\textbf{Perceived Similarity of Stories to Games, LLM Raters}}
+\label{tab:llm_similarity}
+\begin{tabular}{l ccc c}
+\toprule
+& \multicolumn{3}{c}{Structural similarity (0--100)} & Retrieval split \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-5}
+Game & Bonus & Aid & Mean & Bonus / Aid \\
+\midrule
+DG-KW & 94.6 & 94.7 & 94.6 & 41 / 59 \\
+DG-LT & 51.8 & 50.7 & 51.2 & 54 / 46 \\
+UG    & 30.1 & 29.8 & 29.9 & 60 / 40 \\
+TG    & 15.0 & 13.9 & 14.4 & 72 / 28 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: Means over nine conversations (three models $\times$ three label permutations). The games were presented under neutral labels (Games A--D), their texts the verbatim Control-condition instructions; the stories as Story 1 and Story 2. Structural similarity: 0--100 rating of each story--game pair, under an instruction to judge the strategic structure of the two situations and ignore surface thematic content. Retrieval split: 100 points divided between the two stories according to which the game calls to mind as a similar past experience, with no restriction on what may drive recall.
+\end{flushleft}
+\end{table}

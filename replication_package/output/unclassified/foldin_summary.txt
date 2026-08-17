@@ -1,0 +1,62 @@
+[0] Residual answers: Control 49/2003 = 2.4%, Market 260/2000 = 13.0%
+
+[1] Leave-one-out validation on the 95 labelled examples:
+  claude-opus-4-8: accuracy 0.842, kappa 0.715 (N=95)
+  claude-sonnet-4-6: accuracy 0.832, kappa 0.711 (N=95)
+
+[2] Market-Control effects on category shares (pp), baseline = paper (residual dropped):
+cat_orig  Moral  Mutual Benefit / Cooperation  Self-interest
+dgkw      -27.4                          16.9           10.5
+dglt      -40.2                          28.0           12.1
+ug        -42.7                          25.9           16.8
+tg        -23.8                          18.3            5.5
+
+  folded in, headline (claude-opus-4-8) (309/309 residual labelled):
+  cat_folded  Moral  Mutual Benefit / Cooperation  Self-interest
+  dgkw        -30.0                          14.5           15.5
+  dglt        -40.0                          25.2           14.8
+  ug          -42.7                          22.2           20.5
+  tg          -23.5                          17.0            6.5
+  max |deviation from baseline| = 5.0 pp (cell: ('dgkw', 'Self-interest'))
+
+  folded in, cross-model (claude-sonnet-4-6) (309/309 residual labelled):
+  cat_folded  Moral  Mutual Benefit / Cooperation  Self-interest
+  dgkw        -29.0                          14.8           14.2
+  dglt        -38.8                          25.2           13.5
+  ug          -41.3                          22.2           19.2
+  tg          -22.7                          17.0            5.7
+  max |deviation from baseline| = 3.7 pp (cell: ('dgkw', 'Self-interest'))
+
+  folded in, earlier forced LLM pass (309/309 residual labelled):
+  cat_folded  Moral  Mutual Benefit / Cooperation  Self-interest
+  dgkw        -29.7                          14.3           15.5
+  dglt        -39.0                          26.8           12.2
+  ug          -42.2                          22.0           20.2
+  tg          -23.8                          16.3            7.5
+  max |deviation from baseline| = 5.0 pp (cell: ('dgkw', 'Self-interest'))
+
+[3] Forced-category composition of the residual answers, headline model (%):
+story                            0     1
+forced_cat                              
+Moral                         28.6  24.2
+Mutual Benefit / Cooperation   4.1   8.5
+Self-interest                 67.3  67.3
+
+[4] Share of answers mentioning no counterpart (%):
+  Control: residual 75.5 vs classified 14.4
+  Market: residual 92.3 vs classified 46.4
+
+Mean words: Control classified 22.0 / residual 12.1; Market classified 22.0 / residual 15.4
+
+Mean share sent (games with share_sent), Market, residual vs classified by game:
+game  residual
+dgkw  False       0.250
+      True        0.200
+dglt  False       0.202
+      True        0.172
+tg    False       0.634
+      True        0.559
+ug    False       0.275
+      True        0.219
+
+[5] Agreement on the 214 non-reference residual answers: headline vs cross-model 0.808; headline vs earlier pass 0.701; cross-model vs earlier pass 0.617

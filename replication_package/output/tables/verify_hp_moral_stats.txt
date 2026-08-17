@@ -1,0 +1,163 @@
+--- data/hpmin_sp_moral_all.xlsx vs data/hpmin_social_proximity_all.xlsx ---
+  PASS  N=1200 rows, both files
+  PASS  PROLIFIC_PID x treatment x Market unique in both
+  note: 75 PIDs appear in two cells (repeat participation across the separately recruited DG cells) — identical in all three hpmin files, a property of the underlying data, not of this delivery; PID-only merges against these files fan out
+  PASS  shared columns identical row-by-row (['PROLIFIC_PID', 'treatment', 'allocation', 'memory', 'hp', 'social_proximity', 'sp_num', 'Market'])
+  PASS  moral has the 7 categories, no missing
+cells (treatment x Market): {('kw', 0): 200, ('kw', 1): 400, ('lt', 0): 200, ('lt', 1): 400}
+
+--- tab:social_proximity_hpmin_kw_lt (Table 30) ---
+  PASS  No mention of recipient: shares 26.50/31.00 alloc 8.736/7.387 vs 26.5/31.0 and 8.74/7.39
+  PASS  Abstract stranger: shares 28.00/28.50 alloc 9.312/7.096 vs 28.0/28.5 and 9.31/7.1
+  PASS  Anonymous peer: shares 17.50/19.00 alloc 6.000/6.237 vs 17.5/19.0 and 6.0/6.24
+  PASS  Teammate / coworker: shares 7.50/5.50 alloc 6.600/7.091 vs 7.5/5.5 and 6.6/7.09
+  PASS  Friend: shares 20.50/16.00 alloc 6.829/6.141 vs 20.5/16.0 and 6.83/6.14
+
+--- tab:highsp_regressions_hpmin (Table 31) ---
+  PASS  Mean Allocation High SP: coef -1.7026 se 0.2199 [***] vs hardcoded -1.703 (0.220) [***]
+  PASS  Mean Allocation const: coef +8.1009 se 0.1442 [***] vs hardcoded +8.101 (0.144) [***]
+  PASS  Mean Allocation R2 0.1309 vs hardcoded 0.131
+  PASS  Mean Allocation N 400 vs hardcoded 400
+  PASS  =12 High SP: coef -0.2282 se 0.0340 [***] vs hardcoded -0.228 (0.034) [***]
+  PASS  =12 const: coef +0.2456 se 0.0223 [***] vs hardcoded +0.246 (0.022) [***]
+  PASS  =12 R2 0.1015 vs hardcoded 0.101
+  PASS  =12 N 400 vs hardcoded 400
+  PASS  >8 High SP: coef -0.2986 se 0.0394 [***] vs hardcoded -0.299 (0.039) [***]
+  PASS  >8 const: coef +0.3509 se 0.0258 [***] vs hardcoded +0.351 (0.026) [***]
+  PASS  >8 R2 0.1263 vs hardcoded 0.126
+  PASS  >8 N 400 vs hardcoded 400
+  PASS  =8 High SP: coef -0.0285 se 0.0343 [ns] vs hardcoded -0.028 (0.034) [ns]
+  PASS  =8 const: coef +0.1447 se 0.0225 [***] vs hardcoded +0.145 (0.022) [***]
+  PASS  =8 R2 0.0017 vs hardcoded 0.002
+  PASS  =8 N 400 vs hardcoded 400
+  PASS  =6 High SP: coef +0.3569 se 0.0473 [***] vs hardcoded +0.357 (0.047) [***]
+  PASS  =6 const: coef +0.3640 se 0.0310 [***] vs hardcoded +0.364 (0.031) [***]
+  PASS  =6 R2 0.1250 vs hardcoded 0.125
+  PASS  =6 N 400 vs hardcoded 400
+  PASS  =4 High SP: coef +0.0056 se 0.0192 [ns] vs hardcoded +0.006 (0.019) [ns]
+  PASS  =4 const: coef +0.0351 se 0.0126 [***] vs hardcoded +0.035 (0.013) [***]
+  PASS  =4 R2 0.0002 vs hardcoded 0.000
+  PASS  =4 N 400 vs hardcoded 400
+
+--- tab:decomposition_sym_kw_lt (Table 32): KW - LT, Control ---
+  PASS  decomposition_sym_kw_lt.tex: all six outcome rows found
+  PASS  Mean Allocation: diff +0.9975 rep -0.0668 beh +1.0643 vs expected +0.998/-0.067/+1.064
+  PASS  Mean Allocation: .tex row (0.998, -0.067, 1.064) matches expected
+  PASS  notes moral-7 split -0.0663/+1.0638 vs quoted -0.066/1.064
+  PASS  =12: diff +0.1050 rep -0.0106 beh +0.1156 vs expected +0.105/-0.011/+0.116
+  PASS  =12: .tex row (0.105, -0.011, 0.116) matches expected
+  PASS  >8: diff +0.2050 rep -0.0105 beh +0.2155 vs expected +0.205/-0.010/+0.215
+  PASS  >8: .tex row (0.205, -0.01, 0.215) matches expected
+  PASS  =8: diff -0.0750 rep +0.0001 beh -0.0751 vs expected -0.075/+0.000/-0.075
+  PASS  =8: .tex row (-0.075, 0.0, -0.075) matches expected
+  PASS  =6: diff -0.0350 rep +0.0080 beh -0.0430 vs expected -0.035/+0.008/-0.043
+  PASS  =6: .tex row (-0.035, 0.008, -0.043) matches expected
+  PASS  =4: diff -0.0650 rep +0.0015 beh -0.0665 vs expected -0.065/+0.002/-0.067
+  PASS  =4: .tex row (-0.065, 0.002, -0.067) matches expected
+
+--- tab:moral_kw_lt (Table 33) ---
+  PASS  Need: shares 2.50/1.00 alloc 11.400/6.000 vs 2.5/1.0 and 11.4/6.0
+  PASS  Egalitarian: shares 32.00/27.50 alloc 6.016/5.909 vs 32.0/27.5 and 6.02/5.91
+  PASS  Generous: shares 33.00/37.50 alloc 7.432/6.027 vs 33.0/37.5 and 7.43/6.03
+  PASS  Neutral: shares 8.50/11.00 alloc 8.000/7.477 vs 8.5/11.0 and 8.0/7.48
+  PASS  Entitlement: shares 10.50/11.00 alloc 9.905/8.477 vs 10.5/11.0 and 9.9/8.48
+  PASS  Greedy: shares 13.00/8.00 alloc 10.962/8.750 vs 13.0/8.0 and 10.96/8.75
+  PASS  Theft: shares 0.50/4.00 alloc 12.000/11.750 vs 0.5/4.0 and 12.0/11.75
+
+--- tab:moral_regressions (Table 34) ---
+  PASS  Mean Allocation Generous: coef -1.0207 se 0.3149 [***] vs hardcoded -1.021 (0.315) [***]
+  PASS  Mean Allocation Entitlement: coef +1.4693 se 0.3848 [***] vs hardcoded +1.469 (0.385) [***]
+  PASS  Mean Allocation Egalitarian: coef -1.7387 se 0.3211 [***] vs hardcoded -1.739 (0.321) [***]
+  PASS  Mean Allocation Greedy: coef +2.4139 se 0.3870 [***] vs hardcoded +2.414 (0.387) [***]
+  PASS  Mean Allocation Theft: coef +4.0726 se 0.6435 [***] vs hardcoded +4.073 (0.644) [***]
+  PASS  Mean Allocation Need: coef +2.1520 se 0.7143 [***] vs hardcoded +2.152 (0.714) [***]
+  PASS  Mean Allocation const: coef +7.7051 se 0.2787 [***] vs hardcoded +7.705 (0.279) [***]
+  PASS  Mean Allocation R2 0.4517 vs hardcoded 0.452
+  PASS  Mean Allocation N 400 vs hardcoded 400
+  PASS  =12 Generous: coef -0.1440 se 0.0525 [***] vs hardcoded -0.144 (0.053) [***]
+  PASS  =12 Entitlement: coef +0.1461 se 0.0642 [**] vs hardcoded +0.146 (0.064) [**]
+  PASS  =12 Egalitarian: coef -0.1795 se 0.0536 [***] vs hardcoded -0.179 (0.054) [***]
+  PASS  =12 Greedy: coef +0.3205 se 0.0645 [***] vs hardcoded +0.321 (0.065) [***]
+  PASS  =12 Theft: coef +0.7094 se 0.1073 [***] vs hardcoded +0.709 (0.107) [***]
+  PASS  =12 Need: coef +0.3919 se 0.1191 [***] vs hardcoded +0.392 (0.119) [***]
+  PASS  =12 const: coef +0.1795 se 0.0465 [***] vs hardcoded +0.179 (0.046) [***]
+  PASS  =12 R2 0.3417 vs hardcoded 0.342
+  PASS  =12 N 400 vs hardcoded 400
+  PASS  >8 Generous: coef -0.1031 se 0.0599 [*] vs hardcoded -0.103 (0.060) [*]
+  PASS  >8 Entitlement: coef +0.1878 se 0.0732 [**] vs hardcoded +0.188 (0.073) [**]
+  PASS  >8 Egalitarian: coef -0.2308 se 0.0611 [***] vs hardcoded -0.231 (0.061) [***]
+  PASS  >8 Greedy: coef +0.4835 se 0.0736 [***] vs hardcoded +0.484 (0.074) [***]
+  PASS  >8 Theft: coef +0.7692 se 0.1225 [***] vs hardcoded +0.769 (0.122) [***]
+  PASS  >8 Need: coef +0.4835 se 0.1359 [***] vs hardcoded +0.484 (0.136) [***]
+  PASS  >8 const: coef +0.2308 se 0.0530 [***] vs hardcoded +0.231 (0.053) [***]
+  PASS  >8 R2 0.3773 vs hardcoded 0.377
+  PASS  >8 N 400 vs hardcoded 400
+  PASS  =8 Generous: coef -0.1686 se 0.0582 [***] vs hardcoded -0.169 (0.058) [***]
+  PASS  =8 Entitlement: coef +0.1133 se 0.0711 [ns] vs hardcoded +0.113 (0.071) [ns]
+  PASS  =8 Egalitarian: coef -0.2484 se 0.0593 [***] vs hardcoded -0.248 (0.059) [***]
+  PASS  =8 Greedy: coef -0.1630 se 0.0715 [**] vs hardcoded -0.163 (0.072) [**]
+  PASS  =8 Theft: coef -0.2821 se 0.1189 [**] vs hardcoded -0.282 (0.119) [**]
+  PASS  =8 Need: coef -0.2821 se 0.1320 [**] vs hardcoded -0.282 (0.132) [**]
+  PASS  =8 const: coef +0.2821 se 0.0515 [***] vs hardcoded +0.282 (0.051) [***]
+  PASS  =8 R2 0.1163 vs hardcoded 0.116
+  PASS  =8 N 400 vs hardcoded 400
+  PASS  =6 Generous: coef +0.2782 se 0.0728 [***] vs hardcoded +0.278 (0.073) [***]
+  PASS  =6 Entitlement: coef -0.1658 se 0.0890 [*] vs hardcoded -0.166 (0.089) [*]
+  PASS  =6 Egalitarian: coef +0.6087 se 0.0743 [***] vs hardcoded +0.609 (0.074) [***]
+  PASS  =6 Greedy: coef -0.1868 se 0.0895 [**] vs hardcoded -0.187 (0.090) [**]
+  PASS  =6 Theft: coef -0.2821 se 0.1489 [*] vs hardcoded -0.282 (0.149) [*]
+  PASS  =6 Need: coef +0.0037 se 0.1652 [ns] vs hardcoded +0.004 (0.165) [ns]
+  PASS  =6 const: coef +0.2821 se 0.0645 [***] vs hardcoded +0.282 (0.064) [***]
+  PASS  =6 R2 0.3624 vs hardcoded 0.362
+  PASS  =6 N 400 vs hardcoded 400
+  PASS  =4 Generous: coef -0.0087 se 0.0344 [ns] vs hardcoded -0.009 (0.034) [ns]
+  PASS  =4 Entitlement: coef -0.0513 se 0.0421 [ns] vs hardcoded -0.051 (0.042) [ns]
+  PASS  =4 Egalitarian: coef +0.0075 se 0.0351 [ns] vs hardcoded +0.008 (0.035) [ns]
+  PASS  =4 Greedy: coef -0.0513 se 0.0423 [ns] vs hardcoded -0.051 (0.042) [ns]
+  PASS  =4 Theft: coef -0.0513 se 0.0704 [ns] vs hardcoded -0.051 (0.070) [ns]
+  PASS  =4 Need: coef -0.0513 se 0.0781 [ns] vs hardcoded -0.051 (0.078) [ns]
+  PASS  =4 const: coef +0.0513 se 0.0305 [*] vs hardcoded +0.051 (0.030) [*]
+  PASS  =4 R2 0.0143 vs hardcoded 0.014
+  PASS  =4 N 400 vs hardcoded 400
+
+--- tab:freqs_market_control_sp (Table 35) ---
+  PASS  No mention of recipient: Market 75.8750 / Control 28.7500 vs 75.88 / 28.75; p vs '<0.001' [chi2-Yates (prop.test)]
+  PASS  Abstract stranger: Market 10.7500 / Control 28.2500 vs 10.75 / 28.25; p vs '<0.001' [chi2-Yates (prop.test)]
+  PASS  Anonymous peer: Market 5.0000 / Control 18.2500 vs 5.0 / 18.25; p vs '<0.001' [chi2-Yates (prop.test)]
+  PASS  Teammate / coworker: Market 2.1250 / Control 6.5000 vs 2.13 / 6.5; p vs '<0.001' [chi2-Yates (prop.test)]
+  PASS  Friend: Market 6.2500 / Control 18.2500 vs 6.25 / 18.25; p vs '<0.001' [chi2-Yates (prop.test)]
+
+--- tab:freqs_market_control_moral (Table 36) ---
+  PASS  Egalitarian: Market 7.2500 / Control 29.7500 vs 7.25 / 29.75; p vs '<0.001' [chi2-Yates (prop.test)]
+  PASS  Entitlement: Market 22.5000 / Control 10.7500 vs 22.5 / 10.75; p vs '<0.001' [chi2-Yates (prop.test)]
+  PASS  Generous: Market 11.1250 / Control 35.2500 vs 11.13 / 35.25; p vs '<0.001' [chi2-Yates (prop.test)]
+  PASS  Greedy: Market 7.7500 / Control 10.5000 vs 7.75 / 10.5; p vs '0.14' [chi2-Yates (prop.test, AA's test) 0.1369; chi2 0.1105, chi2-Yates 0.1369, G 0.1154, G-Yates 0.1421, Fisher 0.1273, Barnard 0.1114]
+  PASS  Need: Market 2.5000 / Control 1.7500 vs 2.5 / 1.75; p vs '0.54' [chi2-Yates (prop.test, AA's test) 0.5357; chi2 0.4089, chi2-Yates 0.5357, G 0.3990, G-Yates 0.5294, Fisher 0.5366, Barnard 0.6012]
+  PASS  Neutral: Market 48.2500 / Control 9.7500 vs 48.25 / 9.75; p vs '<0.001' [chi2-Yates (prop.test)]
+  PASS  Theft: Market 0.6250 / Control 2.2500 vs 0.63 / 2.25; p vs '0.029' [chi2-Yates (prop.test, AA's test) 0.0288; chi2 0.0135, chi2-Yates 0.0288, G 0.0174, G-Yates 0.0353, Fisher 0.0202, Barnard 0.0390]
+
+--- tab:decomposition_sym_pooled_m0m1 (Table 37): Control - Market ---
+  PASS  decomposition_sym_pooled_m0m1.tex: all six outcome rows found
+  PASS  Mean Allocation: diff -1.9962 rep -0.4938 beh -1.5024 vs expected -1.996/-0.494/-1.502
+  PASS  Mean Allocation: .tex row (-1.996, -0.494, -1.502) matches expected
+  PASS  notes moral-7 split -0.6169/-1.3794 vs quoted -0.617/-1.379
+  PASS  =12: diff -0.1500 rep -0.0470 beh -0.1030 vs expected -0.150/-0.047/-0.103
+  PASS  =12: .tex row (-0.15, -0.047, -0.103) matches expected
+  PASS  >8: diff -0.4612 rep -0.0833 beh -0.3779 vs expected -0.461/-0.083/-0.378
+  PASS  >8: .tex row (-0.461, -0.083, -0.378) matches expected
+  PASS  =8: diff +0.0275 rep -0.0121 beh +0.0396 vs expected +0.028/-0.012/+0.040
+  PASS  =8: .tex row (0.028, -0.012, 0.04) matches expected
+  PASS  =6: diff +0.4162 rep +0.0971 beh +0.3192 vs expected +0.416/+0.097/+0.319
+  PASS  =6: .tex row (0.416, 0.097, 0.319) matches expected
+  PASS  =4: diff +0.0250 rep -0.0016 beh +0.0266 vs expected +0.025/-0.002/+0.027
+  PASS  =4: .tex row (0.025, -0.002, 0.027) matches expected
+
+--- fig:hp_sp_moral_ctrl (hp_sp_moral_corr_ctrl.png): 35 annotated cells ---
+  PASS  all 35 cells match the PNG annotations at 2dp (N=400)
+      regenerated heatmap written to output/figures/hp_sp_moral_corr_ctrl_repro.png
+
+--- fig:hp_sp_moral_mkt (hp_sp_moral_corr_mkt.png): 35 annotated cells ---
+  PASS  all 35 cells match the PNG annotations at 2dp (N=800)
+      regenerated heatmap written to output/figures/hp_sp_moral_corr_mkt_repro.png
+
+Summary: all checks PASS. Tables 32/37 are generated (23_hp_decomposition_tables.py, hpmin sample, SP-5 symmetrized) and fully verified, closing the last Appendix F gap; the retired all-observations splits are documented in aa_perlevel_checks.py.

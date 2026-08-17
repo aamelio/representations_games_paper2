@@ -1,0 +1,88 @@
+=== PROMPT 1 ANSWER ===
+# Structural Similarity Ratings
+
+## Game A (Dictator Game, full endowment to P1)
+
+**A × Story 1: 88.** Steve, like the dictator with $12, holds the entire endowment by institutional fiat and can unilaterally transfer any portion to a passive Max. The pie is fixed and Max has no strategic move. The only mild divergence is the normative residue that Max "contributed," but this is informational, not structural.
+
+**A × Story 2: 92.** Same dictator structure: James holds the full allocation, Mark has $0 and no agency, and the pie is fixed. Mark has even weaker desert claims than Max (he applied but wasn't selected), so the situation is a near-textbook dictator game with a passive recipient.
+
+## Game B (Taking game, split endowment)
+
+**B × Story 1: 38.** Story 1 lacks Game B's defining feature — a pre-existing allocation to the recipient that the proposer could expropriate. The team-contribution framing creates a moral pull toward a notional co-endowment, which partially evokes B's asymmetric starting point, but Max literally holds nothing and cannot have anything taken.
+
+**B × Story 2: 18.** Mark holds no initial allocation, formal or implicit, and James has no taking option. The only resemblance is "two parties, fixed pie," which is too coarse to register as B-specific structure.
+
+## Game C (Ultimatum)
+
+**C × Story 1: 12.** Max has no acceptance/rejection right, no veto, no outside option that destroys the pie. Without P2 agency the ultimatum structure is absent; the surface similarity ("decide a split") belongs to any bargaining-like situation.
+
+**C × Story 2: 8.** Same as above, and weaker: Mark is not even a counterparty in any institutional sense — he is a bystander James happens to meet. No rejection technology exists.
+
+## Game D (Trust / Investment)
+
+**D × Story 1: 8.** No pie expansion, no second-mover reciprocation, no return transfer. Steve's choice is terminal; the trust game's two-stage productive structure is missing entirely.
+
+**D × Story 2: 6.** Same absence of multiplication and reciprocation. Mark has no opportunity to return anything, and the welfare payment is not productively transformed by being shared.
+
+## Summary Table
+
+| Game | Story 1 (Steve/Max) | Story 2 (James/Mark) |
+|------|---------------------|----------------------|
+| A — Dictator (full)   | 88 | 92 |
+| B — Taking (split)    | 38 | 18 |
+| C — Ultimatum         | 12 | 8  |
+| D — Trust             | 8  | 6  |
+
+## Best and Worst Matches
+
+For both stories, Game A is the closest structural match: a single agent holds the full endowment, the counterpart is passive, and the pie is fixed. Game D is the least similar in both cases because neither story involves pie expansion or second-mover reciprocation. Story 1 scores somewhat higher on Game B than Story 2 does, since the team-contribution framing introduces a faint sense of shared entitlement that B's split endowment captures; Story 2 lacks even that, making it a more canonical dictator situation than Story 1.
+
+=== PROMPT 2 ANSWER ===
+## Structural Decomposition
+
+| Dimension | A | B | C | D | Story 1 | Story 2 |
+|-----------|---|---|---|---|---------|---------|
+| **1. Pie structure** | fixed | fixed | fixed (collapses to 0 on rejection) | expandable (×3) | fixed | fixed |
+| **2. P1's initial endowment** | full pie | partial ($8 of $12; P2 holds $4) | full pie | full pie | full pie | full pie |
+| **3. P2's role** | passive | passive | accept/reject responder | reciprocator (continuous) | passive | passive |
+| **4. Source of P1's endowment** | unspecified | unspecified | unspecified | unspecified | earned through effort (joint, allocated by institutional rule) | awarded by selection |
+| **5. Strategic structure** | unilateral allocation | unilateral allocation (with taking option) | proposer–responder with veto | sequential with reciprocity | unilateral allocation | unilateral allocation |
+
+## Diagnostic Questions
+
+**(a) Which dimensions account for the largest similarity gaps?**
+
+Dimensions 3 and 5 (P2's role and strategic structure) jointly drive the biggest gaps. They move together — whenever P2 acquires agency, the strategic structure stops being a unilateral allocation — and together they separate the dictator-family (A, B) from the bargaining/reciprocity family (C, D). Since both stories sit in the unilateral/passive cell, this pair of dimensions opens the chasm between A's ratings (~90) and C/D's ratings (~10). Dimension 1 (pie expandability) adds incremental distance for D, but dimension 4 contributes nothing to the gaps because it is unspecified in all four games.
+
+**(b) Is any single dimension responsible for distinguishing one game from the other three in its similarity to either story?**
+
+Yes — Game B. B matches A on every dimension except dimension 2 (endowment split), and that single deviation accounts for B's intermediate similarity position, well below A but well above C and D. No other game is distinguished by a single dimension: C's gap is driven by the linked pair (3, 5), and D's by the triple (1, 3, 5). Equivalently: dimension 2 is the only dimension on which exactly one of the four games takes a value not shared with the stories.
+
+**(c) Does the answer to (b) differ across the two stories?**
+
+The identity of the dimension is the same — dimension 2 is what isolates B for both stories. The magnitude differs, though: B-Story 1 (38) > B-Story 2 (18), because Story 1's "team bonus" framing carries a faint normative residue of joint claim on the pool that slightly echoes B's split endowment, while Story 2's selection-based award gives Mark no analogous claim. That difference is not structural in the sense of dimensions 1–5; it is a within-dimension-2 nuance about whether the recipient's notional entitlement is non-zero.
+
+=== PROMPT 3 ANSWER ===
+## Reverse Retrieval Splits
+
+**Game A — Story 1 / Story 2: 60 / 40.** Game A shares the lexical hook "allocated" with Story 1 and matches the very common life script of receiving a workplace windfall and considering whether to share with a co-contributor. Story 2's situation is structurally a slightly purer dictator setup (Mark has no claim at all), but it sits in a less typical base-rate category — welfare receipt with an unselected applicant present — making it less associatively accessible.
+
+**Game B — Story 1 / Story 2: 75 / 25.** The defining cue in Game B is that the other party already holds something. Story 1's team-bonus framing supplies a faint analog of pre-existing entitlement (Max contributed), so a participant primed by B is more likely to retrieve "we earned this together but it was paid to me" than "I won the lottery and my neighbor didn't." Story 2 offers no entitlement hook for Mark and is thus a weak retrieval target.
+
+**Game C — Story 1 / Story 2: 65 / 35.** Even though neither story contains a literal veto, Game C's ongoing-stakes flavor (P2 can blow up the deal) maps better onto Steve–Max, a continuing workplace relationship where the unrewarded teammate has informal sanction power. James–Mark is a weak-tie encounter with no enforcement potential, so it is a thinner retrieval candidate for ultimatum-flavored situations.
+
+**Game D — Story 1 / Story 2: 70 / 30.** Game D foregrounds repeated interaction and reciprocity. Steve and Max are embedded in a recurring team relationship in which generosity now plausibly returns later — a much better match for "send and hope to get back" than the one-shot James–Mark encounter. Story 2's tie is too thin and the situation too terminal to be retrieved as a trust-game analog.
+
+## Summary Table
+
+| Game | Story 1 | Story 2 |
+|------|---------|---------|
+| A    | 60      | 40      |
+| B    | 75      | 25      |
+| C    | 65      | 35      |
+| D    | 70      | 30      |
+
+## Reverse Retrieval vs. Pass 1
+
+For Games B, C, and D the two directions agree: Story 1 dominates on both absolute structural similarity and retrieval likelihood, because Steve–Max provides relational hooks (joint contribution, ongoing relationship, reciprocity potential) that James–Mark lacks. The interesting divergence is at Game A. Pass 1 rated Story 2 marginally above Story 1 (92 vs. 88) because Mark's complete lack of claim makes Story 2 a slightly cleaner dictator instance. Reverse retrieval flips the order: Story 1 wins on lexical match ("allocated," "share"), base-rate familiarity (bonuses are common; welfare receipt is not), and narrative template recognition. This is the expected asymmetry between principled structural mapping and associative retrieval — the latter is sensitive to surface features and life-experience priors that drop out of structural analysis, which has methodological implications if retrieved exemplars are being used as a window onto how participants categorize the games themselves.

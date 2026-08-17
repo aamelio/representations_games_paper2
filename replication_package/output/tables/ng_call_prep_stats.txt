@@ -1,0 +1,112 @@
+=== A. Between-cell variance share: categories vs category x belief tercile ===
+Sample: classified, non-missing hypothetical belief; terciles within game on
+the pooled four-condition sample (common breakpoints across conditions).
+  UG   Control  N= 563  categories only: 0.114 (k=3)  category x tercile: 0.146 (k=9, min cell N=4)
+  UG   Market   N= 464  categories only: 0.067 (k=3)  category x tercile: 0.072 (k=9, min cell N=15)
+  UG   Bonus    N= 562  categories only: 0.093 (k=3)  category x tercile: 0.131 (k=9, min cell N=4)
+  UG   Aid      N= 558  categories only: 0.226 (k=3)  category x tercile: 0.242 (k=9, min cell N=6)
+  TG   Control  N= 453  categories only: 0.280 (k=3)  category x tercile: 0.315 (k=9, min cell N=5)
+  TG   Market   N= 517  categories only: 0.260 (k=3)  category x tercile: 0.303 (k=9, min cell N=11)
+  TG   Bonus    N= 467  categories only: 0.393 (k=3)  category x tercile: 0.441 (k=9, min cell N=2)
+  TG   Aid      N= 470  categories only: 0.384 (k=3)  category x tercile: 0.425 (k=9, min cell N=3)
+
+=== A2. Sensitivity: tercile breakpoints for the belief-BCS (three schemes) ===
+pooled-4 = one qcut per game on all four conditions (section A / the footnote);
+two-cond = qcut on the compared pair, as in 11_oaxaca.py (Control/Market from the
+market pair, Bonus/Aid from the story pair); per-cond = qcut within each condition.
+  UG   Control  categories-only 0.114 | pooled-4: 0.146 (+0.031)  two-cond: 0.152 (+0.037)  per-cond: 0.150 (+0.035)
+  UG   Market   categories-only 0.067 | pooled-4: 0.072 (+0.005)  two-cond: 0.073 (+0.006)  per-cond: 0.073 (+0.006)
+  UG   Bonus    categories-only 0.093 | pooled-4: 0.131 (+0.038)  two-cond: 0.123 (+0.030)  per-cond: 0.131 (+0.038)
+  UG   Aid      categories-only 0.226 | pooled-4: 0.242 (+0.016)  two-cond: 0.237 (+0.011)  per-cond: 0.239 (+0.013)
+  TG   Control  categories-only 0.280 | pooled-4: 0.315 (+0.034)  two-cond: 0.326 (+0.045)  per-cond: 0.339 (+0.058)
+  TG   Market   categories-only 0.260 | pooled-4: 0.303 (+0.042)  two-cond: 0.312 (+0.051)  per-cond: 0.312 (+0.051)
+  TG   Bonus    categories-only 0.393 | pooled-4: 0.441 (+0.048)  two-cond: 0.440 (+0.047)  per-cond: 0.440 (+0.047)
+  TG   Aid      categories-only 0.384 | pooled-4: 0.425 (+0.041)  two-cond: 0.423 (+0.039)  per-cond: 0.423 (+0.039)
+  (footnote claim to check: increment over categories-only <= 0.05 under every scheme)
+
+=== B0. Validation: category-only DG-KW reproduces tab:oaxaca_catbelief ===
+   Market vs Control DG-KW: dmean -0.101 rep -0.039 (39%)  [published -0.101 / -0.039 / 39%]  OK
+        Aid vs Bonus DG-KW: dmean -0.059 rep -0.039 (65%)  [published -0.059 / -0.039 / 65%]  OK
+
+=== B1. Prereg-literal cells: categories only, UG and TG (#286187 wording) ===
+Full classified sample (no belief-nonmissing restriction), so dmean can differ
+slightly from the published rows.
+   Market vs Control UG: dmean -0.210, repr -0.025 (12%), behav -0.185, N 1083
+   Market vs Control TG: dmean +0.150, repr +0.037 (25%), behav +0.112, N 1147
+        Aid vs Bonus UG: dmean -0.024, repr -0.012 (51%), behav -0.012, N 1175
+        Aid vs Bonus TG: dmean +0.008, repr +0.003 (42%), behav +0.005, N 1177
+
+=== B1b. Categories only on the tab:oaxaca_catbelief sample (belief-nonmissing) ===
+Same sample as the published UG/TG rows, so the gap to Table 14's Repr. % isolates
+the cell definition (dropping the belief terciles), not the sample.
+   Market vs Control UG: dmean -0.220, repr -0.024 (11%), behav -0.195, N 1027
+   Market vs Control TG: dmean +0.133, repr +0.046 (35%), behav +0.087, N 970
+        Aid vs Bonus UG: dmean -0.024, repr -0.011 (47%), behav -0.012, N 1120
+        Aid vs Bonus TG: dmean +0.008, repr +0.010 (121%), behav -0.002, N 937
+
+=== B2. Prereg-literal DG-KW: cells = social-proximity levels (#261370 wording) ===
+   Market vs Control DG-KW: dmean -0.101, repr -0.037 (36%), behav -0.064, N 728, levels: ['Abstract stranger', 'Anonymous peer', 'Friend', 'No mention of recipient', 'Teammate / coworker']
+        Aid vs Bonus DG-KW: dmean -0.059, repr -0.030 (50%), behav -0.030, N 790, levels: ['Abstract stranger', 'Anonymous peer', 'Friend', 'No mention of recipient', 'Teammate / coworker']
+
+=== C. Per-cell N for the exact tab:oaxaca_catbelief cells (11_oaxaca.py config) ===
+  Market vs Control — UG:
+      Moral x high                                  Control= 68  Market= 63
+      Moral x low                                   Control=209  Market= 38
+      Moral x mid                                   Control=160  Market= 58
+      Mutual Benefit / Cooperation x high           Control=  3  Market= 62  <-- THIN<10
+      Mutual Benefit / Cooperation x low            Control= 10  Market= 16
+      Mutual Benefit / Cooperation x mid            Control=  4  Market= 57  <-- THIN<10
+      Self-interest x high                          Control= 22  Market= 82
+      Self-interest x low                           Control= 51  Market= 26
+      Self-interest x mid                           Control= 36  Market= 62
+  Market vs Control — TG:
+      Moral x high                                  Control=  9  Market= 11  <-- THIN<10
+      Moral x low                                   Control=123  Market= 44
+      Moral x mid                                   Control= 55  Market= 43
+      Mutual Benefit / Cooperation x high           Control= 11  Market= 31
+      Mutual Benefit / Cooperation x low            Control= 95  Market=102
+      Mutual Benefit / Cooperation x mid            Control= 64  Market=162
+      Self-interest x high                          Control=  5  Market= 14  <-- THIN<10
+      Self-interest x low                           Control= 81  Market= 59
+      Self-interest x mid                           Control= 10  Market= 51
+  Aid vs Bonus — UG:
+      Moral x high                                  Bonus=162  Aid=121
+      Moral x low                                   Bonus=172  Aid=141
+      Moral x mid                                   Bonus=142  Aid=159
+      Mutual Benefit / Cooperation x high           Bonus=  5  Aid=  7  <-- THIN<10
+      Mutual Benefit / Cooperation x low            Bonus= 12  Aid= 10
+      Mutual Benefit / Cooperation x mid            Bonus= 10  Aid=  7  <-- THIN<10
+      Self-interest x high                          Bonus= 23  Aid= 51
+      Self-interest x low                           Bonus= 22  Aid= 25
+      Self-interest x mid                           Bonus= 14  Aid= 37
+  Aid vs Bonus — TG:
+      Moral x high                                  Bonus= 80  Aid= 55
+      Moral x low                                   Bonus= 70  Aid= 80
+      Moral x mid                                   Bonus= 57  Aid= 68
+      Mutual Benefit / Cooperation x high           Bonus= 59  Aid= 78
+      Mutual Benefit / Cooperation x low            Bonus= 60  Aid= 72
+      Mutual Benefit / Cooperation x mid            Bonus= 67  Aid= 48
+      Self-interest x high                          Bonus= 14  Aid=  9  <-- THIN<10
+      Self-interest x low                           Bonus= 45  Aid= 36
+      Self-interest x mid                           Bonus= 15  Aid= 24
+
+=== D. Table 13 robustness: unclassified answers as their own (fourth) category ===
+Uses only observed labels (no forced classification): every answer with a
+non-substantive or missing category joins one residual group. Reported next to
+the published classified-only between-category share.
+  DG-KW Control  classified-only: 0.663 (N= 399)  with residual group: 0.652 (N= 403, unclassified=  4, SD=0.205)
+  DG-KW Market   classified-only: 0.136 (N= 329)  with residual group: 0.121 (N= 400, unclassified= 71, SD=0.258)
+  DG-KW Bonus    classified-only: 0.613 (N= 390)  with residual group: 0.606 (N= 400, unclassified= 10, SD=0.173)
+  DG-KW Aid      classified-only: 0.584 (N= 400)  with residual group: 0.587 (N= 401, unclassified=  1, SD=0.198)
+  DG-LT Control  classified-only: 0.492 (N= 389)  with residual group: 0.489 (N= 400, unclassified= 11, SD=0.176)
+  DG-LT Market   classified-only: 0.109 (N= 347)  with residual group: 0.102 (N= 400, unclassified= 53, SD=0.174)
+  DG-LT Bonus    classified-only: 0.407 (N= 387)  with residual group: 0.397 (N= 400, unclassified= 13, SD=0.169)
+  DG-LT Aid      classified-only: 0.481 (N= 387)  with residual group: 0.473 (N= 403, unclassified= 16, SD=0.192)
+  UG    Control  classified-only: 0.109 (N= 582)  with residual group: 0.101 (N= 600, unclassified= 18, SD=0.114)
+  UG    Market   classified-only: 0.061 (N= 501)  with residual group: 0.057 (N= 600, unclassified= 99, SD=0.261)
+  UG    Bonus    classified-only: 0.097 (N= 587)  with residual group: 0.083 (N= 600, unclassified= 13, SD=0.097)
+  UG    Aid      classified-only: 0.226 (N= 588)  with residual group: 0.213 (N= 600, unclassified= 12, SD=0.141)
+  TG    Control  classified-only: 0.202 (N= 584)  with residual group: 0.198 (N= 600, unclassified= 16, SD=0.281)
+  TG    Market   classified-only: 0.250 (N= 563)  with residual group: 0.243 (N= 600, unclassified= 37, SD=0.283)
+  TG    Bonus    classified-only: 0.296 (N= 589)  with residual group: 0.294 (N= 600, unclassified= 11, SD=0.288)
+  TG    Aid      classified-only: 0.314 (N= 588)  with residual group: 0.318 (N= 600, unclassified= 12, SD=0.294)

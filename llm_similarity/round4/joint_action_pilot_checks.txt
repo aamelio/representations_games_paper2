@@ -1,0 +1,22 @@
+JOINT-ACTION PILOT CHECKS
+
+Rows: 60
+Unique IDs: 60
+Conceptual cells: 30
+Vignettes per conceptual cell: 2
+Individual / market: 30 / 30
+Individual known / unfamiliar: 15 / 15
+Market ongoing / anonymous: 15 / 15
+Word-count range: 51--69
+Mean word count: 60.6
+Exact duplicate texts: 0
+Banned analytical labels or expectation terms in text: 0
+DG receiver actions: all missing by design
+UG/TG receiver actions: all present
+
+Structure x setting:
+setting    individual  market
+structure                    
+DG                  6       6
+TG                 12      12
+UG                 12      12

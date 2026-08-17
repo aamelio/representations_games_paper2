@@ -1,0 +1,34 @@
+\begin{table}[!htbp]
+\centering
+\caption{\textbf{Validation of the LLM Classification Against Human Coders}}
+\label{tab:llm_human_agreement}
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{Subsample 1} & \multicolumn{3}{c}{Subsample 2} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+ & $N$ & Agreement & $\kappa$ & $N$ & Agreement & $\kappa$ \\
+\midrule
+\multicolumn{7}{l}{\emph{Player 1, story conditions (Aid/Bonus)}} \\
+\quad Bonus & 300 & 0.84 & 0.67 & 300 & 0.82 & 0.62 \\
+\quad Aid & 300 & 0.81 & 0.65 & 300 & 0.76 & 0.56 \\
+\quad All conditions & 600 & 0.82 & 0.66 & 600 & 0.79 & 0.59 \\
+\addlinespace
+\multicolumn{7}{l}{\emph{Player 1, Market/Control}} \\
+\quad Control & 300 & 0.91 & 0.83 & 300 & 0.76 & 0.58 \\
+\quad Market & 300 & 0.79 & 0.71 & 298 & 0.70 & 0.59 \\
+\quad All conditions & 600 & 0.85 & 0.78 & 598 & 0.73 & 0.61 \\
+\addlinespace
+\multicolumn{7}{l}{\emph{Player 2, all conditions}} \\
+\quad Control & 200 & 0.70 & 0.54 & 200 & 0.73 & 0.55 \\
+\quad Market & 199 & 0.66 & 0.56 & 200 & 0.71 & 0.61 \\
+\quad Bonus & 197 & 0.68 & 0.48 & 199 & 0.67 & 0.42 \\
+\quad Aid & 197 & 0.72 & 0.58 & 200 & 0.81 & 0.69 \\
+\quad All conditions & 793 & 0.69 & 0.55 & 799 & 0.73 & 0.59 \\
+\addlinespace
+\emph{Overall} & \multicolumn{6}{c}{$N=3,990$, agreement $=0.76$, $\kappa=0.64$} \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: Human coders classified free-text answers to the reasons question using the same classification rules given to the LLM (GPT-4.1). Each batch comprises two disjoint validation subsamples drawn stratified on the LLM-assigned category (for Player 1, 100 responses per game--condition cell across DG-KW, UG, and TG\@; for Player 2, roughly 100 per game--condition cell across UG and TG in all four conditions); each subsample was coded by one of two research assistants, blind to the condition and to the game. Agreement is the share of responses assigned to the same category; $\kappa$ is Cohen's kappa over the full category set (four categories for Player 1, five for Player 2), including the residual ``No clear justification''.
+\end{flushleft}
+\end{table}

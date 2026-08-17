@@ -1,0 +1,2 @@
+model,set,task,context,item_id,points
+# task in {retrieval,receiver}; for retrieval: item_id = sender vignette id (M1..C8), one block of 24 rows per model x set x context summing to 100; for receiver: item_id in {UA1,UA2,UR1,UR2} (UG contexts) or {TR1,TR2,TK1,TK2} (TG contexts), one block of 4 rows summing to 100

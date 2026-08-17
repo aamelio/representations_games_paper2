@@ -1,0 +1,32 @@
+\begin{table}[!htbp]
+\centering
+\caption{\textbf{Player 2 Regressions with Predicted Player 1 Allocation, Aid vs Bonus, Categories Only}}
+\label{tab:cats_only_aid_vs_bonus_fullpooled_p2_predsender_regs}
+\resizebox{0.84\textwidth}{!}{%
+\begin{tabular}{lcc}
+\toprule
+ & (1) & (2) \\
+ & UG outcome & TG outcome \\
+\midrule
+Moral bad & -0.733$^{***}$ & -0.297$^{***}$ \\
+ & (0.030) & (0.020) \\
+Mutual Benefit / Cooperation & 0.029$^{**}$ & -0.019$^{*}$ \\
+ & (0.012) & (0.011) \\
+No clear justification & 0.009 & 0.014 \\
+ & (0.036) & (0.034) \\
+Self-interest & 0.006 & -0.263$^{***}$ \\
+ & (0.017) & (0.021) \\
+Predicted share sent P1 & 1.579$^{***}$ & 0.675$^{***}$ \\
+ & (0.233) & (0.061) \\
+Constant & 0.212$^{*}$ & 0.055$^{*}$ \\
+ & (0.112) & (0.033) \\
+\midrule
+Observations & 1200 & 1191 \\
+$R^2$ & 0.515 & 0.334 \\
+\bottomrule
+\end{tabular}
+}
+\begin{flushleft}
+\footnotesize Standard errors in parentheses. Baseline category is Moral good. Sample restricted to Bonus and Aid. Predicted share sent P1 is computed from the comparison-specific Player 1 action regression in the same specification, averaging fitted values within each observed Player 1 donation level. All equations also include category dummies only. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{flushleft}
+\end{table}

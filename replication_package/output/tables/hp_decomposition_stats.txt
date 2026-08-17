@@ -1,0 +1,18 @@
+
+tab:decomposition_sym_kw_lt (KW $-$ LT):
+  Mean Allocation    diff +0.9975 SP-5 rep/beh -0.0668/+1.0643 (rep share -6.7%); moral-7 -0.0663/+1.0638
+  Allocation = 4     diff -0.0650 SP-5 rep/beh +0.0015/-0.0665 (rep share -2.4%); moral-7 -0.0002/-0.0648
+  Allocation = 6     diff -0.0350 SP-5 rep/beh +0.0080/-0.0430 (rep share -22.8%); moral-7 +0.0209/-0.0559
+  Allocation = 8     diff -0.0750 SP-5 rep/beh +0.0001/-0.0751 (rep share -0.2%); moral-7 -0.0049/-0.0701
+  Allocation $>8$    diff +0.2050 SP-5 rep/beh -0.0105/+0.2155 (rep share -5.1%); moral-7 -0.0093/+0.2143
+  Allocation = 12    diff +0.1050 SP-5 rep/beh -0.0106/+0.1156 (rep share -10.1%); moral-7 -0.0113/+0.1163
+  wrote output/tables/decomposition_sym_kw_lt.tex
+
+tab:decomposition_sym_pooled_m0m1 (Control $-$ Market):
+  Mean Allocation    diff -1.9962 SP-5 rep/beh -0.4938/-1.5024 (rep share +24.7%); moral-7 -0.6169/-1.3794
+  Allocation = 4     diff +0.0250 SP-5 rep/beh -0.0016/+0.0266 (rep share -6.5%); moral-7 -0.0026/+0.0276
+  Allocation = 6     diff +0.4162 SP-5 rep/beh +0.0971/+0.3192 (rep share +23.3%); moral-7 +0.1728/+0.2435
+  Allocation = 8     diff +0.0275 SP-5 rep/beh -0.0121/+0.0396 (rep share -44.1%); moral-7 -0.0546/+0.0821
+  Allocation $>8$    diff -0.4612 SP-5 rep/beh -0.0833/-0.3779 (rep share +18.1%); moral-7 -0.1053/-0.3560
+  Allocation = 12    diff -0.1500 SP-5 rep/beh -0.0470/-0.1030 (rep share +31.3%); moral-7 -0.0638/-0.0862
+  wrote output/tables/decomposition_sym_pooled_m0m1.tex
