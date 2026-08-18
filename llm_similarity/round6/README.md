@@ -53,3 +53,54 @@ The older `_within_game` PNG files are legacy outputs from the previous specific
 `04_merge_codex_blind_ratings.py` validates and combines three blinded rating passes generated within a Codex task. The raters use only the anonymized inputs and neutral prompt; the private mapping is reattached after scores are fixed. These passes are repeated judgments from the same Codex model family, not independent external models or human raters. They provide an exploratory similarity estimate but not cross-model validation.
 
 The full normalized data and plotted values are saved in `output/`. `weight_analysis_pool` is the weight used in the figures; `weight_all30` is retained as a diagnostic. The comparison data also retain unnormalized mean-rating differences.
+
+## Two-stage 1,000-point relative exercise
+
+The newer exercise requested after the absolute-score analysis is kept
+separate from the legacy workflow above.
+
+- `relative_rating_prompt.md` records the neutral fixed-budget prompt. The
+  model must evaluate the whole choice set jointly and allocate exactly 1,000
+  nonnegative integer points. This is not ex-post normalization of 0--100
+  scores.
+- `05_generate_codex_relative_allocations.py` and
+  `codex_relative_allocations.csv` are retained as the superseded, single-agent
+  exploratory version. They are not used by the current figures.
+- `06_analyze_relative_similarity.py` produces the two-stage results in
+  `relative_output/`.
+- `07_build_blind_relative_packets.py` creates three differently shuffled
+  packets. Each packet contains 12 all-vignette tasks and 12 within-game tasks
+  and contains no classification labels.
+- Three separate Codex agents were instructed to use only their assigned
+  packet and the neutral prompt, and not to access the private map, previous
+  ratings, other packets, analysis code, or figures. Their raw outputs are
+  `relative_agent1_ratings.csv`, `relative_agent2_ratings.csv`, and
+  `relative_agent3_ratings.csv`.
+- `08_merge_blind_relative_ratings.py` validates the exact candidate sets,
+  integer scores, uniqueness, and 1,000-point totals before writing
+  `relative_ratings_3agents.csv` and
+  `relative_ratings_3agent_means.csv`. It also writes the pairwise diagnostics
+  in `relative_rater_agreement.csv` and records the design in
+  `relative_rating_protocol.json`.
+
+Stage 1 presents all 30 vignettes and compares mean points per vignette in the
+DG, UG, and TG families. Family means are necessary because the families
+contain 6, 12, and 12 vignettes. Stage 2 is a new rating task restricted to the
+target game's vignettes and aggregates points to M/S/C for DG or to the six
+sender-category-by-receiver-action classes for UG and TG.
+
+Run:
+
+```text
+python 07_build_blind_relative_packets.py
+# Complete the three packets independently.
+python 08_merge_blind_relative_ratings.py
+python 06_analyze_relative_similarity.py
+```
+
+The plotted values average the three agents vignette by vignette before
+aggregation. These are separate, independently completed agent passes but not
+cross-model validation: all three agents belong to the same Codex model
+family. `additional_similarity.tex` reports the structural Control figure and
+the three requested within-game figures; the earlier structural frame-
+difference figure has been removed.
