@@ -1,0 +1,16 @@
+{
+  "all_hp_rows": 4800,
+  "inherited_hpmin_labels": 1200,
+  "new_classifications_required": 3600,
+  "similarity_ratings_per_reference": 4800,
+  "classification_chunks": 9,
+  "similarity_chunks_per_reference": 12,
+  "matching_keys": [
+    "PROLIFIC_PID",
+    "treatment",
+    "hp",
+    "memory"
+  ],
+  "category_chunk_size": 400,
+  "similarity_chunk_size": 400
+}

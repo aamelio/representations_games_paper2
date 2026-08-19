@@ -1,0 +1,9 @@
+In this task, you are matched with another Prolific participant. You will never know the identity of the person with whom you are paired, and this person will never know your identity. You take the role of data provider (producer), and the other participant takes the role of broker (intermediary). As a data provider, you produce survey data through online questionnaires like the one you are in. A computer will randomly determine an initial price for your data. You will then have the opportunity to adjust this price before it is sent to the broker.
+
+The broker will sell your data to the research team for a fixed price of $12. You will receive the final price you set.
+
+- The data provider (you) receives a bonus payment equal to the final price you set. - The broker receives $12 from the research team for the sold data and pays the provider the set price, keeping the difference.
+
+The computer selected a starting price of $12 for the data.
+
+You may change the price by any amount between -$12 and $0. A negative change means that you decrease the price.

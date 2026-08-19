@@ -1,0 +1,150 @@
+{
+  "similarity": {
+    "rater_1": {
+      "reference_A": {
+        "complete_packets": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "n_complete_packets": 12,
+        "n_complete_rows": 4800,
+        "next_missing_packet": null
+      },
+      "reference_B": {
+        "complete_packets": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "n_complete_packets": 12,
+        "n_complete_rows": 4800,
+        "next_missing_packet": null
+      }
+    },
+    "rater_2": {
+      "reference_A": {
+        "complete_packets": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "n_complete_packets": 12,
+        "n_complete_rows": 4800,
+        "next_missing_packet": null
+      },
+      "reference_B": {
+        "complete_packets": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "n_complete_packets": 12,
+        "n_complete_rows": 4800,
+        "next_missing_packet": null
+      }
+    },
+    "rater_3": {
+      "reference_A": {
+        "complete_packets": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "n_complete_packets": 12,
+        "n_complete_rows": 4800,
+        "next_missing_packet": null
+      },
+      "reference_B": {
+        "complete_packets": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "n_complete_packets": 12,
+        "n_complete_rows": 4800,
+        "next_missing_packet": null
+      }
+    }
+  },
+  "classification": {
+    "complete_original_packets": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "complete_resume_parts": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "n_new_classifications_complete": 3600,
+    "n_new_classifications_required": 3600,
+    "next_missing_resume_part": null
+  },
+  "validation_issues": []
+}

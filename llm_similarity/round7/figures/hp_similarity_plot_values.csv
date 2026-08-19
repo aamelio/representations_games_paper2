@@ -1,0 +1,11 @@
+figure,source_condition_code,source_condition,reference,category_num,category_short,category,mean,se_clustered,ci_low,ci_high,n_responses,n_participants
+source_condition,0,Control HPs,Control instructions,,,,42.25145833333332,0.5766526109106875,41.12121921594837,43.381697450718264,1600,400
+source_condition,0,Control HPs,Market instructions,,,,14.891041666666665,0.26650240162301875,14.368696959485547,15.413386373847782,1600,400
+source_condition,1,Market HPs,Control instructions,,,,13.288229166666666,0.3218997023245045,12.657305750110638,13.919152583222694,3200,800
+source_condition,1,Market HPs,Market instructions,,,,38.85791666666666,0.6833067210125179,37.51863549348212,40.1971978398512,3200,800
+category_within_condition,0,Control HPs,Control instructions,1,M,Moral,48.59159159159159,0.6105453329423302,47.39492273902462,49.78826044415855,888,376
+category_within_condition,0,Control HPs,Control instructions,3,S,Self-interest,40.17366255144032,0.6778224762602829,38.84513049797017,41.50219460491048,405,294
+category_within_condition,0,Control HPs,Control instructions,2,C,Mutual Benefit / Cooperation,22.396825396825403,2.5438848249755406,17.410811139873342,27.382839653777463,21,20
+category_within_condition,1,Market HPs,Market instructions,1,M,Moral,36.16243654822335,1.2428497655185962,33.7264510078069,38.59842208863979,591,350
+category_within_condition,1,Market HPs,Market instructions,3,S,Self-interest,35.406116207951065,1.310427447768479,32.83767841032485,37.97455400557728,545,353
+category_within_condition,1,Market HPs,Market instructions,2,C,Mutual Benefit / Cooperation,56.59824849480021,0.8220353400694551,54.98705922826408,58.20943776133634,609,370

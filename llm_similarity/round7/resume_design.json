@@ -1,0 +1,12 @@
+{
+  "design": "three independent similarity ratings per HP-response/reference pair",
+  "aggregation": "arithmetic mean of the three integer ratings",
+  "recovered_similarity_A_files_assigned_to": "rater_1",
+  "recovered_similarity_B_files_assigned_to": "rater_2",
+  "classification": {
+    "inherited_hpmin": 1200,
+    "recovered_gpt_5_6": 3200,
+    "remaining_gpt_5_6": 400
+  },
+  "blinding": "Similarity raters receive only the frozen similarity prompt, one neutral reference, and blinded hp_response_id/memory packets."
+}
