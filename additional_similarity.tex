@@ -6,7 +6,7 @@
 \usepackage{float}
 \usepackage[hidelinks]{hyperref}
 
-\graphicspath{{llm_similarity/round6/relative_output/}}
+\graphicspath{{llm_similarity/round6/relative_output/}{llm_similarity/round7/figures/}}
 
 \title{Two-Stage Relative Similarity Exercise}
 \author{}
@@ -117,6 +117,60 @@ been recorded.
     \caption{Change in within-game representation shares: Aid minus Bonus.
     Differences sum to zero within each target game.}
     \label{fig:within-aid-bonus}
+\end{figure}
+
+\section{Similarity of hypothetical-allocation descriptions}
+
+We next examine the real-world situations that participants associated with
+four hypothetical allocations in the Control and Market conditions. The
+analysis pools the DG-KW and DG-LT samples. Each description was rated against
+the DG-KW Control instructions and, in a separate blinded task, against the
+DG-KW Market instructions. For each description--instruction pair, we first
+average the three independent 0--100 similarity ratings. The figures report
+response-level means of these three-rater averages. Because each participant
+provided four hypothetical-allocation descriptions, 95 percent confidence
+intervals are clustered by participant.
+
+Figure~\ref{fig:hp_similarity_source_condition} compares descriptions from
+each source condition with both instruction texts. Control descriptions are
+more similar to the Control instructions than to the Market instructions
+(42.3 versus 14.9). The ordering reverses for Market descriptions, which are
+more similar to the Market instructions than to the Control instructions
+(38.9 versus 13.3).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{hp_similarity_by_source_condition.png}
+    \caption{Mean similarity of hypothetical-allocation descriptions to the
+    DG-KW Control and Market instructions, by the source condition of the
+    description. Bar heights average the three-rater mean over HP responses;
+    error bars are 95 percent confidence intervals clustered by participant.
+    The analysis pools DG-KW and DG-LT and includes all classifications.}
+    \label{fig:hp_similarity_source_condition}
+\end{figure}
+
+Figure~\ref{fig:hp_similarity_by_category} fixes the source condition and the
+corresponding instruction text, then compares descriptions across the three
+substantive classifications. Among Control descriptions, Moral descriptions
+have the highest mean similarity to the Control instructions (48.6), followed
+by Self-interest (40.2) and Mutual Benefit/Cooperation (22.4). Among Market
+descriptions, Mutual Benefit/Cooperation descriptions have the highest mean
+similarity to the Market instructions (56.6), while Moral and Self-interest
+descriptions have similar means (36.2 and 35.4). The Control
+Mutual Benefit/Cooperation cell is small (21 responses from 20 participants),
+as reflected in its wider confidence interval.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.98\textwidth]{hp_similarity_by_category_within_condition.png}
+    \caption{Mean similarity to the condition-matched instruction text by HP
+    classification. The left panel restricts the sample to Control HPs and
+    reports similarity to the Control instructions; the right panel restricts
+    the sample to Market HPs and reports similarity to the Market
+    instructions. M denotes Moral, S Self-interest, and C Mutual
+    Benefit/Cooperation. ``No clear justification'' responses are excluded.
+    Error bars are 95 percent confidence intervals clustered by participant.}
+    \label{fig:hp_similarity_by_category}
 \end{figure}
 
 \end{document}
