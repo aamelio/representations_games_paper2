@@ -1,0 +1,3 @@
+vignette_id,intended_category,prompt_output,predicted_category,agreement
+DG-C-P,Cooperation,2,Cooperation,True
+DG-C-K,Cooperation,2,Cooperation,True

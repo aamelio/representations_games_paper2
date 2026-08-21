@@ -6,7 +6,7 @@
 \usepackage{float}
 \usepackage[hidelinks]{hyperref}
 
-\graphicspath{{llm_similarity/round8/relative_output/}{llm_similarity/round7/figures/}}
+\graphicspath{{llm_similarity/round9/relative_output/}{llm_similarity/round7/figures/}}
 
 \title{Two-Stage Relative Similarity Exercise}
 \author{}
@@ -23,7 +23,13 @@ instructions, as in the experiment. Contexts and vignettes are presented under
 neutral identifiers, without their game or representation labels.
 The revised set contains 22 vignettes. Before the similarity exercise, all 22
 were assigned to their intended Moral, Self-interest, or Cooperation category
-by the classification prompt used for the HP descriptions.
+by the classification prompt used for the HP descriptions. In response to a
+wording concern, the two DG Cooperation vignettes were also revised before the
+ratings reported here. We removed statements that the sender was happy or
+pleased with the payment and that sharing left the sender with a very good or
+significant payoff. The complementary-contribution, joint-value, and sharing
+logic was retained, and both revised vignettes remained classified as
+Cooperation.
 
 Three separate Codex agents independently complete every rating task. Each
 agent reads the target game--frame context and all vignettes in the specified
@@ -42,10 +48,25 @@ representations within a fixed game structure. Each agent receives a
 separately shuffled packet containing only neutral identifiers and texts.
 The agents were instructed to use only their packet and not to access the
 classification map, one another's packets or ratings, the earlier ratings,
-or the resulting figures. We average the three point allocations vignette by
-vignette before aggregation. These are independent rating passes from
-separate agents, although they are not a test of robustness across different
-model families.
+or the resulting figures. We calculate each aggregate share or frame contrast
+separately within each agent and then average the three agent-level estimates.
+If $z_{ac}$ is the relevant aggregate for agent $a$ and context or contrast
+$c$, we report
+
+\begin{equation}
+    \bar z_c=\frac{1}{3}\sum_{a=1}^{3}z_{ac},
+    \qquad
+    \mathrm{CI}_{95\%}=\bar z_c \mathbin{\pm}
+    t_{0.975,2}\frac{s(z_{ac})}{\sqrt{3}}.
+\end{equation}
+
+The error bars are therefore 95 percent Student-$t$ intervals describing
+variation across the three independent model runs. They do not represent
+participant-sampling uncertainty or sampling from a population of vignettes.
+Because there are only three model runs, the intervals are necessarily
+imprecise and sensitive to any one run. The passes use separate agents from
+the same model family, so they are not a test of robustness across model
+families.
 
 \section{Stage 1: similarity to vignette game structures}
 
@@ -53,24 +74,25 @@ In the first stage, each of the 12 game--frame contexts is compared jointly
 with all 22 revised vignettes. The vignettes comprise 6 DG, 8 UG, and 8 TG
 cases.
 Because these families contain different numbers of vignettes, the comparison
-uses the mean allocated points per vignette in family $g$ after averaging
-across the three agents,
+uses the mean allocated points per vignette in family $g$ within each agent,
+followed by normalization across the three families and averaging across
+agents,
 
 \begin{equation}
-    \bar p_{cv}=\frac{1}{3}\sum_{a=1}^{3}p_{acv},
+    \mu_{acg}=\frac{1}{|\mathcal{V}_{g}|}
+    \sum_{v\in\mathcal{V}_{g}}p_{acv},
     \qquad
-    \mu_{cg}=\frac{1}{|\mathcal{V}_{g}|}
-    \sum_{v\in\mathcal{V}_{g}}\bar p_{cv},
+    s_{acg}=\frac{\mu_{acg}}{\sum_h\mu_{ach}},
     \qquad
-    s_{cg}=\frac{\mu_{cg}}{\sum_h\mu_{ch}}.
+    \bar s_{cg}=\frac{1}{3}\sum_{a=1}^{3}s_{acg}.
 \end{equation}
 
 Using family totals instead would mechanically favor the two larger vignette
 families. We therefore normalize the three family means so that
-$\sum_g s_{cg}=1$ within each target context. Figure~\ref{fig:structural-control}
+$\sum_g \bar s_{cg}=1$ within each target context. Figure~\ref{fig:structural-control}
 reports these normalized shares in Control. The matching vignette family
 receives 85.6 percent of the normalized similarity share for the DG target,
-79.8 percent for the UG target, and 78.5 percent for the TG target. Thus, the
+77.3 percent for the UG target, and 79.0 percent for the TG target. Thus, the
 revised vignette set continues to distinguish the three underlying game
 structures sharply.
 
@@ -79,7 +101,8 @@ structures sharply.
     \includegraphics[width=0.98\textwidth]{relative_structural_control.png}
     \caption{Family-size-adjusted structural similarity shares for the three
     Control contexts. Within each target game, the three bars are the
-    normalized family means and sum to 100 percent.}
+    normalized family means and sum to 100 percent. Error bars are 95 percent
+    Student-$t$ intervals across the three agent-level estimates.}
     \label{fig:structural-control}
 \end{figure}
 
@@ -92,8 +115,10 @@ game-specific choice set. After rating, individual vignette points are summed
 within representation class $k$ and expressed as a share,
 
 \begin{equation}
-    q_{ck}=\frac{1}{1{,}000}\sum_{v\in\mathcal{V}_{g,k}}\bar p_{cv},
-    \qquad \sum_k q_{ck}=1.
+    q_{ack}=\frac{1}{1{,}000}\sum_{v\in\mathcal{V}_{g,k}}p_{acv},
+    \qquad
+    \bar q_{ck}=\frac{1}{3}\sum_{a=1}^{3}q_{ack},
+    \qquad \sum_k \bar q_{ck}=1.
 \end{equation}
 
 DG has three sender classes: Moral (M), Self-interest (S), and Cooperation
@@ -109,41 +134,52 @@ ratings have been recorded.
     \includegraphics[width=0.98\textwidth]{relative_within_game_control.png}
     \caption{Within-game relative similarity in Control. Bars give each
     representation class's share of the 1,000 points and sum to 100 percent
-    within each target game.}
+    within each target game. Error bars are 95 percent Student-$t$ intervals
+    across the three agent-level shares.}
     \label{fig:within-control}
 \end{figure}
 
-In Control, the DG similarity budget is split between Moral (35.3 percent),
-Self-interest (35.2 percent), and Cooperation (29.6 percent). The four revised
-UG classes range from 24.2 to 25.7 percent, and the four revised TG classes
-range from 24.0 to 26.5 percent. The Control instructions therefore do not
+In Control, the DG similarity budget is split between Moral (33.8 percent),
+Self-interest (34.5 percent), and Cooperation (31.7 percent). The four revised
+UG classes range from 23.2 to 26.8 percent, and the four revised TG classes
+range from 24.2 to 25.8 percent. The Control instructions therefore do not
 strongly privilege a single representation within the UG or TG choice sets.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{relative_within_game_market_minus_control.png}
     \caption{Change in within-game representation shares: Market minus
-    Control. Differences sum to zero within each target game.}
+    Control. Differences sum to zero within each target game. Error bars are
+    95 percent Student-$t$ intervals for the three paired agent-level
+    differences.}
     \label{fig:within-market-control}
 \end{figure}
 
-Relative to Control, Market shifts 3.9 percentage points toward Cooperation
-in DG and 3.6 points away from Moral. In UG, it shifts 6.2 points away from
-M-C, principally toward C-C (2.8 points) and S-C (2.7 points). The TG changes
-are smaller: M-C falls by 1.7 points and C-C rises by 1.5 points.
+Relative to Control, Market shifts 1.7 percentage points toward Cooperation
+in DG (95 percent interval: 0.2 to 3.1) and 2.8 points away from Moral
+($-4.7$ to $-0.9$). Before neutralizing the DG-C wording, the corresponding
+Cooperation point estimate was 3.9 points. The attenuation is descriptively
+consistent with the incidental wording having contributed to the magnitude
+of the result, although the two rounds use different model draws and their
+difference is not itself an estimated contrast. In UG, Market shifts 6.2
+points away from M-C ($-12.0$ to $-0.3$), while C-C rises by 1.7 points (0.2
+to 3.1). The TG changes are small and all their intervals include zero.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{relative_within_game_aid_minus_bonus.png}
     \caption{Change in within-game representation shares: Aid minus Bonus.
-    Differences sum to zero within each target game.}
+    Differences sum to zero within each target game. Error bars are 95 percent
+    Student-$t$ intervals for the three paired agent-level differences.}
     \label{fig:within-aid-bonus}
 \end{figure}
 
 Relative to Bonus, Aid shifts similarity toward Self-interest: S rises by
-14.5 percentage points in DG, S-C rises by 15.7 points in UG, and S-D rises by
-6.8 points in TG. The offsetting changes are concentrated in Cooperation in
-DG, in M-C and C-C in UG, and in M-C and C-C in TG.
+13.5 percentage points in DG (0.9 to 26.1) and S-C rises by 14.7 points in UG
+(2.4 to 26.9). In TG, S-D rises by 7.5 points, but its interval includes zero;
+the intervals exclude zero for the 5.0-point decline in C-C and the 4.2-point
+increase in C-D. The wide intervals in several cells reflect the small number
+of model runs.
 
 \section{Similarity of hypothetical-allocation descriptions}
 

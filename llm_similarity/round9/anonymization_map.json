@@ -1,0 +1,301 @@
+{
+  "seed": 2026082109,
+  "source_hashes_sha256": {
+    "input\\joint_action_vignettes_dg_c_neutral.docx": "bb9be987d28c84dcb0e0f2553ff6b841387ce92f3ae67c9c6924a8ac648ca302",
+    "llm_similarity\\round2\\contexts.md": "d6feb9f36a89ce5d2cd80513c0027954a7925581127c801164a0413bc0370129"
+  },
+  "notes": {
+    "rating_pool": "Every context is rated against all 22 DG-C-neutral vignettes in Stage 1.",
+    "sensitivity_change": "Only DG-C-P and DG-C-K differ from round 8; incidental happiness and own-payoff wording was removed.",
+    "within_game_choice_sets": {
+      "DG": 6,
+      "UG": 8,
+      "TG": 8
+    },
+    "story_order": "Aid/Bonus story first, then cleaned abstract-game instructions."
+  },
+  "vignettes": {
+    "V01": {
+      "source_id": "UG-C-H-K",
+      "game": "UG",
+      "setting": "anonymous market",
+      "sender_category": "Cooperation",
+      "sender_action": "C",
+      "belief": "high probability of receiver cooperation",
+      "receiver_action": "C",
+      "joint_action": "C-C"
+    },
+    "V02": {
+      "source_id": "DG-C-P",
+      "game": "DG",
+      "setting": "personal",
+      "sender_category": "Cooperation",
+      "sender_action": "C",
+      "belief": "",
+      "receiver_action": "None",
+      "joint_action": "C-NA"
+    },
+    "V03": {
+      "source_id": "DG-S-K",
+      "game": "DG",
+      "setting": "anonymous market",
+      "sender_category": "Self-interest",
+      "sender_action": "D",
+      "belief": "",
+      "receiver_action": "None",
+      "joint_action": "D-NA"
+    },
+    "V04": {
+      "source_id": "TG-C-H-K",
+      "game": "TG",
+      "setting": "anonymous market",
+      "sender_category": "Cooperation",
+      "sender_action": "C",
+      "belief": "high probability of receiver cooperation",
+      "receiver_action": "C",
+      "joint_action": "C-C"
+    },
+    "V05": {
+      "source_id": "UG-S-K",
+      "game": "UG",
+      "setting": "anonymous market",
+      "sender_category": "Self-interest",
+      "sender_action": "D",
+      "belief": "receiver likely to accept a small margin",
+      "receiver_action": "C",
+      "joint_action": "D-C"
+    },
+    "V06": {
+      "source_id": "TG-S-K",
+      "game": "TG",
+      "setting": "anonymous market",
+      "sender_category": "Self-interest",
+      "sender_action": "D",
+      "belief": "receiver likely to return little or nothing",
+      "receiver_action": "D",
+      "joint_action": "D-D"
+    },
+    "V07": {
+      "source_id": "UG-M-K",
+      "game": "UG",
+      "setting": "anonymous market",
+      "sender_category": "Moral",
+      "sender_action": "C",
+      "belief": "not decision-relevant",
+      "receiver_action": "C",
+      "joint_action": "C-C"
+    },
+    "V08": {
+      "source_id": "UG-M-P",
+      "game": "UG",
+      "setting": "personal",
+      "sender_category": "Moral",
+      "sender_action": "C",
+      "belief": "not decision-relevant",
+      "receiver_action": "C",
+      "joint_action": "C-C"
+    },
+    "V09": {
+      "source_id": "DG-M-K",
+      "game": "DG",
+      "setting": "anonymous market",
+      "sender_category": "Moral",
+      "sender_action": "C",
+      "belief": "",
+      "receiver_action": "None",
+      "joint_action": "C-NA"
+    },
+    "V10": {
+      "source_id": "TG-C-L-K",
+      "game": "TG",
+      "setting": "anonymous market",
+      "sender_category": "Cooperation",
+      "sender_action": "D",
+      "belief": "low probability of receiver cooperation",
+      "receiver_action": "D",
+      "joint_action": "D-D"
+    },
+    "V11": {
+      "source_id": "UG-C-L-K",
+      "game": "UG",
+      "setting": "anonymous market",
+      "sender_category": "Cooperation",
+      "sender_action": "D",
+      "belief": "low probability of receiver cooperation",
+      "receiver_action": "D",
+      "joint_action": "D-D"
+    },
+    "V12": {
+      "source_id": "TG-M-K",
+      "game": "TG",
+      "setting": "anonymous market",
+      "sender_category": "Moral",
+      "sender_action": "C",
+      "belief": "not decision-relevant",
+      "receiver_action": "C",
+      "joint_action": "C-C"
+    },
+    "V13": {
+      "source_id": "UG-C-L-P",
+      "game": "UG",
+      "setting": "personal",
+      "sender_category": "Cooperation",
+      "sender_action": "D",
+      "belief": "low probability of receiver cooperation",
+      "receiver_action": "D",
+      "joint_action": "D-D"
+    },
+    "V14": {
+      "source_id": "DG-C-K",
+      "game": "DG",
+      "setting": "anonymous market",
+      "sender_category": "Cooperation",
+      "sender_action": "C",
+      "belief": "",
+      "receiver_action": "None",
+      "joint_action": "C-NA"
+    },
+    "V15": {
+      "source_id": "DG-S-P",
+      "game": "DG",
+      "setting": "personal",
+      "sender_category": "Self-interest",
+      "sender_action": "D",
+      "belief": "",
+      "receiver_action": "None",
+      "joint_action": "D-NA"
+    },
+    "V16": {
+      "source_id": "TG-C-H-P",
+      "game": "TG",
+      "setting": "personal",
+      "sender_category": "Cooperation",
+      "sender_action": "C",
+      "belief": "high probability of receiver cooperation",
+      "receiver_action": "C",
+      "joint_action": "C-C"
+    },
+    "V17": {
+      "source_id": "UG-C-H-P",
+      "game": "UG",
+      "setting": "personal",
+      "sender_category": "Cooperation",
+      "sender_action": "C",
+      "belief": "high probability of receiver cooperation",
+      "receiver_action": "C",
+      "joint_action": "C-C"
+    },
+    "V18": {
+      "source_id": "TG-M-P",
+      "game": "TG",
+      "setting": "personal",
+      "sender_category": "Moral",
+      "sender_action": "C",
+      "belief": "not decision-relevant",
+      "receiver_action": "C",
+      "joint_action": "C-C"
+    },
+    "V19": {
+      "source_id": "UG-S-P",
+      "game": "UG",
+      "setting": "personal",
+      "sender_category": "Self-interest",
+      "sender_action": "D",
+      "belief": "receiver likely to accept a small share",
+      "receiver_action": "C",
+      "joint_action": "D-C"
+    },
+    "V20": {
+      "source_id": "DG-M-P",
+      "game": "DG",
+      "setting": "personal",
+      "sender_category": "Moral",
+      "sender_action": "C",
+      "belief": "",
+      "receiver_action": "None",
+      "joint_action": "C-NA"
+    },
+    "V21": {
+      "source_id": "TG-S-P",
+      "game": "TG",
+      "setting": "personal",
+      "sender_category": "Self-interest",
+      "sender_action": "D",
+      "belief": "receiver likely to return little or nothing",
+      "receiver_action": "D",
+      "joint_action": "D-D"
+    },
+    "V22": {
+      "source_id": "TG-C-L-P",
+      "game": "TG",
+      "setting": "personal",
+      "sender_category": "Cooperation",
+      "sender_action": "D",
+      "belief": "low probability of receiver cooperation",
+      "receiver_action": "D",
+      "joint_action": "D-D"
+    }
+  },
+  "contexts": {
+    "T01": {
+      "source_id": "UG_CONTROL",
+      "game": "UG",
+      "frame": "Control"
+    },
+    "T02": {
+      "source_id": "TG_AID",
+      "game": "TG",
+      "frame": "Aid"
+    },
+    "T03": {
+      "source_id": "TG_MARKET",
+      "game": "TG",
+      "frame": "Market"
+    },
+    "T04": {
+      "source_id": "DG_AID",
+      "game": "DG",
+      "frame": "Aid"
+    },
+    "T05": {
+      "source_id": "UG_MARKET",
+      "game": "UG",
+      "frame": "Market"
+    },
+    "T06": {
+      "source_id": "DG_CONTROL",
+      "game": "DG",
+      "frame": "Control"
+    },
+    "T07": {
+      "source_id": "UG_BONUS",
+      "game": "UG",
+      "frame": "Bonus"
+    },
+    "T08": {
+      "source_id": "TG_BONUS",
+      "game": "TG",
+      "frame": "Bonus"
+    },
+    "T09": {
+      "source_id": "TG_CONTROL",
+      "game": "TG",
+      "frame": "Control"
+    },
+    "T10": {
+      "source_id": "DG_MARKET",
+      "game": "DG",
+      "frame": "Market"
+    },
+    "T11": {
+      "source_id": "DG_BONUS",
+      "game": "DG",
+      "frame": "Bonus"
+    },
+    "T12": {
+      "source_id": "UG_AID",
+      "game": "UG",
+      "frame": "Aid"
+    }
+  }
+}
