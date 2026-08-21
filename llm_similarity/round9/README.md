@@ -41,3 +41,16 @@ in `relative_output/`.
 For DG, the Market-minus-Control Cooperation shift is 1.7 percentage points
 (95 percent model-run interval: 0.2 to 3.1), compared with 3.9 points before
 the wording revision. The Moral shift is -2.8 points (-4.7 to -0.9).
+
+## Manuscript hybrid output
+
+The full round-9 rerating is retained for reproducibility, but it is not used
+for UG or TG in the manuscript. `05_build_hybrid_outputs.py` creates
+`hybrid_output/` with the intended specification:
+
+- DG uses the round-9 ratings based on the neutralized DG-C texts.
+- UG and TG use the original round-8 ratings.
+- Confidence intervals for each game use the three agents from that game's
+  source round.
+
+`additional_similarity.tex` points to `hybrid_output/`.

@@ -6,7 +6,7 @@
 \usepackage{float}
 \usepackage[hidelinks]{hyperref}
 
-\graphicspath{{llm_similarity/round9/relative_output/}{llm_similarity/round7/figures/}}
+\graphicspath{{llm_similarity/round9/hybrid_output/}{llm_similarity/round7/figures/}}
 
 \title{Two-Stage Relative Similarity Exercise}
 \author{}
@@ -30,7 +30,9 @@ ratings reported here. We removed statements that the sender was happy or
 pleased with the payment and that sharing left the sender with a very good or
 significant payoff. The complementary-contribution, joint-value, and sharing
 logic was retained, and both revised vignettes remained classified as
-Cooperation.
+Cooperation. We rerated the DG tasks using these neutralized vignettes. The UG
+and TG results retain the original ratings obtained before this wording
+sensitivity exercise; they were not replaced by the subsequent rerating.
 =======
 The revised set contains 22 vignettes.
 >>>>>>> 1a9c33073ca2604d5125466044602bfe363ff2e3
@@ -52,15 +54,16 @@ separately shuffled packet containing only neutral identifiers and texts.
 The agents were instructed to use only their packet and not to access the
 classification map, one another's packets or ratings, the earlier ratings,
 <<<<<<< HEAD
-or the resulting figures. We calculate each aggregate share or frame contrast
-separately within each agent and then average the three agent-level estimates.
-If $z_{ac}$ is the relevant aggregate for agent $a$ and context or contrast
-$c$, we report
+or the resulting figures. We preserve the original point-estimate aggregation:
+the structural shares normalize family means after averaging vignette ratings
+across agents, while the within-game shares and frame contrasts average the
+three agent-level quantities. For DG, the relevant agents are those assigned
+to the neutralized-vignette round; for UG and TG, they are the agents from the
+original round. If $\widehat z_c$ is the reported point estimate and $z_{ac}$
+is its agent-level analogue, the interval is
 
 \begin{equation}
-    \bar z_c=\frac{1}{3}\sum_{a=1}^{3}z_{ac},
-    \qquad
-    \mathrm{CI}_{95\%}=\bar z_c \mathbin{\pm}
+    \mathrm{CI}_{95\%}=\widehat z_c \mathbin{\pm}
     t_{0.975,2}\frac{s(z_{ac})}{\sqrt{3}}.
 \end{equation}
 
@@ -84,25 +87,24 @@ In the first stage, each of the 12 game--frame contexts is compared jointly
 with all 22 revised vignettes. The vignettes comprise 6 DG, 8 UG, and 8 TG
 cases.
 Because these families contain different numbers of vignettes, the comparison
-uses the mean allocated points per vignette in family $g$ within each agent,
-followed by normalization across the three families and averaging across
-agents,
+uses the mean allocated points per vignette in family $g$ after averaging
+vignette ratings across the three agents,
 
 \begin{equation}
-    \mu_{acg}=\frac{1}{|\mathcal{V}_{g}|}
-    \sum_{v\in\mathcal{V}_{g}}p_{acv},
+    \bar p_{cv}=\frac{1}{3}\sum_{a=1}^{3}p_{acv},
     \qquad
-    s_{acg}=\frac{\mu_{acg}}{\sum_h\mu_{ach}},
+    \mu_{cg}=\frac{1}{|\mathcal{V}_{g}|}
+    \sum_{v\in\mathcal{V}_{g}}\bar p_{cv},
     \qquad
-    \bar s_{cg}=\frac{1}{3}\sum_{a=1}^{3}s_{acg}.
+    s_{cg}=\frac{\mu_{cg}}{\sum_h\mu_{ch}}.
 \end{equation}
 
 Using family totals instead would mechanically favor the two larger vignette
 families. We therefore normalize the three family means so that
-$\sum_g \bar s_{cg}=1$ within each target context. Figure~\ref{fig:structural-control}
+$\sum_g s_{cg}=1$ within each target context. Figure~\ref{fig:structural-control}
 reports these normalized shares in Control. The matching vignette family
 receives 85.6 percent of the normalized similarity share for the DG target,
-77.3 percent for the UG target, and 79.0 percent for the TG target. Thus, the
+79.8 percent for the UG target, and 78.5 percent for the TG target. Thus, the
 revised vignette set continues to distinguish the three underlying game
 structures sharply.
 
@@ -151,8 +153,8 @@ ratings have been recorded.
 
 In Control, the DG similarity budget is split between Moral (33.8 percent),
 Self-interest (34.5 percent), and Cooperation (31.7 percent). The four revised
-UG classes range from 23.2 to 26.8 percent, and the four revised TG classes
-range from 24.2 to 25.8 percent. The Control instructions therefore do not
+UG classes range from 24.2 to 25.7 percent, and the four revised TG classes
+range from 24.0 to 26.5 percent. The Control instructions therefore do not
 strongly privilege a single representation within the UG or TG choice sets.
 
 \begin{figure}[H]
@@ -171,9 +173,11 @@ in DG (95 percent interval: 0.2 to 3.1) and 2.8 points away from Moral
 Cooperation point estimate was 3.9 points. The attenuation is descriptively
 consistent with the incidental wording having contributed to the magnitude
 of the result, although the two rounds use different model draws and their
-difference is not itself an estimated contrast. In UG, Market shifts 6.2
-points away from M-C ($-12.0$ to $-0.3$), while C-C rises by 1.7 points (0.2
-to 3.1). The TG changes are small and all their intervals include zero.
+difference is not itself an estimated contrast. In the original UG ratings,
+Market shifts 6.2 points away from M-C ($-10.9$ to $-1.5$); the positive
+changes in C-C, S-C, and C-D have intervals that include zero. In the original
+TG ratings, M-C falls by 1.7 points ($-2.4$ to $-0.9$), while the intervals for
+the other three changes include zero.
 
 \begin{figure}[H]
     \centering
@@ -185,11 +189,11 @@ to 3.1). The TG changes are small and all their intervals include zero.
 \end{figure}
 
 Relative to Bonus, Aid shifts similarity toward Self-interest: S rises by
-13.5 percentage points in DG (0.9 to 26.1) and S-C rises by 14.7 points in UG
-(2.4 to 26.9). In TG, S-D rises by 7.5 points, but its interval includes zero;
-the intervals exclude zero for the 5.0-point decline in C-C and the 4.2-point
-increase in C-D. The wide intervals in several cells reflect the small number
-of model runs.
+13.5 percentage points in DG (0.9 to 26.1). In the original UG ratings, S-C
+rises by 15.7 points, but its wide interval includes zero; C-C falls by 7.2
+points ($-12.2$ to $-2.1$). In the original TG ratings, all four Aid-minus-
+Bonus intervals include zero. The wide intervals in several cells reflect the
+small number of model runs.
 
 \section{Similarity of hypothetical-allocation descriptions}
 

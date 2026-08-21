@@ -1,0 +1,8 @@
+{
+  "DG": "Round 9 ratings after neutralizing the two DG-C vignettes.",
+  "UG": "Original round 8 ratings; no rerating used in the manuscript.",
+  "TG": "Original round 8 ratings; no rerating used in the manuscript.",
+  "confidence_intervals": "Two-sided 95% Student-t intervals across the three agent-level estimates from the corresponding round (df=2).",
+  "structural_point_estimator": "Original estimator: average vignette points across agents, calculate family mean points per vignette, then normalize the three family means. CI widths use the variation in the three agent-specific normalized analogues.",
+  "interpretation": "Model-run variability, not participant-sampling uncertainty."
+}
