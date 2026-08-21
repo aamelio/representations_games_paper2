@@ -1,0 +1,16 @@
+{
+  "description": "Direct 1,000-point relative-similarity ratings of the revised vignettes, averaged across three separately tasked Codex agents.",
+  "rating_method": "Each agent allocates exactly 1,000 nonnegative integer points jointly across the complete candidate set.",
+  "blinding": "Each agent used only its separately shuffled neutral packet and prompt, without classifications, source data, other packets or ratings, analysis code, or figures.",
+  "important_limitation": "The passes use separate agents from the same model family; this is not cross-model validation.",
+  "n_raters": 3,
+  "points_per_task_context_rater": 1000,
+  "structural_choice_set": "all 22 revised vignettes",
+  "within_game_choice_sets": {
+    "DG": 6,
+    "UG": 8,
+    "TG": 8
+  },
+  "raw_rows": 1056,
+  "averaged_rows": 352
+}

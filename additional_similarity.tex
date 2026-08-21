@@ -6,7 +6,7 @@
 \usepackage{float}
 \usepackage[hidelinks]{hyperref}
 
-\graphicspath{{llm_similarity/round6/relative_output/}{llm_similarity/round7/figures/}}
+\graphicspath{{llm_similarity/round8/relative_output/}{llm_similarity/round7/figures/}}
 
 \title{Two-Stage Relative Similarity Exercise}
 \author{}
@@ -21,6 +21,9 @@ The exercise considers the Control, Market, Aid, and Bonus versions of DG-KW,
 UG, and TG. For Aid and Bonus, the story precedes the corresponding game
 instructions, as in the experiment. Contexts and vignettes are presented under
 neutral identifiers, without their game or representation labels.
+The revised set contains 22 vignettes. Before the similarity exercise, all 22
+were assigned to their intended Moral, Self-interest, or Cooperation category
+by the classification prompt used for the HP descriptions.
 
 Three separate Codex agents independently complete every rating task. Each
 agent reads the target game--frame context and all vignettes in the specified
@@ -47,7 +50,8 @@ model families.
 \section{Stage 1: similarity to vignette game structures}
 
 In the first stage, each of the 12 game--frame contexts is compared jointly
-with all 30 vignettes. The vignettes comprise 6 DG, 12 UG, and 12 TG cases.
+with all 22 revised vignettes. The vignettes comprise 6 DG, 8 UG, and 8 TG
+cases.
 Because these families contain different numbers of vignettes, the comparison
 uses the mean allocated points per vignette in family $g$ after averaging
 across the three agents,
@@ -61,10 +65,14 @@ across the three agents,
     s_{cg}=\frac{\mu_{cg}}{\sum_h\mu_{ch}}.
 \end{equation}
 
-Using family totals instead would mechanically favor the two families with
-twice as many vignettes. We therefore normalize the three family means so that
+Using family totals instead would mechanically favor the two larger vignette
+families. We therefore normalize the three family means so that
 $\sum_g s_{cg}=1$ within each target context. Figure~\ref{fig:structural-control}
-reports these normalized shares in Control.
+reports these normalized shares in Control. The matching vignette family
+receives 85.6 percent of the normalized similarity share for the DG target,
+79.8 percent for the UG target, and 78.5 percent for the TG target. Thus, the
+revised vignette set continues to distinguish the three underlying game
+structures sharply.
 
 \begin{figure}[H]
     \centering
@@ -78,7 +86,7 @@ reports these normalized shares in Control.
 \section{Stage 2: representations within game structure}
 
 In the second stage, each context is rated in a new task containing only
-vignettes constructed around the same game: 6 candidates for DG and 12 for UG
+vignettes constructed around the same game: 6 candidates for DG and 8 for UG
 or TG. The 1,000-point budget is therefore reallocated separately within each
 game-specific choice set. After rating, individual vignette points are summed
 within representation class $k$ and expressed as a share,
@@ -89,10 +97,12 @@ within representation class $k$ and expressed as a share,
 \end{equation}
 
 DG has three sender classes: Moral (M), Self-interest (S), and Cooperation
-(C). UG and TG have six joint-action classes, formed by crossing the sender
-class with receiver cooperation or defection: M-C, M-D, S-C, S-D, C-C, and
-C-D. These classifications are used only after the similarity ratings have
-been recorded.
+(C). The revised UG set contains four joint-action classes: M-C, S-C, C-C,
+and C-D. The revised TG set contains M-C, S-D, C-C, and C-D. In these labels,
+the first component is the sender representation and the second is the
+receiver action. Each class is represented by one personal and one anonymous-
+market vignette. These classifications are used only after the similarity
+ratings have been recorded.
 
 \begin{figure}[H]
     \centering
@@ -103,6 +113,12 @@ been recorded.
     \label{fig:within-control}
 \end{figure}
 
+In Control, the DG similarity budget is split between Moral (35.3 percent),
+Self-interest (35.2 percent), and Cooperation (29.6 percent). The four revised
+UG classes range from 24.2 to 25.7 percent, and the four revised TG classes
+range from 24.0 to 26.5 percent. The Control instructions therefore do not
+strongly privilege a single representation within the UG or TG choice sets.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{relative_within_game_market_minus_control.png}
@@ -111,6 +127,11 @@ been recorded.
     \label{fig:within-market-control}
 \end{figure}
 
+Relative to Control, Market shifts 3.9 percentage points toward Cooperation
+in DG and 3.6 points away from Moral. In UG, it shifts 6.2 points away from
+M-C, principally toward C-C (2.8 points) and S-C (2.7 points). The TG changes
+are smaller: M-C falls by 1.7 points and C-C rises by 1.5 points.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.98\textwidth]{relative_within_game_aid_minus_bonus.png}
@@ -118,6 +139,11 @@ been recorded.
     Differences sum to zero within each target game.}
     \label{fig:within-aid-bonus}
 \end{figure}
+
+Relative to Bonus, Aid shifts similarity toward Self-interest: S rises by
+14.5 percentage points in DG, S-C rises by 15.7 points in UG, and S-D rises by
+6.8 points in TG. The offsetting changes are concentrated in Cooperation in
+DG, in M-C and C-C in UG, and in M-C and C-C in TG.
 
 \section{Similarity of hypothetical-allocation descriptions}
 
