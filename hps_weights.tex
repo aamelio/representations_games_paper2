@@ -58,4 +58,38 @@ A 10-percentage-point increase in the Moral weight predicts a 1.26-percentage-po
 
 In grouped 10-fold cross-validation, adding the weights raises out-of-sample $R^2$ from 0.129 to 0.137 ($\Delta R^2=0.008$) and lowers RMSE from 0.2115 to 0.2105. Thus the weights add predictive information, but the incremental gain is small. These results are predictive associations, not causal effects.
 
+\section{Moral baseline, excluding No clear justification}
+
+We remove all No clear justification classifications and re-estimate the model on M, S, and C, using Moral as the reference category:
+
+\begin{equation}
+    \log\frac{\Pr(K_{ia}=k)}{\Pr(K_{ia}=M)}=\alpha_{ka}+b_{ki},
+    \qquad k\in\{S,C\}.
+\end{equation}
+
+The analysis retains 3,059 substantive HP classifications from 1,060 participant-frames. The 140 frames containing only No clear classifications are excluded. The M/S/C weights are fitted probabilities conditional on a substantive classification and sum to one.
+
+\begin{table}[H]
+\centering
+\caption{Moral-baseline HP weights and DG share sent}
+\label{tab:hp_weights_moral_baseline}
+\begin{tabular}{lccccc}
+\toprule
+Weight & Coefficient & Clustered SE & $p$-value & Bootstrap 95\% CI & Effect of +10 pp \\
+\midrule
+Self-interest (S) & -0.199 & 0.058 & $<0.001$ & [-0.303, -0.081] & -1.99 \\
+Cooperation (C) & -0.251 & 0.055 & $<0.001$ & [-0.352, -0.140] & -2.51 \\
+\midrule
+Observations & 1060 & & & & \\
+$R^2$ & 0.162 & & & & \\
+Game-by-condition controls & Yes & & & & \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: The omitted weight is Moral (M). Coefficients compare a 100-percentage-point shift from M to the indicated category. The final column reports the implied percentage-point change in share sent for a 10-percentage-point shift. Confidence intervals use 500 participant-cluster bootstrap samples.
+\end{flushleft}
+\end{table}
+
+The bootstrap interval for Self-interest excludes zero; the interval for Cooperation excludes zero. In grouped 10-fold cross-validation, adding the weights changes out-of-sample $R^2$ from 0.134 to 0.148 ($\Delta R^2=0.014$).
+
 \end{document}

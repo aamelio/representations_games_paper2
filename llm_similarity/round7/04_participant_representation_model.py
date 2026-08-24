@@ -694,6 +694,110 @@ def add_bootstrap_to_summary(summary: pd.DataFrame) -> None:
     atomic_write_text(path, text + "\n".join(lines) + "\n")
 
 
+def moral_baseline_tex_section() -> list[str]:
+    moral_out = HERE / "participant_representation_moral_baseline"
+    required = [
+        moral_out / "second_stage_regressions.csv",
+        moral_out / "bootstrap_summary.csv",
+        moral_out / "second_stage_grouped_cv.csv",
+        moral_out / "sample_summary.json",
+    ]
+    if not all(path.exists() for path in required):
+        return []
+    regression = pd.read_csv(required[0]).set_index("term")
+    bootstrap = pd.read_csv(required[1]).set_index("term")
+    behavior_cv = pd.read_csv(required[2])
+    sample = json.loads(required[3].read_text(encoding="utf-8"))
+    pooled_cv = behavior_cv[behavior_cv["scope"] == "pooled"].set_index("model")
+    labels = {
+        "weight_S": "Self-interest (S)",
+        "weight_C": "Cooperation (C)",
+    }
+    rows = []
+    for term in ["weight_S", "weight_C"]:
+        row = regression.loc[term]
+        boot = bootstrap.loc[term]
+        p_value = (
+            r"$<0.001$"
+            if row["p_value"] < 0.001
+            else f"{row['p_value']:.3f}"
+        )
+        rows.append(
+            f"{labels[term]} & {row['coefficient']:.3f} & "
+            f"{row['std_error_clustered_pid']:.3f} & {p_value} & "
+            f"[{boot['bootstrap_ci95_low_percentile']:.3f}, "
+            f"{boot['bootstrap_ci95_high_percentile']:.3f}] & "
+            f"{10.0 * row['coefficient']:+.2f} \\\\"
+        )
+    cell_only = pooled_cv.loc["cell_only"]
+    full = pooled_cv.loc["cell_plus_representation_weights"]
+    incremental_r2 = full["out_of_sample_r_squared"] - cell_only["out_of_sample_r_squared"]
+    s_boot = bootstrap.loc["weight_S"]
+    c_boot = bootstrap.loc["weight_C"]
+    s_result = (
+        "excludes zero"
+        if s_boot["bootstrap_ci95_low_percentile"] > 0
+        or s_boot["bootstrap_ci95_high_percentile"] < 0
+        else "includes zero"
+    )
+    c_result = (
+        "excludes zero"
+        if c_boot["bootstrap_ci95_low_percentile"] > 0
+        or c_boot["bootstrap_ci95_high_percentile"] < 0
+        else "includes zero"
+    )
+    return [
+        "",
+        r"\section{Moral baseline, excluding No clear justification}",
+        "",
+        r"We remove all No clear justification classifications and re-estimate the "
+        r"model on M, S, and C, using Moral as the reference category:",
+        "",
+        r"\begin{equation}",
+        r"    \log\frac{\Pr(K_{ia}=k)}{\Pr(K_{ia}=M)}=\alpha_{ka}+b_{ki},",
+        r"    \qquad k\in\{S,C\}.",
+        r"\end{equation}",
+        "",
+        f"The analysis retains {int(sample['n_substantive_hp_rows']):,} substantive HP "
+        f"classifications from {int(sample['n_usable_frames']):,} participant-frames. "
+        f"The {int(sample['n_excluded_all_no_clear_frames'])} frames containing only "
+        r"No clear classifications are excluded. The M/S/C weights are fitted "
+        r"probabilities conditional on a substantive classification and sum to one.",
+        "",
+        r"\begin{table}[H]",
+        r"\centering",
+        r"\caption{Moral-baseline HP weights and DG share sent}",
+        r"\label{tab:hp_weights_moral_baseline}",
+        r"\begin{tabular}{lccccc}",
+        r"\toprule",
+        r"Weight & Coefficient & Clustered SE & $p$-value & Bootstrap 95\% CI "
+        r"& Effect of +10 pp \\",
+        r"\midrule",
+        *rows,
+        r"\midrule",
+        f"Observations & {int(regression.loc['const', 'n_frames'])} & & & & \\\\",
+        f"$R^2$ & {regression.loc['const', 'r_squared']:.3f} & & & & \\\\",
+        r"Game-by-condition controls & Yes & & & & \\",
+        r"\bottomrule",
+        r"\end{tabular}",
+        r"\begin{flushleft}",
+        r"\footnotesize Notes: The omitted weight is Moral (M). Coefficients compare "
+        r"a 100-percentage-point shift from M to the indicated category. The final "
+        r"column reports the implied percentage-point change in share sent for a "
+        r"10-percentage-point shift. Confidence intervals use 500 participant-cluster "
+        r"bootstrap samples.",
+        r"\end{flushleft}",
+        r"\end{table}",
+        "",
+        f"The bootstrap interval for Self-interest {s_result}; the interval for "
+        f"Cooperation {c_result}. In grouped 10-fold cross-validation, adding the "
+        f"weights changes out-of-sample $R^2$ from "
+        f"{cell_only['out_of_sample_r_squared']:.3f} to "
+        f"{full['out_of_sample_r_squared']:.3f} "
+        f"($\\Delta R^2={incremental_r2:.3f}$).",
+    ]
+
+
 def write_tex_document(
     regressions: pd.DataFrame,
     bootstrap: pd.DataFrame,
@@ -712,9 +816,14 @@ def write_tex_document(
         row = regression.loc[term]
         boot = bootstrap_by_term.loc[term]
         effect_10pp = 10.0 * row["coefficient"]
+        p_value = (
+            r"$<0.001$"
+            if row["p_value"] < 0.001
+            else f"{row['p_value']:.3f}"
+        )
         table_rows.append(
             f"{labels[term]} & {row['coefficient']:.3f} & "
-            f"{row['std_error_clustered_pid']:.3f} & {row['p_value']:.3f} & "
+            f"{row['std_error_clustered_pid']:.3f} & {p_value} & "
             f"[{boot['bootstrap_ci95_low_percentile']:.3f}, "
             f"{boot['bootstrap_ci95_high_percentile']:.3f}] & {effect_10pp:+.2f} \\\\"
         )
@@ -801,6 +910,7 @@ def write_tex_document(
         f"and lowers RMSE from {cell_only['rmse']:.4f} to {full['rmse']:.4f}. Thus the "
         r"weights add predictive information, but the incremental gain is small. These "
         r"results are predictive associations, not causal effects.",
+        *moral_baseline_tex_section(),
         "",
         r"\end{document}",
         "",

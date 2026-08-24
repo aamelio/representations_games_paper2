@@ -94,3 +94,9 @@ python 04_participant_representation_model.py status
 All derived files are written to `participant_representation/`; the round-7 source files are never
 modified. The completed bootstrap also regenerates the concise standalone report
 `../../hps_weights.tex`.
+
+`05_moral_baseline_excluding_no_clear.py` provides the separate three-category
+specification requested after the main analysis. It removes all No-clear HP rows, uses
+Moral as the multinomial and behavioral baseline, writes separate checkpointed outputs
+to `participant_representation_moral_baseline/`, and adds the results to
+`../../hps_weights.tex`.

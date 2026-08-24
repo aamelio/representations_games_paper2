@@ -1,0 +1,3 @@
+term,point_estimate,bootstrap_standard_error,bootstrap_ci95_low_percentile,bootstrap_ci95_high_percentile,bootstrap_replicates,failed_first_stage_fits
+weight_C,-0.2512714903582557,0.05401470296559039,-0.35225797278270987,-0.14004024753862382,500,0
+weight_S,-0.1987047105893226,0.058314946239954056,-0.30291920500591296,-0.0805899696119998,500,0
