@@ -1,0 +1,31 @@
+{
+  "analysis_complete": true,
+  "bootstrap_completed": 500,
+  "bootstrap_target": 500,
+  "final_converged": true,
+  "final_gradient_max": 0.001421094524247657,
+  "final_iterations": 148,
+  "fit_complete": true,
+  "lambda_grid": [
+    0.015625,
+    0.03125,
+    0.0625,
+    0.125,
+    0.25,
+    0.5,
+    1.0,
+    2.0,
+    4.0,
+    8.0,
+    16.0,
+    32.0
+  ],
+  "last_bootstrap_replicate": 500,
+  "model_fingerprint": "4d3e9b90ce7579b44876f46b48cfec48df62852d3d535ee1c11d743e9c549d8b",
+  "n_frames": 1200,
+  "n_hp_rows": 4800,
+  "n_unique_pid": 1125,
+  "selected_lambda": 0.5,
+  "source_sha256": "2dcdb998d672a5e8178d43551ddbb0ef072294a0e600a126c64275ca480f60e9",
+  "stage": "complete"
+}

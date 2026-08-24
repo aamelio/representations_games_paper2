@@ -65,3 +65,32 @@ averages. The 95% confidence intervals use participant-clustered standard errors
 each participant contributes four hypothetical-allocation responses. The category figure
 excludes `No clear justification` and orders the substantive categories as Moral,
 Self-interest, and Mutual Benefit / Cooperation.
+
+## Participant-level four-category representation exercise
+
+`04_participant_representation_model.py` uses all four HP classifications per
+participant-game-condition frame, including `No clear justification` as a fourth category.
+It implements a partially pooled version of the proposed multinomial decomposition: HP-allocation
+effects are fixed, while participant-frame effects for Moral, Self-interest, and Mutual Benefit /
+Cooperation relative to No clear justification are Gaussian-shrunk. The shrinkage penalty is selected
+by cross-validation that holds out one HP response per frame in every fold.
+
+The fitted four-category probabilities are averaged over HP anchors 4, 6, 8, and 12 to form
+participant-frame weights. The behavioral stage predicts the participant's actual DG share sent from
+the Moral, Self-interest, and Cooperation weights, with No clear justification omitted because the four
+weights sum to one. It controls for the four game-by-condition cells, clusters uncertainty by Prolific
+ID, and reports grouped out-of-sample performance relative to cell controls alone. A participant-cluster
+bootstrap refits both stages and checkpoints its draws so it can resume after interruption.
+The bootstrap holds the shrinkage penalty at the value selected by full-sample cross-validation.
+
+Run `fit` first, then the resumable bootstrap:
+
+```text
+python 04_participant_representation_model.py fit
+python 04_participant_representation_model.py bootstrap --reps 500
+python 04_participant_representation_model.py status
+```
+
+All derived files are written to `participant_representation/`; the round-7 source files are never
+modified. The completed bootstrap also regenerates the concise standalone report
+`../../hps_weights.tex`.

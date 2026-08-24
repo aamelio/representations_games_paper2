@@ -1,0 +1,61 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+
+\title{Participant-Level HP Representation Weights}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Method}
+
+Each participant-frame provides four HP texts, one for each allocation anchor $a\in\{4,6,8,12\}$. Each text is classified as Moral (M), Self-interest (S), Cooperation (C), or No clear justification (N). We estimate the partially pooled multinomial model
+
+\begin{equation}
+    \log\frac{\Pr(K_{ia}=k)}{\Pr(K_{ia}=N)}=\alpha_{ka}+b_{ki},
+    \qquad k\in\{M,S,C\},
+\end{equation}
+
+where the participant-frame effects $b_{ki}$ are Gaussian-shrunk and the penalty is selected by cross-validation. The four weights are the fitted probabilities averaged across allocation anchors,
+
+\begin{equation}
+    w_{ik}=\frac{1}{4}\sum_a \widehat{\Pr}(K_{ia}=k).
+\end{equation}
+
+We regress the participant's DG share sent on $w_{iM}$, $w_{iS}$, and $w_{iC}$, with N omitted, controlling for game-by-condition cells. Standard errors are clustered by participant. Confidence intervals refit both stages in 500 participant-cluster bootstrap samples, holding the penalty at its cross-validated value.
+
+\section{Results}
+
+\begin{table}[H]
+\centering
+\caption{HP representation weights and DG share sent}
+\label{tab:hp_weights_dg}
+\begin{tabular}{lccccc}
+\toprule
+Weight & Coefficient & Clustered SE & $p$-value & Bootstrap 95\% CI & Effect of +10 pp \\
+\midrule
+Moral (M) & 0.126 & 0.052 & 0.015 & [0.015, 0.229] & +1.26 \\
+Self-interest (S) & -0.061 & 0.058 & 0.289 & [-0.176, 0.052] & -0.61 \\
+Cooperation (C) & -0.083 & 0.059 & 0.160 & [-0.201, 0.023] & -0.83 \\
+\midrule
+Observations & 1200 & & & & \\
+$R^2$ & 0.151 & & & & \\
+Game-by-condition controls & Yes & & & & \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: The omitted weight is No clear justification (N). Coefficients compare a 100-percentage-point shift from N to the indicated category. The final column reports the implied percentage-point change in share sent for a 10-percentage-point shift.
+\end{flushleft}
+\end{table}
+
+A 10-percentage-point increase in the Moral weight predicts a 1.26-percentage-point increase in share sent. Its bootstrap confidence interval excludes zero. The estimates for Self-interest and Cooperation are negative, but their confidence intervals include zero.
+
+In grouped 10-fold cross-validation, adding the weights raises out-of-sample $R^2$ from 0.129 to 0.137 ($\Delta R^2=0.008$) and lowers RMSE from 0.2115 to 0.2105. Thus the weights add predictive information, but the incremental gain is small. These results are predictive associations, not causal effects.
+
+\end{document}
