@@ -1,0 +1,12 @@
+{
+  "rows": 4800,
+  "inherited_classifications": 1200,
+  "new_gpt_5_6_classifications": 3600,
+  "similarity_raters_per_reference": 3,
+  "similarity_aggregation": "arithmetic mean",
+  "outputs": [
+    "data/hp_responses_classified_and_rated.csv",
+    "data/hp_responses_classified_and_rated.xlsx",
+    "output/similarity_rater_agreement.csv"
+  ]
+}

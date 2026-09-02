@@ -1,9 +1,0 @@
-{
-  "estimand": "Mean of the three separately blinded agent-level aggregate shares or paired frame differences.",
-  "interval": "Two-sided 95% Student-t interval across agent-level estimates.",
-  "n_agents": 3,
-  "degrees_of_freedom": 2,
-  "t_critical": 4.302652729911275,
-  "interpretation": "Variability across model runs, not participant-sampling uncertainty.",
-  "limitation": "With only three model runs, intervals are necessarily imprecise and sensitive to any single run."
-}
