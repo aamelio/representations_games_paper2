@@ -1,0 +1,12 @@
+{
+  "analysis_complete": true,
+  "bootstrap_completed": 500,
+  "bootstrap_target": 500,
+  "fit_complete": true,
+  "last_bootstrap_replicate": 500,
+  "model_fingerprint": "b2e9e1da84c1eabfe46e62388af0f106b29f4d73b67dc707895cf1e8eb820406",
+  "n_frames": 1060,
+  "n_unique_pid": 990,
+  "selected_lambda": 0.5,
+  "stage": "complete"
+}

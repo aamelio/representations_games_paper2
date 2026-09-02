@@ -1,0 +1,12 @@
+Between-subject heterogeneity in HP-weight slopes
+Moral baseline; No-clear classifications excluded; game-by-condition fixed effects.
+
+Game: LT minus KW
+  S vs M: KW -0.3051; LT -0.0943; difference +0.2108 (clustered p=0.0668; bootstrap 95% CI [+0.0012, +0.4199]).
+  C vs M: KW -0.3375; LT -0.1718; difference +0.1657 (clustered p=0.1385; bootstrap 95% CI [-0.0523, +0.3686]).
+  Joint interaction test: p=0.1768.
+
+Condition: Market minus Control
+  S vs M: Control -0.0682; Market -0.2427; difference -0.1745 (clustered p=0.1837; bootstrap 95% CI [-0.4328, +0.0803]).
+  C vs M: Control -0.2974; Market -0.2756; difference +0.0218 (clustered p=0.9391; bootstrap 95% CI [-0.6218, +0.5376]).
+  Joint interaction test: p=0.3135.

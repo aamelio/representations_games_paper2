@@ -12,8 +12,12 @@ bootstrap outputs to `output/four_category/`.
 
 `code/02_moral_baseline_excluding_no_clear.py` excludes No-clear classifications,
 uses Moral as the baseline, and writes its outputs to `output/moral_baseline/`.
-Both specifications regenerate `../../hps_weights.tex` once their required outputs
-are complete.
+
+`code/03_between_subject_heterogeneity.py` uses that Moral-baseline sample to
+test whether the S-versus-M and C-versus-M slopes differ between KW and LT, and
+between Control and Market. Its full two-stage bootstrap is resumable and writes
+to `output/heterogeneity/`. The scripts regenerate `../../hps_weights.tex` once
+their required outputs are complete.
 
 Run from this directory:
 
@@ -22,9 +26,10 @@ python code/01_participant_representation_model.py fit
 python code/01_participant_representation_model.py bootstrap --reps 500
 python code/02_moral_baseline_excluding_no_clear.py fit
 python code/02_moral_baseline_excluding_no_clear.py bootstrap --reps 500
+python code/03_between_subject_heterogeneity.py fit
+python code/03_between_subject_heterogeneity.py bootstrap --reps 500
 ```
 
 Use the corresponding `status` action to inspect a resumable bootstrap.
 
 Python dependencies are listed in `requirements.txt`.
-

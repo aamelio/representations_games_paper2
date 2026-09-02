@@ -801,6 +801,114 @@ def moral_baseline_tex_section() -> list[str]:
     ]
 
 
+def heterogeneity_tex_section() -> list[str]:
+    heterogeneity_out = ROOT / "output" / "heterogeneity"
+    required = [
+        heterogeneity_out / "point_estimates.csv",
+        heterogeneity_out / "bootstrap_summary.csv",
+        heterogeneity_out / "joint_tests.csv",
+    ]
+    if not all(path.exists() for path in required):
+        return []
+    point = pd.read_csv(required[0])
+    bootstrap = pd.read_csv(required[1]).set_index(
+        ["dimension", "category_vs_moral", "estimand"]
+    )
+    joint = pd.read_csv(required[2]).set_index("dimension")
+    labels = {"S": "Self-interest (S)", "C": "Cooperation (C)"}
+    panels = []
+    panel_specs = [
+        ("game", "Panel A: By DG game", "KW", "LT", "LT $-$ KW"),
+        (
+            "condition",
+            "Panel B: By condition",
+            "Control",
+            "Market",
+            "Market $-$ Control",
+        ),
+    ]
+    for (
+        dimension,
+        panel_title,
+        base_label,
+        comparison_label,
+        difference_label,
+    ) in panel_specs:
+        panels.extend([
+            rf"\multicolumn{{6}}{{l}}{{\textit{{{panel_title}}}}} \\",
+            (
+                rf"Weight & {base_label} slope & {comparison_label} slope & "
+                rf"{difference_label} & Bootstrap 95\% CI & $p$-value \\"
+            ),
+        ])
+        subset = point[point["dimension"] == dimension].set_index(
+            "category_vs_moral"
+        )
+        for category in ["S", "C"]:
+            row = subset.loc[category]
+            boot = bootstrap.loc[(dimension, category, "difference")]
+            p_value = (
+                r"$<0.001$"
+                if row["difference_p_value"] < 0.001
+                else f"{row['difference_p_value']:.3f}"
+            )
+            panels.append(
+                f"{labels[category]} & {row['base_slope_estimate']:.3f} "
+                f"({row['base_slope_std_error']:.3f}) & "
+                f"{row['comparison_slope_estimate']:.3f} "
+                f"({row['comparison_slope_std_error']:.3f}) & "
+                f"{row['difference_estimate']:.3f} "
+                f"({row['difference_std_error']:.3f}) & "
+                f"[{boot['bootstrap_ci95_low_percentile']:.3f}, "
+                f"{boot['bootstrap_ci95_high_percentile']:.3f}] & "
+                f"{p_value} \\\\"
+            )
+        panels.extend([
+            (
+                r"\multicolumn{5}{l}{Joint test of both interactions} & "
+                f"{joint.loc[dimension, 'p_value']:.3f} \\\\"
+            ),
+            r"\addlinespace",
+        ])
+    game_joint = joint.loc["game", "p_value"]
+    condition_joint = joint.loc["condition", "p_value"]
+    game_conclusion = (
+        "evidence of" if game_joint < 0.05 else "no clear evidence of"
+    )
+    condition_conclusion = (
+        "evidence of" if condition_joint < 0.05 else "no clear evidence of"
+    )
+    return [
+        "",
+        r"\section{Between-subject heterogeneity by game and condition}",
+        "",
+        r"Using the Moral-baseline sample, we interact the S and C weights first "
+        r"with an LT indicator (KW omitted), and then with a Market indicator "
+        r"(Control omitted). Both models retain game-by-condition fixed effects.",
+        "",
+        r"\begin{table}[H]",
+        r"\centering",
+        r"\caption{Heterogeneity in HP-weight slopes}",
+        r"\label{tab:hp_weight_heterogeneity}",
+        r"\begin{tabular}{lccccc}",
+        r"\toprule",
+        *panels,
+        r"\bottomrule",
+        r"\end{tabular}",
+        r"\begin{flushleft}",
+        r"\footnotesize Notes: Moral is the omitted weight and No-clear "
+        r"classifications are excluded. Entries in parentheses are participant-"
+        r"clustered standard errors. Bootstrap intervals are for the slope "
+        r"difference and refit both stages in 500 participant-cluster samples.",
+        r"\end{flushleft}",
+        r"\end{table}",
+        "",
+        f"The joint tests provide {game_conclusion} heterogeneity by game "
+        f"($p={game_joint:.3f}$) and {condition_conclusion} heterogeneity by "
+        f"condition ($p={condition_joint:.3f}$).",
+    ]
+
+
 def write_tex_document(
     regressions: pd.DataFrame,
     bootstrap: pd.DataFrame,
@@ -914,6 +1022,7 @@ def write_tex_document(
         r"weights add predictive information, but the incremental gain is small. These "
         r"results are predictive associations, not causal effects.",
         *moral_baseline_tex_section(),
+        *heterogeneity_tex_section(),
         "",
         r"\end{document}",
         "",

@@ -1,0 +1,3 @@
+dimension,null_hypothesis,chi2_statistic,degrees_of_freedom,p_value
+game,S and C slope differences jointly equal zero,3.4649377355499107,2,0.17684725806028032
+condition,S and C slope differences jointly equal zero,2.3197587663553656,2,0.31352399487003935

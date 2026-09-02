@@ -56,7 +56,7 @@ Game-by-condition controls & Yes & & & & \\
 
 A 10-percentage-point increase in the Moral weight predicts a 1.26-percentage-point increase in share sent. Its bootstrap confidence interval excludes zero. The estimates for Self-interest and Cooperation are negative, but their confidence intervals include zero.
 
-In grouped 10-fold cross-validation, adding the weights raises out-of-sample $R^2$ from 0.129 to 0.137 ($\Delta R^2=0.008$) and lowers RMSE from 0.2115 to 0.2105. Thus the weights add predictive information, but the incremental gain is small.
+In grouped 10-fold cross-validation, adding the weights raises out-of-sample $R^2$ from 0.129 to 0.137 ($\Delta R^2=0.008$) and lowers RMSE from 0.2115 to 0.2105. Thus the weights add predictive information, but the incremental gain is small. These results are predictive associations, not causal effects.
 
 \section{Moral baseline, excluding No clear justification}
 
@@ -91,5 +91,36 @@ Game-by-condition controls & Yes & & & & \\
 \end{table}
 
 The bootstrap interval for Self-interest excludes zero; the interval for Cooperation excludes zero. In grouped 10-fold cross-validation, adding the weights changes out-of-sample $R^2$ from 0.134 to 0.148 ($\Delta R^2=0.014$).
+
+\section{Between-subject heterogeneity by game and condition}
+
+Using the Moral-baseline sample, we interact the S and C weights first with an LT indicator (KW omitted), and then with a Market indicator (Control omitted). Both models retain game-by-condition fixed effects.
+
+\begin{table}[H]
+\centering
+\caption{Heterogeneity in HP-weight slopes}
+\label{tab:hp_weight_heterogeneity}
+\begin{tabular}{lccccc}
+\toprule
+\multicolumn{6}{l}{\textit{Panel A: By DG game}} \\
+Weight & KW slope & LT slope & LT $-$ KW & Bootstrap 95\% CI & $p$-value \\
+Self-interest (S) & -0.305 (0.095) & -0.094 (0.065) & 0.211 (0.115) & [0.001, 0.420] & 0.067 \\
+Cooperation (C) & -0.337 (0.089) & -0.172 (0.068) & 0.166 (0.112) & [-0.052, 0.369] & 0.139 \\
+\multicolumn{5}{l}{Joint test of both interactions} & 0.177 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Panel B: By condition}} \\
+Weight & Control slope & Market slope & Market $-$ Control & Bootstrap 95\% CI & $p$-value \\
+Self-interest (S) & -0.068 (0.112) & -0.243 (0.067) & -0.174 (0.131) & [-0.433, 0.080] & 0.184 \\
+Cooperation (C) & -0.297 (0.278) & -0.276 (0.060) & 0.022 (0.285) & [-0.622, 0.538] & 0.939 \\
+\multicolumn{5}{l}{Joint test of both interactions} & 0.314 \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: Moral is the omitted weight and No-clear classifications are excluded. Entries in parentheses are participant-clustered standard errors. Bootstrap intervals are for the slope difference and refit both stages in 500 participant-cluster samples.
+\end{flushleft}
+\end{table}
+
+The joint tests provide no clear evidence of heterogeneity by game ($p=0.177$) and no clear evidence of heterogeneity by condition ($p=0.314$).
 
 \end{document}
