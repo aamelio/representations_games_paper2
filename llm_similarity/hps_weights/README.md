@@ -1,4 +1,4 @@
-# Participant-level HP representation weights
+# Participant-level HP representation effects
 
 This is the separate workflow behind `../../hps_weights.tex`. It uses the finalized
 HP classifications in
@@ -6,18 +6,28 @@ HP classifications in
 scores are not used in these regressions.
 
 `code/01_participant_representation_model.py` estimates the four-category model
-(Moral, Self-interest, Cooperation, No clear justification), predicts DG share
-sent with game-by-condition controls, and writes resumable participant-cluster
-bootstrap outputs to `output/four_category/`.
+(Moral, Self-interest, Cooperation, No clear justification) and uses the
+Gaussian-shrunk participant-frame effects `b_ki` directly to predict DG share
+sent, controlling for the four game-by-condition cells. Resumable
+participant-cluster bootstrap outputs are written to
+`output/four_category_participant_effects/`. Fitted probabilities remain in the
+outputs for auditing but are not second-stage predictors.
 
 `code/02_moral_baseline_excluding_no_clear.py` excludes No-clear classifications,
-uses Moral as the baseline, and writes its outputs to `output/moral_baseline/`.
+uses Moral as the baseline, and predicts DG share sent directly with the
+estimated `b_Si` and `b_Ci`. Its current outputs are written to
+`output/moral_baseline_participant_effects/`.
 
 `code/03_between_subject_heterogeneity.py` uses that Moral-baseline sample to
-test whether the S-versus-M and C-versus-M slopes differ between KW and LT, and
-between Control and Market. Its full two-stage bootstrap is resumable and writes
-to `output/heterogeneity/`. The scripts regenerate `../../hps_weights.tex` once
-their required outputs are complete.
+test whether the direct S-versus-M and C-versus-M participant-effect slopes
+differ between KW and LT. The Market-versus-Control comparison is restricted to
+KW, so its reference cell is KW Control. Its full two-stage bootstrap is
+resumable and writes to `output/heterogeneity_participant_effects/`. The scripts
+regenerate `../../hps_weights.tex` once their required outputs are complete.
+
+The earlier probability-weight outputs remain in `output/four_category/`,
+`output/moral_baseline/`, and `output/heterogeneity/` as an audit trail; they are
+not used by the current report generator.
 
 ## Within-subject analysis
 
@@ -53,9 +63,9 @@ records classification provenance row by row.
 `code/06_within_subject_model.py` excludes No-clear HP rows and uses Moral as
 the multinomial baseline. It estimates allocation fixed effects, Market, KW,
 Market-by-KW, and Gaussian-shrunk participant effects from the pooled first and
-second HP elicitations. For comparability with the between-subject analysis, it
-converts the participant effects into M/S/C probability weights averaged across
-allocation anchors at the common LT-Control reference. Treatment components are
+second HP elicitations. The current within-subject specification converts the
+participant effects into M/S/C probability weights averaged across allocation
+anchors at the common LT-Control reference. Treatment components are
 the M/S/C probability shifts from LT Control to the current Market/KW cell,
 evaluated at zero participant effect. It then asks whether the participant
 weights and treatment shifts predict allocation and classified post-choice

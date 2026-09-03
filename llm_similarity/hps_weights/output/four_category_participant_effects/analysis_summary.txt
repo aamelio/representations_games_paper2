@@ -1,0 +1,48 @@
+Participant-level HP effect exercise (four categories)
+==============================================================
+Input: hp_responses_classified_and_rated.csv
+Input SHA-256: 2dcdb998d672a5e8178d43551ddbb0ef072294a0e600a126c64275ca480f60e9
+Model fingerprint: 2c1cc4367f29a7e4defae648c44df229e5b4db34f92f38dfb639060f128baa53
+
+Sample and unit
+- 4,800 HP responses.
+- 1,200 participant-game-condition frames.
+- 1,125 unique Prolific IDs.
+- 75 Prolific IDs appear in more than one frame.
+- Frame cells: {'kw_control': 200, 'kw_market': 400, 'lt_control': 200, 'lt_market': 400}.
+- Category counts: {'No clear justification': 1741, 'Moral': 1479, 'Self-interest': 950, 'Mutual Benefit / Cooperation': 630}.
+- Every frame contributes classifications at HP=4, 6, 8, and 12.
+
+First stage
+- Multinomial logit; No clear justification (N) is the reference.
+- HP effects are unpenalized; participant-frame category effects are L2-shrunk.
+- Lambda chosen by four-fold CV holding out one HP response per frame per fold.
+- Selected lambda: 0.5.
+- Optimizer converged: True; iterations: 148; max |gradient|: 0.00142; objective: 4630.505.
+- Optimizer message: CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH
+- The direct participant-frame effects b_M, b_S, and b_C are retained for the second stage.
+
+Second stage
+- Main outcome: share sent = (12 - allocation kept)/12.
+- Predictors: b_M, b_S, and b_C, each measured relative to N in first-stage log odds.
+- Controls: indicators for LT Control, KW Market, and LT Market; reference cell is KW Control.
+- Standard errors clustered by Prolific ID.
+- Coefficients are changes in share sent for a one-unit increase in the indicated log-odds effect.
+
+Main cell-adjusted coefficients (share sent)
+- b_M_vs_N: +0.0332 (clustered SE 0.0081, 95% CI [+0.0172, +0.0491], p=4.721e-05).
+- b_S_vs_N: -0.0097 (clustered SE 0.0079, 95% CI [-0.0251, +0.0057], p=0.2189).
+- b_C_vs_N: -0.0161 (clustered SE 0.0079, 95% CI [-0.0316, -0.0005], p=0.04243).
+
+Grouped 10-fold behavioral prediction
+    scope  fold                               model  n_test_frames      rmse       mae  out_of_sample_r_squared
+   pooled   NaN                           cell_only           1200  0.211462  0.168364                 0.128816
+   pooled   NaN       cell_plus_participant_effects           1200  0.210443  0.166534                 0.137185
+increment   NaN participant_effects_minus_cell_only           1200 -0.001018 -0.001831                 0.008369
+
+
+Whole-pipeline participant-cluster bootstrap
+- Both stages are refitted in every replicate; the shrinkage penalty is held at the full-sample cross-validated value.
+- b_C_vs_N: point estimate -0.0161; bootstrap SE 0.0078; percentile 95% CI [-0.0307, -0.0001] (500 replicates; 0 failed first-stage fits).
+- b_M_vs_N: point estimate +0.0332; bootstrap SE 0.0086; percentile 95% CI [+0.0161, +0.0494] (500 replicates; 0 failed first-stage fits).
+- b_S_vs_N: point estimate -0.0097; bootstrap SE 0.0079; percentile 95% CI [-0.0251, +0.0046] (500 replicates; 0 failed first-stage fits).

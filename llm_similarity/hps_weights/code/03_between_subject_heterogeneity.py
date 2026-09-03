@@ -1,10 +1,13 @@
-"""Test heterogeneity in HP-weight slopes across DG games and conditions.
+"""Test heterogeneity in participant-effect slopes across DG games and conditions.
 
 This uses the Moral-baseline specification (M omitted; No-clear classifications
-excluded). It estimates two models with game-by-condition fixed effects:
+excluded) and the direct S-versus-M and C-versus-M participant effects. It
+estimates two models:
 
-1. HP weights interacted with LT (reference: KW);
-2. HP weights interacted with Market (reference: Control).
+1. participant effects interacted with LT (reference: KW), using all four
+   game-by-condition cells and cell fixed effects;
+2. participant effects interacted with Market in the KW sample only
+   (reference: KW Control).
 
 The participant-cluster bootstrap refits both the first-stage representation
 model and the interacted second-stage models. Outputs are checkpointed so the
@@ -29,12 +32,12 @@ from scipy.stats import norm
 
 ROOT = Path(__file__).resolve().parents[1]
 CODE_DIR = Path(__file__).resolve().parent
-OUT = ROOT / "output" / "heterogeneity"
+OUT = ROOT / "output" / "heterogeneity_participant_effects"
 PROGRESS = OUT / "progress.json"
 WEIGHTS_PATH = (
-    ROOT / "output" / "moral_baseline" / "participant_frame_category_weights.csv"
+    ROOT / "output" / "moral_baseline_participant_effects" / "participant_frame_effects.csv"
 )
-MORAL_PROGRESS = ROOT / "output" / "moral_baseline" / "progress.json"
+MORAL_PROGRESS = ROOT / "output" / "moral_baseline_participant_effects" / "progress.json"
 BOOTSTRAP_SEED = 20260824
 
 
@@ -58,8 +61,8 @@ DIMENSIONS = {
         "comparison_group": "LT",
     },
     "condition": {
-        "base_group": "Control",
-        "comparison_group": "Market",
+        "base_group": "KW Control",
+        "comparison_group": "KW Market",
     },
 }
 
@@ -97,7 +100,7 @@ def model_fingerprint() -> str:
         "source_sha256": source_hash,
         "first_stage": "moral_baseline_excluding_no_clear",
         "second_stage": (
-            "share_sent on S/C weights, game-condition FE, interactions"
+            "share_sent on direct S/C-versus-M participant effects; game comparison uses all cells with cell FE; condition comparison uses KW only"
         ),
         "dimensions": DIMENSIONS,
         "bootstrap_seed": BOOTSTRAP_SEED,
@@ -116,13 +119,9 @@ def load_weights() -> pd.DataFrame:
     expected_cells = {"kw_control", "lt_control", "kw_market", "lt_market"}
     if set(weights["cell"].unique()) != expected_cells:
         raise ValueError("Unexpected game-by-condition cells in the weights file.")
-    columns = [
-        "fitted_probability_M",
-        "fitted_probability_S",
-        "fitted_probability_C",
-    ]
-    if not np.allclose(weights[columns].sum(axis=1), 1.0):
-        raise ValueError("M/S/C fitted probabilities do not sum to one.")
+    columns = ["b_S_vs_M", "b_C_vs_M"]
+    if weights[columns].isna().any().any():
+        raise ValueError("Direct participant effects contain missing values.")
     return weights
 
 
@@ -132,24 +131,26 @@ def regression_design(weights: pd.DataFrame, dimension: str) -> pd.DataFrame:
     if dimension == "game":
         indicator = (weights["treatment"].str.lower() == "lt").astype(float)
         suffix = "LT"
-    else:
-        indicator = weights["Market"].astype(float)
-        suffix = "Market"
-    weight_s = weights["fitted_probability_S"].astype(float)
-    weight_c = weights["fitted_probability_C"].astype(float)
-    return pd.DataFrame(
-        {
-            "const": 1.0,
-            "weight_S": weight_s,
-            "weight_C": weight_c,
+        cell_controls = {
             "cell_lt_control": (weights["cell"] == "lt_control").astype(float),
             "cell_kw_market": (weights["cell"] == "kw_market").astype(float),
             "cell_lt_market": (weights["cell"] == "lt_market").astype(float),
-            f"weight_S_x_{suffix}": weight_s * indicator,
-            f"weight_C_x_{suffix}": weight_c * indicator,
-        },
-        index=weights.index,
-    )
+        }
+    else:
+        indicator = weights["Market"].astype(float)
+        suffix = "Market"
+        cell_controls = {"market": indicator}
+    effect_s = weights["b_S_vs_M"].astype(float)
+    effect_c = weights["b_C_vs_M"].astype(float)
+    columns = {
+        "const": 1.0,
+        "b_S_vs_M": effect_s,
+        "b_C_vs_M": effect_c,
+        **cell_controls,
+        f"b_S_vs_M_x_{suffix}": effect_s * indicator,
+        f"b_C_vs_M_x_{suffix}": effect_c * indicator,
+    }
+    return pd.DataFrame(columns, index=weights.index)
 
 
 def linear_combination(result, terms: dict[str, float]) -> dict[str, float]:
@@ -174,20 +175,25 @@ def linear_combination(result, terms: dict[str, float]) -> dict[str, float]:
 def fit_dimension(
     weights: pd.DataFrame, dimension: str
 ) -> tuple[pd.DataFrame, dict, object]:
-    design = regression_design(weights, dimension)
-    result = sm.OLS(weights["share_sent"].astype(float), design).fit(
+    analysis = (
+        weights
+        if dimension == "game"
+        else weights[weights["treatment"].str.lower() == "kw"].copy()
+    )
+    design = regression_design(analysis, dimension)
+    result = sm.OLS(analysis["share_sent"].astype(float), design).fit(
         cov_type="cluster",
-        cov_kwds={"groups": weights["PROLIFIC_PID"], "use_correction": True},
+        cov_kwds={"groups": analysis["PROLIFIC_PID"], "use_correction": True},
     )
     specification = DIMENSIONS[dimension]
     suffix = "LT" if dimension == "game" else "Market"
     rows = []
     for category in ["S", "C"]:
-        weight_term = f"weight_{category}"
-        interaction_term = f"weight_{category}_x_{suffix}"
-        base = linear_combination(result, {weight_term: 1.0})
+        effect_term = f"b_{category}_vs_M"
+        interaction_term = f"b_{category}_vs_M_x_{suffix}"
+        base = linear_combination(result, {effect_term: 1.0})
         comparison = linear_combination(
-            result, {weight_term: 1.0, interaction_term: 1.0}
+            result, {effect_term: 1.0, interaction_term: 1.0}
         )
         difference = linear_combination(result, {interaction_term: 1.0})
         row = {
@@ -196,7 +202,7 @@ def fit_dimension(
             "base_group": specification["base_group"],
             "comparison_group": specification["comparison_group"],
             "n_frames": int(result.nobs),
-            "n_unique_pid": int(weights["PROLIFIC_PID"].nunique()),
+            "n_unique_pid": int(analysis["PROLIFIC_PID"].nunique()),
             "r_squared": float(result.rsquared),
         }
         for label, values in [
@@ -210,8 +216,8 @@ def fit_dimension(
 
     parameter_names = list(result.params.index)
     restrictions = np.zeros((2, len(parameter_names)))
-    restrictions[0, parameter_names.index(f"weight_S_x_{suffix}")] = 1.0
-    restrictions[1, parameter_names.index(f"weight_C_x_{suffix}")] = 1.0
+    restrictions[0, parameter_names.index(f"b_S_vs_M_x_{suffix}")] = 1.0
+    restrictions[1, parameter_names.index(f"b_C_vs_M_x_{suffix}")] = 1.0
     joint = result.wald_test(restrictions, scalar=True)
     joint_test = {
         "dimension": dimension,
@@ -338,10 +344,11 @@ def write_summary(
         ["dimension", "category_vs_moral", "estimand"]
     )
     lines = [
-        "Between-subject heterogeneity in HP-weight slopes",
+        "Between-subject heterogeneity in participant-effect slopes",
         (
             "Moral baseline; No-clear classifications excluded; "
-            "game-by-condition fixed effects."
+            "game comparison uses all four cells with cell fixed effects; "
+            "condition comparison uses KW only."
         ),
         "",
     ]

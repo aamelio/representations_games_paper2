@@ -1,0 +1,12 @@
+Between-subject heterogeneity in participant-effect slopes
+Moral baseline; No-clear classifications excluded; game comparison uses all four cells with cell fixed effects; condition comparison uses KW only.
+
+Game: LT minus KW
+  S vs M: KW -0.0389; LT -0.0052; difference +0.0337 (clustered p=0.0582; bootstrap 95% CI [-0.0028, +0.0663]).
+  C vs M: KW -0.0441; LT -0.0281; difference +0.0160 (clustered p=0.3700; bootstrap 95% CI [-0.0193, +0.0482]).
+  Joint interaction test: p=0.1436.
+
+Condition: KW Market minus KW Control
+  S vs M: KW Control -0.0386; KW Market -0.0436; difference -0.0050 (clustered p=0.8746; bootstrap 95% CI [-0.0661, +0.0567]).
+  C vs M: KW Control +0.0459; KW Market -0.0504; difference -0.0963 (clustered p=0.1284; bootstrap 95% CI [-0.2461, +0.0214]).
+  Joint interaction test: p=0.2993.

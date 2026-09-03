@@ -7,7 +7,7 @@
 \usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 
-\title{Participant-Level HP Representation Weights}
+\title{Participant-Level HP Representation Effects}
 \author{}
 \date{}
 
@@ -25,41 +25,37 @@ Each participant-frame provides four HP texts, one for each allocation anchor $a
     \qquad k\in\{M,S,C\},
 \end{equation}
 
-where the participant-frame effects $b_{ki}$ are Gaussian-shrunk and the penalty is selected by cross-validation. The four weights are the fitted probabilities averaged across allocation anchors,
+where the participant-frame effects $b_{ki}$ are Gaussian-shrunk and the penalty is selected by cross-validation. The allocation effects $\alpha_{ka}$ absorb systematic differences across HP anchors; the second stage uses the estimated $b_{Mi}$, $b_{Si}$, and $b_{Ci}$ directly. These effects measure participant deviations in category log odds relative to No clear justification, net of the allocation-anchor effects.
 
-\begin{equation}
-    w_{ik}=\frac{1}{4}\sum_a \widehat{\Pr}(K_{ia}=k).
-\end{equation}
-
-We regress the participant's DG share sent on $w_{iM}$, $w_{iS}$, and $w_{iC}$, with N omitted, controlling for game-by-condition cells. Standard errors are clustered by participant. Confidence intervals refit both stages in 500 participant-cluster bootstrap samples, holding the penalty at its cross-validated value.
+We regress the participant's DG share sent on the three $b_{ki}$ effects, controlling for indicators for LT Control, KW Market, and LT Market, with KW Control omitted. Standard errors are clustered by participant. Confidence intervals refit both stages in 500 participant-cluster bootstrap samples, holding the penalty at its cross-validated value.
 
 \subsection{Four-category results}
 
 \begin{table}[H]
 \centering
-\caption{HP representation weights and DG share sent}
+\caption{HP participant effects and DG share sent}
 \label{tab:hp_weights_dg}
 \begin{tabular}{lccccc}
 \toprule
-Weight & Coefficient & Clustered SE & $p$-value & Bootstrap 95\% CI & Effect of +10 pp \\
+Participant effect & Coefficient & Clustered SE & $p$-value & Bootstrap 95\% CI & Effect of +1 SD \\
 \midrule
-Moral (M) & 0.126 & 0.052 & 0.015 & [0.015, 0.229] & +1.26 \\
-Self-interest (S) & -0.061 & 0.058 & 0.289 & [-0.176, 0.052] & -0.61 \\
-Cooperation (C) & -0.083 & 0.059 & 0.160 & [-0.201, 0.023] & -0.83 \\
+$b_{Mi}$: Moral vs. No clear & 0.033 & 0.008 & $<0.001$ & [0.016, 0.049] & +0.032 \\
+$b_{Si}$: Self-interest vs. No clear & -0.010 & 0.008 & 0.219 & [-0.025, 0.005] & -0.008 \\
+$b_{Ci}$: Cooperation vs. No clear & -0.016 & 0.008 & 0.042 & [-0.031, -0.000] & -0.013 \\
 \midrule
 Observations & 1200 & & & & \\
 $R^2$ & 0.151 & & & & \\
-Game-by-condition controls & Yes & & & & \\
+Four game-by-condition cells & Yes & & & & \\
 \bottomrule
 \end{tabular}
 \begin{flushleft}
-\footnotesize Notes: The omitted weight is No clear justification (N). Coefficients compare a 100-percentage-point shift from N to the indicated category. The final column reports the implied percentage-point change in share sent for a 10-percentage-point shift.
+\footnotesize Notes: No clear justification is the first-stage reference category. Coefficients give the change in share sent for a one-unit increase in the indicated participant log-odds effect. The final column rescales this change to one sample standard deviation.
 \end{flushleft}
 \end{table}
 
-A 10-percentage-point increase in the Moral weight predicts a 1.26-percentage-point increase in share sent. Its bootstrap confidence interval excludes zero. The estimates for Self-interest and Cooperation are negative, but their confidence intervals include zero.
+The coefficients report predictive associations between the direct participant-category effects and DG share sent; they are not causal effects.
 
-In grouped 10-fold cross-validation, adding the weights raises out-of-sample $R^2$ from 0.129 to 0.137 ($\Delta R^2=0.008$) and lowers RMSE from 0.2115 to 0.2105. Thus the weights add predictive information, but the incremental gain is small. These results are predictive associations, not causal effects.
+In grouped 10-fold cross-validation, adding the participant effects changes out-of-sample $R^2$ from 0.129 to 0.137 ($\Delta R^2=0.008$) and changes RMSE from 0.2115 to 0.2104.
 
 \subsection{Moral baseline, excluding No clear justification}
 
@@ -70,61 +66,61 @@ We remove all No clear justification classifications and re-estimate the model o
     \qquad k\in\{S,C\}.
 \end{equation}
 
-The analysis retains 3,059 substantive HP classifications from 1,060 participant-frames. The 140 frames containing only No clear classifications are excluded. The M/S/C weights are fitted probabilities conditional on a substantive classification and sum to one.
+The analysis retains 3,059 substantive HP classifications from 1,060 participant-frames. The 140 frames containing only No clear classifications are excluded. The estimated $b_{Si}$ and $b_{Ci}$ are participant-frame deviations in the log odds of Self-interest and Cooperation relative to Moral, net of the allocation-anchor effects.
 
 \begin{table}[H]
 \centering
-\caption{Moral-baseline HP weights and DG share sent}
+\caption{Moral-baseline participant effects and DG share sent}
 \label{tab:hp_weights_moral_baseline}
 \begin{tabular}{lccccc}
 \toprule
-Weight & Coefficient & Clustered SE & $p$-value & Bootstrap 95\% CI & Effect of +10 pp \\
+Participant effect & Coefficient & Clustered SE & $p$-value & Bootstrap 95\% CI & Effect of +1 SD \\
 \midrule
-Self-interest (S) & -0.199 & 0.058 & $<0.001$ & [-0.303, -0.081] & -1.99 \\
-Cooperation (C) & -0.251 & 0.055 & $<0.001$ & [-0.352, -0.140] & -2.51 \\
+$b_{Si}$: Self-interest vs. Moral & -0.022 & 0.009 & 0.015 & [-0.037, -0.003] & -0.017 \\
+$b_{Ci}$: Cooperation vs. Moral & -0.035 & 0.009 & $<0.001$ & [-0.052, -0.018] & -0.030 \\
 \midrule
 Observations & 1060 & & & & \\
-$R^2$ & 0.162 & & & & \\
-Game-by-condition controls & Yes & & & & \\
+$R^2$ & 0.161 & & & & \\
+Four game-by-condition cells & Yes & & & & \\
 \bottomrule
 \end{tabular}
 \begin{flushleft}
-\footnotesize Notes: The omitted weight is Moral (M). Coefficients compare a 100-percentage-point shift from M to the indicated category. The final column reports the implied percentage-point change in share sent for a 10-percentage-point shift. Confidence intervals use 500 participant-cluster bootstrap samples.
+\footnotesize Notes: Moral is the first-stage reference category. Coefficients give the change in share sent for a one-unit increase in the indicated participant log-odds effect. The final column rescales this change to one sample standard deviation. Confidence intervals use 500 participant-cluster bootstrap samples.
 \end{flushleft}
 \end{table}
 
-The bootstrap interval for Self-interest excludes zero; the interval for Cooperation excludes zero. In grouped 10-fold cross-validation, adding the weights changes out-of-sample $R^2$ from 0.134 to 0.148 ($\Delta R^2=0.014$).
+The bootstrap interval for the Self-interest participant effect excludes zero; the interval for the Cooperation participant effect excludes zero. In grouped 10-fold cross-validation, adding the participant effects changes out-of-sample $R^2$ from 0.134 to 0.147 ($\Delta R^2=0.013$).
 
 \subsection{Heterogeneity by game and condition}
 
-Using the Moral-baseline sample, we interact the S and C weights first with an LT indicator (KW omitted), and then with a Market indicator (Control omitted). Both models retain game-by-condition fixed effects.
+Using the Moral-baseline sample, we interact $b_{Si}$ and $b_{Ci}$ first with an LT indicator, using KW as the reference game. This regression includes indicators for LT Control, KW Market, and LT Market, with KW Control omitted; hence average allocations may differ across all four game-by-condition cells. For the condition comparison, we retain only KW observations and interact the participant effects with a Market indicator, using KW Control as the reference cell.
 
 \begin{table}[H]
 \centering
-\caption{Heterogeneity in HP-weight slopes}
+\caption{Heterogeneity in participant-effect slopes}
 \label{tab:hp_weight_heterogeneity}
 \begin{tabular}{lccccc}
 \toprule
 \multicolumn{6}{l}{\textit{Panel A: By DG game}} \\
-Weight & KW slope & LT slope & LT $-$ KW & Bootstrap 95\% CI & $p$-value \\
-Self-interest (S) & -0.305 (0.095) & -0.094 (0.065) & 0.211 (0.115) & [0.001, 0.420] & 0.067 \\
-Cooperation (C) & -0.337 (0.089) & -0.172 (0.068) & 0.166 (0.112) & [-0.052, 0.369] & 0.139 \\
-\multicolumn{5}{l}{Joint test of both interactions} & 0.177 \\
+Participant effect & KW slope & LT slope & LT $-$ KW & Bootstrap 95\% CI & $p$-value \\
+$b_{Si}$: Self-interest vs. Moral & -0.039 (0.015) & -0.005 (0.010) & 0.034 (0.018) & [-0.003, 0.066] & 0.058 \\
+$b_{Ci}$: Cooperation vs. Moral & -0.044 (0.014) & -0.028 (0.011) & 0.016 (0.018) & [-0.019, 0.048] & 0.370 \\
+\multicolumn{5}{l}{Joint test of both interactions} & 0.144 \\
 \addlinespace
-\multicolumn{6}{l}{\textit{Panel B: By condition}} \\
-Weight & Control slope & Market slope & Market $-$ Control & Bootstrap 95\% CI & $p$-value \\
-Self-interest (S) & -0.068 (0.112) & -0.243 (0.067) & -0.174 (0.131) & [-0.433, 0.080] & 0.184 \\
-Cooperation (C) & -0.297 (0.278) & -0.276 (0.060) & 0.022 (0.285) & [-0.622, 0.538] & 0.939 \\
-\multicolumn{5}{l}{Joint test of both interactions} & 0.314 \\
+\multicolumn{6}{l}{\textit{Panel B: By condition, KW only}} \\
+Participant effect & KW Control slope & KW Market slope & Market $-$ Control & Bootstrap 95\% CI & $p$-value \\
+$b_{Si}$: Self-interest vs. Moral & -0.039 (0.026) & -0.044 (0.018) & -0.005 (0.032) & [-0.066, 0.057] & 0.875 \\
+$b_{Ci}$: Cooperation vs. Moral & 0.046 (0.061) & -0.050 (0.015) & -0.096 (0.063) & [-0.246, 0.021] & 0.128 \\
+\multicolumn{5}{l}{Joint test of both interactions} & 0.299 \\
 \addlinespace
 \bottomrule
 \end{tabular}
 \begin{flushleft}
-\footnotesize Notes: Moral is the omitted weight and No-clear classifications are excluded. Entries in parentheses are participant-clustered standard errors. Bootstrap intervals are for the slope difference and refit both stages in 500 participant-cluster samples.
+\footnotesize Notes: Moral is the first-stage reference category and No-clear classifications are excluded. Slopes refer to the direct participant log-odds effects. Entries in parentheses are participant-clustered standard errors. Bootstrap intervals are for the slope difference and refit both stages in 500 participant-cluster samples.
 \end{flushleft}
 \end{table}
 
-The joint tests provide no clear evidence of heterogeneity by game ($p=0.177$) and no clear evidence of heterogeneity by condition ($p=0.314$).
+The joint tests provide no clear evidence of heterogeneity by game ($p=0.144$) and no clear evidence of heterogeneity by condition ($p=0.299$).
 
 \section{Within-subject analysis}
 
@@ -136,8 +132,8 @@ The within-subject data contain 1,799 participants and 14,392 HP responses from 
  \log\frac{\Pr(K_{iat}=k)}{\Pr(K_{iat}=M)}=\alpha_{ka}+\tau_{k1}\mathrm{Market}_{it}+\tau_{k2}\mathrm{KW}_{it}+\tau_{k3}(\mathrm{Market}\times\mathrm{KW})_{it}+b_{ki}, \qquad k\in\{S,C\}.
 \end{equation}
 
-The estimation sample contains 9,467 substantive classifications and 1,732 participants; participants whose HP descriptions are all N are excluded. Allocation, treatment, and participant effects are estimated jointly.
-To match the between-subject analysis, we express the participant effects as M/S/C prevalence weights. For participant $i$, $w^P_{ik}$ is the fitted probability of category $k$, averaged over the four allocation anchors and evaluated at the common LT-Control reference. The treatment component $\Delta^T_{itk}$ is the probability shift from LT Control to the participant's current Market/KW cell, evaluated at zero participant effect. Both sets of components sum to one (weights) or zero (shifts), so Moral is omitted.
+The estimation sample contains 9,467 substantive classifications and 1,732 participants; participants whose HP descriptions are all N are excluded. Allocation, treatment, and Gaussian-shrunk participant effects are estimated jointly; cross-validation selects $\lambda=2$.
+In the current within-subject specification, we express the participant effects as M/S/C prevalence weights. For participant $i$, $w^P_{ik}$ is the fitted probability of category $k$, averaged over the four allocation anchors and evaluated at the common LT-Control reference. The treatment component $\Delta^T_{itk}$ is the probability shift from LT Control to the participant's current Market/KW cell, evaluated at zero participant effect. Both sets of components sum to one (weights) or zero (shifts), so Moral is omitted.
 
 \begin{table}[H]
 \centering

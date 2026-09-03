@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Re-estimate HP representation weights on M/S/C with Moral as the baseline.
+"""Estimate direct participant HP effects on M/S/C with Moral as the baseline.
 
 All "No clear justification" HP rows are removed. Participant-frames with no
 remaining substantive classification are excluded because they contain no
 participant-specific information with which to estimate an M/S/C prevalence.
 
-Outputs are written to output/moral_baseline/. The
+The second stage uses the estimated S-versus-M and C-versus-M participant
+effects directly; fitted probabilities are retained only for auditing.
+
+Outputs are written to output/moral_baseline_participant_effects/. The
 participant-cluster bootstrap is resumable and the completed analysis
 regenerates ../../../hps_weights.tex through the shared report generator.
 
@@ -35,7 +38,7 @@ import statsmodels.api as sm
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "output" / "moral_baseline"
+OUT = ROOT / "output" / "moral_baseline_participant_effects"
 PROGRESS = OUT / "progress.json"
 BASE_SCRIPT = Path(__file__).resolve().parent / "01_participant_representation_model.py"
 BASE_CATEGORY = "Moral"
@@ -114,7 +117,7 @@ def model_fingerprint(source_hash: str, lambda_grid: list[float]) -> str:
         "hp_levels": HP_LEVELS,
         "lambda_grid": lambda_grid,
         "participant_unit": "PROLIFIC_PID x treatment x Market",
-        "second_stage": "share_sent on S/C weights plus game-by-condition FE; M omitted",
+        "second_stage": "share_sent on direct S/C-versus-M participant effects plus game-by-condition FE",
     }
     return hashlib.sha256(
         json.dumps(specification, sort_keys=True).encode("utf-8")
@@ -370,6 +373,16 @@ def build_weights(
         as_index=False,
         observed=True,
     )[probability_columns].mean()
+    effect_rows = []
+    for group_index, frame_id in enumerate(group_names):
+        effect_rows.append({
+            "frame_id": frame_id,
+            "b_S_vs_M": fit.participant[group_index, 0],
+            "b_C_vs_M": fit.participant[group_index, 1],
+        })
+    weights = weights.merge(
+        pd.DataFrame(effect_rows), on="frame_id", validate="one_to_one"
+    )
     weights["fitted_probability_sum"] = weights[probability_columns].sum(axis=1)
     return anchor_output, weights
 
@@ -377,8 +390,8 @@ def build_weights(
 def regression_design(weights: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame({
         "const": 1.0,
-        "weight_S": weights["fitted_probability_S"].astype(float),
-        "weight_C": weights["fitted_probability_C"].astype(float),
+        "b_S_vs_M": weights["b_S_vs_M"].astype(float),
+        "b_C_vs_M": weights["b_C_vs_M"].astype(float),
         "cell_lt_control": (weights["cell"] == "lt_control").astype(float),
         "cell_kw_market": (weights["cell"] == "kw_market").astype(float),
         "cell_lt_market": (weights["cell"] == "lt_market").astype(float),
@@ -407,8 +420,9 @@ def fit_second_stage(weights: pd.DataFrame) -> tuple[pd.DataFrame, object]:
             "n_unique_pid": weights["PROLIFIC_PID"].nunique(),
             "r_squared": result.rsquared,
             "outcome_mean": weights["share_sent"].mean(),
-            "omitted_category_weight": "M (Moral)",
+            "first_stage_reference_category": "M (Moral)",
             "cell_reference": "kw_control",
+            "predictor_std_dev": float(design[term].std(ddof=1)),
         })
     return pd.DataFrame(rows), result
 
@@ -424,7 +438,7 @@ def grouped_behavior_cv(weights: pd.DataFrame, n_folds: int = 10) -> pd.DataFram
     baseline_design = full_design[:, [0, 3, 4, 5]]
     predictions = {
         "cell_only": np.full(len(weights), np.nan),
-        "cell_plus_representation_weights": np.full(len(weights), np.nan),
+        "cell_plus_participant_effects": np.full(len(weights), np.nan),
     }
     rows = []
     for held_fold in range(n_folds):
@@ -432,7 +446,7 @@ def grouped_behavior_cv(weights: pd.DataFrame, n_folds: int = 10) -> pd.DataFram
         test = ~train
         for model_name, design in [
             ("cell_only", baseline_design),
-            ("cell_plus_representation_weights", full_design),
+            ("cell_plus_participant_effects", full_design),
         ]:
             coefficients = np.linalg.lstsq(design[train], outcome[train], rcond=None)[0]
             prediction = design[test] @ coefficients
@@ -462,14 +476,14 @@ def grouped_behavior_cv(weights: pd.DataFrame, n_folds: int = 10) -> pd.DataFram
     increment = {
         "scope": "increment",
         "fold": np.nan,
-        "model": "representation_weights_minus_cell_only",
+        "model": "participant_effects_minus_cell_only",
         "n_test_frames": len(weights),
-        "rmse": pooled.loc["cell_plus_representation_weights", "rmse"]
+        "rmse": pooled.loc["cell_plus_participant_effects", "rmse"]
         - pooled.loc["cell_only", "rmse"],
-        "mae": pooled.loc["cell_plus_representation_weights", "mae"]
+        "mae": pooled.loc["cell_plus_participant_effects", "mae"]
         - pooled.loc["cell_only", "mae"],
         "out_of_sample_r_squared": pooled.loc[
-            "cell_plus_representation_weights", "out_of_sample_r_squared"
+            "cell_plus_participant_effects", "out_of_sample_r_squared"
         ] - pooled.loc["cell_only", "out_of_sample_r_squared"],
     }
     return pd.concat([output, pd.DataFrame([increment])], ignore_index=True)
@@ -523,7 +537,7 @@ def run_fit(lambda_grid: list[float]) -> None:
     )
     atomic_write_csv(
         weights,
-        OUT / "participant_frame_category_weights.csv",
+        OUT / "participant_frame_effects.csv",
     )
     regressions, _ = fit_second_stage(weights)
     behavior_cv = grouped_behavior_cv(weights)
@@ -561,7 +575,7 @@ def bootstrap_one(data: pd.DataFrame, penalty: float, replicate: int) -> list[di
             "n_frames": len(weights),
             "n_bootstrap_clusters": weights["PROLIFIC_PID"].nunique(),
         }
-        for term in ["weight_S", "weight_C"]
+        for term in ["b_S_vs_M", "b_C_vs_M"]
     ]
 
 
@@ -652,7 +666,7 @@ def show_status() -> None:
     for name in [
         "sample_summary.json",
         "first_stage_lambda_cv.csv",
-        "participant_frame_category_weights.csv",
+        "participant_frame_effects.csv",
         "second_stage_regressions.csv",
         "second_stage_grouped_cv.csv",
         "bootstrap_draws.csv",

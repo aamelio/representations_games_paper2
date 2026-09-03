@@ -1,0 +1,14 @@
+{
+  "n_excluded_all_no_clear_frames": 140,
+  "n_original_frames": 1200,
+  "n_original_hp_rows": 4800,
+  "n_substantive_hp_rows": 3059,
+  "n_unique_pid": 990,
+  "n_usable_frames": 1060,
+  "substantive_rows_per_frame": {
+    "1": 178,
+    "2": 181,
+    "3": 285,
+    "4": 416
+  }
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Estimate participant-level HP representation weights and predict DG choices.
+"""Estimate participant-level HP category effects and predict DG choices.
 
 The first stage implements a partially pooled four-category multinomial logit:
 
@@ -12,13 +12,12 @@ equivalent to a zero-mean Gaussian prior in a maximum-a-posteriori fit. The
 penalty is selected by four-fold cross-validation that holds out one of each
 frame's four HP responses in every fold.
 
-The four participant-frame weights are fitted probabilities averaged over the
-four HP allocation anchors. The second stage regresses the participant's actual
-DG share sent on M, S, and C weights (N omitted) plus game-by-condition fixed
-effects, with standard errors clustered by Prolific ID. It also reports grouped
-out-of-sample prediction relative to game-by-condition effects alone.
+The second stage uses the estimated participant-frame effects directly. It
+regresses the participant's actual DG share sent on the M-, S-, and C-versus-N
+effects plus game-by-condition fixed effects, with standard errors clustered by
+Prolific ID. Fitted category probabilities are retained only as audit outputs.
 
-All outputs go under output/four_category/. The optional participant-
+All outputs go under output/four_category_participant_effects/. The optional participant-
 cluster bootstrap refits both stages and checkpoints every few replicates.
 
 Usage:
@@ -50,7 +49,7 @@ INPUT = (
     ROOT.parent / "rounds4_9" / "hp_similarity" / "data"
     / "hp_responses_classified_and_rated.csv"
 )
-OUT = ROOT / "output" / "four_category"
+OUT = ROOT / "output" / "four_category_participant_effects"
 PROGRESS = OUT / "progress.json"
 TEX_OUTPUT = ROOT.parent.parent / "hps_weights.tex"
 
@@ -112,7 +111,7 @@ def model_fingerprint(source_hash: str, lambda_grid: Iterable[float]) -> str:
         "hp_levels": HP_LEVELS,
         "lambda_grid": list(lambda_grid),
         "participant_unit": "PROLIFIC_PID x treatment x Market",
-        "second_stage": "share_sent on M/S/C weights plus game-by-condition FE",
+        "second_stage": "share_sent on direct M/S/C-versus-N participant effects plus game-by-condition FE",
     }
     payload = json.dumps(specification, sort_keys=True).encode("utf-8")
     return hashlib.sha256(payload).hexdigest()
@@ -358,6 +357,11 @@ def build_fitted_outputs(
     ]].copy()
     for category_index, category in enumerate(CATEGORIES):
         row_output[f"fitted_probability_{CATEGORY_SHORT[category]}"] = probabilities[:, category_index]
+    effect_columns = []
+    for category_index, category in enumerate(MODELED_CATEGORIES):
+        column = f"b_{CATEGORY_SHORT[category]}_vs_N"
+        effect_columns.append(column)
+        row_output[column] = fit.participant[group_codes, category_index]
 
     metadata = data.groupby("frame_id", as_index=False, observed=True).agg(
         PROLIFIC_PID=("PROLIFIC_PID", "first"),
@@ -371,7 +375,10 @@ def build_fitted_outputs(
     )
     fitted_columns = [f"fitted_probability_{CATEGORY_SHORT[c]}" for c in CATEGORIES]
     fitted = row_output.groupby("frame_id", as_index=False, observed=True)[fitted_columns].mean()
-    weights = metadata.merge(fitted, on="frame_id", validate="one_to_one")
+    effects = row_output.groupby("frame_id", as_index=False, observed=True)[effect_columns].first()
+    weights = metadata.merge(fitted, on="frame_id", validate="one_to_one").merge(
+        effects, on="frame_id", validate="one_to_one"
+    )
     weights["fitted_probability_sum"] = weights[fitted_columns].sum(axis=1)
     weights["dominant_fitted_category"] = weights[fitted_columns].idxmax(axis=1).str.replace(
         "fitted_probability_", "", regex=False
@@ -382,9 +389,9 @@ def build_fitted_outputs(
 def regression_design(weights: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame({
         "const": 1.0,
-        "weight_M": weights["fitted_probability_M"].astype(float),
-        "weight_S": weights["fitted_probability_S"].astype(float),
-        "weight_C": weights["fitted_probability_C"].astype(float),
+        "b_M_vs_N": weights["b_M_vs_N"].astype(float),
+        "b_S_vs_N": weights["b_S_vs_N"].astype(float),
+        "b_C_vs_N": weights["b_C_vs_N"].astype(float),
         "cell_lt_control": (weights["cell"] == "lt_control").astype(float),
         "cell_kw_market": (weights["cell"] == "kw_market").astype(float),
         "cell_lt_market": (weights["cell"] == "lt_market").astype(float),
@@ -415,8 +422,9 @@ def fit_ols_clustered(
             "n_unique_pid": weights["PROLIFIC_PID"].nunique(),
             "r_squared": result.rsquared,
             "outcome_mean": weights["share_sent"].mean(),
-            "omitted_category_weight": "N (No clear justification)",
+            "first_stage_reference_category": "N (No clear justification)",
             "cell_reference": "kw_control",
+            "predictor_std_dev": float(design[term].std(ddof=1)),
         })
     return pd.DataFrame(rows), result
 
@@ -432,7 +440,7 @@ def grouped_behavior_cv(weights: pd.DataFrame, n_folds: int = 10) -> pd.DataFram
     baseline_design = full_design[:, [0, 4, 5, 6]]
     predictions = {
         "cell_only": np.full(len(weights), np.nan),
-        "cell_plus_representation_weights": np.full(len(weights), np.nan),
+        "cell_plus_participant_effects": np.full(len(weights), np.nan),
     }
     rows = []
     for held_fold in range(n_folds):
@@ -440,7 +448,7 @@ def grouped_behavior_cv(weights: pd.DataFrame, n_folds: int = 10) -> pd.DataFram
         test = ~train
         for model_name, design in [
             ("cell_only", baseline_design),
-            ("cell_plus_representation_weights", full_design),
+            ("cell_plus_participant_effects", full_design),
         ]:
             coefficients = np.linalg.lstsq(design[train], outcome[train], rcond=None)[0]
             prediction = design[test] @ coefficients
@@ -470,14 +478,14 @@ def grouped_behavior_cv(weights: pd.DataFrame, n_folds: int = 10) -> pd.DataFram
     improvement = {
         "scope": "increment",
         "fold": np.nan,
-        "model": "representation_weights_minus_cell_only",
+        "model": "participant_effects_minus_cell_only",
         "n_test_frames": len(weights),
-        "rmse": pooled.loc["cell_plus_representation_weights", "rmse"]
+        "rmse": pooled.loc["cell_plus_participant_effects", "rmse"]
         - pooled.loc["cell_only", "rmse"],
-        "mae": pooled.loc["cell_plus_representation_weights", "mae"]
+        "mae": pooled.loc["cell_plus_participant_effects", "mae"]
         - pooled.loc["cell_only", "mae"],
         "out_of_sample_r_squared": pooled.loc[
-            "cell_plus_representation_weights", "out_of_sample_r_squared"
+            "cell_plus_participant_effects", "out_of_sample_r_squared"
         ] - pooled.loc["cell_only", "out_of_sample_r_squared"],
     }
     return pd.concat([output, pd.DataFrame([improvement])], ignore_index=True)
@@ -498,11 +506,11 @@ def summary_text(
     main = regressions[
         (regressions["model"] == "partial_pooling_cell_adjusted")
         & (regressions["outcome"] == "share_sent")
-        & regressions["term"].isin(["weight_M", "weight_S", "weight_C"])
+        & regressions["term"].isin(["b_M_vs_N", "b_S_vs_N", "b_C_vs_N"])
     ]
     pooled_cv = behavior_cv[behavior_cv["scope"].isin(["pooled", "increment"])]
     lines = [
-        "Participant-level HP representation exercise (four categories)",
+        "Participant-level HP effect exercise (four categories)",
         "=" * 62,
         f"Input: {INPUT.name}",
         f"Input SHA-256: {source_hash}",
@@ -525,14 +533,14 @@ def summary_text(
         f"- Optimizer converged: {fit.success}; iterations: {fit.iterations}; "
         f"max |gradient|: {fit.gradient_max:.3g}; objective: {fit.objective:.3f}.",
         f"- Optimizer message: {fit.message}",
-        "- Weights are fitted probabilities averaged over the four HP anchors.",
+        "- The direct participant-frame effects b_M, b_S, and b_C are retained for the second stage.",
         "",
         "Second stage",
         "- Main outcome: share sent = (12 - allocation kept)/12.",
-        "- Predictors: M, S, C weights; N omitted because the four weights sum to one.",
-        "- Controls: game-by-condition indicators; reference cell is KW Control.",
+        "- Predictors: b_M, b_S, and b_C, each measured relative to N in first-stage log odds.",
+        "- Controls: indicators for LT Control, KW Market, and LT Market; reference cell is KW Control.",
         "- Standard errors clustered by Prolific ID.",
-        "- A coefficient is a 100pp shift from N; divide by 10 for a 10pp shift.",
+        "- Coefficients are changes in share sent for a one-unit increase in the indicated log-odds effect.",
         "",
         "Main cell-adjusted coefficients (share sent)",
     ]
@@ -583,7 +591,7 @@ def run_fit(lambda_grid: list[float]) -> None:
     if not np.allclose(weights["fitted_probability_sum"], 1.0, atol=1e-10):
         raise AssertionError("Participant-frame fitted probabilities do not sum to one.")
     atomic_write_csv(fitted_rows, OUT / "hp_fitted_probabilities.csv")
-    atomic_write_csv(weights, OUT / "participant_frame_category_weights.csv")
+    atomic_write_csv(weights, OUT / "participant_frame_effects.csv")
 
     write_progress(stage="fitting_second_stage")
     regressions, _ = fit_ols_clustered(weights)
@@ -640,7 +648,7 @@ def bootstrap_one(data: pd.DataFrame, penalty: float, replicate: int) -> list[di
     _, weights = build_fitted_outputs(sample, fit, fixed_design, group_codes)
     _, result = fit_ols_clustered(weights)
     rows = []
-    for term in ["weight_M", "weight_S", "weight_C"]:
+    for term in ["b_M_vs_N", "b_S_vs_N", "b_C_vs_N"]:
         rows.append({
             "replicate": replicate,
             "term": term,
@@ -658,7 +666,7 @@ def summarize_bootstrap(draws: pd.DataFrame, regressions: pd.DataFrame) -> pd.Da
     point = regressions[
         (regressions["model"] == "partial_pooling_cell_adjusted")
         & (regressions["outcome"] == "share_sent")
-        & regressions["term"].isin(["weight_M", "weight_S", "weight_C"])
+        & regressions["term"].isin(["b_M_vs_N", "b_S_vs_N", "b_C_vs_N"])
     ].set_index("term")["coefficient"]
     records = []
     for term, group in draws.groupby("term", observed=True):
@@ -698,7 +706,7 @@ def add_bootstrap_to_summary(summary: pd.DataFrame) -> None:
 
 
 def moral_baseline_tex_section() -> list[str]:
-    moral_out = ROOT / "output" / "moral_baseline"
+    moral_out = ROOT / "output" / "moral_baseline_participant_effects"
     required = [
         moral_out / "second_stage_regressions.csv",
         moral_out / "bootstrap_summary.csv",
@@ -713,11 +721,11 @@ def moral_baseline_tex_section() -> list[str]:
     sample = json.loads(required[3].read_text(encoding="utf-8"))
     pooled_cv = behavior_cv[behavior_cv["scope"] == "pooled"].set_index("model")
     labels = {
-        "weight_S": "Self-interest (S)",
-        "weight_C": "Cooperation (C)",
+        "b_S_vs_M": r"$b_{Si}$: Self-interest vs. Moral",
+        "b_C_vs_M": r"$b_{Ci}$: Cooperation vs. Moral",
     }
     rows = []
-    for term in ["weight_S", "weight_C"]:
+    for term in ["b_S_vs_M", "b_C_vs_M"]:
         row = regression.loc[term]
         boot = bootstrap.loc[term]
         p_value = (
@@ -730,13 +738,13 @@ def moral_baseline_tex_section() -> list[str]:
             f"{row['std_error_clustered_pid']:.3f} & {p_value} & "
             f"[{boot['bootstrap_ci95_low_percentile']:.3f}, "
             f"{boot['bootstrap_ci95_high_percentile']:.3f}] & "
-            f"{10.0 * row['coefficient']:+.2f} \\\\"
+            f"{row['coefficient'] * row['predictor_std_dev']:+.3f} \\\\"
         )
     cell_only = pooled_cv.loc["cell_only"]
-    full = pooled_cv.loc["cell_plus_representation_weights"]
+    full = pooled_cv.loc["cell_plus_participant_effects"]
     incremental_r2 = full["out_of_sample_r_squared"] - cell_only["out_of_sample_r_squared"]
-    s_boot = bootstrap.loc["weight_S"]
-    c_boot = bootstrap.loc["weight_C"]
+    s_boot = bootstrap.loc["b_S_vs_M"]
+    c_boot = bootstrap.loc["b_C_vs_M"]
     s_result = (
         "excludes zero"
         if s_boot["bootstrap_ci95_low_percentile"] > 0
@@ -764,37 +772,39 @@ def moral_baseline_tex_section() -> list[str]:
         f"The analysis retains {int(sample['n_substantive_hp_rows']):,} substantive HP "
         f"classifications from {int(sample['n_usable_frames']):,} participant-frames. "
         f"The {int(sample['n_excluded_all_no_clear_frames'])} frames containing only "
-        r"No clear classifications are excluded. The M/S/C weights are fitted "
-        r"probabilities conditional on a substantive classification and sum to one.",
+        r"No clear classifications are excluded. The estimated $b_{Si}$ and "
+        r"$b_{Ci}$ are participant-frame deviations in the log odds of Self-interest "
+        r"and Cooperation relative to Moral, net of the allocation-anchor effects.",
         "",
         r"\begin{table}[H]",
         r"\centering",
-        r"\caption{Moral-baseline HP weights and DG share sent}",
+        r"\caption{Moral-baseline participant effects and DG share sent}",
         r"\label{tab:hp_weights_moral_baseline}",
         r"\begin{tabular}{lccccc}",
         r"\toprule",
-        r"Weight & Coefficient & Clustered SE & $p$-value & Bootstrap 95\% CI "
-        r"& Effect of +10 pp \\",
+        r"Participant effect & Coefficient & Clustered SE & $p$-value & Bootstrap 95\% CI "
+        r"& Effect of +1 SD \\",
         r"\midrule",
         *rows,
         r"\midrule",
         f"Observations & {int(regression.loc['const', 'n_frames'])} & & & & \\\\",
         f"$R^2$ & {regression.loc['const', 'r_squared']:.3f} & & & & \\\\",
-        r"Game-by-condition controls & Yes & & & & \\",
+        r"Four game-by-condition cells & Yes & & & & \\",
         r"\bottomrule",
         r"\end{tabular}",
         r"\begin{flushleft}",
-        r"\footnotesize Notes: The omitted weight is Moral (M). Coefficients compare "
-        r"a 100-percentage-point shift from M to the indicated category. The final "
-        r"column reports the implied percentage-point change in share sent for a "
-        r"10-percentage-point shift. Confidence intervals use 500 participant-cluster "
+        r"\footnotesize Notes: Moral is the first-stage reference category. Coefficients "
+        r"give the change in share sent for a one-unit increase in the indicated "
+        r"participant log-odds effect. The final column rescales this change to one "
+        r"sample standard deviation. Confidence intervals use 500 participant-cluster "
         r"bootstrap samples.",
         r"\end{flushleft}",
         r"\end{table}",
         "",
-        f"The bootstrap interval for Self-interest {s_result}; the interval for "
-        f"Cooperation {c_result}. In grouped 10-fold cross-validation, adding the "
-        f"weights changes out-of-sample $R^2$ from "
+        f"The bootstrap interval for the Self-interest participant effect {s_result}; "
+        f"the interval for the Cooperation participant effect "
+        f"{c_result}. In grouped 10-fold cross-validation, adding the participant "
+        f"effects changes out-of-sample $R^2$ from "
         f"{cell_only['out_of_sample_r_squared']:.3f} to "
         f"{full['out_of_sample_r_squared']:.3f} "
         f"($\\Delta R^2={incremental_r2:.3f}$).",
@@ -802,7 +812,7 @@ def moral_baseline_tex_section() -> list[str]:
 
 
 def heterogeneity_tex_section() -> list[str]:
-    heterogeneity_out = ROOT / "output" / "heterogeneity"
+    heterogeneity_out = ROOT / "output" / "heterogeneity_participant_effects"
     required = [
         heterogeneity_out / "point_estimates.csv",
         heterogeneity_out / "bootstrap_summary.csv",
@@ -815,15 +825,18 @@ def heterogeneity_tex_section() -> list[str]:
         ["dimension", "category_vs_moral", "estimand"]
     )
     joint = pd.read_csv(required[2]).set_index("dimension")
-    labels = {"S": "Self-interest (S)", "C": "Cooperation (C)"}
+    labels = {
+        "S": r"$b_{Si}$: Self-interest vs. Moral",
+        "C": r"$b_{Ci}$: Cooperation vs. Moral",
+    }
     panels = []
     panel_specs = [
         ("game", "Panel A: By DG game", "KW", "LT", "LT $-$ KW"),
         (
             "condition",
-            "Panel B: By condition",
-            "Control",
-            "Market",
+            "Panel B: By condition, KW only",
+            "KW Control",
+            "KW Market",
             "Market $-$ Control",
         ),
     ]
@@ -837,7 +850,7 @@ def heterogeneity_tex_section() -> list[str]:
         panels.extend([
             rf"\multicolumn{{6}}{{l}}{{\textit{{{panel_title}}}}} \\",
             (
-                rf"Weight & {base_label} slope & {comparison_label} slope & "
+            rf"Participant effect & {base_label} slope & {comparison_label} slope & "
                 rf"{difference_label} & Bootstrap 95\% CI & $p$-value \\"
             ),
         ])
@@ -882,13 +895,17 @@ def heterogeneity_tex_section() -> list[str]:
         "",
         r"\subsection{Heterogeneity by game and condition}",
         "",
-        r"Using the Moral-baseline sample, we interact the S and C weights first "
-        r"with an LT indicator (KW omitted), and then with a Market indicator "
-        r"(Control omitted). Both models retain game-by-condition fixed effects.",
+        r"Using the Moral-baseline sample, we interact $b_{Si}$ and $b_{Ci}$ first "
+        r"with an LT indicator, using KW as the reference game. This regression "
+        r"includes indicators for LT Control, KW Market, and LT Market, with KW "
+        r"Control omitted; hence average allocations may differ across all four "
+        r"game-by-condition cells. For the condition comparison, we retain only KW "
+        r"observations and interact the participant effects with a Market indicator, "
+        r"using KW Control as the reference cell.",
         "",
         r"\begin{table}[H]",
         r"\centering",
-        r"\caption{Heterogeneity in HP-weight slopes}",
+        r"\caption{Heterogeneity in participant-effect slopes}",
         r"\label{tab:hp_weight_heterogeneity}",
         r"\begin{tabular}{lccccc}",
         r"\toprule",
@@ -896,8 +913,9 @@ def heterogeneity_tex_section() -> list[str]:
         r"\bottomrule",
         r"\end{tabular}",
         r"\begin{flushleft}",
-        r"\footnotesize Notes: Moral is the omitted weight and No-clear "
-        r"classifications are excluded. Entries in parentheses are participant-"
+        r"\footnotesize Notes: Moral is the first-stage reference category and No-clear "
+        r"classifications are excluded. Slopes refer to the direct participant log-odds "
+        r"effects. Entries in parentheses are participant-"
         r"clustered standard errors. Bootstrap intervals are for the slope "
         r"difference and refit both stages in 500 participant-cluster samples.",
         r"\end{flushleft}",
@@ -1071,8 +1089,8 @@ def within_subject_tex_section() -> list[str]:
         f"substantive classifications and {int(sample['n_subjects_usable']):,} "
         r"participants; participants whose HP descriptions are all N are excluded. "
         r"Allocation, treatment, and Gaussian-shrunk participant effects are estimated "
-        f"jointly; cross-validation selects $\lambda={sample['selected_lambda']:.3g}$.",
-        r"To match the between-subject analysis, we express the participant effects as "
+        rf"jointly; cross-validation selects $\lambda={sample['selected_lambda']:.3g}$.",
+        r"In the current within-subject specification, we express the participant effects as "
         r"M/S/C prevalence weights. For participant $i$, $w^P_{ik}$ is the fitted "
         r"probability of category $k$, averaged over the four allocation anchors and "
         r"evaluated at the common LT-Control reference. The treatment component "
@@ -1177,15 +1195,15 @@ def write_tex_document(
     bootstrap_by_term = bootstrap.set_index("term")
     pooled_cv = behavior_cv[behavior_cv["scope"] == "pooled"].set_index("model")
     labels = {
-        "weight_M": "Moral (M)",
-        "weight_S": "Self-interest (S)",
-        "weight_C": "Cooperation (C)",
+        "b_M_vs_N": r"$b_{Mi}$: Moral vs. No clear",
+        "b_S_vs_N": r"$b_{Si}$: Self-interest vs. No clear",
+        "b_C_vs_N": r"$b_{Ci}$: Cooperation vs. No clear",
     }
     table_rows = []
-    for term in ["weight_M", "weight_S", "weight_C"]:
+    for term in ["b_M_vs_N", "b_S_vs_N", "b_C_vs_N"]:
         row = regression.loc[term]
         boot = bootstrap_by_term.loc[term]
-        effect_10pp = 10.0 * row["coefficient"]
+        effect_one_sd = row["coefficient"] * row["predictor_std_dev"]
         p_value = (
             r"$<0.001$"
             if row["p_value"] < 0.001
@@ -1195,10 +1213,10 @@ def write_tex_document(
             f"{labels[term]} & {row['coefficient']:.3f} & "
             f"{row['std_error_clustered_pid']:.3f} & {p_value} & "
             f"[{boot['bootstrap_ci95_low_percentile']:.3f}, "
-            f"{boot['bootstrap_ci95_high_percentile']:.3f}] & {effect_10pp:+.2f} \\\\"
+            f"{boot['bootstrap_ci95_high_percentile']:.3f}] & {effect_one_sd:+.3f} \\\\"
         )
     cell_only = pooled_cv.loc["cell_only"]
-    full = pooled_cv.loc["cell_plus_representation_weights"]
+    full = pooled_cv.loc["cell_plus_participant_effects"]
     incremental_r2 = full["out_of_sample_r_squared"] - cell_only["out_of_sample_r_squared"]
     tex = "\n".join([
         r"\documentclass{article}",
@@ -1210,7 +1228,7 @@ def write_tex_document(
         r"\usepackage{graphicx}",
         r"\usepackage[hidelinks]{hyperref}",
         "",
-        r"\title{Participant-Level HP Representation Weights}",
+        r"\title{Participant-Level HP Representation Effects}",
         r"\author{}",
         r"\date{}",
         "",
@@ -1232,15 +1250,15 @@ def write_tex_document(
         r"\end{equation}",
         "",
         r"where the participant-frame effects $b_{ki}$ are Gaussian-shrunk and the penalty "
-        r"is selected by cross-validation. The four weights are the fitted probabilities "
-        r"averaged across allocation anchors,",
+        r"is selected by cross-validation. The allocation effects $\alpha_{ka}$ absorb "
+        r"systematic differences across HP anchors; the second stage uses the estimated "
+        r"$b_{Mi}$, $b_{Si}$, and $b_{Ci}$ directly. These effects measure participant "
+        r"deviations in category log odds relative to No clear justification, net of the "
+        r"allocation-anchor effects.",
         "",
-        r"\begin{equation}",
-        r"    w_{ik}=\frac{1}{4}\sum_a \widehat{\Pr}(K_{ia}=k).",
-        r"\end{equation}",
-        "",
-        r"We regress the participant's DG share sent on $w_{iM}$, $w_{iS}$, and $w_{iC}$, "
-        r"with N omitted, controlling for game-by-condition cells. Standard errors are "
+        r"We regress the participant's DG share sent on the three $b_{ki}$ effects, "
+        r"controlling for indicators for LT Control, KW Market, and LT Market, with "
+        r"KW Control omitted. Standard errors are "
         r"clustered by participant. Confidence intervals refit both stages in 500 "
         r"participant-cluster bootstrap samples, holding the penalty at its "
         r"cross-validated value.",
@@ -1249,40 +1267,36 @@ def write_tex_document(
         "",
         r"\begin{table}[H]",
         r"\centering",
-        r"\caption{HP representation weights and DG share sent}",
+        r"\caption{HP participant effects and DG share sent}",
         r"\label{tab:hp_weights_dg}",
         r"\begin{tabular}{lccccc}",
         r"\toprule",
-        r"Weight & Coefficient & Clustered SE & $p$-value & Bootstrap 95\% CI "
-        r"& Effect of +10 pp \\",
+        r"Participant effect & Coefficient & Clustered SE & $p$-value & Bootstrap 95\% CI "
+        r"& Effect of +1 SD \\",
         r"\midrule",
         *table_rows,
         r"\midrule",
         f"Observations & {int(regression.loc['const', 'n_frames'])} & & & & \\\\",
         f"$R^2$ & {regression.loc['const', 'r_squared']:.3f} & & & & \\\\",
-        r"Game-by-condition controls & Yes & & & & \\",
+        r"Four game-by-condition cells & Yes & & & & \\",
         r"\bottomrule",
         r"\end{tabular}",
         r"\begin{flushleft}",
-        r"\footnotesize Notes: The omitted weight is No clear justification (N). "
-        r"Coefficients compare a 100-percentage-point shift from N to the indicated "
-        r"category. The final column reports the implied percentage-point change in "
-        r"share sent for a 10-percentage-point shift.",
+        r"\footnotesize Notes: No clear justification is the first-stage reference "
+        r"category. Coefficients give the change in share sent for a one-unit increase "
+        r"in the indicated participant log-odds effect. The final column rescales this "
+        r"change to one sample standard deviation.",
         r"\end{flushleft}",
         r"\end{table}",
         "",
-        f"A 10-percentage-point increase in the Moral weight predicts a "
-        f"{10.0 * regression.loc['weight_M', 'coefficient']:.2f}-percentage-point increase "
-        r"in share sent. Its bootstrap confidence interval excludes zero. The estimates "
-        r"for Self-interest and Cooperation are negative, but their confidence intervals "
-        r"include zero.",
+        r"The coefficients report predictive associations between the direct "
+        r"participant-category effects and DG share sent; they are not causal effects.",
         "",
-        f"In grouped 10-fold cross-validation, adding the weights raises out-of-sample "
+        f"In grouped 10-fold cross-validation, adding the participant effects changes "
+        f"out-of-sample "
         f"$R^2$ from {cell_only['out_of_sample_r_squared']:.3f} to "
-        f"{full['out_of_sample_r_squared']:.3f} ($\Delta R^2={incremental_r2:.3f}$) "
-        f"and lowers RMSE from {cell_only['rmse']:.4f} to {full['rmse']:.4f}. Thus the "
-        r"weights add predictive information, but the incremental gain is small. These "
-        r"results are predictive associations, not causal effects.",
+        rf"{full['out_of_sample_r_squared']:.3f} ($\Delta R^2={incremental_r2:.3f}$) "
+        f"and changes RMSE from {cell_only['rmse']:.4f} to {full['rmse']:.4f}.",
         *moral_baseline_tex_section(),
         *heterogeneity_tex_section(),
         *within_subject_tex_section(),
@@ -1380,7 +1394,7 @@ def show_status() -> None:
     print(PROGRESS.read_text(encoding="utf-8"))
     for name in [
         "first_stage_lambda_cv.csv",
-        "participant_frame_category_weights.csv",
+        "participant_frame_effects.csv",
         "second_stage_regressions.csv",
         "second_stage_grouped_cv.csv",
         "bootstrap_draws.csv",
