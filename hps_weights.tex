@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{float}
+\usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 
 \title{Participant-Level HP Representation Weights}
@@ -13,7 +14,9 @@
 \begin{document}
 \maketitle
 
-\section{Method}
+\section{Between-subject analysis}
+
+\subsection{Four-category method}
 
 Each participant-frame provides four HP texts, one for each allocation anchor $a\in\{4,6,8,12\}$. Each text is classified as Moral (M), Self-interest (S), Cooperation (C), or No clear justification (N). We estimate the partially pooled multinomial model
 
@@ -30,7 +33,7 @@ where the participant-frame effects $b_{ki}$ are Gaussian-shrunk and the penalty
 
 We regress the participant's DG share sent on $w_{iM}$, $w_{iS}$, and $w_{iC}$, with N omitted, controlling for game-by-condition cells. Standard errors are clustered by participant. Confidence intervals refit both stages in 500 participant-cluster bootstrap samples, holding the penalty at its cross-validated value.
 
-\section{Results}
+\subsection{Four-category results}
 
 \begin{table}[H]
 \centering
@@ -58,7 +61,7 @@ A 10-percentage-point increase in the Moral weight predicts a 1.26-percentage-po
 
 In grouped 10-fold cross-validation, adding the weights raises out-of-sample $R^2$ from 0.129 to 0.137 ($\Delta R^2=0.008$) and lowers RMSE from 0.2115 to 0.2105. Thus the weights add predictive information, but the incremental gain is small. These results are predictive associations, not causal effects.
 
-\section{Moral baseline, excluding No clear justification}
+\subsection{Moral baseline, excluding No clear justification}
 
 We remove all No clear justification classifications and re-estimate the model on M, S, and C, using Moral as the reference category:
 
@@ -92,7 +95,7 @@ Game-by-condition controls & Yes & & & & \\
 
 The bootstrap interval for Self-interest excludes zero; the interval for Cooperation excludes zero. In grouped 10-fold cross-validation, adding the weights changes out-of-sample $R^2$ from 0.134 to 0.148 ($\Delta R^2=0.014$).
 
-\section{Between-subject heterogeneity by game and condition}
+\subsection{Heterogeneity by game and condition}
 
 Using the Moral-baseline sample, we interact the S and C weights first with an LT indicator (KW omitted), and then with a Market indicator (Control omitted). Both models retain game-by-condition fixed effects.
 
@@ -122,5 +125,88 @@ Cooperation (C) & -0.297 (0.278) & -0.276 (0.060) & 0.022 (0.285) & [-0.622, 0.5
 \end{table}
 
 The joint tests provide no clear evidence of heterogeneity by game ($p=0.177$) and no clear evidence of heterogeneity by condition ($p=0.314$).
+
+\section{Within-subject analysis}
+
+\subsection{Classification and first stage}
+
+The within-subject data contain 1,799 participants and 14,392 HP responses from two pre-choice elicitations. HP descriptions are classified with the same frozen M/S/C/N prompt as in the between-subject analysis. We exclude N responses and estimate
+
+\begin{equation}
+ \log\frac{\Pr(K_{iat}=k)}{\Pr(K_{iat}=M)}=\alpha_{ka}+\tau_{k1}\mathrm{Market}_{it}+\tau_{k2}\mathrm{KW}_{it}+\tau_{k3}(\mathrm{Market}\times\mathrm{KW})_{it}+b_{ki}, \qquad k\in\{S,C\}.
+\end{equation}
+
+The estimation sample contains 9,467 substantive classifications and 1,732 participants; participants whose HP descriptions are all N are excluded. Allocation, treatment, and Gaussian-shrunk participant effects are estimated jointly; cross-validation selects $\lambda=2$.
+
+\begin{table}[H]
+\centering
+\caption{First-stage fitted category probabilities by treatment cell}
+\label{tab:within_first_stage_cells}
+\begin{tabular}{lccc}
+\toprule
+Cell & Moral & Self-interest & Cooperation \\
+\midrule
+LT Control & 0.700 & 0.274 & 0.026 \\
+KW Control & 0.742 & 0.230 & 0.027 \\
+LT Market & 0.445 & 0.416 & 0.139 \\
+KW Market & 0.455 & 0.375 & 0.170 \\
+\bottomrule
+\end{tabular}
+\begin{flushleft}
+\footnotesize Notes: Probabilities are averaged over the four allocation anchors and evaluated at zero participant effect. They are conditional on an M/S/C classification.
+\end{flushleft}
+\end{table}
+
+\subsection{Predicting allocations}
+
+We predict share sent separately in the first and second played game. The full model contains the two participant components ($b_{Si},b_{Ci}$), the two category-specific treatment indices implied by $\tau$, and a source-study indicator. HC3 standard errors are used.
+
+\begin{table}[H]
+\centering
+\caption{Incremental predictive content for allocation}
+\label{tab:within_allocation_prediction}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrr}
+\toprule
+Game order & N & $\Delta R^2$: subject & Joint $p$ & $\Delta R^2$: treatment & Joint $p$ & Full $R^2$ \\
+\midrule
+1 & 1732 & 0.000 & 0.833 & 0.096 & $<0.001$ & 0.148 \\
+2 & 1732 & 0.002 & 0.209 & 0.057 & $<0.001$ & 0.088 \\
+\bottomrule
+\end{tabular}
+}
+\begin{flushleft}
+\footnotesize Notes: Incremental $R^2$ removes the indicated pair of components from the full model. Joint $p$-values test the two coefficients for that component.
+\end{flushleft}
+\end{table}
+
+The participant HP components do not jointly predict allocation in either period. Treatment components are strongly predictive in both periods, with larger incremental explanatory power in the first game.
+
+\subsection{Predicting post-choice reasoning}
+
+We next estimate period-specific multinomial logits for the classified post-choice reason (Moral omitted), excluding N outcomes.
+
+\begin{table}[H]
+\centering
+\caption{Incremental predictive content for post-choice reasoning}
+\label{tab:within_reasoning_prediction}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrr}
+\toprule
+Game order & N & $\Delta$ pseudo-$R^2$: subject & LR $p$ & $\Delta$ pseudo-$R^2$: treatment & LR $p$ & Full pseudo-$R^2$ & Accuracy \\
+\midrule
+1 & 1596 & 0.002 & 0.179 & 0.077 & $<0.001$ & 0.113 & 0.641 \\
+2 & 1563 & 0.011 & $<0.001$ & 0.023 & $<0.001$ & 0.072 & 0.675 \\
+\bottomrule
+\end{tabular}
+}
+\begin{flushleft}
+\footnotesize Notes: Likelihood-ratio tests jointly test the four category-by-component coefficients. Accuracy is in-sample.
+\end{flushleft}
+\end{table}
+
+The participant HP components do not jointly predict stated reasoning in the first game, but they do in the second. Treatment components predict stated reasoning in both periods, although their incremental fit is substantially larger for the first game than for the second.
+
+All within-subject results are descriptive, in-sample associations. In particular, $b_{ki}$ pools both HP elicitations, so the first-game exercise is not a prospective prediction based only on information observed before the first game.
 
 \end{document}

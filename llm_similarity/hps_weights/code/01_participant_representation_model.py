@@ -751,7 +751,7 @@ def moral_baseline_tex_section() -> list[str]:
     )
     return [
         "",
-        r"\section{Moral baseline, excluding No clear justification}",
+        r"\subsection{Moral baseline, excluding No clear justification}",
         "",
         r"We remove all No clear justification classifications and re-estimate the "
         r"model on M, S, and C, using Moral as the reference category:",
@@ -880,7 +880,7 @@ def heterogeneity_tex_section() -> list[str]:
     )
     return [
         "",
-        r"\section{Between-subject heterogeneity by game and condition}",
+        r"\subsection{Heterogeneity by game and condition}",
         "",
         r"Using the Moral-baseline sample, we interact the S and C weights first "
         r"with an LT indicator (KW omitted), and then with a Market indicator "
@@ -906,6 +906,216 @@ def heterogeneity_tex_section() -> list[str]:
         f"The joint tests provide {game_conclusion} heterogeneity by game "
         f"($p={game_joint:.3f}$) and {condition_conclusion} heterogeneity by "
         f"condition ($p={condition_joint:.3f}$).",
+    ]
+
+
+def within_subject_tex_section() -> list[str]:
+    within_out = ROOT / "within_subject" / "output"
+    required = [
+        within_out / "sample_summary.json",
+        within_out / "first_stage_treatment_cell_probabilities.csv",
+        within_out / "allocation_component_tests.csv",
+        within_out / "allocation_models.csv",
+        within_out / "reasoning_component_tests.csv",
+        within_out / "reasoning_model_performance.csv",
+    ]
+    if not all(path.exists() for path in required):
+        return []
+
+    sample = json.loads(required[0].read_text(encoding="utf-8"))
+    cell = pd.read_csv(required[1]).set_index("treatment_cell")
+    allocation_tests = pd.read_csv(required[2]).set_index(
+        ["period", "component"]
+    )
+    allocation = pd.read_csv(required[3])
+    reasoning_tests = pd.read_csv(required[4]).set_index(
+        ["period", "component"]
+    )
+    reasoning_performance = pd.read_csv(required[5]).set_index(
+        ["period", "model"]
+    )
+
+    def p_tex(value: float) -> str:
+        return r"$<0.001$" if value < 0.001 else f"{value:.3f}"
+
+    cell_labels = {
+        "lt_control": "LT Control",
+        "kw_control": "KW Control",
+        "lt_market": "LT Market",
+        "kw_market": "KW Market",
+    }
+    cell_rows = []
+    for key in ["lt_control", "kw_control", "lt_market", "kw_market"]:
+        row = cell.loc[key]
+        cell_rows.append(
+            f"{cell_labels[key]} & {row['probability_M']:.3f} & "
+            f"{row['probability_S']:.3f} & {row['probability_C']:.3f} \\\\"
+        )
+
+    allocation_rows = []
+    reasoning_rows = []
+    for period in [1, 2]:
+        subject = allocation_tests.loc[(period, "subject")]
+        treatment = allocation_tests.loc[(period, "treatment")]
+        full_allocation = allocation[
+            (allocation["period"] == period) & (allocation["model"] == "full")
+        ].iloc[0]
+        allocation_rows.append(
+            f"{period} & {int(full_allocation['n'])} & "
+            f"{subject['incremental_r_squared']:.3f} & {p_tex(subject['p_value'])} & "
+            f"{treatment['incremental_r_squared']:.3f} & "
+            f"{p_tex(treatment['p_value'])} & {full_allocation['r_squared']:.3f} \\\\"
+        )
+
+        subject_r = reasoning_tests.loc[(period, "subject")]
+        treatment_r = reasoning_tests.loc[(period, "treatment")]
+        full_reasoning = reasoning_performance.loc[(period, "full")]
+        reasoning_rows.append(
+            f"{period} & {int(full_reasoning['n'])} & "
+            f"{subject_r['incremental_pseudo_r_squared']:.3f} & "
+            f"{p_tex(subject_r['p_value'])} & "
+            f"{treatment_r['incremental_pseudo_r_squared']:.3f} & "
+            f"{p_tex(treatment_r['p_value'])} & "
+            f"{full_reasoning['pseudo_r_squared']:.3f} & "
+            f"{full_reasoning['accuracy']:.3f} \\\\"
+        )
+
+    allocation_subject_text = (
+        r"The participant HP components do not jointly predict allocation in either "
+        r"period."
+        if all(
+            allocation_tests.loc[(period, "subject"), "p_value"] >= 0.05
+            for period in [1, 2]
+        )
+        else r"The participant HP components jointly predict allocation in at least "
+        r"one period."
+    )
+    reasoning_subject_p = {
+        period: reasoning_tests.loc[(period, "subject"), "p_value"]
+        for period in [1, 2]
+    }
+    if reasoning_subject_p[1] >= 0.05 and reasoning_subject_p[2] < 0.05:
+        reasoning_subject_text = (
+            r"The participant HP components do not jointly predict stated reasoning "
+            r"in the first game, but they do in the second."
+        )
+    elif all(value < 0.05 for value in reasoning_subject_p.values()):
+        reasoning_subject_text = (
+            r"The participant HP components jointly predict stated reasoning in both "
+            r"periods."
+        )
+    else:
+        reasoning_subject_text = (
+            r"The participant HP components do not jointly predict stated reasoning "
+            r"in either period."
+        )
+
+    return [
+        "",
+        r"\section{Within-subject analysis}",
+        "",
+        r"\subsection{Classification and first stage}",
+        "",
+        f"The within-subject data contain {int(sample['n_subjects_all']):,} participants "
+        f"and {int(sample['n_hp_rows_all']):,} HP responses from two pre-choice "
+        r"elicitations. HP descriptions are classified with the same frozen M/S/C/N "
+        r"prompt as in the between-subject analysis. We exclude N responses and estimate",
+        "",
+        r"\begin{equation}",
+        r" \log\frac{\Pr(K_{iat}=k)}{\Pr(K_{iat}=M)}="
+        r"\alpha_{ka}+\tau_{k1}\mathrm{Market}_{it}+\tau_{k2}\mathrm{KW}_{it}"
+        r"+\tau_{k3}(\mathrm{Market}\times\mathrm{KW})_{it}+b_{ki},"
+        r" \qquad k\in\{S,C\}.",
+        r"\end{equation}",
+        "",
+        f"The estimation sample contains {int(sample['n_hp_rows_substantive']):,} "
+        f"substantive classifications and {int(sample['n_subjects_usable']):,} "
+        r"participants; participants whose HP descriptions are all N are excluded. "
+        r"Allocation, treatment, and Gaussian-shrunk participant effects are estimated "
+        f"jointly; cross-validation selects $\lambda={sample['selected_lambda']:.3g}$.",
+        "",
+        r"\begin{table}[H]",
+        r"\centering",
+        r"\caption{First-stage fitted category probabilities by treatment cell}",
+        r"\label{tab:within_first_stage_cells}",
+        r"\begin{tabular}{lccc}",
+        r"\toprule",
+        r"Cell & Moral & Self-interest & Cooperation \\",
+        r"\midrule",
+        *cell_rows,
+        r"\bottomrule",
+        r"\end{tabular}",
+        r"\begin{flushleft}",
+        r"\footnotesize Notes: Probabilities are averaged over the four allocation "
+        r"anchors and evaluated at zero participant effect. They are conditional on an "
+        r"M/S/C classification.",
+        r"\end{flushleft}",
+        r"\end{table}",
+        "",
+        r"\subsection{Predicting allocations}",
+        "",
+        r"We predict share sent separately in the first and second played game. The "
+        r"full model contains the two participant components ($b_{Si},b_{Ci}$), the two "
+        r"category-specific treatment indices implied by $\tau$, and a source-study "
+        r"indicator. HC3 standard errors are used.",
+        "",
+        r"\begin{table}[H]",
+        r"\centering",
+        r"\caption{Incremental predictive content for allocation}",
+        r"\label{tab:within_allocation_prediction}",
+        r"\resizebox{\textwidth}{!}{%",
+        r"\begin{tabular}{lrrrrrr}",
+        r"\toprule",
+        r"Game order & N & $\Delta R^2$: subject & Joint $p$ & "
+        r"$\Delta R^2$: treatment & Joint $p$ & Full $R^2$ \\",
+        r"\midrule",
+        *allocation_rows,
+        r"\bottomrule",
+        r"\end{tabular}",
+        r"}",
+        r"\begin{flushleft}",
+        r"\footnotesize Notes: Incremental $R^2$ removes the indicated pair of "
+        r"components from the full model. Joint $p$-values test the two coefficients "
+        r"for that component.",
+        r"\end{flushleft}",
+        r"\end{table}",
+        "",
+        allocation_subject_text + " Treatment components are strongly predictive in "
+        r"both periods, with larger incremental explanatory power in the first game.",
+        "",
+        r"\subsection{Predicting post-choice reasoning}",
+        "",
+        r"We next estimate period-specific multinomial logits for the classified "
+        r"post-choice reason (Moral omitted), excluding N outcomes.",
+        "",
+        r"\begin{table}[H]",
+        r"\centering",
+        r"\caption{Incremental predictive content for post-choice reasoning}",
+        r"\label{tab:within_reasoning_prediction}",
+        r"\resizebox{\textwidth}{!}{%",
+        r"\begin{tabular}{lrrrrrrr}",
+        r"\toprule",
+        r"Game order & N & $\Delta$ pseudo-$R^2$: subject & LR $p$ & "
+        r"$\Delta$ pseudo-$R^2$: treatment & LR $p$ & Full pseudo-$R^2$ & Accuracy \\",
+        r"\midrule",
+        *reasoning_rows,
+        r"\bottomrule",
+        r"\end{tabular}",
+        r"}",
+        r"\begin{flushleft}",
+        r"\footnotesize Notes: Likelihood-ratio tests jointly test the four "
+        r"category-by-component coefficients. Accuracy is in-sample.",
+        r"\end{flushleft}",
+        r"\end{table}",
+        "",
+        reasoning_subject_text + " Treatment components predict stated reasoning in "
+        r"both periods, although their incremental fit is substantially larger for "
+        r"the first game than for the second.",
+        "",
+        r"All within-subject results are descriptive, in-sample associations. In "
+        r"particular, $b_{ki}$ pools both HP elicitations, so the first-game exercise is "
+        r"not a prospective prediction based only on information observed before the "
+        r"first game.",
     ]
 
 
@@ -948,6 +1158,7 @@ def write_tex_document(
         r"\usepackage{amsmath}",
         r"\usepackage{booktabs}",
         r"\usepackage{float}",
+        r"\usepackage{graphicx}",
         r"\usepackage[hidelinks]{hyperref}",
         "",
         r"\title{Participant-Level HP Representation Weights}",
@@ -957,7 +1168,9 @@ def write_tex_document(
         r"\begin{document}",
         r"\maketitle",
         "",
-        r"\section{Method}",
+        r"\section{Between-subject analysis}",
+        "",
+        r"\subsection{Four-category method}",
         "",
         r"Each participant-frame provides four HP texts, one for each allocation anchor "
         r"$a\in\{4,6,8,12\}$. Each text is classified as Moral (M), Self-interest "
@@ -983,7 +1196,7 @@ def write_tex_document(
         r"participant-cluster bootstrap samples, holding the penalty at its "
         r"cross-validated value.",
         "",
-        r"\section{Results}",
+        r"\subsection{Four-category results}",
         "",
         r"\begin{table}[H]",
         r"\centering",
@@ -1023,11 +1236,32 @@ def write_tex_document(
         r"results are predictive associations, not causal effects.",
         *moral_baseline_tex_section(),
         *heterogeneity_tex_section(),
+        *within_subject_tex_section(),
         "",
         r"\end{document}",
         "",
     ])
     atomic_write_text(TEX_OUTPUT, tex)
+
+
+def regenerate_tex() -> None:
+    required = [
+        OUT / "second_stage_regressions.csv",
+        OUT / "bootstrap_summary.csv",
+        OUT / "second_stage_grouped_cv.csv",
+    ]
+    missing = [path for path in required if not path.exists()]
+    if missing:
+        raise FileNotFoundError(
+            "Cannot regenerate TeX; missing: "
+            + ", ".join(str(path) for path in missing)
+        )
+    write_tex_document(
+        pd.read_csv(required[0]),
+        pd.read_csv(required[1]),
+        pd.read_csv(required[2]),
+    )
+    print(f"Wrote {TEX_OUTPUT}")
 
 
 def run_bootstrap(reps: int, checkpoint_every: int = 10) -> None:
@@ -1110,7 +1344,9 @@ def show_status() -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["fit", "bootstrap", "all", "status"])
+    parser.add_argument(
+        "command", choices=["fit", "bootstrap", "all", "status", "tex"]
+    )
     parser.add_argument("--reps", type=int, default=500)
     parser.add_argument("--lambda-grid", default=",".join(str(x) for x in LAMBDA_GRID_DEFAULT))
     parser.add_argument("--checkpoint-every", type=int, default=10)
@@ -1128,6 +1364,8 @@ def main() -> None:
         run_bootstrap(args.reps, checkpoint_every=args.checkpoint_every)
     if args.command == "status":
         show_status()
+    if args.command == "tex":
+        regenerate_tex()
 
 
 if __name__ == "__main__":

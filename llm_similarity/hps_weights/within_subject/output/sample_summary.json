@@ -1,0 +1,14 @@
+{
+  "first_stage_converged": true,
+  "first_stage_gradient_max": 0.0026339206186145603,
+  "first_stage_iterations": 103,
+  "n_elicitations_all": 3598,
+  "n_elicitations_usable": 3464,
+  "n_hp_rows_all": 14392,
+  "n_hp_rows_no_clear": 4925,
+  "n_hp_rows_substantive": 9467,
+  "n_subjects_all": 1799,
+  "n_subjects_all_no_clear": 67,
+  "n_subjects_usable": 1732,
+  "selected_lambda": 2.0
+}
