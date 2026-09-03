@@ -136,7 +136,7 @@ The within-subject data contain 1,799 participants and 14,392 HP responses from 
  \log\frac{\Pr(K_{iat}=k)}{\Pr(K_{iat}=M)}=\alpha_{ka}+\tau_{k1}\mathrm{Market}_{it}+\tau_{k2}\mathrm{KW}_{it}+\tau_{k3}(\mathrm{Market}\times\mathrm{KW})_{it}+b_{ki}, \qquad k\in\{S,C\}.
 \end{equation}
 
-The estimation sample contains 9,467 substantive classifications and 1,732 participants; participants whose HP descriptions are all N are excluded. Allocation, treatment, and Gaussian-shrunk participant effects are estimated jointly; cross-validation selects $\lambda=2$.
+The estimation sample contains 9,467 substantive classifications and 1,732 participants; participants whose HP descriptions are all N are excluded. Allocation, treatment, and participant effects are estimated jointly.
 To match the between-subject analysis, we express the participant effects as M/S/C prevalence weights. For participant $i$, $w^P_{ik}$ is the fitted probability of category $k$, averaged over the four allocation anchors and evaluated at the common LT-Control reference. The treatment component $\Delta^T_{itk}$ is the probability shift from LT Control to the participant's current Market/KW cell, evaluated at zero participant effect. Both sets of components sum to one (weights) or zero (shifts), so Moral is omitted.
 
 \begin{table}[H]
