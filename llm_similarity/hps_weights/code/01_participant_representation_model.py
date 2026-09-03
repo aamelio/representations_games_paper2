@@ -916,6 +916,7 @@ def within_subject_tex_section() -> list[str]:
         within_out / "first_stage_treatment_cell_probabilities.csv",
         within_out / "allocation_component_tests.csv",
         within_out / "allocation_models.csv",
+        within_out / "reasoning_models.csv",
         within_out / "reasoning_component_tests.csv",
         within_out / "reasoning_model_performance.csv",
     ]
@@ -928,15 +929,19 @@ def within_subject_tex_section() -> list[str]:
         ["period", "component"]
     )
     allocation = pd.read_csv(required[3])
-    reasoning_tests = pd.read_csv(required[4]).set_index(
+    reasoning = pd.read_csv(required[4])
+    reasoning_tests = pd.read_csv(required[5]).set_index(
         ["period", "component"]
     )
-    reasoning_performance = pd.read_csv(required[5]).set_index(
+    reasoning_performance = pd.read_csv(required[6]).set_index(
         ["period", "model"]
     )
 
     def p_tex(value: float) -> str:
         return r"$<0.001$" if value < 0.001 else f"{value:.3f}"
+
+    def p_inline(value: float) -> str:
+        return r"$p<0.001$" if value < 0.001 else f"$p={value:.3f}$"
 
     cell_labels = {
         "lt_control": "LT Control",
@@ -952,6 +957,13 @@ def within_subject_tex_section() -> list[str]:
             f"{row['probability_S']:.3f} & {row['probability_C']:.3f} \\\\"
         )
 
+    predictor_labels = {
+        "subject_weight_S": "Participant S weight",
+        "subject_weight_C": "Participant C weight",
+        "treatment_shift_S": "Treatment-induced S shift",
+        "treatment_shift_C": "Treatment-induced C shift",
+    }
+    predictor_order = list(predictor_labels)
     allocation_rows = []
     reasoning_rows = []
     for period in [1, 2]:
@@ -959,26 +971,53 @@ def within_subject_tex_section() -> list[str]:
         treatment = allocation_tests.loc[(period, "treatment")]
         full_allocation = allocation[
             (allocation["period"] == period) & (allocation["model"] == "full")
-        ].iloc[0]
+        ].set_index("term")
+        panel = "First played game" if period == 1 else "Second played game"
         allocation_rows.append(
-            f"{period} & {int(full_allocation['n'])} & "
-            f"{subject['incremental_r_squared']:.3f} & {p_tex(subject['p_value'])} & "
-            f"{treatment['incremental_r_squared']:.3f} & "
-            f"{p_tex(treatment['p_value'])} & {full_allocation['r_squared']:.3f} \\\\"
+            rf"\multicolumn{{6}}{{l}}{{\textit{{{panel}}}}} \\"
         )
+        for term in predictor_order:
+            row = full_allocation.loc[term]
+            allocation_rows.append(
+                f"{predictor_labels[term]} & {row['coefficient']:.3f} & "
+                f"{row['std_error_hc3']:.3f} & {p_tex(row['p_value'])} & "
+                f"[{row['ci95_low']:.3f}, {row['ci95_high']:.3f}] & "
+                f"{10.0 * row['coefficient']:+.2f} \\\\"
+            )
+        allocation_rows.extend([
+            rf"\multicolumn{{6}}{{l}}{{N={int(full_allocation.iloc[0]['n'])}; "
+            rf"$R^2={full_allocation.iloc[0]['r_squared']:.3f}$; joint participant "
+            f"{p_inline(subject['p_value'])}; joint treatment "
+            f"{p_inline(treatment['p_value'])}.}} \\\\",
+            r"\addlinespace",
+        ])
 
         subject_r = reasoning_tests.loc[(period, "subject")]
         treatment_r = reasoning_tests.loc[(period, "treatment")]
         full_reasoning = reasoning_performance.loc[(period, "full")]
+        full_reasoning_coefficient = reasoning[
+            reasoning["period"] == period
+        ].set_index(["term", "outcome_vs_moral"])
         reasoning_rows.append(
-            f"{period} & {int(full_reasoning['n'])} & "
-            f"{subject_r['incremental_pseudo_r_squared']:.3f} & "
-            f"{p_tex(subject_r['p_value'])} & "
-            f"{treatment_r['incremental_pseudo_r_squared']:.3f} & "
-            f"{p_tex(treatment_r['p_value'])} & "
-            f"{full_reasoning['pseudo_r_squared']:.3f} & "
-            f"{full_reasoning['accuracy']:.3f} \\\\"
+            rf"\multicolumn{{5}}{{l}}{{\textit{{{panel}}}}} \\"
         )
+        for term in predictor_order:
+            s_row = full_reasoning_coefficient.loc[(term, "S")]
+            c_row = full_reasoning_coefficient.loc[(term, "C")]
+            reasoning_rows.append(
+                f"{predictor_labels[term]} & "
+                f"{s_row['coefficient']:.3f} ({s_row['std_error']:.3f}) & "
+                f"{p_tex(s_row['p_value'])} & "
+                f"{c_row['coefficient']:.3f} ({c_row['std_error']:.3f}) & "
+                f"{p_tex(c_row['p_value'])} \\\\"
+            )
+        reasoning_rows.extend([
+            rf"\multicolumn{{5}}{{l}}{{N={int(full_reasoning['n'])}; pseudo-$R^2="
+            rf"{full_reasoning['pseudo_r_squared']:.3f}$; joint participant "
+            f"{p_inline(subject_r['p_value'])}; joint treatment "
+            f"{p_inline(treatment_r['p_value'])}.}} \\\\",
+            r"\addlinespace",
+        ])
 
     allocation_subject_text = (
         r"The participant HP components do not jointly predict allocation in either "
@@ -1033,6 +1072,13 @@ def within_subject_tex_section() -> list[str]:
         r"participants; participants whose HP descriptions are all N are excluded. "
         r"Allocation, treatment, and Gaussian-shrunk participant effects are estimated "
         f"jointly; cross-validation selects $\lambda={sample['selected_lambda']:.3g}$.",
+        r"To match the between-subject analysis, we express the participant effects as "
+        r"M/S/C prevalence weights. For participant $i$, $w^P_{ik}$ is the fitted "
+        r"probability of category $k$, averaged over the four allocation anchors and "
+        r"evaluated at the common LT-Control reference. The treatment component "
+        r"$\Delta^T_{itk}$ is the probability shift from LT Control to the participant's "
+        r"current Market/KW cell, evaluated at zero participant effect. Both sets of "
+        r"components sum to one (weights) or zero (shifts), so Moral is omitted.",
         "",
         r"\begin{table}[H]",
         r"\centering",
@@ -1055,28 +1101,28 @@ def within_subject_tex_section() -> list[str]:
         r"\subsection{Predicting allocations}",
         "",
         r"We predict share sent separately in the first and second played game. The "
-        r"full model contains the two participant components ($b_{Si},b_{Ci}$), the two "
-        r"category-specific treatment indices implied by $\tau$, and a source-study "
-        r"indicator. HC3 standard errors are used.",
+        r"full model contains the participant S and C weights, the treatment-induced S "
+        r"and C probability shifts, and a source-study indicator. HC3 standard errors "
+        r"are used.",
         "",
         r"\begin{table}[H]",
         r"\centering",
-        r"\caption{Incremental predictive content for allocation}",
+        r"\caption{Within-subject HP components and allocation}",
         r"\label{tab:within_allocation_prediction}",
-        r"\resizebox{\textwidth}{!}{%",
-        r"\begin{tabular}{lrrrrrr}",
+        r"\begin{tabular}{lccccc}",
         r"\toprule",
-        r"Game order & N & $\Delta R^2$: subject & Joint $p$ & "
-        r"$\Delta R^2$: treatment & Joint $p$ & Full $R^2$ \\",
+        r"Component & Coefficient & HC3 SE & $p$-value & 95\% CI & Effect of +10 pp \\",
         r"\midrule",
         *allocation_rows,
         r"\bottomrule",
         r"\end{tabular}",
-        r"}",
         r"\begin{flushleft}",
-        r"\footnotesize Notes: Incremental $R^2$ removes the indicated pair of "
-        r"components from the full model. Joint $p$-values test the two coefficients "
-        r"for that component.",
+        r"\footnotesize Notes: Moral is omitted. Coefficients correspond to a "
+        r"100-percentage-point change in the indicated probability component. The last "
+        r"column gives the percentage-point change in share sent associated with a "
+        r"10-percentage-point change. Joint tests cover the S and C terms within each "
+        r"component. Standard errors and confidence intervals condition on the "
+        r"first-stage generated components.",
         r"\end{flushleft}",
         r"\end{table}",
         "",
@@ -1090,21 +1136,24 @@ def within_subject_tex_section() -> list[str]:
         "",
         r"\begin{table}[H]",
         r"\centering",
-        r"\caption{Incremental predictive content for post-choice reasoning}",
+        r"\caption{Within-subject HP components and post-choice reasoning}",
         r"\label{tab:within_reasoning_prediction}",
         r"\resizebox{\textwidth}{!}{%",
-        r"\begin{tabular}{lrrrrrrr}",
+        r"\begin{tabular}{lcccc}",
         r"\toprule",
-        r"Game order & N & $\Delta$ pseudo-$R^2$: subject & LR $p$ & "
-        r"$\Delta$ pseudo-$R^2$: treatment & LR $p$ & Full pseudo-$R^2$ & Accuracy \\",
+        r"Component & S vs M coefficient (SE) & $p$-value & "
+        r"C vs M coefficient (SE) & $p$-value \\",
         r"\midrule",
         *reasoning_rows,
         r"\bottomrule",
         r"\end{tabular}",
         r"}",
         r"\begin{flushleft}",
-        r"\footnotesize Notes: Likelihood-ratio tests jointly test the four "
-        r"category-by-component coefficients. Accuracy is in-sample.",
+        r"\footnotesize Notes: The outcome is the classified post-choice reason; Moral "
+        r"is the omitted outcome. Coefficients are multinomial-logit coefficients for a "
+        r"100-percentage-point change in the indicated component. Likelihood-ratio "
+        r"tests jointly test the four category-by-component coefficients. Inference "
+        r"conditions on the first-stage generated components.",
         r"\end{flushleft}",
         r"\end{table}",
         "",
@@ -1113,7 +1162,7 @@ def within_subject_tex_section() -> list[str]:
         r"the first game than for the second.",
         "",
         r"All within-subject results are descriptive, in-sample associations. In "
-        r"particular, $b_{ki}$ pools both HP elicitations, so the first-game exercise is "
+        r"particular, $w^P_{ik}$ pools both HP elicitations, so the first-game exercise is "
         r"not a prospective prediction based only on information observed before the "
         r"first game.",
     ]

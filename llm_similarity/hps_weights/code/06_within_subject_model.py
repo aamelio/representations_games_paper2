@@ -360,6 +360,44 @@ def build_components(
         "subject_effect_S": fit.participant[:, 0],
         "subject_effect_C": fit.participant[:, 1],
     })
+    participant_grid = participant[["subject_id"]].assign(_key=1).merge(
+        pd.DataFrame({"anchor_allocation_kept": ANCHORS, "_key": 1}),
+        on="_key",
+        how="inner",
+    ).drop(columns="_key")
+    participant_grid["Market"] = 0
+    participant_grid["kw_dummy"] = 0
+    participant_grid["market_x_kw"] = 0
+    participant_design, _ = fixed_design(participant_grid)
+    participant_lookup = {
+        group: index for index, group in enumerate(group_names)
+    }
+    participant_codes = participant_grid["subject_id"].map(
+        participant_lookup
+    ).to_numpy(dtype=int)
+    participant_probability = predict_probabilities(
+        fit, participant_design, participant_codes
+    )
+    for category_index, category in enumerate(["M", "S", "C"]):
+        participant_grid[f"subject_weight_{category}"] = (
+            participant_probability[:, category_index]
+        )
+    participant_weights = participant_grid.groupby(
+        "subject_id", as_index=False, observed=True
+    )[["subject_weight_M", "subject_weight_S", "subject_weight_C"]].mean()
+    participant = participant.merge(
+        participant_weights,
+        on="subject_id",
+        how="left",
+        validate="one_to_one",
+    )
+    if not np.allclose(
+        participant[[
+            "subject_weight_M", "subject_weight_S", "subject_weight_C"
+        ]].sum(axis=1),
+        1.0,
+    ):
+        raise AssertionError("Participant M/S/C weights must sum to one.")
     elicitation_columns = [
         "subject_id",
         "PROLIFIC_PID",
@@ -395,6 +433,26 @@ def build_components(
             * fit.fixed[fixed_lookup["Market_x_KW"], category_index]
         )
 
+    cell_probability = treatment_cell_probabilities(fit).set_index(
+        "treatment_cell"
+    )
+    reference = cell_probability.loc["lt_control"]
+    for category in ["M", "S", "C"]:
+        shift = (
+            cell_probability[f"probability_{category}"]
+            - reference[f"probability_{category}"]
+        )
+        elicitation[f"treatment_shift_{category}"] = elicitation[
+            "treatment_cell"
+        ].map(shift)
+    if not np.allclose(
+        elicitation[[
+            "treatment_shift_M", "treatment_shift_S", "treatment_shift_C"
+        ]].sum(axis=1),
+        0.0,
+    ):
+        raise AssertionError("Treatment M/S/C shifts must sum to zero.")
+
     anchor_grid = elicitation.assign(_key=1).merge(
         pd.DataFrame({"anchor_allocation_kept": ANCHORS, "_key": 1}),
         on="_key",
@@ -415,8 +473,14 @@ def build_components(
         + [
             "subject_effect_S",
             "subject_effect_C",
+            "subject_weight_M",
+            "subject_weight_S",
+            "subject_weight_C",
             "treatment_effect_S",
             "treatment_effect_C",
+            "treatment_shift_M",
+            "treatment_shift_S",
+            "treatment_shift_C",
         ],
         as_index=False,
         observed=True,
@@ -444,14 +508,14 @@ def predictor_design(
         index=data.index,
     )
     if component in {"subject", "full"}:
-        design["subject_effect_S"] = data["subject_effect_S"].astype(float)
-        design["subject_effect_C"] = data["subject_effect_C"].astype(float)
+        design["subject_weight_S"] = data["subject_weight_S"].astype(float)
+        design["subject_weight_C"] = data["subject_weight_C"].astype(float)
     if component in {"treatment", "full"}:
-        design["treatment_effect_S"] = data[
-            "treatment_effect_S"
+        design["treatment_shift_S"] = data[
+            "treatment_shift_S"
         ].astype(float)
-        design["treatment_effect_C"] = data[
-            "treatment_effect_C"
+        design["treatment_shift_C"] = data[
+            "treatment_shift_C"
         ].astype(float)
     return design
 
@@ -485,8 +549,8 @@ def allocation_models(weights: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame
                 })
         full = fitted["full"]
         for component, terms in {
-            "subject": ["subject_effect_S", "subject_effect_C"],
-            "treatment": ["treatment_effect_S", "treatment_effect_C"],
+            "subject": ["subject_weight_S", "subject_weight_C"],
+            "treatment": ["treatment_shift_S", "treatment_shift_C"],
         }.items():
             restriction = np.zeros((2, len(full.params)))
             for row_index, term in enumerate(terms):

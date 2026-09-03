@@ -53,11 +53,16 @@ records classification provenance row by row.
 `code/06_within_subject_model.py` excludes No-clear HP rows and uses Moral as
 the multinomial baseline. It estimates allocation fixed effects, Market, KW,
 Market-by-KW, and Gaussian-shrunk participant effects from the pooled first and
-second HP elicitations. It then asks whether the participant and treatment
-components predict allocation and classified post-choice reasoning separately
-in the first and second played game. The post-choice reasoning labels are the
-existing labels from `within/output/within_all_long_categorized.xlsx`, produced
-by `within/02_text_categorization.py` with GPT-4.1; this workflow does not
+second HP elicitations. For comparability with the between-subject analysis, it
+converts the participant effects into M/S/C probability weights averaged across
+allocation anchors at the common LT-Control reference. Treatment components are
+the M/S/C probability shifts from LT Control to the current Market/KW cell,
+evaluated at zero participant effect. It then asks whether the participant
+weights and treatment shifts predict allocation and classified post-choice
+reasoning separately in the first and second played game. The post-choice
+reasoning labels are the existing labels from
+`within/output/within_all_long_categorized.xlsx`, produced by
+`within/02_text_categorization.py` with GPT-4.1; this workflow does not
 reclassify those outcomes.
 
 Run the within-subject workflow from the repository root:

@@ -137,6 +137,7 @@ The within-subject data contain 1,799 participants and 14,392 HP responses from 
 \end{equation}
 
 The estimation sample contains 9,467 substantive classifications and 1,732 participants; participants whose HP descriptions are all N are excluded. Allocation, treatment, and Gaussian-shrunk participant effects are estimated jointly; cross-validation selects $\lambda=2$.
+To match the between-subject analysis, we express the participant effects as M/S/C prevalence weights. For participant $i$, $w^P_{ik}$ is the fitted probability of category $k$, averaged over the four allocation anchors and evaluated at the common LT-Control reference. The treatment component $\Delta^T_{itk}$ is the probability shift from LT Control to the participant's current Market/KW cell, evaluated at zero participant effect. Both sets of components sum to one (weights) or zero (shifts), so Moral is omitted.
 
 \begin{table}[H]
 \centering
@@ -159,24 +160,34 @@ KW Market & 0.455 & 0.375 & 0.170 \\
 
 \subsection{Predicting allocations}
 
-We predict share sent separately in the first and second played game. The full model contains the two participant components ($b_{Si},b_{Ci}$), the two category-specific treatment indices implied by $\tau$, and a source-study indicator. HC3 standard errors are used.
+We predict share sent separately in the first and second played game. The full model contains the participant S and C weights, the treatment-induced S and C probability shifts, and a source-study indicator. HC3 standard errors are used.
 
 \begin{table}[H]
 \centering
-\caption{Incremental predictive content for allocation}
+\caption{Within-subject HP components and allocation}
 \label{tab:within_allocation_prediction}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrr}
+\begin{tabular}{lccccc}
 \toprule
-Game order & N & $\Delta R^2$: subject & Joint $p$ & $\Delta R^2$: treatment & Joint $p$ & Full $R^2$ \\
+Component & Coefficient & HC3 SE & $p$-value & 95\% CI & Effect of +10 pp \\
 \midrule
-1 & 1732 & 0.000 & 0.833 & 0.096 & $<0.001$ & 0.148 \\
-2 & 1732 & 0.002 & 0.209 & 0.057 & $<0.001$ & 0.088 \\
+\multicolumn{6}{l}{\textit{First played game}} \\
+Participant S weight & -0.083 & 0.090 & 0.361 & [-0.260, 0.095] & -0.83 \\
+Participant C weight & -0.255 & 0.511 & 0.617 & [-1.257, 0.746] & -2.55 \\
+Treatment-induced S shift & -0.160 & 0.177 & 0.367 & [-0.508, 0.187] & -1.60 \\
+Treatment-induced C shift & -1.068 & 0.222 & $<0.001$ & [-1.504, -0.632] & -10.68 \\
+\multicolumn{6}{l}{N=1732; $R^2=0.142$; joint participant $p=0.646$; joint treatment $p<0.001$.} \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Second played game}} \\
+Participant S weight & -0.148 & 0.108 & 0.171 & [-0.359, 0.064] & -1.48 \\
+Participant C weight & -0.740 & 0.423 & 0.080 & [-1.569, 0.089] & -7.40 \\
+Treatment-induced S shift & -0.077 & 0.200 & 0.701 & [-0.469, 0.315] & -0.77 \\
+Treatment-induced C shift & -0.948 & 0.252 & $<0.001$ & [-1.441, -0.454] & -9.48 \\
+\multicolumn{6}{l}{N=1732; $R^2=0.084$; joint participant $p=0.145$; joint treatment $p<0.001$.} \\
+\addlinespace
 \bottomrule
 \end{tabular}
-}
 \begin{flushleft}
-\footnotesize Notes: Incremental $R^2$ removes the indicated pair of components from the full model. Joint $p$-values test the two coefficients for that component.
+\footnotesize Notes: Moral is omitted. Coefficients correspond to a 100-percentage-point change in the indicated probability component. The last column gives the percentage-point change in share sent associated with a 10-percentage-point change. Joint tests cover the S and C terms within each component. Standard errors and confidence intervals condition on the first-stage generated components.
 \end{flushleft}
 \end{table}
 
@@ -188,25 +199,37 @@ We next estimate period-specific multinomial logits for the classified post-choi
 
 \begin{table}[H]
 \centering
-\caption{Incremental predictive content for post-choice reasoning}
+\caption{Within-subject HP components and post-choice reasoning}
 \label{tab:within_reasoning_prediction}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrrr}
+\begin{tabular}{lcccc}
 \toprule
-Game order & N & $\Delta$ pseudo-$R^2$: subject & LR $p$ & $\Delta$ pseudo-$R^2$: treatment & LR $p$ & Full pseudo-$R^2$ & Accuracy \\
+Component & S vs M coefficient (SE) & $p$-value & C vs M coefficient (SE) & $p$-value \\
 \midrule
-1 & 1596 & 0.002 & 0.179 & 0.077 & $<0.001$ & 0.113 & 0.641 \\
-2 & 1563 & 0.011 & $<0.001$ & 0.023 & $<0.001$ & 0.072 & 0.675 \\
+\multicolumn{5}{l}{\textit{First played game}} \\
+Participant S weight & 2.321 (1.069) & 0.030 & 3.436 (2.066) & 0.096 \\
+Participant C weight & 3.208 (5.347) & 0.549 & 11.606 (9.673) & 0.230 \\
+Treatment-induced S shift & 4.820 (2.084) & 0.021 & 16.569 (3.544) & $<0.001$ \\
+Treatment-induced C shift & 2.074 (2.450) & 0.397 & 15.261 (4.168) & $<0.001$ \\
+\multicolumn{5}{l}{N=1596; pseudo-$R^2=0.113$; joint participant $p=0.164$; joint treatment $p<0.001$.} \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Second played game}} \\
+Participant S weight & 4.101 (1.084) & $<0.001$ & 6.158 (2.493) & 0.014 \\
+Participant C weight & 19.852 (5.928) & $<0.001$ & 32.518 (11.096) & 0.003 \\
+Treatment-induced S shift & 1.762 (2.027) & 0.385 & 8.414 (4.010) & 0.036 \\
+Treatment-induced C shift & 1.215 (2.373) & 0.609 & 7.519 (4.559) & 0.099 \\
+\multicolumn{5}{l}{N=1563; pseudo-$R^2=0.072$; joint participant $p<0.001$; joint treatment $p<0.001$.} \\
+\addlinespace
 \bottomrule
 \end{tabular}
 }
 \begin{flushleft}
-\footnotesize Notes: Likelihood-ratio tests jointly test the four category-by-component coefficients. Accuracy is in-sample.
+\footnotesize Notes: The outcome is the classified post-choice reason; Moral is the omitted outcome. Coefficients are multinomial-logit coefficients for a 100-percentage-point change in the indicated component. Likelihood-ratio tests jointly test the four category-by-component coefficients. Inference conditions on the first-stage generated components.
 \end{flushleft}
 \end{table}
 
 The participant HP components do not jointly predict stated reasoning in the first game, but they do in the second. Treatment components predict stated reasoning in both periods, although their incremental fit is substantially larger for the first game than for the second.
 
-All within-subject results are descriptive, in-sample associations. In particular, $b_{ki}$ pools both HP elicitations, so the first-game exercise is not a prospective prediction based only on information observed before the first game.
+All within-subject results are descriptive, in-sample associations. In particular, $w^P_{ik}$ pools both HP elicitations, so the first-game exercise is not a prospective prediction based only on information observed before the first game.
 
 \end{document}
