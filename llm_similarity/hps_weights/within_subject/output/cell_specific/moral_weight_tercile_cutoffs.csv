@@ -1,2 +1,3 @@
-reference_cell,reference_n,lower_cutoff,upper_cutoff
-kw_control,1118,0.7314833179809022,0.7406286617817986
+comparison,row_cell,column_cell,n_paired_participants,n_pooled_weights,lower_cutoff,upper_cutoff
+KW Control to LT Control,kw_control,lt_control,529,1058,0.6913641397705492,0.7348240386038116
+KW Control to KW Market,kw_control,kw_market,432,864,0.5482281492503002,0.7348240386038116

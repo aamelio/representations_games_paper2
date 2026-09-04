@@ -1201,6 +1201,7 @@ def within_subject_tex_section() -> list[str]:
         "treatment_shift_decomposition.csv",
         "moral_weight_transition_matrices.csv",
         "moral_weight_tercile_cutoffs.csv",
+        "moral_weight_transition_summary.csv",
     ]
     paths = [within_out / name for name in names]
     if not all(path.exists() for path in paths):
@@ -1213,7 +1214,8 @@ def within_subject_tex_section() -> list[str]:
     reasoning_fit = pd.read_csv(paths[4]).iloc[0]
     shifts = pd.read_csv(paths[5]).set_index("comparison")
     transitions = pd.read_csv(paths[6])
-    cutoffs = pd.read_csv(paths[7]).iloc[0]
+    cutoffs = pd.read_csv(paths[7]).set_index("comparison")
+    transition_summary = pd.read_csv(paths[8]).set_index("comparison")
 
     def p_tex(value: float) -> str:
         return r"$<0.001$" if value < 0.001 else f"{value:.3f}"
@@ -1266,6 +1268,10 @@ def within_subject_tex_section() -> list[str]:
         "KW Control to LT Control": r"KW Control $\rightarrow$ LT Control",
         "KW Control to KW Market": r"KW Control $\rightarrow$ KW Market",
     }
+    transition_panel_labels = {
+        "KW Control to LT Control": r"KW Control vs.\ LT Control",
+        "KW Control to KW Market": r"KW Control vs.\ KW Market",
+    }
     shift_rows = []
     for key, label in comparison_labels.items():
         row = shifts.loc[key]
@@ -1279,24 +1285,51 @@ def within_subject_tex_section() -> list[str]:
         )
 
     transition_rows = []
-    for comparison, label in comparison_labels.items():
+    for comparison, label in transition_panel_labels.items():
+        subset = transitions[transitions["comparison"] == comparison]
+        row_cell = cell_labels[subset["row_cell"].iloc[0]]
+        column_cell = cell_labels[subset["column_cell"].iloc[0]]
         transition_rows.append(
             rf"\multicolumn{{5}}{{l}}{{\textit{{{label}}}}} \\"
         )
-        subset = transitions[transitions["comparison"] == comparison]
-        for origin in ["Low", "Middle", "High"]:
-            row = subset[subset["origin_tercile"] == origin].set_index(
-                "destination_tercile"
+        transition_rows.append(
+            f"{row_cell} tercile & {column_cell}: low & {column_cell}: middle & "
+            f"{column_cell}: high & Total \\\\"
+        )
+        transition_rows.append(r"\cmidrule(lr){2-5}")
+        for row_tercile in ["Low", "Middle", "High"]:
+            row = subset[subset["row_tercile"] == row_tercile].set_index(
+                "column_tercile"
             )
             entries = []
-            for destination in ["Low", "Middle", "High"]:
-                item = row.loc[destination]
-                entries.append(f"{item['row_percent']:.1f} ({int(item['count'])})")
+            for column_tercile in ["Low", "Middle", "High"]:
+                item = row.loc[column_tercile]
+                entries.append(
+                    f"{item['overall_percent']:.1f} ({int(item['count'])})"
+                )
+            row_n = int(row.iloc[0]["row_n"])
+            total_n = int(row.iloc[0]["total_n"])
             transition_rows.append(
-                f"{origin} & {entries[0]} & {entries[1]} & {entries[2]} & "
-                f"{int(row.iloc[0]['row_n'])} \\\\"
+                f"{row_tercile} & {entries[0]} & {entries[1]} & {entries[2]} & "
+                f"{100 * row_n / total_n:.1f} ({row_n}) \\\\"
             )
+        totals = []
+        total_n = int(subset["total_n"].iloc[0])
+        for column_tercile in ["Low", "Middle", "High"]:
+            count = int(
+                subset.loc[subset["column_tercile"] == column_tercile, "count"].sum()
+            )
+            totals.append(f"{100 * count / total_n:.1f} ({count})")
+        transition_rows.append(r"\cmidrule(lr){2-5}")
+        transition_rows.append(
+            f"Total & {totals[0]} & {totals[1]} & {totals[2]} & 100.0 ({total_n}) \\\\"
+        )
         transition_rows.append(r"\addlinespace")
+
+    game_transition = transition_summary.loc["KW Control to LT Control"]
+    market_transition = transition_summary.loc["KW Control to KW Market"]
+    game_cutoffs = cutoffs.loc["KW Control to LT Control"]
+    market_cutoffs = cutoffs.loc["KW Control to KW Market"]
 
     return [
         "",
@@ -1427,27 +1460,47 @@ def within_subject_tex_section() -> list[str]:
         r"while giving rises by 4.9 points. The KW-Control-to-KW-Market weight shift "
         r"predicts a 3.4-point reduction, compared with an observed 10.2-point reduction.",
         "",
-        r"Common Moral-weight terciles use the usable KW-Control distribution "
-        rf"(cutoffs {cutoffs['lower_cutoff']:.3f} and {cutoffs['upper_cutoff']:.3f}); "
-        r"the same numerical cutoffs are applied to each destination cell.",
+        r"For each comparison, Moral-weight terciles are defined using the pooled "
+        r"distribution of the two observations contributed by every paired participant. "
+        r"The same cutoffs are applied to both conditions, so neither condition is "
+        r"treated as the temporal origin. The cutoffs are "
+        rf"{game_cutoffs['lower_cutoff']:.3f} and {game_cutoffs['upper_cutoff']:.3f} "
+        r"for KW--LT, and "
+        rf"{market_cutoffs['lower_cutoff']:.3f} and {market_cutoffs['upper_cutoff']:.3f} "
+        r"for Control--Market.",
         "",
         r"\begin{table}[H]",
         r"\centering",
-        r"\caption{Transitions across common Moral-weight terciles}",
+        r"\caption{Within-participant comparison of Moral-weight terciles}",
         r"\label{tab:within_moral_transitions}",
         r"\begin{tabular}{lrrrr}",
         r"\toprule",
-        r"Origin tercile & Destination low & Destination middle & Destination high & Row N \\",
-        r"\midrule",
         *transition_rows,
         r"\bottomrule",
         r"\end{tabular}",
         r"\begin{flushleft}",
-        r"\footnotesize Notes: Entries are row percentages, with counts in parentheses. "
-        r"Rows are KW-Control terciles. Only participants with usable M/S/C weights in "
-        r"both cells are included.",
+        r"\footnotesize Notes: Entries are percentages of the full paired sample, with "
+        r"counts in parentheses. Each panel sums to 100 percent. Terciles are based on "
+        r"the pooled Moral weights from the two conditions in that panel. Only "
+        r"participants with usable M/S/C weights in both conditions are included.",
         r"\end{flushleft}",
         r"\end{table}",
+        "",
+        f"The KW--LT comparison combines a systematic downward shift in Moral weight "
+        f"under LT with limited persistence across games: "
+        f"{game_transition['column_lower_percent']:.1f}\% of participants are in a lower "
+        f"tercile under LT, {game_transition['column_higher_percent']:.1f}\% are in a "
+        f"higher tercile, and {game_transition['same_tercile_percent']:.1f}\% remain in "
+        f"the same tercile ($r={game_transition['moral_weight_correlation']:.3f}$). The "
+        f"Control--Market contrast is substantially sharper: "
+        f"{market_transition['column_lower_percent']:.1f}\% are in a lower tercile under "
+        f"Market, only {market_transition['column_higher_percent']:.1f}\% are higher, and "
+        f"{market_transition['same_tercile_percent']:.1f}\% remain in the same tercile. "
+        f"The near-zero correlation ($r={market_transition['moral_weight_correlation']:.3f}$) "
+        r"provides little evidence that participants preserve their relative Moral-weight "
+        r"ranking between Control and Market. Thus, the treatment differences involve "
+        r"both shifts in average Moral weight and changes in participants' relative "
+        r"positions.",
         "",
         r"All within-subject results are descriptive, in-sample associations. The "
         r"weights are estimated from the HP classifications rather than directly "

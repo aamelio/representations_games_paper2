@@ -51,9 +51,27 @@
       "treatment_cell": "lt_market"
     }
   ],
-  "moral_weight_tercile_lower_cutoff": 0.7314833179809022,
-  "moral_weight_tercile_reference": "KW Control",
-  "moral_weight_tercile_upper_cutoff": 0.7406286617817986,
+  "moral_weight_tercile_cutoffs": [
+    {
+      "column_cell": "lt_control",
+      "comparison": "KW Control to LT Control",
+      "lower_cutoff": 0.6913641397705492,
+      "n_paired_participants": 529,
+      "n_pooled_weights": 1058,
+      "row_cell": "kw_control",
+      "upper_cutoff": 0.7348240386038116
+    },
+    {
+      "column_cell": "kw_market",
+      "comparison": "KW Control to KW Market",
+      "lower_cutoff": 0.5482281492503002,
+      "n_paired_participants": 432,
+      "n_pooled_weights": 864,
+      "row_cell": "kw_control",
+      "upper_cutoff": 0.7348240386038116
+    }
+  ],
+  "moral_weight_tercile_definition": "Comparison-specific pooled distribution of both paired conditions",
   "n_elicitations_all": 3598,
   "n_hp_rows_all": 14392,
   "n_hp_rows_no_clear": 4925,

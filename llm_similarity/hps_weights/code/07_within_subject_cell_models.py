@@ -442,45 +442,79 @@ def treatment_shift_decomposition(
 
 def moral_weight_transitions(
     weights: pd.DataFrame, paired: pd.DataFrame
-) -> tuple[pd.DataFrame, pd.DataFrame]:
-    reference = weights.loc[
-        weights["treatment_cell"] == "kw_control", "weight_M"
-    ]
-    q1, q2 = reference.quantile([1 / 3, 2 / 3]).to_numpy(dtype=float)
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Cross-classify paired conditions using comparison-specific pooled terciles.
+
+    Each paired participant contributes one Moral weight from each condition to
+    the distribution that defines the cutoffs.  The same two cutoffs are then
+    applied to both conditions.  Overall percentages, rather than conditional
+    row percentages, keep the table symmetric with respect to the two cells.
+    """
+    del weights  # The paired sample, not the unbalanced full sample, defines terciles.
     labels = ["Low", "Middle", "High"]
-
-    def assign(values: pd.Series) -> pd.Categorical:
-        result = np.where(values <= q1, "Low", np.where(values <= q2, "Middle", "High"))
-        return pd.Categorical(result, categories=labels, ordered=True)
-
     rows = []
+    cutoff_rows = []
+    summary_rows = []
     for comparison, data in paired.groupby("comparison", sort=False):
+        pooled = pd.concat(
+            [data["origin_weight_M"], data["destination_weight_M"]],
+            ignore_index=True,
+        )
+        q1, q2 = pooled.quantile([1 / 3, 2 / 3]).to_numpy(dtype=float)
+
+        def assign(values: pd.Series) -> pd.Categorical:
+            result = np.where(
+                values <= q1, "Low", np.where(values <= q2, "Middle", "High")
+            )
+            return pd.Categorical(result, categories=labels, ordered=True)
+
         frame = pd.DataFrame({
-            "origin_tercile": assign(data["origin_weight_M"]),
-            "destination_tercile": assign(data["destination_weight_M"]),
+            "row_tercile": assign(data["origin_weight_M"]),
+            "column_tercile": assign(data["destination_weight_M"]),
         })
         table = pd.crosstab(
-            frame["origin_tercile"], frame["destination_tercile"], dropna=False
+            frame["row_tercile"], frame["column_tercile"], dropna=False
         ).reindex(index=labels, columns=labels, fill_value=0)
-        for origin in labels:
-            row_n = int(table.loc[origin].sum())
-            for destination in labels:
-                count = int(table.loc[origin, destination])
+        total_n = len(data)
+        for row_tercile in labels:
+            row_n = int(table.loc[row_tercile].sum())
+            for column_tercile in labels:
+                count = int(table.loc[row_tercile, column_tercile])
                 rows.append({
                     "comparison": comparison,
-                    "origin_tercile": origin,
-                    "destination_tercile": destination,
+                    "row_cell": data["origin_cell"].iloc[0],
+                    "column_cell": data["destination_cell"].iloc[0],
+                    "row_tercile": row_tercile,
+                    "column_tercile": column_tercile,
                     "count": count,
+                    "total_n": total_n,
+                    "overall_percent": 100.0 * count / total_n,
                     "row_n": row_n,
                     "row_percent": 100.0 * count / row_n if row_n else np.nan,
                 })
-    cutoffs = pd.DataFrame([{
-        "reference_cell": "kw_control",
-        "reference_n": len(reference),
-        "lower_cutoff": q1,
-        "upper_cutoff": q2,
-    }])
-    return pd.DataFrame(rows), cutoffs
+        cutoff_rows.append({
+            "comparison": comparison,
+            "row_cell": data["origin_cell"].iloc[0],
+            "column_cell": data["destination_cell"].iloc[0],
+            "n_paired_participants": total_n,
+            "n_pooled_weights": len(pooled),
+            "lower_cutoff": q1,
+            "upper_cutoff": q2,
+        })
+        ordinal = {"Low": 0, "Middle": 1, "High": 2}
+        row_code = pd.Series(frame["row_tercile"]).astype(str).map(ordinal)
+        column_code = pd.Series(frame["column_tercile"]).astype(str).map(ordinal)
+        summary_rows.append({
+            "comparison": comparison,
+            "n_paired_participants": total_n,
+            "same_tercile_percent": 100.0 * float((row_code == column_code).mean()),
+            "column_higher_percent": 100.0 * float((column_code > row_code).mean()),
+            "column_lower_percent": 100.0 * float((column_code < row_code).mean()),
+            "moral_weight_correlation": float(
+                data["origin_weight_M"].corr(data["destination_weight_M"])
+            ),
+        })
+    return pd.DataFrame(rows), pd.DataFrame(cutoff_rows), pd.DataFrame(summary_rows)
 
 
 def run_fit() -> None:
@@ -522,7 +556,7 @@ def run_fit() -> None:
     reasoning, reasoning_performance = pooled_reasoning_model(weights)
     paired = paired_comparisons(weights)
     decomposition = treatment_shift_decomposition(paired, allocation_model)
-    transitions, cutoffs = moral_weight_transitions(weights, paired)
+    transitions, cutoffs, transition_summary = moral_weight_transitions(weights, paired)
 
     BASE.atomic_write_csv(cv, OUT / "first_stage_lambda_cv.csv")
     BASE.atomic_write_csv(fixed, OUT / "first_stage_fixed_effects.csv")
@@ -537,6 +571,9 @@ def run_fit() -> None:
     BASE.atomic_write_csv(decomposition, OUT / "treatment_shift_decomposition.csv")
     BASE.atomic_write_csv(transitions, OUT / "moral_weight_transition_matrices.csv")
     BASE.atomic_write_csv(cutoffs, OUT / "moral_weight_tercile_cutoffs.csv")
+    BASE.atomic_write_csv(
+        transition_summary, OUT / "moral_weight_transition_summary.csv"
+    )
 
     summary.update({
         "n_usable_participant_cells": int(len(weights)),
@@ -544,9 +581,10 @@ def run_fit() -> None:
         "allocation_model_n": int(allocation_model.nobs),
         "allocation_model_r_squared": float(allocation_model.rsquared),
         "cells": cell_summaries,
-        "moral_weight_tercile_reference": "KW Control",
-        "moral_weight_tercile_lower_cutoff": float(cutoffs.loc[0, "lower_cutoff"]),
-        "moral_weight_tercile_upper_cutoff": float(cutoffs.loc[0, "upper_cutoff"]),
+        "moral_weight_tercile_definition": (
+            "Comparison-specific pooled distribution of both paired conditions"
+        ),
+        "moral_weight_tercile_cutoffs": cutoffs.to_dict(orient="records"),
     })
     write_json(OUT / "sample_summary.json", summary)
     write_json(PROGRESS, {

@@ -72,9 +72,11 @@ first- and second-game observations to predict allocation and classified
 post-choice reasoning, controlling for treatment cell, second trial, and source
 study, with participant-clustered standard errors. It also decomposes the mean
 KW-to-LT and Control-to-Market allocation changes attributable to average weight
-shifts and constructs paired Moral-weight transition matrices. Tercile cutoffs
-are fixed using the usable KW-Control distribution and applied unchanged to the
-destination cells.
+shifts and constructs paired Moral-weight cross-classification matrices. For
+each comparison, tercile cutoffs use the pooled distribution of the two
+conditions among participants observed in both and are applied unchanged to
+both conditions. Matrix entries are percentages of the full paired sample, so
+the analysis does not treat either condition as the temporal origin.
 
 The post-choice reasoning labels are the existing labels from
 `within/output/within_all_long_categorized.xlsx`, produced by

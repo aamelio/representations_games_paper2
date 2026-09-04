@@ -53,7 +53,9 @@ Four game-by-condition cells & Yes & & & & \\
 \end{flushleft}
 \end{table}
 
+The coefficients report predictive associations between the direct participant-category effects and DG share sent; they are not causal effects.
 
+In grouped 10-fold cross-validation, adding the participant effects changes out-of-sample $R^2$ from 0.129 to 0.137 ($\Delta R^2=0.008$) and changes RMSE from 0.2115 to 0.2104.
 
 \subsection{Moral baseline, excluding No clear justification}
 
@@ -64,7 +66,7 @@ We remove all No clear justification classifications and re-estimate the model o
     \qquad k\in\{S,C\}.
 \end{equation}
 
-The analysis retains 3,059 substantive HP classifications from 1,060 participant-frames. The estimated $b_{Si}$ and $b_{Ci}$ are participant-frame deviations in the log odds of Self-interest and Cooperation relative to Moral, net of differences across the four hypothetical allocations.
+The analysis retains 3,059 substantive HP classifications from 1,060 participant-frames. The 140 frames containing only No clear classifications are excluded. The estimated $b_{Si}$ and $b_{Ci}$ are participant-frame deviations in the log odds of Self-interest and Cooperation relative to Moral, net of differences across the four hypothetical allocations.
 
 \begin{table}[H]
 \centering
@@ -87,10 +89,11 @@ Four game-by-condition cells & Yes & & & & \\
 \end{flushleft}
 \end{table}
 
+The bootstrap interval for the Self-interest participant effect excludes zero; the interval for the Cooperation participant effect excludes zero. In grouped 10-fold cross-validation, adding the participant effects changes out-of-sample $R^2$ from 0.134 to 0.147 ($\Delta R^2=0.013$).
 
 \subsection{Heterogeneity by game and condition}
 
-We conduct two heterogeneity tests. First, using all four game-by-condition cells, we test whether the relationships between the participant effects $b_{Si}$ and $b_{Ci}$ and giving differ between KW and LT. Cell indicators allow average giving to differ freely across KW Control, LT Control, KW Market, and LT Market. Second, restricting the sample to KW, we test whether these relationships differ between Control and Market. In each case, the interaction coefficients measure the difference between the relevant slopes.
+Using the Moral-baseline sample, we interact $b_{Si}$ and $b_{Ci}$ first with an LT indicator, using KW as the reference game. This regression includes indicators for LT Control, KW Market, and LT Market, with KW Control omitted; hence average allocations may differ across all four game-by-condition cells. For the condition comparison, we retain only KW observations and interact the participant effects with a Market indicator, using KW Control as the reference cell.
 
 \begin{table}[H]
 \centering
@@ -135,14 +138,14 @@ The models use 9,467 HP responses classified as M, S, or C and retain 3,119 part
 \centering
 \caption{Average cell-specific HP weights}
 \label{tab:within_first_stage_cells}
-\begin{tabular}{lcccc}
+\begin{tabular}{lccccc}
 \toprule
-Cell & Moral & Self-interest & Cooperation & Observations  \\
+Cell & Moral & Self-interest & Cooperation & Observations & $\lambda$ \\
 \midrule
-KW Control & 0.733 & 0.239 & 0.028 & 1118 \\
-LT Control & 0.683 & 0.291 & 0.027 & 1094  \\
-KW Market & 0.456 & 0.371 & 0.173 & 449  \\
-LT Market & 0.466 & 0.393 & 0.141 & 458 \\
+KW Control & 0.733 & 0.239 & 0.028 & 1118 & 1 \\
+LT Control & 0.683 & 0.291 & 0.027 & 1094 & 2 \\
+KW Market & 0.456 & 0.371 & 0.173 & 449 & 0.5 \\
+LT Market & 0.466 & 0.393 & 0.141 & 458 & 2 \\
 \bottomrule
 \end{tabular}
 \begin{flushleft}
@@ -220,32 +223,41 @@ KW Control $\rightarrow$ KW Market & -27.4 & +12.9 & +14.5 & -3.4 & -10.2 & 432 
 
 The KW-to-LT weight shift predicts a 0.9 percentage-point reduction in giving, while giving rises by 4.9 points. The KW-Control-to-KW-Market weight shift predicts a 3.4-point reduction, compared with an observed 10.2-point reduction.
 
-Common Moral-weight terciles use the usable KW-Control distribution (cutoffs 0.731 and 0.741); the same numerical cutoffs are applied to each destination cell.
+For each comparison, Moral-weight terciles are defined using the pooled distribution of the two observations contributed by every paired participant. The same cutoffs are applied to both conditions, so neither condition is treated as the temporal origin. The cutoffs are 0.691 and 0.735 for KW--LT, and 0.548 and 0.735 for Control--Market.
 
 \begin{table}[H]
 \centering
-\caption{Transitions across common Moral-weight terciles}
+\caption{Within-participant comparison of Moral-weight terciles}
 \label{tab:within_moral_transitions}
 \begin{tabular}{lrrrr}
 \toprule
-Origin tercile & Destination low & Destination middle & Destination high & Row N \\
-\midrule
-\multicolumn{5}{l}{\textit{KW Control $\rightarrow$ LT Control}} \\
-Low & 93.5 (159) & 0.6 (1) & 5.9 (10) & 170 \\
-Middle & 89.9 (160) & 1.1 (2) & 9.0 (16) & 178 \\
-High & 81.2 (147) & 1.1 (2) & 17.7 (32) & 181 \\
+\multicolumn{5}{l}{\textit{KW Control vs.\ LT Control}} \\
+KW Control tercile & LT Control: low & LT Control: middle & LT Control: high & Total \\
+\cmidrule(lr){2-5}
+Low & 9.1 (48) & 6.0 (32) & 0.8 (4) & 15.9 (84) \\
+Middle & 28.4 (150) & 16.3 (86) & 4.5 (24) & 49.1 (260) \\
+High & 13.4 (71) & 15.3 (81) & 6.2 (33) & 35.0 (185) \\
+\cmidrule(lr){2-5}
+Total & 50.9 (269) & 37.6 (199) & 11.5 (61) & 100.0 (529) \\
 \addlinespace
-\multicolumn{5}{l}{\textit{KW Control $\rightarrow$ KW Market}} \\
-Low & 98.0 (147) & 2.0 (3) & 0.0 (0) & 150 \\
-Middle & 97.5 (154) & 2.5 (4) & 0.0 (0) & 158 \\
-High & 95.2 (118) & 4.8 (6) & 0.0 (0) & 124 \\
+\multicolumn{5}{l}{\textit{KW Control vs.\ KW Market}} \\
+KW Control tercile & KW Market: low & KW Market: middle & KW Market: high & Total \\
+\cmidrule(lr){2-5}
+Low & 0.0 (0) & 0.0 (0) & 0.0 (0) & 0.0 (0) \\
+Middle & 48.6 (210) & 20.4 (88) & 1.6 (7) & 70.6 (305) \\
+High & 19.2 (83) & 8.8 (38) & 1.4 (6) & 29.4 (127) \\
+\cmidrule(lr){2-5}
+Total & 67.8 (293) & 29.2 (126) & 3.0 (13) & 100.0 (432) \\
 \addlinespace
 \bottomrule
 \end{tabular}
 \begin{flushleft}
-\footnotesize Notes: Entries are row percentages, with counts in parentheses. Rows are KW-Control terciles. Only participants with usable M/S/C weights in both cells are included.
+\footnotesize Notes: Entries are percentages of the full paired sample, with counts in parentheses. Each panel sums to 100 percent. Terciles are based on the pooled Moral weights from the two conditions in that panel. Only participants with usable M/S/C weights in both conditions are included.
 \end{flushleft}
 \end{table}
 
+The KW--LT comparison combines a systematic downward shift in Moral weight under LT with limited persistence across games: 57.1\% of participants are in a lower tercile under LT, 11.3\% are in a higher tercile, and 31.6\% remain in the same tercile ($r=0.187$). The Control--Market contrast is substantially sharper: 76.6\% are in a lower tercile under Market, only 1.6\% are higher, and 21.8\% remain in the same tercile. The near-zero correlation ($r=-0.049$) provides little evidence that participants preserve their relative Moral-weight ranking between Control and Market. Thus, the treatment differences involve both shifts in average Moral weight and changes in participants' relative positions.
+
+All within-subject results are descriptive, in-sample associations. The weights are estimated from the HP classifications rather than directly observed, and the treatment decomposition does not isolate a causal mechanism.
 
 \end{document}
