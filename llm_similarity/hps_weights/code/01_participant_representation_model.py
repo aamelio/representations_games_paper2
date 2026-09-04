@@ -774,7 +774,8 @@ def moral_baseline_tex_section() -> list[str]:
         f"The {int(sample['n_excluded_all_no_clear_frames'])} frames containing only "
         r"No clear classifications are excluded. The estimated $b_{Si}$ and "
         r"$b_{Ci}$ are participant-frame deviations in the log odds of Self-interest "
-        r"and Cooperation relative to Moral, net of the allocation-anchor effects.",
+        r"and Cooperation relative to Moral, net of differences across the four "
+        r"hypothetical allocations.",
         "",
         r"\begin{table}[H]",
         r"\centering",
@@ -796,8 +797,8 @@ def moral_baseline_tex_section() -> list[str]:
         r"\footnotesize Notes: Moral is the first-stage reference category. Coefficients "
         r"give the change in share sent for a one-unit increase in the indicated "
         r"participant log-odds effect. The final column rescales this change to one "
-        r"sample standard deviation. Confidence intervals use 500 participant-cluster "
-        r"bootstrap samples.",
+        r"sample standard deviation. Confidence intervals use 500 bootstrap samples "
+        r"drawn at the participant level.",
         r"\end{flushleft}",
         r"\end{table}",
         "",
@@ -913,11 +914,13 @@ def heterogeneity_tex_section() -> list[str]:
         r"\bottomrule",
         r"\end{tabular}",
         r"\begin{flushleft}",
-        r"\footnotesize Notes: Moral is the first-stage reference category and No-clear "
-        r"classifications are excluded. Slopes refer to the direct participant log-odds "
+        r"\footnotesize Notes: Moral is the first-stage reference category and "
+        r"classifications labelled No clear justification are excluded. Slopes refer "
+        r"to the direct participant log-odds "
         r"effects. Entries in parentheses are participant-"
         r"clustered standard errors. Bootstrap intervals are for the slope "
-        r"difference and refit both stages in 500 participant-cluster samples.",
+        r"difference and refit both stages in 500 bootstrap samples drawn at the "
+        r"participant level.",
         r"\end{flushleft}",
         r"\end{table}",
         "",
@@ -1075,7 +1078,7 @@ def within_subject_tex_section_legacy() -> list[str]:
         "",
         f"The within-subject data contain {int(sample['n_subjects_all']):,} participants "
         f"and {int(sample['n_hp_rows_all']):,} HP responses from two pre-choice "
-        r"elicitations. HP descriptions are classified with the same frozen M/S/C/N "
+        r"elicitations. HP descriptions are classified with the same M/S/C/N "
         r"prompt as in the between-subject analysis. We exclude N responses and estimate",
         "",
         r"\begin{equation}",
@@ -1088,7 +1091,7 @@ def within_subject_tex_section_legacy() -> list[str]:
         f"The estimation sample contains {int(sample['n_hp_rows_substantive']):,} "
         f"substantive classifications and {int(sample['n_subjects_usable']):,} "
         r"participants; participants whose HP descriptions are all N are excluded. "
-        r"Allocation, treatment, and Gaussian-shrunk participant effects are estimated "
+        r"Allocation, treatment, and regularized participant effects are estimated "
         rf"jointly; cross-validation selects $\lambda={sample['selected_lambda']:.3g}$.",
         r"In the current within-subject specification, we express the participant effects as "
         r"M/S/C prevalence weights. For participant $i$, $w^P_{ik}$ is the fitted "
@@ -1120,7 +1123,7 @@ def within_subject_tex_section_legacy() -> list[str]:
         "",
         r"We predict share sent separately in the first and second played game. The "
         r"full model contains the participant S and C weights, the treatment-induced S "
-        r"and C probability shifts, and a source-study indicator. HC3 standard errors "
+        r"and C probability shifts, and an indicator for the source experiment. HC3 standard errors "
         r"are used.",
         "",
         r"\begin{table}[H]",
@@ -1303,7 +1306,7 @@ def within_subject_tex_section() -> list[str]:
         "",
         f"The within-subject data contain {int(sample['n_subjects_all']):,} participants "
         f"and {int(sample['n_hp_rows_all']):,} HP responses from two pre-choice "
-        r"elicitations. We apply the same frozen M/S/C/N classification prompt, exclude "
+        r"elicitations. We apply the same M/S/C/N classification prompt, exclude "
         r"N responses, and estimate separately for each game-by-condition cell $c$:",
         "",
         r"\begin{equation}",
@@ -1311,11 +1314,13 @@ def within_subject_tex_section() -> list[str]:
         r"\alpha^c_{ka}+b^c_{ki},\qquad k\in\{S,C\}.",
         r"\end{equation}",
         "",
-        f"The models use {int(sample['n_hp_rows_substantive']):,} substantive "
-        f"classifications and retain {int(sample['n_usable_participant_cells']):,} "
-        r"participant-cell observations. Participant-cells with only N responses are "
-        r"excluded. The $b^c_{ki}$ effects are Gaussian-shrunk, with the penalty selected "
-        r"separately by within-cell cross-validation. M/S/C weights are the fitted "
+        f"The models use {int(sample['n_hp_rows_substantive']):,} HP responses "
+        f"classified as M, S, or C and retain "
+        f"{int(sample['n_usable_participant_cells']):,} "
+        r"participant-by-treatment-cell observations. An observation is excluded when "
+        r"all four HP responses are classified N. Participant effects are regularized "
+        r"toward zero, with the strength selected separately by within-cell "
+        r"cross-validation. M/S/C weights are the fitted "
         r"probabilities averaged over the four allocation anchors.",
         "",
         r"\begin{table}[H]",
@@ -1324,14 +1329,15 @@ def within_subject_tex_section() -> list[str]:
         r"\label{tab:within_first_stage_cells}",
         r"\begin{tabular}{lccccc}",
         r"\toprule",
-        r"Cell & Moral & Self-interest & Cooperation & Usable cells & $\lambda$ \\",
+        r"Cell & Moral & Self-interest & Cooperation & Observations & $\lambda$ \\",
         r"\midrule",
         *cell_rows,
         r"\bottomrule",
         r"\end{tabular}",
         r"\begin{flushleft}",
-        r"\footnotesize Notes: Weights are conditional on an M/S/C classification and "
-        r"average the fitted participant-cell probabilities over all four anchors.",
+        r"\footnotesize Notes: N classifications are excluded, so the M/S/C weights sum "
+        r"to one. The table averages each participant's fitted probabilities over the "
+        r"four allocation anchors and then across participants in the cell.",
         r"\end{flushleft}",
         r"\end{table}",
         "",
@@ -1339,7 +1345,7 @@ def within_subject_tex_section() -> list[str]:
         "",
         r"We pool first- and second-game observations and regress share sent on S and C "
         r"weights, omitting Moral. The model includes game-by-condition cell fixed "
-        r"effects, a second-game indicator, and a source-study indicator. Standard "
+        r"effects, a second-game indicator, and an indicator for the source experiment. Standard "
         r"errors are clustered by participant.",
         "",
         r"\begin{table}[H]",
@@ -1360,7 +1366,7 @@ def within_subject_tex_section() -> list[str]:
         r"\footnotesize Notes: Coefficients correspond to a 100-percentage-point "
         r"increase in the indicated weight, offset by Moral. The final column reports "
         r"the percentage-point change in giving for a 10-percentage-point increase. "
-        r"Inference conditions on the estimated first-stage weights.",
+        r"Standard errors treat the estimated first-stage weights as fixed.",
         r"\end{flushleft}",
         r"\end{table}",
         "",
@@ -1444,8 +1450,8 @@ def within_subject_tex_section() -> list[str]:
         r"\end{table}",
         "",
         r"All within-subject results are descriptive, in-sample associations. The "
-        r"cell-specific weights are generated regressors and the treatment decomposition "
-        r"does not isolate a causal mechanism.",
+        r"weights are estimated from the HP classifications rather than directly "
+        r"observed, and the treatment decomposition does not isolate a causal mechanism.",
     ]
 
 
@@ -1502,29 +1508,31 @@ def write_tex_document(
         "",
         r"\subsection{Four-category method}",
         "",
-        r"Each participant-frame provides four HP texts, one for each allocation anchor "
+        r"Each participant-frame (one participant under one set of instructions) "
+        r"provides four HP texts, one for each hypothetical allocation "
         r"$a\in\{4,6,8,12\}$. Each text is classified as Moral (M), Self-interest "
-        r"(S), Cooperation (C), or No clear justification (N). We estimate the partially "
-        r"pooled multinomial model",
+        r"(S), Cooperation (C), or No clear justification (N). We estimate a multinomial "
+        r"model with allocation-specific and participant-specific terms:",
         "",
         r"\begin{equation}",
         r"    \log\frac{\Pr(K_{ia}=k)}{\Pr(K_{ia}=N)}=\alpha_{ka}+b_{ki},",
         r"    \qquad k\in\{M,S,C\},",
         r"\end{equation}",
         "",
-        r"where the participant-frame effects $b_{ki}$ are Gaussian-shrunk and the penalty "
-        r"is selected by cross-validation. The allocation effects $\alpha_{ka}$ absorb "
-        r"systematic differences across HP anchors; the second stage uses the estimated "
+        r"where the participant-frame effects $b_{ki}$ are regularized toward zero. "
+        r"Cross-validation selects the strength of this regularization. The allocation "
+        r"effects $\alpha_{ka}$ absorb systematic differences across the four hypothetical "
+        r"allocations; the second stage uses the estimated "
         r"$b_{Mi}$, $b_{Si}$, and $b_{Ci}$ directly. These effects measure participant "
-        r"deviations in category log odds relative to No clear justification, net of the "
-        r"allocation-anchor effects.",
+        r"deviations in category log odds relative to No clear justification, net of "
+        r"differences across the four hypothetical allocations.",
         "",
         r"We regress the participant's DG share sent on the three $b_{ki}$ effects, "
         r"controlling for indicators for LT Control, KW Market, and LT Market, with "
         r"KW Control omitted. Standard errors are "
         r"clustered by participant. Confidence intervals refit both stages in 500 "
-        r"participant-cluster bootstrap samples, holding the penalty at its "
-        r"cross-validated value.",
+        r"bootstrap samples drawn at the participant level, holding the regularization "
+        r"strength at its cross-validated value.",
         "",
         r"\subsection{Four-category results}",
         "",

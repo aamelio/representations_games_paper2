@@ -18,16 +18,16 @@
 
 \subsection{Four-category method}
 
-Each participant-frame provides four HP texts, one for each allocation anchor $a\in\{4,6,8,12\}$. Each text is classified as Moral (M), Self-interest (S), Cooperation (C), or No clear justification (N). We estimate the partially pooled multinomial model
+Each participant-frame (one participant under one set of instructions) provides four HP texts, one for each hypothetical allocation $a\in\{4,6,8,12\}$. Each text is classified as Moral (M), Self-interest (S), Cooperation (C), or No clear justification (N). We estimate a multinomial model with allocation-specific and participant-specific terms:
 
 \begin{equation}
     \log\frac{\Pr(K_{ia}=k)}{\Pr(K_{ia}=N)}=\alpha_{ka}+b_{ki},
     \qquad k\in\{M,S,C\},
 \end{equation}
 
-where the participant-frame effects $b_{ki}$ are Gaussian-shrunk and the penalty is selected by cross-validation. The allocation effects $\alpha_{ka}$ absorb systematic differences across HP anchors; the second stage uses the estimated $b_{Mi}$, $b_{Si}$, and $b_{Ci}$ directly. These effects measure participant deviations in category log odds relative to No clear justification, net of the allocation-anchor effects.
+where the participant-frame effects $b_{ki}$ are regularized toward zero. Cross-validation selects the strength of this regularization. The allocation effects $\alpha_{ka}$ absorb systematic differences across the four hypothetical allocations; the second stage uses the estimated $b_{Mi}$, $b_{Si}$, and $b_{Ci}$ directly. These effects measure participant deviations in category log odds relative to No clear justification, net of differences across the four hypothetical allocations.
 
-We regress the participant's DG share sent on the three $b_{ki}$ effects, controlling for indicators for LT Control, KW Market, and LT Market, with KW Control omitted. Standard errors are clustered by participant. Confidence intervals refit both stages in 500 participant-cluster bootstrap samples, holding the penalty at its cross-validated value.
+We regress the participant's DG share sent on the three $b_{ki}$ effects, controlling for indicators for LT Control, KW Market, and LT Market, with KW Control omitted. Standard errors are clustered by participant. Confidence intervals refit both stages in 500 bootstrap samples drawn at the participant level, holding the regularization strength at its cross-validated value.
 
 \subsection{Four-category results}
 
@@ -66,7 +66,7 @@ We remove all No clear justification classifications and re-estimate the model o
     \qquad k\in\{S,C\}.
 \end{equation}
 
-The analysis retains 3,059 substantive HP classifications from 1,060 participant-frames. The 140 frames containing only No clear classifications are excluded. The estimated $b_{Si}$ and $b_{Ci}$ are participant-frame deviations in the log odds of Self-interest and Cooperation relative to Moral, net of the allocation-anchor effects.
+The analysis retains 3,059 substantive HP classifications from 1,060 participant-frames. The 140 frames containing only No clear classifications are excluded. The estimated $b_{Si}$ and $b_{Ci}$ are participant-frame deviations in the log odds of Self-interest and Cooperation relative to Moral, net of differences across the four hypothetical allocations.
 
 \begin{table}[H]
 \centering
@@ -85,7 +85,7 @@ Four game-by-condition cells & Yes & & & & \\
 \bottomrule
 \end{tabular}
 \begin{flushleft}
-\footnotesize Notes: Moral is the first-stage reference category. Coefficients give the change in share sent for a one-unit increase in the indicated participant log-odds effect. The final column rescales this change to one sample standard deviation. Confidence intervals use 500 participant-cluster bootstrap samples.
+\footnotesize Notes: Moral is the first-stage reference category. Coefficients give the change in share sent for a one-unit increase in the indicated participant log-odds effect. The final column rescales this change to one sample standard deviation. Confidence intervals use 500 bootstrap samples drawn at the participant level.
 \end{flushleft}
 \end{table}
 
@@ -116,7 +116,7 @@ $b_{Ci}$: Cooperation vs. Moral & 0.046 (0.061) & -0.050 (0.015) & -0.096 (0.063
 \bottomrule
 \end{tabular}
 \begin{flushleft}
-\footnotesize Notes: Moral is the first-stage reference category and No-clear classifications are excluded. Slopes refer to the direct participant log-odds effects. Entries in parentheses are participant-clustered standard errors. Bootstrap intervals are for the slope difference and refit both stages in 500 participant-cluster samples.
+\footnotesize Notes: Moral is the first-stage reference category and classifications labelled No clear justification are excluded. Slopes refer to the direct participant log-odds effects. Entries in parentheses are participant-clustered standard errors. Bootstrap intervals are for the slope difference and refit both stages in 500 bootstrap samples drawn at the participant level.
 \end{flushleft}
 \end{table}
 
@@ -126,13 +126,13 @@ The joint tests provide no clear evidence of heterogeneity by game ($p=0.144$) a
 
 \subsection{Cell-specific HP weights}
 
-The within-subject data contain 1,799 participants and 14,392 HP responses from two pre-choice elicitations. We apply the same frozen M/S/C/N classification prompt, exclude N responses, and estimate separately for each game-by-condition cell $c$:
+The within-subject data contain 1,799 participants and 14,392 HP responses from two pre-choice elicitations. We apply the same M/S/C/N classification prompt, exclude N responses, and estimate separately for each game-by-condition cell $c$:
 
 \begin{equation}
 \log\frac{\Pr(K_{ia}=k\mid c)}{\Pr(K_{ia}=M\mid c)}=\alpha^c_{ka}+b^c_{ki},\qquad k\in\{S,C\}.
 \end{equation}
 
-The models use 9,467 substantive classifications and retain 3,119 participant-cell observations. Participant-cells with only N responses are excluded. The $b^c_{ki}$ effects are Gaussian-shrunk, with the penalty selected separately by within-cell cross-validation. M/S/C weights are the fitted probabilities averaged over the four allocation anchors.
+The models use 9,467 HP responses classified as M, S, or C and retain 3,119 participant-by-treatment-cell observations. An observation is excluded when all four HP responses are classified N. Participant effects are regularized toward zero, with the strength selected separately by within-cell cross-validation. M/S/C weights are the fitted probabilities averaged over the four allocation anchors.
 
 \begin{table}[H]
 \centering
@@ -140,7 +140,7 @@ The models use 9,467 substantive classifications and retain 3,119 participant-ce
 \label{tab:within_first_stage_cells}
 \begin{tabular}{lccccc}
 \toprule
-Cell & Moral & Self-interest & Cooperation & Usable cells & $\lambda$ \\
+Cell & Moral & Self-interest & Cooperation & Observations & $\lambda$ \\
 \midrule
 KW Control & 0.733 & 0.239 & 0.028 & 1118 & 1 \\
 LT Control & 0.683 & 0.291 & 0.027 & 1094 & 2 \\
@@ -149,17 +149,13 @@ LT Market & 0.466 & 0.393 & 0.141 & 458 & 2 \\
 \bottomrule
 \end{tabular}
 \begin{flushleft}
-\footnotesize Notes: Weights are conditional on an M/S/C classification and average the fitted participant-cell probabilities over all four anchors.
+\footnotesize Notes: N classifications are excluded, so the M/S/C weights sum to one. The table averages each participant's fitted probabilities over the four allocation anchors and then across participants in the cell.
 \end{flushleft}
 \end{table}
 
 \subsection{Pooled prediction of allocation and reasoning}
 
-<<<<<<< HEAD
-We pool first- and second-game observations and regress share sent on S and C weights, omitting Moral. The model includes game-by-condition cell fixed effects, a second-game indicator, and a source-study indicator. Standard errors are clustered by participant.
-=======
-We predict share sent separately in the first and second played game. The full model contains the participant S and C weights, the treatment-induced S and C probability shifts, and an indicator.
->>>>>>> ab7c3ab8659423ac00805dabbbc6ef0d9ee97461
+We pool first- and second-game observations and regress share sent on S and C weights, omitting Moral. The model includes game-by-condition cell fixed effects, a second-game indicator, and an indicator for the source experiment. Standard errors are clustered by participant.
 
 \begin{table}[H]
 \centering
@@ -177,7 +173,7 @@ $R^2$ & 0.118 & & & & \\
 \bottomrule
 \end{tabular}
 \begin{flushleft}
-\footnotesize Notes: Coefficients correspond to a 100-percentage-point increase in the indicated weight, offset by Moral. The final column reports the percentage-point change in giving for a 10-percentage-point increase. Inference conditions on the estimated first-stage weights.
+\footnotesize Notes: Coefficients correspond to a 100-percentage-point increase in the indicated weight, offset by Moral. The final column reports the percentage-point change in giving for a 10-percentage-point increase. Standard errors treat the estimated first-stage weights as fixed.
 \end{flushleft}
 \end{table}
 
@@ -254,6 +250,6 @@ High & 95.2 (118) & 4.8 (6) & 0.0 (0) & 124 \\
 \end{flushleft}
 \end{table}
 
-All within-subject results are descriptive, in-sample associations. The cell-specific weights are generated regressors and the treatment decomposition does not isolate a causal mechanism.
+All within-subject results are descriptive, in-sample associations. The weights are estimated from the HP classifications rather than directly observed, and the treatment decomposition does not isolate a causal mechanism.
 
 \end{document}
