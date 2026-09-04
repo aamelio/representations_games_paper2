@@ -1,0 +1,67 @@
+{
+  "allocation_model_n": 3119,
+  "allocation_model_r_squared": 0.11756836732257614,
+  "analysis_complete": true,
+  "cells": [
+    {
+      "converged": true,
+      "gradient_max": 0.0008745456195941026,
+      "iterations": 61,
+      "n_elicitations_all": 1199,
+      "n_elicitations_all_no_clear": 81,
+      "n_elicitations_usable": 1118,
+      "n_hp_rows_all": 4796,
+      "n_hp_rows_substantive": 3738,
+      "selected_lambda": 1.0,
+      "treatment_cell": "kw_control"
+    },
+    {
+      "converged": true,
+      "gradient_max": 0.0008390247978971033,
+      "iterations": 54,
+      "n_elicitations_all": 1200,
+      "n_elicitations_all_no_clear": 106,
+      "n_elicitations_usable": 1094,
+      "n_hp_rows_all": 4800,
+      "n_hp_rows_substantive": 3498,
+      "selected_lambda": 2.0,
+      "treatment_cell": "lt_control"
+    },
+    {
+      "converged": true,
+      "gradient_max": 0.0007139597653502694,
+      "iterations": 77,
+      "n_elicitations_all": 599,
+      "n_elicitations_all_no_clear": 150,
+      "n_elicitations_usable": 449,
+      "n_hp_rows_all": 2396,
+      "n_hp_rows_substantive": 1127,
+      "selected_lambda": 0.5,
+      "treatment_cell": "kw_market"
+    },
+    {
+      "converged": true,
+      "gradient_max": 0.0003747893732306551,
+      "iterations": 43,
+      "n_elicitations_all": 600,
+      "n_elicitations_all_no_clear": 142,
+      "n_elicitations_usable": 458,
+      "n_hp_rows_all": 2400,
+      "n_hp_rows_substantive": 1104,
+      "selected_lambda": 2.0,
+      "treatment_cell": "lt_market"
+    }
+  ],
+  "fit_complete": true,
+  "moral_weight_tercile_lower_cutoff": 0.7314833179809022,
+  "moral_weight_tercile_reference": "KW Control",
+  "moral_weight_tercile_upper_cutoff": 0.7406286617817986,
+  "n_elicitations_all": 3598,
+  "n_hp_rows_all": 14392,
+  "n_hp_rows_no_clear": 4925,
+  "n_hp_rows_substantive": 9467,
+  "n_subjects_all": 1799,
+  "n_unique_usable_participants": 1732,
+  "n_usable_participant_cells": 3119,
+  "stage": "complete"
+}

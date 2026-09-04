@@ -1,0 +1,19 @@
+comparison,origin_tercile,destination_tercile,count,row_n,row_percent
+KW Control to LT Control,Low,Low,159,170,93.52941176470588
+KW Control to LT Control,Low,Middle,1,170,0.5882352941176471
+KW Control to LT Control,Low,High,10,170,5.882352941176471
+KW Control to LT Control,Middle,Low,160,178,89.88764044943821
+KW Control to LT Control,Middle,Middle,2,178,1.1235955056179776
+KW Control to LT Control,Middle,High,16,178,8.98876404494382
+KW Control to LT Control,High,Low,147,181,81.21546961325967
+KW Control to LT Control,High,Middle,2,181,1.1049723756906078
+KW Control to LT Control,High,High,32,181,17.679558011049725
+KW Control to KW Market,Low,Low,147,150,98.0
+KW Control to KW Market,Low,Middle,3,150,2.0
+KW Control to KW Market,Low,High,0,150,0.0
+KW Control to KW Market,Middle,Low,154,158,97.46835443037975
+KW Control to KW Market,Middle,Middle,4,158,2.5316455696202533
+KW Control to KW Market,Middle,High,0,158,0.0
+KW Control to KW Market,High,Low,118,124,95.16129032258064
+KW Control to KW Market,High,Middle,6,124,4.838709677419355
+KW Control to KW Market,High,High,0,124,0.0

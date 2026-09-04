@@ -45,8 +45,10 @@ The within-subject workflow is self-contained under `within_subject/`:
   `rejected_heuristic_classifications.csv` is retained only as an audit record
   and is not used anywhere in the analysis.
 - `data/within_hp_panel_classified.csv` is the analysis-ready classified panel.
-- `output/` contains the first-stage estimates, participant and treatment
-  components, and the period-specific allocation and reasoning models.
+- `output/cell_specific/` contains the current cell-specific first stages,
+  participant-cell weights, pooled allocation and reasoning models, treatment
+  decompositions, and transition matrices. The older unified specification is
+  retained directly under `output/` for audit.
 
 `code/04_prepare_within_subject_hp.py` constructs two pre-choice HP elicitation
 periods per participant, with four allocation anchors in each period, from the
@@ -60,20 +62,27 @@ classification are inherited; all other nonempty texts are classified from the
 frozen prompt. Empty text is coded No clear justification. The finalized file
 records classification provenance row by row.
 
-`code/06_within_subject_model.py` excludes No-clear HP rows and uses Moral as
-the multinomial baseline. It estimates allocation fixed effects, Market, KW,
-Market-by-KW, and Gaussian-shrunk participant effects from the pooled first and
-second HP elicitations. The current within-subject specification converts the
-participant effects into M/S/C probability weights averaged across allocation
-anchors at the common LT-Control reference. Treatment components are
-the M/S/C probability shifts from LT Control to the current Market/KW cell,
-evaluated at zero participant effect. It then asks whether the participant
-weights and treatment shifts predict allocation and classified post-choice
-reasoning separately in the first and second played game. The post-choice
-reasoning labels are the existing labels from
+`code/07_within_subject_cell_models.py` is the specification used by the current
+report. It excludes No-clear HP rows, uses Moral as the multinomial baseline,
+and estimates allocation and Gaussian-shrunk participant effects separately in
+KW Control, LT Control, KW Market, and LT Market. The penalty is selected by
+within-cell cross-validation. For each usable participant-cell, fitted M/S/C
+weights are averaged over the four allocation anchors. The script then pools
+first- and second-game observations to predict allocation and classified
+post-choice reasoning, controlling for treatment cell, second trial, and source
+study, with participant-clustered standard errors. It also decomposes the mean
+KW-to-LT and Control-to-Market allocation changes attributable to average weight
+shifts and constructs paired Moral-weight transition matrices. Tercile cutoffs
+are fixed using the usable KW-Control distribution and applied unchanged to the
+destination cells.
+
+The post-choice reasoning labels are the existing labels from
 `within/output/within_all_long_categorized.xlsx`, produced by
 `within/02_text_categorization.py` with GPT-4.1; this workflow does not
-reclassify those outcomes.
+reclassify those outcomes. `code/06_within_subject_model.py` and its files in
+`within_subject/output/` are retained as the earlier pooled-first-stage
+specification. The current cell-specific outputs are isolated in
+`within_subject/output/cell_specific/`.
 
 Run the within-subject workflow from the repository root:
 
@@ -81,7 +90,7 @@ Run the within-subject workflow from the repository root:
 python representations_games_paper2/llm_similarity/hps_weights/code/04_prepare_within_subject_hp.py
 python representations_games_paper2/llm_similarity/hps_weights/code/05_classify_within_subject_hp.py prepare
 python representations_games_paper2/llm_similarity/hps_weights/code/05_classify_within_subject_hp.py import --results <validated-classification-csv>
-python representations_games_paper2/llm_similarity/hps_weights/code/06_within_subject_model.py fit
+python representations_games_paper2/llm_similarity/hps_weights/code/07_within_subject_cell_models.py fit
 python representations_games_paper2/llm_similarity/hps_weights/code/01_participant_representation_model.py tex
 ```
 

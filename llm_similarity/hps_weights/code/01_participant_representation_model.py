@@ -927,7 +927,7 @@ def heterogeneity_tex_section() -> list[str]:
     ]
 
 
-def within_subject_tex_section() -> list[str]:
+def within_subject_tex_section_legacy() -> list[str]:
     within_out = ROOT / "within_subject" / "output"
     required = [
         within_out / "sample_summary.json",
@@ -1183,6 +1183,269 @@ def within_subject_tex_section() -> list[str]:
         r"particular, $w^P_{ik}$ pools both HP elicitations, so the first-game exercise is "
         r"not a prospective prediction based only on information observed before the "
         r"first game.",
+    ]
+
+
+def within_subject_tex_section() -> list[str]:
+    """Render the final cell-specific within-subject specification."""
+    within_out = ROOT / "within_subject" / "output" / "cell_specific"
+    names = [
+        "sample_summary.json",
+        "cell_weight_means.csv",
+        "pooled_allocation_model.csv",
+        "pooled_reasoning_model.csv",
+        "pooled_reasoning_performance.csv",
+        "treatment_shift_decomposition.csv",
+        "moral_weight_transition_matrices.csv",
+        "moral_weight_tercile_cutoffs.csv",
+    ]
+    paths = [within_out / name for name in names]
+    if not all(path.exists() for path in paths):
+        return []
+
+    sample = json.loads(paths[0].read_text(encoding="utf-8"))
+    means = pd.read_csv(paths[1]).set_index("treatment_cell")
+    allocation = pd.read_csv(paths[2]).set_index("term")
+    reasoning = pd.read_csv(paths[3]).set_index(["term", "outcome_vs_moral"])
+    reasoning_fit = pd.read_csv(paths[4]).iloc[0]
+    shifts = pd.read_csv(paths[5]).set_index("comparison")
+    transitions = pd.read_csv(paths[6])
+    cutoffs = pd.read_csv(paths[7]).iloc[0]
+
+    def p_tex(value: float) -> str:
+        return r"$<0.001$" if value < 0.001 else f"{value:.3f}"
+
+    cell_labels = {
+        "kw_control": "KW Control",
+        "lt_control": "LT Control",
+        "kw_market": "KW Market",
+        "lt_market": "LT Market",
+    }
+    cell_summary = {item["treatment_cell"]: item for item in sample["cells"]}
+    cell_rows = []
+    for key in cell_labels:
+        row = means.loc[key]
+        detail = cell_summary[key]
+        cell_rows.append(
+            f"{cell_labels[key]} & {row['weight_M']:.3f} & "
+            f"{row['weight_S']:.3f} & {row['weight_C']:.3f} & "
+            f"{int(detail['n_elicitations_usable'])} & "
+            f"{detail['selected_lambda']:.3g} \\\\"
+        )
+
+    allocation_rows = []
+    for term, label in [
+        ("weight_S", "S weight (M omitted)"),
+        ("weight_C", "C weight (M omitted)"),
+    ]:
+        row = allocation.loc[term]
+        allocation_rows.append(
+            f"{label} & {row['coefficient']:.3f} & "
+            f"{row['std_error_clustered_pid']:.3f} & "
+            f"{p_tex(row['p_value'])} & "
+            f"[{row['ci95_low']:.3f}, {row['ci95_high']:.3f}] & "
+            f"{10 * row['coefficient']:+.2f} \\\\"
+        )
+
+    reasoning_rows = []
+    for term, label in [("weight_S", "S weight"), ("weight_C", "C weight")]:
+        s_row = reasoning.loc[(term, "S")]
+        c_row = reasoning.loc[(term, "C")]
+        reasoning_rows.append(
+            f"{label} & {s_row['coefficient']:.3f} "
+            f"({s_row['std_error_clustered_pid']:.3f}) & "
+            f"{p_tex(s_row['p_value'])} & {c_row['coefficient']:.3f} "
+            f"({c_row['std_error_clustered_pid']:.3f}) & "
+            f"{p_tex(c_row['p_value'])} \\\\"
+        )
+
+    comparison_labels = {
+        "KW Control to LT Control": r"KW Control $\rightarrow$ LT Control",
+        "KW Control to KW Market": r"KW Control $\rightarrow$ KW Market",
+    }
+    shift_rows = []
+    for key, label in comparison_labels.items():
+        row = shifts.loc[key]
+        shift_rows.append(
+            f"{label} & {100 * row['mean_delta_weight_M']:+.1f} & "
+            f"{100 * row['mean_delta_weight_S']:+.1f} & "
+            f"{100 * row['mean_delta_weight_C']:+.1f} & "
+            f"{100 * row['predicted_allocation_shift_from_weights']:+.1f} & "
+            f"{100 * row['actual_mean_allocation_shift']:+.1f} & "
+            f"{int(row['n_paired_participants'])} \\\\"
+        )
+
+    transition_rows = []
+    for comparison, label in comparison_labels.items():
+        transition_rows.append(
+            rf"\multicolumn{{5}}{{l}}{{\textit{{{label}}}}} \\"
+        )
+        subset = transitions[transitions["comparison"] == comparison]
+        for origin in ["Low", "Middle", "High"]:
+            row = subset[subset["origin_tercile"] == origin].set_index(
+                "destination_tercile"
+            )
+            entries = []
+            for destination in ["Low", "Middle", "High"]:
+                item = row.loc[destination]
+                entries.append(f"{item['row_percent']:.1f} ({int(item['count'])})")
+            transition_rows.append(
+                f"{origin} & {entries[0]} & {entries[1]} & {entries[2]} & "
+                f"{int(row.iloc[0]['row_n'])} \\\\"
+            )
+        transition_rows.append(r"\addlinespace")
+
+    return [
+        "",
+        r"\section{Within-subject analysis}",
+        "",
+        r"\subsection{Cell-specific HP weights}",
+        "",
+        f"The within-subject data contain {int(sample['n_subjects_all']):,} participants "
+        f"and {int(sample['n_hp_rows_all']):,} HP responses from two pre-choice "
+        r"elicitations. We apply the same frozen M/S/C/N classification prompt, exclude "
+        r"N responses, and estimate separately for each game-by-condition cell $c$:",
+        "",
+        r"\begin{equation}",
+        r"\log\frac{\Pr(K_{ia}=k\mid c)}{\Pr(K_{ia}=M\mid c)}="
+        r"\alpha^c_{ka}+b^c_{ki},\qquad k\in\{S,C\}.",
+        r"\end{equation}",
+        "",
+        f"The models use {int(sample['n_hp_rows_substantive']):,} substantive "
+        f"classifications and retain {int(sample['n_usable_participant_cells']):,} "
+        r"participant-cell observations. Participant-cells with only N responses are "
+        r"excluded. The $b^c_{ki}$ effects are Gaussian-shrunk, with the penalty selected "
+        r"separately by within-cell cross-validation. M/S/C weights are the fitted "
+        r"probabilities averaged over the four allocation anchors.",
+        "",
+        r"\begin{table}[H]",
+        r"\centering",
+        r"\caption{Average cell-specific HP weights}",
+        r"\label{tab:within_first_stage_cells}",
+        r"\begin{tabular}{lccccc}",
+        r"\toprule",
+        r"Cell & Moral & Self-interest & Cooperation & Usable cells & $\lambda$ \\",
+        r"\midrule",
+        *cell_rows,
+        r"\bottomrule",
+        r"\end{tabular}",
+        r"\begin{flushleft}",
+        r"\footnotesize Notes: Weights are conditional on an M/S/C classification and "
+        r"average the fitted participant-cell probabilities over all four anchors.",
+        r"\end{flushleft}",
+        r"\end{table}",
+        "",
+        r"\subsection{Pooled prediction of allocation and reasoning}",
+        "",
+        r"We pool first- and second-game observations and regress share sent on S and C "
+        r"weights, omitting Moral. The model includes game-by-condition cell fixed "
+        r"effects, a second-game indicator, and a source-study indicator. Standard "
+        r"errors are clustered by participant.",
+        "",
+        r"\begin{table}[H]",
+        r"\centering",
+        r"\caption{Cell-specific HP weights and share sent}",
+        r"\label{tab:within_allocation_prediction}",
+        r"\begin{tabular}{lccccc}",
+        r"\toprule",
+        r"Weight & Coefficient & Clustered SE & $p$-value & 95\% CI & Effect of +10 pp \\",
+        r"\midrule",
+        *allocation_rows,
+        r"\midrule",
+        f"Observations & {int(allocation.loc['const', 'n'])} & & & & \\\\ ",
+        f"$R^2$ & {allocation.loc['const', 'r_squared']:.3f} & & & & \\\\ ",
+        r"\bottomrule",
+        r"\end{tabular}",
+        r"\begin{flushleft}",
+        r"\footnotesize Notes: Coefficients correspond to a 100-percentage-point "
+        r"increase in the indicated weight, offset by Moral. The final column reports "
+        r"the percentage-point change in giving for a 10-percentage-point increase. "
+        r"Inference conditions on the estimated first-stage weights.",
+        r"\end{flushleft}",
+        r"\end{table}",
+        "",
+        r"A higher S weight predicts a lower share sent; the C-weight coefficient is "
+        r"not statistically distinguishable from zero. We next estimate a pooled "
+        r"multinomial logit for the classified post-choice reason, excluding N outcomes "
+        r"and using Moral as the outcome baseline.",
+        "",
+        r"\begin{table}[H]",
+        r"\centering",
+        r"\caption{Cell-specific HP weights and post-choice reasoning}",
+        r"\label{tab:within_reasoning_prediction}",
+        r"\begin{tabular}{lcccc}",
+        r"\toprule",
+        r"Weight & S vs M coefficient (SE) & $p$-value & C vs M coefficient (SE) & $p$-value \\",
+        r"\midrule",
+        *reasoning_rows,
+        r"\midrule",
+        rf"\multicolumn{{5}}{{l}}{{N={int(reasoning_fit['n'])}; pseudo-$R^2="
+        rf"{reasoning_fit['pseudo_r_squared']:.3f}$.}} \\",
+        r"\bottomrule",
+        r"\end{tabular}",
+        r"\begin{flushleft}",
+        r"\footnotesize Notes: Moral is the omitted outcome. The same controls as in "
+        r"the allocation model are included. Parentheses contain participant-clustered "
+        r"standard errors.",
+        r"\end{flushleft}",
+        r"\end{table}",
+        "",
+        r"Both HP weights predict non-Moral post-choice reasoning. This association is "
+        r"stronger and more consistent than the allocation result.",
+        "",
+        r"\subsection{Average weight shifts and within-participant transitions}",
+        "",
+        r"For participants observed in both relevant cells, changes are measured "
+        r"relative to KW Control. The predicted allocation change due to weights is "
+        r"$\widehat\beta_S\Delta\bar w_S+\widehat\beta_C\Delta\bar w_C$, using the "
+        r"pooled allocation slopes.",
+        "",
+        r"\begin{table}[H]",
+        r"\centering",
+        r"\caption{Average shifts in HP weights and allocation}",
+        r"\label{tab:within_weight_shifts}",
+        r"\begin{tabular}{lrrrrrr}",
+        r"\toprule",
+        r"Comparison & $\Delta M$ & $\Delta S$ & $\Delta C$ & Predicted $\Delta y$ & Actual $\Delta y$ & N \\",
+        r"\midrule",
+        *shift_rows,
+        r"\bottomrule",
+        r"\end{tabular}",
+        r"\begin{flushleft}",
+        r"\footnotesize Notes: Weight and allocation changes are in percentage points. "
+        r"The decomposition is descriptive and is not a causal mediation estimate.",
+        r"\end{flushleft}",
+        r"\end{table}",
+        "",
+        r"The KW-to-LT weight shift predicts a 0.9 percentage-point reduction in giving, "
+        r"while giving rises by 4.9 points. The KW-Control-to-KW-Market weight shift "
+        r"predicts a 3.4-point reduction, compared with an observed 10.2-point reduction.",
+        "",
+        r"Common Moral-weight terciles use the usable KW-Control distribution "
+        rf"(cutoffs {cutoffs['lower_cutoff']:.3f} and {cutoffs['upper_cutoff']:.3f}); "
+        r"the same numerical cutoffs are applied to each destination cell.",
+        "",
+        r"\begin{table}[H]",
+        r"\centering",
+        r"\caption{Transitions across common Moral-weight terciles}",
+        r"\label{tab:within_moral_transitions}",
+        r"\begin{tabular}{lrrrr}",
+        r"\toprule",
+        r"Origin tercile & Destination low & Destination middle & Destination high & Row N \\",
+        r"\midrule",
+        *transition_rows,
+        r"\bottomrule",
+        r"\end{tabular}",
+        r"\begin{flushleft}",
+        r"\footnotesize Notes: Entries are row percentages, with counts in parentheses. "
+        r"Rows are KW-Control terciles. Only participants with usable M/S/C weights in "
+        r"both cells are included.",
+        r"\end{flushleft}",
+        r"\end{table}",
+        "",
+        r"All within-subject results are descriptive, in-sample associations. The "
+        r"cell-specific weights are generated regressors and the treatment decomposition "
+        r"does not isolate a causal mechanism.",
     ]
 
 
