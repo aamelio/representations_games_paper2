@@ -53,10 +53,6 @@ Four game-by-condition cells & Yes & & & & \\
 \end{flushleft}
 \end{table}
 
-The coefficients report predictive associations between the direct participant-category effects and DG share sent; they are not causal effects.
-
-In grouped 10-fold cross-validation, adding the participant effects changes out-of-sample $R^2$ from 0.129 to 0.137 ($\Delta R^2=0.008$) and changes RMSE from 0.2115 to 0.2104.
-
 \subsection{Moral baseline, excluding No clear justification}
 
 We remove all No clear justification classifications and re-estimate the model on M, S, and C, using Moral as the reference category:
@@ -89,7 +85,7 @@ Four game-by-condition cells & Yes & & & & \\
 \end{flushleft}
 \end{table}
 
-The bootstrap interval for the Self-interest participant effect excludes zero; the interval for the Cooperation participant effect excludes zero. In grouped 10-fold cross-validation, adding the participant effects changes out-of-sample $R^2$ from 0.134 to 0.147 ($\Delta R^2=0.013$).
+
 
 \subsection{Heterogeneity by game and condition}
 
@@ -138,14 +134,14 @@ The models use 9,467 HP responses classified as M, S, or C and retain 3,119 part
 \centering
 \caption{Average cell-specific HP weights}
 \label{tab:within_first_stage_cells}
-\begin{tabular}{lccccc}
+\begin{tabular}{lcccc}
 \toprule
-Cell & Moral & Self-interest & Cooperation & Observations & $\lambda$ \\
+Cell & Moral & Self-interest & Cooperation & Observations\\
 \midrule
-KW Control & 0.733 & 0.239 & 0.028 & 1118 & 1 \\
-LT Control & 0.683 & 0.291 & 0.027 & 1094 & 2 \\
-KW Market & 0.456 & 0.371 & 0.173 & 449 & 0.5 \\
-LT Market & 0.466 & 0.393 & 0.141 & 458 & 2 \\
+KW Control & 0.733 & 0.239 & 0.028 & 1118 \\
+LT Control & 0.683 & 0.291 & 0.027 & 1094 \\
+KW Market & 0.456 & 0.371 & 0.173 & 449 \\
+LT Market & 0.466 & 0.393 & 0.141 & 458  \\
 \bottomrule
 \end{tabular}
 \begin{flushleft}
